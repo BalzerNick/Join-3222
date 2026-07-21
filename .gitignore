@@ -12,3 +12,6 @@ firebase-config.js
 
 # Logs
 *.log
+
+# Nur fuer mich - nicht committen
+Doku.md
