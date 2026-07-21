@@ -1,0 +1,30 @@
+{
+  "tasks": {
+    "task1": {
+      "title": "Kontaktformular bauen",
+      "description": "Formular mit eigener Validierung erstellen",
+      "dueDate": "2026-08-01",
+      "priority": "medium",
+      "category": "Technical Task",
+      "status": "todo",
+      "assignedTo": ["contact1"],
+      "subtasks": {
+        "sub1": { "title": "HTML-Grundgeruest anlegen", "done": false }
+      }
+    }
+  },
+  "contacts": {
+    "contact1": {
+      "name": "Anna Schmidt",
+      "email": "anna.schmidt@example.com",
+      "phone": "+49 151 1234567"
+    }
+  },
+  "users": {
+    "user1": {
+      "name": "Max Mustermann",
+      "email": "max@example.com",
+      "password": "123456"
+    }
+  }
+}
