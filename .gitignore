@@ -1,0 +1,14 @@
+# Betriebssystem
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Firebase / Secrets
+firebase-config.js
+.env
+
+# Logs
+*.log
