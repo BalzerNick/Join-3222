@@ -42,4 +42,4 @@ oder
 ./up.sh CommitName
 ```
 
-> **Hinweis:** Ersetze `CommitName` durch deine gewünschte Commit-Nachricht.
+> **Hinweis:** `CommitName` soll mit deiner eigenen Commit-Nachricht ausgetauscht werden.
