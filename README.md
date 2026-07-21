@@ -1,45 +1,80 @@
 # Join-3222
 
-Join ist ein Projektmanagement-Tool für Teams, die ihre Aufgaben klar strukturieren und gemeinsam abarbeiten wollen.
+Kanban-Taskboard, entwickelt im Team im Rahmen der Developer Akademie.
+Techstack: HTML, CSS, JavaScript, Firebase Realtime Database.
 
-Funktionen
+## Datenbankstruktur (Firebase Realtime Database)
 
-Tasks anlegen und verwalten
-Board mit verschiedenen Listen für überblick auf das gesamte Projekt
-Tasks Kontakten aus der Kontaktliste zuweisen
-Tasks per Drag and Drop den einzelnen Listen hinzufügen
+Die Datenbank ist ein einziger JSON-Baum mit drei Top-Level-Bereichen.
+Sammlungen werden als Objekte mit stabilen IDs abgelegt (nicht als Arrays),
+damit sich beim Loeschen keine Indizes verschieben.
 
-## `up.bat` und `up.sh`
-
-Mit den Skripten `up.bat` (Windows) und `up.sh` (macOS/Linux) kann man Änderungen automatisch committen und auf den aktuell ausgecheckten Branch pushen.
-Darüber hinaus wird vor jedem push einmal gepullt, um potenzielle Merge-Konflikte festzustellen und zu lösen
-
-### Windows
-
-Im Terminal:
-
-```bash
-up.bat CommitName
+```json
+{
+  "tasks": {
+    "task1": {
+      "title": "Kontaktformular bauen",
+      "description": "Formular mit eigener Validierung erstellen",
+      "dueDate": "2026-08-01",
+      "priority": "medium",
+      "category": "Technical Task",
+      "status": "todo",
+      "assignedTo": ["contact1"],
+      "subtasks": {
+        "sub1": { "title": "HTML-Grundgeruest anlegen", "done": false }
+      }
+    }
+  },
+  "contacts": {
+    "contact1": {
+      "name": "Anna Schmidt",
+      "email": "anna.schmidt@example.com",
+      "phone": "+49 151 1234567"
+    }
+  },
+  "users": {
+    "user1": {
+      "name": "Max Mustermann",
+      "email": "max@example.com",
+      "password": "123456"
+    }
+  }
+}
 ```
 
-oder
+### tasks
 
-```bash
-./up.bat CommitName
-```
+Eine Board-Karte. Wichtige Keys:
 
-### macOS / Linux
+- `title` – Pflichtfeld, Name des Tasks.
+- `description` – optionale Beschreibung.
+- `dueDate` – Faelligkeitsdatum im Format `YYYY-MM-DD`.
+- `priority` – `urgent`, `medium` oder `low`.
+- `category` – `Technical Task` oder `User Story`.
+- `status` – Spalte auf dem Board: `todo`, `inProgress`, `awaitFeedback`, `done`.
+- `assignedTo` – Liste von Kontakt-IDs, die dem Task zugewiesen sind.
+- `subtasks` – Objekt aus Unteraufgaben, je mit `title` und `done` (true/false).
 
-Im Terminal:
+### contacts
 
-```bash
-up.sh CommitName
-```
+Eine Person, die einem Task zugewiesen werden kann. Wichtige Keys:
 
-oder
+- `name` – vollstaendiger Name.
+- `email` – E-Mail-Adresse.
+- `phone` – Telefonnummer.
 
-```bash
-./up.sh CommitName
-```
+### users
 
-> **Hinweis:** `CommitName` soll mit deiner eigenen Commit-Nachricht ausgetauscht werden.
+Ein Login-Account. Wichtige Keys:
+
+- `name` – Anzeigename.
+- `email` – Login-E-Mail.
+- `password` – Passwort. Hinweis: Klartext ist keine echte Sicherheit,
+  fuer dieses Lernprojekt aber ausreichend.
+
+### Zusammenhang tasks und contacts
+
+`assignedTo` in einem Task speichert nur die IDs der Kontakte (z.B. `contact1`),
+nicht deren Namen. Die Anzeige (Name, Initialen) wird beim Rendern ueber die
+ID aus `contacts` nachgeschlagen. So muss ein Kontakt nur an einer Stelle
+geaendert werden.
