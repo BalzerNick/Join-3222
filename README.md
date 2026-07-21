@@ -11,7 +11,8 @@ Tasks per Drag and Drop den einzelnen Listen hinzufügen
 
 ## `up.bat` und `up.sh`
 
-Mit den Skripten `up.bat` (Windows) und `up.sh` (macOS/Linux) kannst du alle Änderungen automatisch committen und auf den aktuell ausgecheckten Branch pushen.
+Mit den Skripten `up.bat` (Windows) und `up.sh` (macOS/Linux) kann man Änderungen automatisch committen und auf den aktuell ausgecheckten Branch pushen.
+Darüber hinaus wird vor jedem push einmal gepullt, um potenzielle Merge-Konflikte festzustellen und zu lösen
 
 ### Windows
 
