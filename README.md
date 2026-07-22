@@ -3,6 +3,47 @@
 Kanban-Taskboard, entwickelt im Team im Rahmen der Developer Akademie.
 Techstack: HTML, CSS, JavaScript, Firebase Realtime Database.
 
+## Projektstruktur
+
+Multi-Page-Application (MPA) mit einer eigenen HTML-Seite je Bereich:
+
+- `index.html` – Login und Startseite
+- `signUp.html` – Registrierung
+- `summary.html`, `board.html`, `addTask.html`, `contacts.html` – geschuetzte Bereiche
+- `legalNotice.html`, `privacyPolicy.html` – Rechtstexte
+
+Weitere Ordner und Dateien:
+
+- `css/` – `style.css` (global, auf jeder Seite verlinkt) plus eine CSS-Datei je Seite
+- `scripts/` – eine JS-Datei je Seite (`login.js`, `signUp.js`, `board.js` …)
+- `script.js` – gemeinsame, seitenuebergreifende Datei (u.a. Firebase-Verbindungstest)
+- `assets/` – `imgs/`, `fonts/` (Inter lokal via `@font-face`), `templates/`
+- `firebase-config.js` – enthaelt `BASE_URL`, per `.gitignore` aus dem Repo
+- `database-import.json` – Startdaten fuer den Import in die Datenbank
+
+## Setup
+
+1. In der Firebase Console ein Projekt und eine Realtime Database anlegen.
+2. `firebase-config.js` im Projekt-Root anlegen und die eigene `BASE_URL`
+   eintragen (Datei ist per `.gitignore` ausgeschlossen, kommt nicht ins Repo).
+3. `database-import.json` in der Realtime Database importieren
+   (Console → Realtime Database → Menue → JSON importieren).
+4. `index.html` im Browser oeffnen.
+
+## Login und Registrierung
+
+- **Login** (`index.html`): prueft E-Mail und Passwort gegen die `users` in der
+  Datenbank. Bei Treffer Weiterleitung auf `board.html`, sonst Fehlermeldung
+  "User nicht bekannt".
+- **Gast-Login**: springt ohne Pruefung direkt auf `board.html`, damit alle
+  Funktionen getestet werden koennen.
+- **Registrierung** (`signUp.html`): validiert die Eingaben (Felder ausgefuellt,
+  gueltige E-Mail, Passwoerter gleich, Datenschutz akzeptiert) und legt den
+  neuen User per `POST` in der Datenbank an.
+
+Die Formulare nutzen keine HTML5-Validierung (`novalidate`), sondern eine
+eigene Pruefung in JavaScript.
+
 ## Datenbankstruktur (Firebase Realtime Database)
 
 Die Datenbank ist ein einziger JSON-Baum mit drei Top-Level-Bereichen.
