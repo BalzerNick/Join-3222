@@ -5,8 +5,13 @@
    Footer und Navigation.
    ============================================================ */
 
-/* Schrift "Inter" von Google Fonts laden (muss ganz oben stehen) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+/* Schrift "Inter" lokal aus assets/fonts (Variable Font = alle Gewichte in einer Datei) */
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
 
 * {
   margin: 0;
