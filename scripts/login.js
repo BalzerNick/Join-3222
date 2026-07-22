@@ -18,21 +18,44 @@ function isLoginFilled(data) {
 }
 
 
-// Wird vom "Log in"-Button aufgerufen. Felder sind hier Pflicht.
-function login() {
+// Laedt alle User aus der Firebase-Datenbank.
+async function loadUsers() {
+  let response = await fetch(BASE_URL + "users.json");
+  return await response.json();
+}
+
+
+// Sucht einen User mit passender E-Mail und passendem Passwort.
+function findUser(users, data) {
+  for (let id in users) {
+    let user = users[id];
+    if (user.email === data.email && user.password === data.password) {
+      return user;
+    }
+  }
+  return null;
+}
+
+
+// Wird vom "Log in"-Button aufgerufen. Prueft Felder und Backend.
+async function login() {
   let data = getLoginInputs();
   if (!isLoginFilled(data)) {
     showLoginError("Bitte E-Mail und Passwort eingeben.");
     return;
   }
-  showLoginError("");
-  console.log("Login-Daten OK:", data);
+  let users = await loadUsers();
+  if (findUser(users, data)) {
+    window.location.href = "board.html";
+  } else {
+    showLoginError("User nicht bekannt");
+  }
 }
 
 
-// Wird vom "Guest Log in"-Button aufgerufen. Keine Pflichtfelder.
+// Wird vom "Guest Log in"-Button aufgerufen. Keine Pflichtfelder, direkt aufs Board.
 function guestLogin() {
-  console.log("Gast-Login");
+  window.location.href = "board.html";
 }
 
 
