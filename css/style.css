@@ -1,8 +1,12 @@
 /* ============================================================
    style.css - Globale Basis, wird auf JEDER Seite verlinkt.
    Enthaelt Reset, Farb-Variablen und die wiederverwendbaren
-   Klassen fuer Buttons (.btn) und Eingabefelder (.input).
+   Klassen fuer Buttons (.btn), Eingabefelder (.input),
+   Footer und Navigation.
    ============================================================ */
+
+/* Schrift "Inter" von Google Fonts laden (muss ganz oben stehen) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
 * {
   margin: 0;
@@ -10,7 +14,7 @@
   box-sizing: border-box;
 }
 
-/* Farben zentral. */
+/* Farben zentral. TODO: mit euren Figma-Werten abgleichen. */
 :root {
   --color-primary: #2a3647;   /* dunkles Blau */
   --color-accent: #29abe2;    /* helles Blau  */
@@ -22,7 +26,7 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
   color: var(--color-text);
   background-color: var(--color-bg);
 }
@@ -42,8 +46,11 @@ body {
   border-color: var(--color-accent);
 }
 
-/* Buttons - Basis fuer alle Buttons */
+/* Buttons - Basis fuer alle Buttons (auch als Link a.btn) */
 .btn {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
   border: unset;
   cursor: pointer;
   border-radius: 8px;
@@ -73,4 +80,47 @@ body {
 .btn-secondary:hover {
   border-color: var(--color-accent);
   color: var(--color-accent);
+}
+
+/* Footer mit Rechts-Links, seitenuebergreifend */
+.footer {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px;
+}
+
+.footer-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-link:hover {
+  color: var(--color-accent);
+}
+
+/* Zurueck-Pfeil oben links (Sign-up, Legal, Privacy) */
+.back-arrow {
+  position: absolute;
+  top: 24px;
+  left: 40px;
+  font-size: 28px;
+  text-decoration: none;
+  color: var(--color-primary);
+}
+
+.back-arrow:hover {
+  color: var(--color-accent);
+}
+
+/* Einfacher Textseiten-Container (Legal / Privacy) */
+.page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 80px 24px 24px;
+}
+
+.page h1 {
+  margin-bottom: 16px;
 }

@@ -1,11 +1,31 @@
 /* ============================================================
-   login.css - nur fuer die Login-Seite (index.html).
-   Layout und Abstaende. Werte sind Startwerte und muessen
-   gegen euer Figma abgeglichen werden.
+   login.css - Login- und Sign-up-Seite (index.html, sign_up.html).
+   Layout: Header oben, Formular mittig, Footer unten.
+   Werte sind Startwerte und gegen euer Figma abzugleichen.
    ============================================================ */
 
-.login {
+body {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Kopfzeile oben rechts (Not a user? + Sign up) */
+.login-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 40px;
+}
+
+.login-header-text {
+  font-size: 16px;
+}
+
+/* Mittlerer Bereich - schiebt den Footer nach unten */
+.login-main {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,8 +68,17 @@
   justify-content: center;
 }
 
+.privacy-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
 .error-message {
   color: var(--color-error);
   font-size: 14px;
   min-height: 18px;
+  text-align: center;
 }

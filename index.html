@@ -8,7 +8,12 @@
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body onload="init()">
-    <main class="login">
+    <header class="login-header">
+        <span class="login-header-text">Not a user?</span>
+        <a href="sign_up.html" class="btn btn-primary">Sign up</a>
+    </header>
+
+    <main class="login-main">
         <img src="assets/imgs/logo_main.png" alt="Join Logo" class="login-logo">
 
         <form class="login-form" novalidate>
@@ -25,6 +30,11 @@
             </div>
         </form>
     </main>
+
+    <footer class="footer">
+        <a href="privacy_policy.html" class="footer-link">Privacy Policy</a>
+        <a href="legal_notice.html" class="footer-link">Legal notice</a>
+    </footer>
 
     <script src="firebase-config.js"></script>
     <script src="script.js"></script>

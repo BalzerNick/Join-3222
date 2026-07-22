@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join_Sign_up</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <a href="index.html" class="back-arrow">&larr;</a>
+
+    <main class="login-main">
+        <img src="assets/imgs/logo_main.png" alt="Join Logo" class="login-logo">
+
+        <form class="login-form" novalidate>
+            <h1>Sign up</h1>
+
+            <input class="input" type="text" id="signupName" placeholder="Name">
+            <input class="input" type="email" id="signupEmail" placeholder="Email">
+            <input class="input" type="password" id="signupPassword" placeholder="Password">
+            <input class="input" type="password" id="signupConfirm" placeholder="Confirm Password">
+
+            <label class="privacy-check">
+                <input type="checkbox" id="acceptPrivacy">
+                I accept the <a href="privacy_policy.html">Privacy Policy</a>
+            </label>
+
+            <span id="signupError" class="error-message"></span>
+
+            <div class="login-buttons">
+                <button class="btn btn-primary" type="button" onclick="signUp()">Sign up</button>
+            </div>
+        </form>
+    </main>
+
+    <footer class="footer">
+        <a href="privacy_policy.html" class="footer-link">Privacy Policy</a>
+        <a href="legal_notice.html" class="footer-link">Legal notice</a>
+    </footer>
+</body>
+</html>
