@@ -4,13 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join_Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
 </head>
 <body onload="init()">
-    <h1>Join-Login</h1>
+    <main class="login">
+        <img src="assets/imgs/logo_main.png" alt="Join Logo" class="login-logo">
 
+        <form class="login-form" novalidate>
+            <h1>Log in</h1>
+
+            <input class="input" type="email" id="loginEmail" placeholder="Email">
+            <input class="input" type="password" id="loginPassword" placeholder="Password">
+
+            <span id="loginError" class="error-message"></span>
+
+            <div class="login-buttons">
+                <button class="btn btn-primary" type="button" onclick="login()">Log in</button>
+                <button class="btn btn-secondary" type="button" onclick="guestLogin()">Guest Log in</button>
+            </div>
+        </form>
+    </main>
 
     <script src="firebase-config.js"></script>
     <script src="script.js"></script>
-    
+    <script src="scripts/login.js"></script>
 </body>
-</html>     
+</html>

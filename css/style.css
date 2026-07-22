@@ -1,0 +1,76 @@
+/* ============================================================
+   style.css - Globale Basis, wird auf JEDER Seite verlinkt.
+   Enthaelt Reset, Farb-Variablen und die wiederverwendbaren
+   Klassen fuer Buttons (.btn) und Eingabefelder (.input).
+   ============================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Farben zentral. */
+:root {
+  --color-primary: #2a3647;   /* dunkles Blau */
+  --color-accent: #29abe2;    /* helles Blau  */
+  --color-bg: #f6f7f8;
+  --color-border: #d1d1d1;
+  --color-text: #2a3647;
+  --color-error: #ff8190;
+  --radius: 10px;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+/* Eingabefelder - seitenuebergreifend gleich */
+.input {
+  border: unset;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 12px 20px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+/* Buttons - Basis fuer alle Buttons */
+.btn {
+  border: unset;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 700;
+  transition: all 100ms ease;
+}
+
+/* Gefuellter Haupt-Button */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent);
+}
+
+/* Umrandeter Zweit-Button */
+.btn-secondary {
+  background-color: #ffffff;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
