@@ -4,7 +4,11 @@
    Werte sind Startwerte und gegen euer Figma abzugleichen.
    ============================================================ */
 
-body {
+/* Zentrierter Rahmen, begrenzt den Inhalt auf max. 1440px */
+.page-frame {
+  position: relative;
+  max-width: 1440px;
+  margin: 0 auto;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -34,6 +38,9 @@ body {
 }
 
 .login-logo {
+  position: absolute;
+  top: 24px;
+  left: 40px;
   width: 100px;
 }
 

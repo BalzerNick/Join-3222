@@ -114,10 +114,18 @@ body {
   color: var(--color-accent);
 }
 
-/* Einfacher Textseiten-Container (Legal / Privacy) */
+/* Inhaltsbreite fuer grosse Monitore (Summary, Board, Contacts).
+   Content linksbuendig auf max. 1440px begrenzen (laut Checkliste). */
+.content {
+  max-width: 1440px;
+  margin: 0;
+  padding: 24px;
+}
+
+/* Einfacher Textseiten-Container (Legal / Privacy) - linksbuendig */
 .page {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 0;
   padding: 80px 24px 24px;
 }
 

@@ -34,3 +34,9 @@ function login() {
 function guestLogin() {
   console.log("Gast-Login");
 }
+
+
+// Wird vom "Sign up"-Button aufgerufen. Springt zur Registrierungsseite.
+function signUp() {
+  window.location.href = "signUp.html";
+}
