@@ -1,0 +1,116 @@
+/* contacts.css - Kontaktliste. Werte gegen euer Figma abgleichen. */
+
+/* Layout: Navbar links fix, Header oben fix, Content daneben.
+   Navbar/Header-Inhalt bauen andere Personen - hier nur die Rahmen. */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 232px;
+  height: 100vh;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 232px;
+  right: 0;
+  height: 96px;
+  background-color: #ffffff;
+  color: #555555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.contacts-main {
+  margin-left: 232px;
+  margin-top: 96px;
+  padding: 32px;
+}
+
+/* Kopfbereich der Kontaktseite: Titel + Add-Button */
+.contacts-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* Kontaktkarte */
+.contact {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.contact:hover {
+  background-color: var(--color-bg);
+}
+
+.contact-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-name {
+  font-weight: 700;
+}
+
+.contact-email {
+  color: var(--color-accent);
+  font-size: 14px;
+}
+
+/* Popup / Overlay zum Anlegen eines Kontakts */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.d-none {
+  display: none;
+}
+
+.add-contact-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: min(90vw, 400px);
+}
+
+.add-contact-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+}
