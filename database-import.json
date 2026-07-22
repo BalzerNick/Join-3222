@@ -11,6 +11,52 @@
       "subtasks": {
         "sub1": { "title": "HTML-Grundgeruest anlegen", "done": false }
       }
+    },
+    "task2": {
+      "title": "Login-Seite umsetzen",
+      "description": "Login und Gast-Login mit Firebase verbinden",
+      "dueDate": "2026-08-05",
+      "priority": "urgent",
+      "category": "Technical Task",
+      "status": "inProgress",
+      "assignedTo": ["contact2", "contact3"],
+      "subtasks": {
+        "sub1": { "title": "Formular bauen", "done": true },
+        "sub2": { "title": "Validierung schreiben", "done": false }
+      }
+    },
+    "task3": {
+      "title": "Drag and Drop auf dem Board",
+      "description": "Tasks zwischen den Spalten verschieben",
+      "dueDate": "2026-08-12",
+      "priority": "medium",
+      "category": "User Story",
+      "status": "todo",
+      "assignedTo": ["contact1", "contact4"],
+      "subtasks": {}
+    },
+    "task4": {
+      "title": "Kontaktliste alphabetisch sortieren",
+      "description": "Kontakte nach Anfangsbuchstaben gruppieren",
+      "dueDate": "2026-08-08",
+      "priority": "low",
+      "category": "User Story",
+      "status": "awaitFeedback",
+      "assignedTo": ["contact5"],
+      "subtasks": {}
+    },
+    "task5": {
+      "title": "Datenschutztext schreiben",
+      "description": "Privacy Policy mit echtem Inhalt fuellen",
+      "dueDate": "2026-07-30",
+      "priority": "low",
+      "category": "User Story",
+      "status": "done",
+      "assignedTo": ["contact2"],
+      "subtasks": {
+        "sub1": { "title": "Entwurf schreiben", "done": true },
+        "sub2": { "title": "Korrektur lesen", "done": true }
+      }
     }
   },
   "contacts": {
@@ -18,6 +64,26 @@
       "name": "Anna Schmidt",
       "email": "anna.schmidt@example.com",
       "phone": "+49 151 1234567"
+    },
+    "contact2": {
+      "name": "Ben Fischer",
+      "email": "ben.fischer@example.com",
+      "phone": "+49 160 2345678"
+    },
+    "contact3": {
+      "name": "Clara Weber",
+      "email": "clara.weber@example.com",
+      "phone": "+49 170 3456789"
+    },
+    "contact4": {
+      "name": "David Mueller",
+      "email": "david.mueller@example.com",
+      "phone": "+49 152 4567890"
+    },
+    "contact5": {
+      "name": "Emma Wagner",
+      "email": "emma.wagner@example.com",
+      "phone": "+49 176 5678901"
     }
   },
   "users": {
@@ -25,6 +91,26 @@
       "name": "Max Mustermann",
       "email": "max@example.com",
       "password": "123456"
+    },
+    "user2": {
+      "name": "Sophie Klein",
+      "email": "sophie@example.com",
+      "password": "sophie2026"
+    },
+    "user3": {
+      "name": "Lukas Braun",
+      "email": "lukas@example.com",
+      "password": "lukas2026"
+    },
+    "user4": {
+      "name": "Marie Hoffmann",
+      "email": "marie@example.com",
+      "password": "marie2026"
+    },
+    "user5": {
+      "name": "Jonas Koch",
+      "email": "jonas@example.com",
+      "password": "jonas2026"
     }
   }
 }
