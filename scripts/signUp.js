@@ -44,5 +44,6 @@ async function registerUser() {
     return;
   }
   await saveUser({ name: data.name, email: data.email, password: data.password });
-  window.location.href = "index.html";
+  showToast("You signed up successfully");
+  setTimeout(() => window.location.href = "index.html", 1500);
 }
