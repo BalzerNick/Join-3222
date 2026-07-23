@@ -20,9 +20,9 @@
                 <div class="page-actions">
                     <label class="search-input">
                         <input type="text" placeholder="Find Task" />
-                        <span><img src="./assets/imgs/searchlens.png" alt="search"></span>
+                        <span><img src="./assets/icons/searchlens.png" alt="search"></span>
                     </label>
-                    <button class="add-task-button">Add Task +</button>
+                    <button class="add-task-button" onclick="openAddTaskDialog()">Add Task +</button>
                 </div>
             </div>
 
@@ -31,6 +31,7 @@
                 <section class="column">
                 <div class="column-header">  
                 <h2>To Do</h2>
+                <button onclick="openAddTaskDialog()"><img src="./assets/icons/plus_add_task.png" alt="add task"></button>
                 </div>
                 <div class="drag-area" id="todo" ondrop="moveTo('todo')" ondragleave="removeHighlight('todo')"
                     ondragover="allowDrop(event); highlight('todo')"></div>
@@ -39,6 +40,7 @@
             <section class="column">
                 <div class="column-header">  
                 <h2>In Progress</h2>
+                <button onclick="openAddTaskDialog()"><img src="./assets/icons/plus_add_task.png" alt="add task"></button>
                 </div>
                 <div class="drag-area" id="in-progress" ondrop="moveTo('in-progress')" ondragleave="removeHighlight('in-progress')"
                     ondragover="allowDrop(event); highlight('in-progress')"></div>
@@ -47,6 +49,7 @@
             <section class="column">
                 <div class="column-header">  
                 <h2>Await feedback</h2>
+                <button onclick="openAddTaskDialog()"><img src="./assets/icons/plus_add_task.png" alt="add task"></button>
                 </div>
                 <div class="drag-area" id="await-feedback" ondrop="moveTo('await-feedback')" ondragleave="removeHighlight('await-feedback')"
                     ondragover="allowDrop(event); highlight('await-feedback')"></div>
@@ -55,6 +58,7 @@
             <section class="column">
                 <div class="column-header">  
                 <h2>Done</h2>
+                <button onclick="openAddTaskDialog()"><img src="./assets/icons/plus_add_task.png" alt="add task"></button>
                 </div>
                 <div class="drag-area" id="done" ondrop="moveTo('done')" ondragleave="removeHighlight('done')"
                     ondragover="allowDrop(event); highlight('done')"></div>
@@ -64,6 +68,16 @@
         </section>
 
         </main>
+        
+        <div id="add-task-modal" class="modal-overlay hidden" onclick="closeAddTaskDialog(event)">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <h2>Add Task</h2>
+                    <button class="modal-close" onclick="closeAddTaskDialog()">&times;</button>
+                </div>
+                <div id="modal-body" class="modal-body"></div>
+            </div>
+        </div>
     </div>
 </body>
 </body>
