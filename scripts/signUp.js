@@ -1,4 +1,7 @@
-// Liest alle Eingaben aus dem Registrierungsformular.
+/**
+ * Liest alle Eingaben aus dem Registrierungsformular.
+ * @returns {{name: string, email: string, password: string, confirm: string, accept: boolean}} Die Eingaben.
+ */
 function getSignupInputs() {
   return {
     name: document.getElementById('signupName').value.trim(),
@@ -10,13 +13,21 @@ function getSignupInputs() {
 }
 
 
-// Zeigt eine Fehlermeldung im Formular an (leerer Text = weg).
+/**
+ * Zeigt eine Fehlermeldung im Formular an (leerer Text = weg).
+ * @param {string} message - Der Fehlertext.
+ * @returns {void}
+ */
 function showSignupError(message) {
   document.getElementById('signupError').textContent = message;
 }
 
 
-// Prueft die Eingaben. Gibt Fehlertext zurueck, leer = alles ok.
+/**
+ * Prueft die Registrierungseingaben.
+ * @param {{name: string, email: string, password: string, confirm: string, accept: boolean}} data - Die Eingaben.
+ * @returns {string} Fehlertext, leer wenn alles ok ist.
+ */
 function validateSignup(data) {
   if (!data.name || !data.email || !data.password) return "Bitte alle Felder ausfuellen.";
   if (!data.email.includes("@")) return "Bitte eine gueltige E-Mail eingeben.";
@@ -26,7 +37,11 @@ function validateSignup(data) {
 }
 
 
-// Speichert einen neuen User im Backend (POST erzeugt eine neue ID).
+/**
+ * Speichert einen neuen User im Backend (POST erzeugt eine neue ID).
+ * @param {{name: string, email: string, password: string}} user - Der neue User.
+ * @returns {Promise<void>}
+ */
 async function saveUser(user) {
   await fetch(BASE_URL + "users.json", {
     method: "POST",
@@ -35,7 +50,10 @@ async function saveUser(user) {
 }
 
 
-// Wird vom "Sign up"-Button aufgerufen. Prueft und speichert den User.
+/**
+ * Wird vom "Sign up"-Button aufgerufen. Prueft und speichert den User.
+ * @returns {Promise<void>}
+ */
 async function registerUser() {
   let data = getSignupInputs();
   let error = validateSignup(data);

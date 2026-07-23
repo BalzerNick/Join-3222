@@ -1,5 +1,8 @@
-// Wird beim Laden der Seite aufgerufen (body onload).
-// Holt die Daten aus Firebase und zeigt jeden Knoten in der Konsole.
+/**
+ * Wird beim Laden der Seite aufgerufen (body onload).
+ * Testet die Firebase-Verbindung und gibt jeden Knoten in der Konsole aus.
+ * @returns {Promise<void>}
+ */
 async function init() {
   let antwort = await fetch(BASE_URL + ".json");
   let daten = await antwort.json();
@@ -10,12 +13,15 @@ async function init() {
 }
 
 
-// Zeigt eine kurze Meldung, die oben aus der Mitte einschwebt (seitenuebergreifend).
+/**
+ * Zeigt eine kurze Meldung, die oben aus der Mitte einschwebt (seitenuebergreifend).
+ * @param {string} message - Der anzuzeigende Text.
+ * @param {number} [duration=2000] - Anzeigedauer in Millisekunden.
+ * @returns {void}
+ */
 function showToast(message, duration = 2000) {
   let toast = document.getElementById('toast');
   toast.textContent = message;
   toast.classList.add('toast-visible');
   setTimeout(() => toast.classList.remove('toast-visible'), duration);
 }
-
-
