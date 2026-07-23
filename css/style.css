@@ -78,6 +78,7 @@ body {
   color: var(--color-accent);
 }
 
+
 /* Footer mit Rechts-Links, seitenuebergreifend */
 .footer {
   display: flex;
@@ -126,7 +127,8 @@ li {
 .page {
   max-width: 800px;
   margin: 0;
-  padding: 80px 24px 24px;
+  /* padding: 80px 24px 24px   Marcus 23.07.2026 Padding 100px hinzugefügt*/
+  padding: 80px 24px 24px 100px;
   margin-left: 200px;
 }
 
@@ -155,4 +157,16 @@ li {
   top: 24px;
   left: 40px;
   width: 100px;
+}
+
+/*Marcus 23.07.2026*/
+header {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 300px;
+  align-items: center;
+  height: 70px;
+  /* padding: 16px 24px; */
+  background-color: #ffffff;
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
 }
