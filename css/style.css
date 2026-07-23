@@ -25,6 +25,7 @@ body {
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   color: var(--color-text);
   background-color: var(--color-bg);
+  margin: 0; /*Marcus 24.07.2026 wegn Abstand des headers nach rechts */
 }
 
 /* Eingabefelder - seitenuebergreifend gleich */
@@ -78,6 +79,18 @@ body {
   color: var(--color-accent);
 }
 
+/*Marcus 24.07.2026*/
+.help-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back-arrow {
+  margin-right: 0px;
+}
+
+
 
 /* Footer mit Rechts-Links, seitenuebergreifend */
 .footer {
@@ -97,7 +110,7 @@ body {
   color: var(--color-accent);
 }
 
-/* Zurueck-Pfeil oben links (Sign-up, Legal, Privacy) */
+/* /* Zurueck-Pfeil oben links (Sign-up, Legal, Privacy) 
 .back-arrow {
   position: absolute;
   top: 24px;
@@ -106,7 +119,7 @@ body {
   text-decoration: none;
   color: var(--color-primary);
 }
-
+ */
 .back-arrow:hover {
   color: var(--color-accent);
 }
