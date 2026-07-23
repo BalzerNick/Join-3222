@@ -44,6 +44,24 @@ Weitere Ordner und Dateien:
 Die Formulare nutzen keine HTML5-Validierung (`novalidate`), sondern eine
 eigene Pruefung in JavaScript.
 
+## Rendering und Templates
+
+Dynamische Inhalte (z.B. die Kontaktkarten) werden nicht statisch ins HTML
+geschrieben, sondern zur Laufzeit aus den Daten erzeugt. Das wiederkehrende
+Karten-HTML liegt getrennt in `assets/templates/` (reines HTML, kein Script) –
+die Logik holt es und fuellt es. So bleibt die Regel "kein Template in Scripten,
+kein Scriptcode in Templates" eingehalten.
+
+Muster (Beispiel Contacts):
+
+1. Daten laden: `fetch(BASE_URL + "contacts.json")`.
+2. Vorlage laden: `fetch("assets/templates/contactsTemplate.html")` als Text.
+3. Platzhalter fuellen: `{{name}}`, `{{email}}` usw. per `replaceAll` ersetzen.
+4. In den Container schreiben: das gefuellte HTML in `#contactList` einfuegen.
+
+Hinweis: `fetch` auf lokale Vorlagen funktioniert nur ueber einen Server
+(z.B. Live Server), nicht per Doppelklick (`file://`).
+
 ## Toast-Benachrichtigung (seitenuebergreifend)
 
 `showToast(message, duration)` zeigt eine kurze Meldung, die oben aus der Mitte
