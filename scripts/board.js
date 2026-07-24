@@ -28,25 +28,26 @@ function initPage() {
 }
 
 function updateHTML() {
-    renderColumn('todo');
-    renderColumn('in-progress');
-    renderColumn('await-feedback');
-    renderColumn('done');
+    // Rebuild each column from the current tasks array.
+    // This clears the column content and inserts fresh HTML for each matching task.
+    renderColumn('todo', 'To Do');
+    renderColumn('in-progress', 'In Progress');
+    renderColumn('await-feedback', 'Await feedback');
+    renderColumn('done', 'Done');
 }
 
-function renderColumn(columnId) {
+function renderColumn(columnId, columnName) {
     const column = document.getElementById(columnId);
     const filteredTasks = todos.filter(t => t['category'] === columnId);
     column.innerHTML = '';
 
     if (filteredTasks.length === 0) {
-        column.innerHTML = `<div class="empty-state">No Task to do</div>`;
-        return;
-    }
-
-    for (let index = 0; index < filteredTasks.length; index++) {
-        const element = filteredTasks[index];
-        column.innerHTML += generateTodoHTML(element);
+        column.innerHTML = `<div class="empty-state">No tasks ${columnName}</div>`;
+    } else {
+        for (let index = 0; index < filteredTasks.length; index++) {
+            const element = filteredTasks[index];
+            column.innerHTML += generateTodoHTML(element);
+        }
     }
 }
 
@@ -83,6 +84,18 @@ function highlight(id) {
 function removeHighlight(id) {
     // Remove the highlight once the dragged item leaves the area.
     document.getElementById(id).classList.remove('drag-area-highlight');
+}
+
+function openAddTaskDialog() {
+    const modal = document.getElementById('add-task-modal');
+    modal.classList.remove('hidden');
+}
+
+function closeAddTaskDialog(event) {
+    // Allow closing by clicking the X button or the overlay background
+    if (event && event.target !== event.currentTarget) return;
+    const modal = document.getElementById('add-task-modal');
+    modal.classList.add('hidden');
 }
 
 function createBoard() {

@@ -4,6 +4,38 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    position: relative;
+}
+
+.empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    border: 1px dashed #686868;
+    border-radius: 10px;
+    color: #686868;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 500;
+    background-color: #E7E7E7;
+}
+
+button {
+    all: unset;
+    cursor: pointer;
+}
+
+.column-header button {
+    transition: transform 100ms ease-out, box-shadow 100ms ease-out;
+}
+
+.column-header button:hover {
+    transform: translateX(2px);
+}
+
+.column-header button:active {
+    transform: translateX(6px);
 }
 
 .empty-state {
@@ -33,7 +65,20 @@ font-size: 20px;
     opacity: 1;
     border-radius: 24px;
     padding: 16px;
+    background-color: #ffffff;
     box-shadow: 0px 0px 10px 3px #00000014;
+    transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+    cursor: pointer;
+}
+
+.todo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 16px 25px rgba(0, 0, 0, 0.12);
+    background-color: #f9fbff;
+}
+
+.todo:active {
+    cursor: grabbing;
 }
 
 .add-task-button {
@@ -41,6 +86,19 @@ font-size: 20px;
     width: 160px;
     height: 48px;
     color: white;
+    font-size: 21px;
+    text-align: center;
+    border-radius: 10px;
+    transition: transform 100ms ease-in-out, box-shadow 100ms ease-in-out;
+}
+
+.add-task-button:hover {
+    transform: translateX(2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.add-task-button:active {
+    transform: translateX(4px);
 }
 
 h1 {
@@ -69,6 +127,7 @@ h1 {
     align-items: flex-start;
     justify-content: space-between;
     flex-wrap: nowrap;
+    overflow: hidden;
 }
 
 .drag-area-highlight {
@@ -90,6 +149,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #eef4fb;
     color: #1e293b;
+    overflow: hidden;
 }
 
 body {
@@ -166,6 +226,83 @@ body {
 
 .hidden {
     display: none;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    height: 70%;
+    max-width: 800px;
+    overflow-y: auto;
+    animation: slideInFromRight 100ms ease-out;
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 32px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 32px;
+    color: #64748b;
+    cursor: pointer;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 100ms ease-out;
+}
+
+.modal-close:hover {
+    color: #1e293b;
+}
+
+.modal-body {
+    padding: 32px;
 }
 
 .navbar {
