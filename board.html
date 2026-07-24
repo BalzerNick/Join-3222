@@ -4,8 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join_Board</title>
+    <link rel="stylesheet" href="css/board.css">
+    <script src="scripts/board.js"></script>
 </head>
 <body>
-    <h1>Baustelle! Hier entsteht das Join_Board</h1>
+    <body onload="initPage()">
+    <div class="app-shell">
+        <div id="sideboard-container"></div>
+        <main class="board-mask">
+
+            <div class="page-header">
+                <div>
+                    <h1>Board</h1>
+                </div>
+                <div class="page-actions">
+                    <label class="search-input">
+                        <input type="text" placeholder="Find Task" />
+                        <span><img src="./assets/imgs/searchlens.png" alt="search"></span>
+                    </label>
+                    <button class="add-task-button">Add Task +</button>
+                </div>
+            </div>
+
+            <section class="drag-container">
+
+                <section class="column">
+                <div class="column-header">  
+                <h2>To Do</h2>
+                </div>
+                <div class="drag-area" id="todo" ondrop="moveTo('todo')" ondragleave="removeHighlight('todo')"
+                    ondragover="allowDrop(event); highlight('todo')"></div>
+            </section>
+
+            <section class="column">
+                <div class="column-header">  
+                <h2>In Progress</h2>
+                </div>
+                <div class="drag-area" id="in-progress" ondrop="moveTo('in-progress')" ondragleave="removeHighlight('in-progress')"
+                    ondragover="allowDrop(event); highlight('in-progress')"></div>
+            </section>
+
+            <section class="column">
+                <div class="column-header">  
+                <h2>Await feedback</h2>
+                </div>
+                <div class="drag-area" id="await-feedback" ondrop="moveTo('await-feedback')" ondragleave="removeHighlight('await-feedback')"
+                    ondragover="allowDrop(event); highlight('await-feedback')"></div>
+            </section>
+
+            <section class="column">
+                <div class="column-header">  
+                <h2>Done</h2>
+                </div>
+                <div class="drag-area" id="done" ondrop="moveTo('done')" ondragleave="removeHighlight('done')"
+                    ondragover="allowDrop(event); highlight('done')"></div>
+            </section>
+
+
+        </section>
+
+        </main>
+    </div>
+</body>
 </body>
 </html>

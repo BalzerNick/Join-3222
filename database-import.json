@@ -84,6 +84,31 @@
       "name": "Emma Wagner",
       "email": "emma.wagner@example.com",
       "phone": "+49 176 5678901"
+    },
+    "contact6": {
+      "name": "Felix Becker",
+      "email": "felix.becker@example.com",
+      "phone": "+49 157 6789012"
+    },
+    "contact7": {
+      "name": "Greta Hoffmann",
+      "email": "greta.hoffmann@example.com",
+      "phone": "+49 151 7890123"
+    },
+    "contact8": {
+      "name": "Hannes Schulz",
+      "email": "hannes.schulz@example.com",
+      "phone": "+49 160 8901234"
+    },
+    "contact9": {
+      "name": "Ida Koch",
+      "email": "ida.koch@example.com",
+      "phone": "+49 170 9012345"
+    },
+    "contact10": {
+      "name": "Jan Richter",
+      "email": "jan.richter@example.com",
+      "phone": "+49 152 0123456"
     }
   },
   "users": {

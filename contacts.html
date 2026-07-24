@@ -4,8 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join_Contacts</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/contacts.css">
 </head>
-<body>
-    
+<body onload="renderContacts()">
+    <!-- Platzhalter: linke Navbar - wird von einer anderen Person gebaut -->
+    <aside class="navbar" id="navbar">Navbar (Platzhalter)</aside>
+
+    <!-- Platzhalter: obere Headerleiste - wird von einer anderen Person gebaut -->
+    <header class="header" id="header">Header (Platzhalter)</header>
+
+    <main class="content contacts-main">
+        <div class="contacts-list-col">
+            <button class="btn btn-primary add-contact-btn" type="button" onclick="openAddContact()">
+                Add new contact
+                <img src="assets/icons/person_add.svg" alt="" class="btn-icon">
+            </button>
+            <div id="contactList"></div>
+        </div>
+
+        <div id="contactDetail" class="contact-detail">
+            <div class="contacts-intro">
+                <h1>Contacts</h1>
+                <span class="contacts-intro-sub">Better with a team</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Overlay fuer das Add-Contact-Popup, per JS befuellt -->
+    <div id="addContactOverlay" class="overlay d-none"></div>
+
+    <!-- Toast: seitenuebergreifend, Text setzt showToast() -->
+    <div id="toast" class="toast"></div>
+
+    <script src="firebase-config.js"></script>
+    <script src="script.js"></script>
+    <script src="scripts/contacts.js"></script>
 </body>
 </html>

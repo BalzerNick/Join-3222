@@ -1,0 +1,23 @@
+<div class="contact-modal">
+  <img src="assets/icons/close.svg" alt="Close" class="modal-close" onclick="closeAddContact()">
+
+  <div class="contact-modal-left">
+    <img src="assets/imgs/logoMain.png" alt="Join Logo" class="modal-logo">
+    <h2 class="modal-title">Add contact</h2>
+    <p class="modal-subtitle">Tasks are better with a team!</p>
+    <span class="modal-underline"></span>
+  </div>
+
+  <div class="contact-modal-right">
+    <div class="contact-avatar modal-avatar"><img src="assets/icons/person_add.svg" alt=""></div>
+    <form class="modal-form" novalidate>
+      <input class="input" type="text" id="newContactName" placeholder="Name">
+      <input class="input" type="email" id="newContactEmail" placeholder="Email">
+      <input class="input" type="tel" id="newContactPhone" placeholder="Phone">
+      <div class="add-contact-buttons">
+        <button class="btn btn-secondary" type="button" onclick="closeAddContact()">Cancel</button>
+        <button class="btn btn-primary" type="button" onclick="createContact()">Create contact</button>
+      </div>
+    </form>
+  </div>
+</div>
