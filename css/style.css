@@ -13,11 +13,7 @@
   font-style: normal;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
 
 /* Farben zentral. TODO: mit euren Figma-Werten abgleichen. */
 :root {
@@ -34,6 +30,7 @@ body {
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   color: var(--color-text);
   background-color: var(--color-bg);
+  margin: 0; /*Marcus 24.07.2026 wegn Abstand des headers nach rechts */
 }
 
 /* Eingabefelder - seitenuebergreifend gleich */
@@ -87,6 +84,33 @@ body {
   color: var(--color-accent);
 }
 
+/*Marcus 24.07.2026*/
+.help-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.help-heading-blue-line {
+  display: flex;
+  align-items: center;
+  }
+
+/*Marcus 24.07.2026*/
+
+.blue-line {
+  margin-left: 20px;
+  margin-right: 20px;
+  height: 40px;
+}  
+
+/*Marcus 23.07.2026*/
+.back-arrow {
+  margin-right: 0px;
+}
+
+
 /* Footer mit Rechts-Links, seitenuebergreifend */
 .footer {
   display: flex;
@@ -105,7 +129,7 @@ body {
   color: var(--color-accent);
 }
 
-/* Zurueck-Pfeil oben links (Sign-up, Legal, Privacy) */
+/* /* Zurueck-Pfeil oben links (Sign-up, Legal, Privacy) 
 .back-arrow {
   position: absolute;
   top: 24px;
@@ -114,7 +138,7 @@ body {
   text-decoration: none;
   color: var(--color-primary);
 }
-
+ */
 .back-arrow:hover {
   color: var(--color-accent);
 }
@@ -127,11 +151,17 @@ body {
   padding: 24px;
 }
 
+li {
+  margin-left: 20px
+}
+
 /* Einfacher Textseiten-Container (Legal / Privacy) - linksbuendig */
 .page {
   max-width: 800px;
   margin: 0;
-  padding: 80px 24px 24px;
+  /* padding: 80px 24px 24px   Marcus 23.07.2026 Padding 100px hinzugefügt*/
+  padding: 80px 24px 24px 100px;
+  margin-left: 200px;
 }
 
 .page h1 {
@@ -154,4 +184,52 @@ body {
 
 .toast-visible {
   transform: translate(-50%, 40px);
+}
+
+.page h2 {
+  margin-bottom: 16px;
+}
+
+.step-heading {
+  display: flex;
+  align-items: baseline;
+}
+
+.step-number {
+  min-width: 32px;
+}
+
+.step-text {
+  margin-left: 32px;
+}
+
+/*Marcus 23.07.2026*/
+.menu-line {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 200px;
+  height: 100vh;
+  background-color: #091931;
+  /* background-color: #2c3e50; Zuerst gewählte, passt aber nicht mit Figma*/
+}
+
+/*Marcus 23.07.2026*/
+.menu-logo { 
+  position: absolute;
+  top: 24px;
+  left: 40px;
+  width: 100px;
+}
+
+/*Marcus 23.07.2026*/
+header {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 300px;
+  align-items: center;
+  height: 70px;
+  /* padding: 16px 24px; */
+  background-color: #ffffff;
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
 }
