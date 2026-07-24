@@ -167,6 +167,19 @@ li {
   margin-bottom: 16px;
 }
 
+.step-heading {
+  display: flex;
+  align-items: baseline;
+}
+
+.step-number {
+  min-width: 32px;
+}
+
+.step-text {
+  margin-left: 32px;
+}
+
 /*Marcus 23.07.2026*/
 .menu-line {
   position: fixed;
