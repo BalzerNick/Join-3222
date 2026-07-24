@@ -21,7 +21,6 @@ nav {
 
 main {
     padding: 40px 80px;
-    font-family: 'Inter', Arial, sans-serif;
     color: #2a3647;
     margin-left: 232px;
     margin-top: 96px;
@@ -95,3 +94,9 @@ textarea.input {
     font-weight: 700;
 }
 
+.submit-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 40px;
+}
