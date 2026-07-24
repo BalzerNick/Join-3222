@@ -65,6 +65,9 @@ h1 {
     flex-direction: column;
 }
 
+/* ===== KLAERUNG / ENTFERNEN BEIM MERGE (Denis) =====
+   Globales html,body-Override (Segoe UI + #eef4fb) ueberschreibt style.css
+   (Inter + #f6f7f8). -> Nach Klaerung ENTFERNEN, Board soll style.css laden. ===== */
 html,
 body {
     margin: 0;
