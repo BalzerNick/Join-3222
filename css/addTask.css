@@ -1,0 +1,97 @@
+header {
+    position: fixed;
+    top: 0;
+    left: 232px;
+    right: 0;
+    height: 96px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #d1d1d1;
+    z-index: 10;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 232px;
+    height: 100vh;
+    background-color: #2a3647;
+    z-index: 20;
+}
+
+main {
+    padding: 40px 80px;
+    font-family: 'Inter', Arial, sans-serif;
+    color: #2a3647;
+    margin-left: 232px;
+    margin-top: 96px;
+}
+
+h1 {
+    font-size: 61px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.required {
+    color: #ff8190;
+    margin: 0 2px;
+}
+
+.input-form {
+    display: flex;
+    gap: 48px;
+}
+
+.input-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-area label {
+    font-size: 16px;
+    margin-top: 16px;
+}
+
+.input-area label:first-child {
+    margin-top: 0;
+}
+
+.divider {
+    width: 1px;
+    background-color: #d1d1d1;
+    align-self: stretch;
+}
+
+.input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: inherit;
+    color: #2a3647;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #29abe2;
+}
+
+textarea.input {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.priority-buttons {
+    display: flex;
+    gap: 16px;
+}
+
+.priority-icon {
+    font-weight: 700;
+}
+

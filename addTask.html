@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/addTask.css">
 
-    <script src="scripts/addTask.js"></script>
+    <script src="scripts/tasks.js"></script>
 </head>
 
 <body onload="init()">
@@ -21,29 +21,65 @@
 
             <div class="input-form">
                 <div class="input-area">
-                    <label for="taskName">Title*</label>
+                    <label for="taskName">Title<span class="required">*</span></label>
                     <input class="input" type="text" id="taskName" name="taskName" required placeholder="Enter a title">
+
                     <label for="taskDescription">Description</label>
                     <textarea class="input" id="taskDescription" name="taskDescription"
-                        placeholder="Enter a description"></textarea>
-                    <label for="date">Due date*</label>
-                    <input class="input" type="date" id="taskDeadline" name="taskDeadline">
+                        placeholder="Enter a Description"></textarea>
+
+                    <label for="taskDeadline">Due date<span class="required">*</span></label>
+                    <input class="input" type="date" id="taskDeadline" name="taskDeadline" required>
                 </div>
+
+                <div class="divider"></div>
+
                 <div class="input-area">
-                    <label for="taskDeadline">Deadline:</label>
-                    <input class="input" type="date" id="taskDeadline" name="taskDeadline">
+                    <label>Priority</label>
+                    <div class="priority-buttons">
+                        <button type="button" class="btn-priority urgent" id="btnUrgent">
+                            Urgent <span class="priority-icon urgent-icon"></span>
+                            <!-- hier noch Bild rein mit doppel Pfeil nach oben -->
+                        </button>
+                        <button type="button" class="btn-priority medium active" id="btnMedium">
+                            Medium <span class="priority-icon medium-icon"></span>
+                            <!-- hier noch Bild rein mit Gleich Zeichen -->
+                        </button>
+                        <button type="button" class="btn-priority low" id="btnLow">
+                            Low <span class="priority-icon low-icon"></span>
+                            <!-- hier noch Bild rein mit doppel Pfeil nach unten -->
+                        </button>
+                    </div>
+
+
+                    <!-- Muss ausgetauscht werden in Div oder Button, der dann ein eigenes hidden Fenster öffnet -->
+                    <label for="assignedTo">Assigned to</label>
+                    <select name="assignedTo" id="assignedTo" >
+                        <option value="" disabled selected>Select contacts to assign</option>
+                        <option value="nick">Nick</option>
+                        <option value="günther">Günther</option>
+                    </select>
+
+                    <!--Muss ausgetauscht werden in Div oder Button, der dann ein eigenes hidden Fenster öffnet -->
+                    <label for="category">Category*</label>
+                    <select name="category" id="category" required>
+                        <option value="" disabled selected>Select your category</option>
+                        <option value="technical">Technical Task</option>
+                        <option value="story">User Story</option>
+                    </select>
                 </div>
+
+
             </div>
 
             <div class="submit-form">
-                *This field is required
-                <div class="button-area"> 
-                    <button class="btn btn-secondary">Clear x</button>
-                    <button class="btn btn-primary" type="submit">Create Task</button>
+                <span class="required-hint"><span class="required">*</span>This field is required</span>
+                <div class="button-area">
+                    <!-- Bilder einfügen mit x und Hacken -->
+                    <button type="reset" class="btn btn-secondary">Clear </button>
+                    <button type="submit" class="btn btn-primary">Create Task </button>
                 </div>
-
             </div>
-
 
         </form>
     </main>
