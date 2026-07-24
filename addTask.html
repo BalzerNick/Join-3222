@@ -1,11 +1,52 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join_Add_Task</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/addTask.css">
+
+    <script src="scripts/addTask.js"></script>
 </head>
-<body>
-    
+
+<body onload="init()">
+    <header></header>
+    <nav></nav>
+    <main>
+        <h1>Add Task</h1>
+        <form id="addTaskForm">
+
+            <div class="input-form">
+                <div class="input-area">
+                    <label for="taskName">Title*</label>
+                    <input class="input" type="text" id="taskName" name="taskName" required placeholder="Enter a title">
+                    <label for="taskDescription">Description</label>
+                    <textarea class="input" id="taskDescription" name="taskDescription"
+                        placeholder="Enter a description"></textarea>
+                    <label for="date">Due date*</label>
+                    <input class="input" type="date" id="taskDeadline" name="taskDeadline">
+                </div>
+                <div class="input-area">
+                    <label for="taskDeadline">Deadline:</label>
+                    <input class="input" type="date" id="taskDeadline" name="taskDeadline">
+                </div>
+            </div>
+
+            <div class="submit-form">
+                *This field is required
+                <div class="button-area"> 
+                    <button class="btn btn-secondary">Clear x</button>
+                    <button class="btn btn-primary" type="submit">Create Task</button>
+                </div>
+
+            </div>
+
+
+        </form>
+    </main>
 </body>
+
 </html>
