@@ -13,16 +13,41 @@
 
 .stat-card-wide {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   background-color: #ffffff;
   border-radius: 24px;
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
-  width: 380px;
+  width: 340px;
   height: 120px;
-  margin-right: 10px;
- margin-left: 5px;
+  margin-right: 60px;
+  margin-left: 5px;
+  padding-left: 40px;
+}
+
+.stat-number-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number-col .stat-number {
+  margin: 0;
+}
+
+.stat-number-col .stat-label {
+  margin: 0;
+}
+
+.date-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.date-col .stat-label {
+  margin: 0;
 }
 
 .stat-number {
@@ -49,12 +74,12 @@
   top: 4px;
 }
 
-.readarrowcircle-icon {
+.red-arrow-circle-icon {
   width: 45px;
   height: 45px;
-  margin-right: 20px;
+  margin-right: 0px;
   position: relative;
-  top: 4px;
+  top: -10px;
 }
 
 
@@ -70,18 +95,40 @@
 /*Marcus 24.07.2026*/
 
 .white-line {
-  margin-left: 5px;
-  margin-right: 5px;
-  height: 40px;
+  display: flex;
+  margin-left: 40px;
+  margin-right: 15px;
+  height: 60px;
+  margin-top: -20px;
 }  
 
 
 .date-txt {
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
+  margin-top: -10px;
+  display: flex;
+  font-size: 18px;
   color: var(--color-primary);
-  margin-top: -30px;
-  margin-left: 50px;
+  margin-left: 12px;
+}
+
+
+.date-condition {
+  margin-top: 10px;
+  display: flex;
+  font-size: 14px;
+  color: var(--color-primary);
+  margin-left: 12px;
+}
+
+.second-line {
+  display: flex;  
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 8px; 
+}
+
+
+.greetings {
+  font-size: 24px;
 }
