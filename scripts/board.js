@@ -28,34 +28,25 @@ function initPage() {
 }
 
 function updateHTML() {
-    // Rebuild each column from the current tasks array.
-    // This clears the column content and inserts fresh HTML for each matching task.
-    let todo = todos.filter(t => t['category'] == 'todo');
-    document.getElementById('todo').innerHTML = '';
-    for (let index = 0; index < todo.length; index++) {
-        const element = todo[index];
-        document.getElementById('todo').innerHTML += generateTodoHTML(element);
+    renderColumn('todo');
+    renderColumn('in-progress');
+    renderColumn('await-feedback');
+    renderColumn('done');
+}
+
+function renderColumn(columnId) {
+    const column = document.getElementById(columnId);
+    const filteredTasks = todos.filter(t => t['category'] === columnId);
+    column.innerHTML = '';
+
+    if (filteredTasks.length === 0) {
+        column.innerHTML = `<div class="empty-state">No Task to do</div>`;
+        return;
     }
 
-    let inProgress = todos.filter(t => t['category'] == 'in-progress');
-    document.getElementById('in-progress').innerHTML = '';
-    for (let index = 0; index < inProgress.length; index++) {
-        const element = inProgress[index];
-        document.getElementById('in-progress').innerHTML += generateTodoHTML(element);
-    }
-
-    let awaitFeedback = todos.filter(t => t['category'] == 'await-feedback');
-    document.getElementById('await-feedback').innerHTML = '';
-    for (let index = 0; index < awaitFeedback.length; index++) {
-        const element = awaitFeedback[index];
-        document.getElementById('await-feedback').innerHTML += generateTodoHTML(element);
-    }
-
-    let done = todos.filter(t => t['category'] == 'done');
-    document.getElementById('done').innerHTML = '';
-    for (let index = 0; index < done.length; index++) {
-        const element = done[index];
-        document.getElementById('done').innerHTML += generateTodoHTML(element);
+    for (let index = 0; index < filteredTasks.length; index++) {
+        const element = filteredTasks[index];
+        column.innerHTML += generateTodoHTML(element);
     }
 }
 
