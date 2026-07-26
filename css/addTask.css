@@ -1,35 +1,20 @@
-header {
-    position: fixed;
-    top: 0;
-    left: 232px;
-    right: 0;
-    height: 96px;
-    background-color: #ffffff;
-    border-bottom: 1px solid #d1d1d1;
-    z-index: 10;
-}
-
-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 232px;
-    height: 100vh;
-    background-color: #2a3647;
-    z-index: 20;
-}
-
 main {
     padding: 40px 80px;
     color: #2a3647;
     margin-left: 232px;
     margin-top: 96px;
+    max-width: 1440px;
+    left: 0;
 }
 
 h1 {
     font-size: 61px;
     font-weight: 700;
     margin-bottom: 30px;
+}
+
+form{
+    max-width: 900px;
 }
 
 .required {
@@ -65,14 +50,15 @@ h1 {
 }
 
 .input {
-    width: 100%;
+    width: 400px;
     box-sizing: border-box;
-    padding: 12px 16px;
     border: 1px solid #d1d1d1;
     border-radius: 10px;
     font-size: 16px;
     font-family: inherit;
     color: #2a3647;
+    z-index: 1;
+    padding: 12px 16px;
 }
 
 .input:focus {
@@ -99,4 +85,95 @@ textarea.input {
     align-items: center;
     justify-content: space-between;
     margin-top: 40px;
+}
+
+.dropdown {
+    width: 400px;
+    position: relative;
+}
+
+.input-wrapper {
+    
+    position: relative;
+}
+
+input {
+    width: 100%;
+    padding: 12px 40px 12px 12px;
+    box-sizing: border-box;
+}
+
+.input-img {
+    position: absolute;
+    right: 15px;
+
+}
+
+.arrow {
+    top: 50%;
+    transform: translateY(-50%);
+    transition: 0.3s;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.arrow.open {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.dropdownList {
+    position: absolute;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    background: white;
+    border: 1px solid #ccc;
+    z-index: 5;
+}
+
+.dropdownList li {
+    cursor: pointer;
+}
+
+.dropdownList li:hover {
+    background-color: #eee;
+}
+
+.dropdownList.show {
+    display: block;
+}
+
+.contact-li {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contact-li:hover {}
+
+.avatar {
+    padding-left: 10px;
+}
+
+.contact-checkbox {
+    margin: 10px;
+    padding-right: 10px;
+    width: 24px;
+    height: 24px;
+}
+
+.add-subtask {
+    width: 400px;
+    position: relative;
+}
+
+.subtask-divider {
+    top: 50%;
+    transform: translateY(-100%);
 }
