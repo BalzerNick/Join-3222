@@ -5,6 +5,12 @@
    ============================================================ */
 
 /* Zentrierter Rahmen, begrenzt den Inhalt auf max. 1440px */
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
 .page-frame {
   position: relative;
   max-width: 1440px;

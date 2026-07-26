@@ -1,0 +1,16 @@
+<div class="detail-card">
+  <div class="detail-head">
+    <div class="contact-avatar detail-avatar" style="background-color: {{color}}">{{initials}}</div>
+    <div>
+      <h2 class="detail-name">{{name}}</h2>
+      <div class="detail-actions">
+        <button class="detail-action" type="button" onclick="openEditContact('{{id}}')"><img src="assets/icons/edit.svg" alt="">Edit</button>
+        <button class="detail-action" type="button" onclick="deleteContact('{{id}}')"><img src="assets/icons/delete.svg" alt="">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="detail-label">Contact Information</p>
+  <p class="detail-line"><strong>Email</strong><br><a href="mailto:{{email}}">{{email}}</a></p>
+  <p class="detail-line"><strong>Phone</strong><br>{{phone}}</p>
+</div>

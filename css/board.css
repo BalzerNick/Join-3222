@@ -38,6 +38,20 @@ button {
     transform: translateX(6px);
 }
 
+.empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    border: 1px dashed #686868;
+    border-radius: 10px;
+    color: #686868;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 500;
+    background-color: #E7E7E7;
+}
+
 h2 {
     font-family: Inter;
     font-weight: 700;
@@ -100,8 +114,6 @@ h2 {
     max-width: 1440px;
     min-height: calc(100vh - 128px);
     padding: 64px;
-    flex: 1;
-    max-width: 100%;
     box-sizing: border-box;
     background: #f8fafc;
     border-radius: 28px;
@@ -134,7 +146,8 @@ h2 {
 html,
 body {
     margin: 0;
-    min-height: 100%;
+    height: 100%;
+    overflow: hidden;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #eef4fb;
     color: #1e293b;
@@ -145,10 +158,21 @@ body {
     min-height: 100vh;
 }
 
+body {
+    min-height: 100vh;
+}
+
 .app-shell {
     display: flex;
-    min-height: auto;
+    min-height: 100vh;
     align-items: stretch;
+}
+
+.board-mask {
+    margin-left: 232px;
+    width: calc(100% - 232px);
+    min-height: 100vh;
+    overflow: hidden;
 }
 
 .column-header {
@@ -315,4 +339,17 @@ body {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 232px;
+  height: 100vh;
+  background-color: #2A3647;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
