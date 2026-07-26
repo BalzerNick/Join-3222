@@ -40,9 +40,9 @@ button {
 
 h2 {
     font-family: Inter;
-font-weight: 700;
-font-style: Bold;
-font-size: 20px;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 20px;
 
 }
 
@@ -87,13 +87,18 @@ font-size: 20px;
     transform: translateX(4px);
 }
 
-h1 {
+.board-mask h1 {
     font-weight: 700;
     font-style: Bold;
     font-size: 61px;
 }
 
 .board-mask {
+    position: relative;
+    margin-left: 232px;
+    width: calc(100% - 232px);
+    max-width: 1440px;
+    min-height: calc(100vh - 128px);
     padding: 64px;
     flex: 1;
     max-width: 100%;
@@ -101,6 +106,8 @@ h1 {
     background: #f8fafc;
     border-radius: 28px;
     box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+    flex: 1;
 }
 
 .drag-container {
@@ -110,7 +117,7 @@ h1 {
     align-items: flex-start;
     justify-content: space-between;
     flex-wrap: nowrap;
-    overflow: hidden;
+    overflow-x: auto;
 }
 
 .drag-area-highlight {
@@ -131,7 +138,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #eef4fb;
     color: #1e293b;
-    overflow: hidden;
+    overflow-y: hidden;
 }
 
 .app-shell {
@@ -217,14 +224,18 @@ body {
 }
 
 .modal-content {
-    background-color: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    width: 80%;
-    height: 70%;
-    max-width: 800px;
+    width: min(1116px, 95vw);
+    max-height: 870px;
+    height: 95vh;
+    border-radius: 30px;
+    background: white;
     overflow-y: auto;
-    animation: slideInFromRight 100ms ease-out;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: slideInFromRight 150ms ease-out;
+    position: relative;
+    
 }
 
 @keyframes slideInFromRight {
@@ -232,6 +243,7 @@ body {
         transform: translateX(100%);
         opacity: 0;
     }
+
     to {
         transform: translateX(0);
         opacity: 1;
@@ -239,11 +251,11 @@ body {
 }
 
 .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 24px 32px;
-    border-bottom: 1px solid #e2e8f0;
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    padding: 0;
+    border: none;
 }
 
 .modal-header h2 {
@@ -273,5 +285,30 @@ body {
 }
 
 .modal-body {
-    padding: 32px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+#add-task-modal main {
+    width: fit-content;
+    margin: 0 auto;
+    padding: 48px 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 232px;
+    height: 100vh;
+    background-color: #2A3647;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }

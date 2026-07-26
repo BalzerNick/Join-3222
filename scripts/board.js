@@ -88,6 +88,9 @@ function removeHighlight(id) {
 
 function openAddTaskDialog() {
     const modal = document.getElementById('add-task-modal');
+    const modalBody = document.getElementById('modal-body');
+
+    modalBody.innerHTML = getAddTaskPage();
     modal.classList.remove('hidden');
 }
 
@@ -96,5 +99,5 @@ function closeAddTaskDialog(event) {
     if (event && event.target !== event.currentTarget) return;
     const modal = document.getElementById('add-task-modal');
     modal.classList.add('hidden');
+    document.getElementById('modal-body').innerHTML = '';
 }
-
