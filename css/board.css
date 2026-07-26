@@ -141,6 +141,10 @@ body {
     overflow-y: hidden;
 }
 
+body {
+    min-height: 100vh;
+}
+
 .app-shell {
     display: flex;
     min-height: auto;
