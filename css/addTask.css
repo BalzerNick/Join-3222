@@ -13,7 +13,7 @@ h1 {
     margin-bottom: 30px;
 }
 
-form{
+form {
     max-width: 900px;
 }
 
@@ -93,7 +93,7 @@ textarea.input {
 }
 
 .input-wrapper {
-    
+
     position: relative;
 }
 
@@ -176,4 +176,25 @@ input {
 .subtask-divider {
     top: 50%;
     transform: translateY(-100%);
+}
+
+.button-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 250px;
+}
+
+.btnTask {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+}
+
+.formBtnImages {
+    width: 100%;
+    height: 16px;
+    width: 16px;
+    gap: 10px;
 }

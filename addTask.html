@@ -13,7 +13,7 @@
 </head>
 
 <body onload="init()">
-    <header>
+    <header >
         Kanban Project Management Tool
     </header>
     <div class="menu-line">
@@ -23,11 +23,8 @@
 
 
     <main>
-
-
         <h1>Add Task</h1>
         <form id="addTaskForm">
-
             <div class="input-form">
                 <div class="input-area">
                     <label for="taskName">Title<span class="required">*</span></label>
@@ -139,13 +136,18 @@
                 <span class="required-hint"><span class="required">*</span>This field is required</span>
                 <div class="button-area">
                     <!-- Bilder einfügen mit x und Hacken -->
-                    <button type="reset" class="btn btn-secondary">Clear </button>
+                    <button type="reset" class="btn btn-secondary btnTask">
+                        <span>Clear</span>
+                        <img class="formBtnImages" src="assets/icons/close.svg" alt="x symbole for close">
+                    </button>
                     <button type="submit" class="btn btn-primary">Create Task </button>
                 </div>
             </div>
 
         </form>
     </main>
+
+
 </body>
 
 </html>

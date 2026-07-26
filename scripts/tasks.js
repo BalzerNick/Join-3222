@@ -1,9 +1,13 @@
-function init() {
-    
+let contactArray = [];
+
+function init(){
+    getContacts();
 }
 
 /**
  * 
+ * @param {*} ul 
+ * @param {*} arr 
  */
 function toggleDropdown(ul, arr) {
     let list = document.getElementById(ul);
@@ -19,7 +23,7 @@ function toggleDropdown(ul, arr) {
 function searchList() {
     let input = document.getElementById("assignedTo");
     let filter = input.value.toLowerCase();
-    let items = document.querySelectorAll("dropdownList li");
+    let items = document.querySelectorAll("contactList li");
 
     for (let index = 0; index < items.length; index++) {
         let text = items[index].textContent.toLowerCase();
@@ -44,4 +48,41 @@ function selectOption(contact) {
 
     list.classList.remove("show");
     arrow.classList.remove("open");
+}
+
+async function getContacts(){
+    let response = await fetch(`./database-import.json`);
+    let toJson = await response.json();
+    
+    await getContactElement(toJson);
+}
+
+/**
+ * 
+ * @param {*} result 
+ */
+async function getContactElement(result){
+    let contacts = Object.values(result.contacts);
+    
+    for(const element of contacts){
+        let contact ={
+            Name: element.name,
+            Initials: await getInitials(element.name)
+        }
+        contactArray.push(contact);
+    }
+}
+
+/**
+ * 
+ * @param {*} name 
+ * @returns 
+ */
+async function getInitials(name){
+    let initials = name
+    .split(" ")
+    .map(word => word[0])
+    .join("");
+
+    return initials
 }
