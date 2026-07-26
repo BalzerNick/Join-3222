@@ -120,7 +120,8 @@ body {
 }
 
 .footer-link {
-  color: var(--color-primary);
+  /* color: var(--color-primary); */
+  color: #FFFFFF;
   text-decoration: none;
   font-size: 14px;
 }
@@ -221,6 +222,27 @@ li {
   left: 40px;
   width: 100px;
 }
+
+.menu-icons {
+  position: relative;
+  top: 250px;
+  left: -10px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.policies {
+  position: relative;
+  top: 750px;
+  left: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
 
 /*Marcus 23.07.2026*/
 header {
