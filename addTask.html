@@ -13,9 +13,18 @@
 </head>
 
 <body onload="init()">
-    <header></header>
-    <nav></nav>
+    <header>
+        Kanban Project Management Tool
+    </header>
+    <div class="menu-line">
+        <img src="assets/imgs/logoMainWhite.png" alt="Join Logo" class="menu-logo">
+        <!-- <a href="index.html" class="back-arrow"><img src="assets/imgs/summary.png" alt="Summary"></a> -->
+    </div>
+
+
     <main>
+
+
         <h1>Add Task</h1>
         <form id="addTaskForm">
 
@@ -34,45 +43,96 @@
 
                 <div class="divider"></div>
 
+                
                 <div class="input-area">
                     <label>Priority</label>
                     <div class="priority-buttons">
-                        <button type="button" class="btn-priority urgent" id="btnUrgent">
-                            Urgent <span class="priority-icon urgent-icon"></span>
+                        <button type="button" class="btn btn-secondary" id="btnUrgent">
+                            Urgent
                             <!-- hier noch Bild rein mit doppel Pfeil nach oben -->
                         </button>
-                        <button type="button" class="btn-priority medium active" id="btnMedium">
-                            Medium <span class="priority-icon medium-icon"></span>
+                        <button type="button" class="btn btn-secondary" id="btnMedium">
+                            Medium
                             <!-- hier noch Bild rein mit Gleich Zeichen -->
                         </button>
-                        <button type="button" class="btn-priority low" id="btnLow">
-                            Low <span class="priority-icon low-icon"></span>
+                        <button type="button" class="btn btn-secondary" id="btnLow">
+                            Low
                             <!-- hier noch Bild rein mit doppel Pfeil nach unten -->
                         </button>
                     </div>
 
-
-                    <!-- Muss ausgetauscht werden in Div oder Button, der dann ein eigenes hidden Fenster öffnet -->
                     <label for="assignedTo">Assigned to</label>
-                    <select name="assignedTo" id="assignedTo" >
-                        <option value="" disabled selected>Select contacts to assign</option>
-                        <option value="nick">Nick</option>
-                        <option value="günther">Günther</option>
-                    </select>
+                    <div class="dropdown">
+                        <div class="input-wrapper">
+                            <input class="input pointer" id="assignedTo" type="text"
+                                placeholder="Select contact to assign" oninput="searchList()"
+                                onclick="toggleDropdown(`contactList`, `contactArrow`)">
 
-                    <!--Muss ausgetauscht werden in Div oder Button, der dann ein eigenes hidden Fenster öffnet -->
-                    <label for="category">Category*</label>
-                    <select name="category" id="category" required>
-                        <option value="" disabled selected>Select your category</option>
-                        <option value="technical">Technical Task</option>
-                        <option value="story">User Story</option>
-                    </select>
+                            <span class="input-img pointer arrow" id="contactArrow"
+                                onclick="toggleDropdown(`contactList`, `contactArrow`)">▼</span>
+                        </div>
 
-                    <label for="subTask">Subtask</label>
-                    <input class="input" type="text" id="subTask" name="subTask" required placeholder="Add new subtask">
+
+                        <ul class="dropdownList d-none" id="contactList">
+                            <li class="contact-li">
+                                <span class="avatar">
+                                    NB
+                                </span>
+                                <span class="contact-name">
+                                    Nick Balzer
+                                </span>
+                                <input class="contact-checkbox" type="checkbox">
+                            </li>
+                            <li class="contact-li">
+                                <span class="avatar">
+                                    NB
+                                </span>
+                                <span class="contact-name">
+                                    Nick Balzer
+                                </span>
+                                <input class="contact-checkbox" type="checkbox">
+                            </li>
+                        </ul>
+                    </div>
+
+                    <label for="category">Category<span class="required">*</span></label>
+                    <div class="dropdown">
+                        <div class="input-wrapper">
+                            <input class="input pointer" id="category" type="text" placeholder="Select task category"
+                                oninput="searchList()" onclick="toggleDropdown(`categoryList`, `categoryArrow`)">
+
+                            <span class="input-img pointer arrow" id="categoryArrow"
+                                onclick="toggleDropdown(`categoryList`, `categoryArrow`)">▼</span>
+                        </div>
+
+
+                        <ul class="dropdownList d-none" id="categoryList">
+                            <li class="contact-li">
+                                <span class="avatar">
+                                    Technical Task
+                                </span>
+                            </li>
+                            <li class="contact-li">
+                                <span class="avatar">
+                                    User Story
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <label for="subtask">Subtask</label>
+                    <div class="add-subtask">
+                        <div class="input-wrapper">
+                            <input class="input" id="subtask" type="text" placeholder="Add new subtask">
+
+                            <img src="" alt="">
+                            <span class="input-img subtask-divider">/</span>
+                            <img src="" alt="">
+                        </div>
+                    </div>
+
                 </div>
-
-
             </div>
 
             <div class="submit-form">
