@@ -2,6 +2,11 @@
 
 /* Layout: Navbar links fix, Header oben fix, Content daneben.
    Navbar/Header-Inhalt bauen andere Personen - hier nur die Rahmen. */
+/* ===== KLAERUNG BEIM MERGE (Denis) - navbar + header =====
+   .navbar und .header sind hier nur Platzhalter-Rahmen.
+   Teammitglied stellt Navbar/Header noch fertig.
+   Vor Merge abstimmen: fixed-Layout (hier) ODER .app-shell (board.css)?
+   Regeln danach evtl. nach style.css (global) verschieben. ===== */
 .navbar {
   position: fixed;
   top: 0;
@@ -15,6 +20,7 @@
   justify-content: center;
 }
 
+/* KLAERUNG BEIM MERGE (Denis): siehe navbar-Hinweis oben - Header ggf. global (style.css). */
 .header {
   position: fixed;
   top: 0;
