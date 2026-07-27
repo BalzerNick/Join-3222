@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/addTask.css">
 
+    <script src="assets/templates/addTaskTemplate.js"></script>
     <script src="scripts/tasks.js"></script>
+    <script src="scripts/test.js"></script>
 </head>
 
 <body onload="init()">
@@ -25,7 +27,7 @@
 
     <main>
         <h1>Add Task</h1>
-        <form id="addTaskForm">
+        <form id="addTaskForm" onsubmit="submitTaskData()">
             <div class="input-form">
                 <div class="input-area">
                     <label for="taskName">Title<span class="required">*</span></label>
@@ -71,7 +73,7 @@
                         </div>
 
 
-                        <ul class="dropdownList d-none" id="contactList">
+                        <ul class="dropdown-list dropdown-scroll d-none" id="contactList">
                             <li class="contact-li">
                                 <span class="avatar">
                                     NB
@@ -104,13 +106,13 @@
                         </div>
 
 
-                        <ul class="dropdownList d-none" id="categoryList">
-                            <li class="contact-li">
+                        <ul class="dropdown-list d-none" id="categoryList">
+                            <li class="contact-li" onclick="chooseCategory(`Technical Task`)">
                                 <span class="avatar">
                                     Technical Task
                                 </span>
                             </li>
-                            <li class="contact-li">
+                            <li class="contact-li" onclick="chooseCategory(`User Story`)">
                                 <span class="avatar">
                                     User Story
                                 </span>

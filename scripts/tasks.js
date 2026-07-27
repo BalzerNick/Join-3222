@@ -1,5 +1,10 @@
 let contactArray = [];
+let names = [];
+let selectedContacts = [];
 
+/**
+ * 
+ */
 function init(){
     getContacts();
 }
@@ -50,6 +55,9 @@ function selectOption(contact) {
     arrow.classList.remove("open");
 }
 
+/**
+ * 
+ */
 async function getContacts(){
     let response = await fetch(`./database-import.json`);
     let toJson = await response.json();
@@ -71,6 +79,19 @@ async function getContactElement(result){
         }
         contactArray.push(contact);
     }
+
+    getCoWorker();
+}
+
+
+/**
+ * 
+ */
+function getCoWorker(){
+    let dropbox = document.getElementById("contactList");
+    for (let index = 0; index < contactArray.length; index++) {
+        dropbox.innerHTML += getNameTemplate(contactArray[index], index);
+    }
 }
 
 /**
@@ -85,4 +106,58 @@ async function getInitials(name){
     .join("");
 
     return initials
+}
+
+/**
+ * 
+ */
+function submitTaskData() {
+    let test = getTaskData();
+}
+
+/**
+ * 
+ * @returns 
+ */
+function getTaskData() {
+    const task = {
+        title: document.getElementById("taskName").value,
+        description: document.getElementById("taskDescription").value,
+        dueDate: document.getElementById("taskDeadline").value,
+        priority: "",
+        category: document.getElementById("category").value,
+        status: "todo",
+        assignedTo: selectedContacts,
+        subtasks: ""
+    }
+    console.table(task);
+    console.table(task.assignedTo);
+    return task;
+}
+
+/**
+ * 
+ * @param {*} value 
+ */
+function chooseCategory(value){
+    let input = document.getElementById("category");
+    input.value = " ";
+    input.value = value;
+
+    toggleDropdown(`categoryList`, `categoryArrow`);
+}
+
+/**
+ * 
+ * @param {*} index 
+ * @param {*} checked 
+ */
+function toggleContact(index, checked) {
+    const contact = contactArray[index];
+
+    if (checked) {
+        selectedContacts.push(contact);
+    } else {
+        selectedContacts = selectedContacts.filter(c => c !== contact);
+    }
 }
