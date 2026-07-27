@@ -20,7 +20,7 @@ header {
   top: 0;
   width: 230px;
   height: 100vh;
-  background-color: #2A3647;
+  background-color: var(--color-primary);
   display: flex;
   flex-direction: column;
 }

@@ -1,40 +1,5 @@
 /* contacts.css - Kontaktliste + Detailansicht. Werte gegen euer Figma abgleichen. */
 
-/* Layout: Navbar links fix, Header oben fix, Content daneben.
-   Navbar/Header-Inhalt bauen andere Personen - hier nur die Rahmen. */
-/* ===== KLAERUNG BEIM MERGE (Denis) - navbar + header =====
-   .navbar und .header sind hier nur Platzhalter-Rahmen.
-   Teammitglied stellt Navbar/Header noch fertig.
-   Vor Merge abstimmen: fixed-Layout (hier) ODER .app-shell (board.css)?
-   Regeln danach evtl. nach style.css (global) verschieben. ===== */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 232px;
-  height: 100vh;
-  background-color: var(--color-primary);
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* KLAERUNG BEIM MERGE (Denis): siehe navbar-Hinweis oben - Header ggf. global (style.css). */
-.header {
-  position: fixed;
-  top: 0;
-  left: 232px;
-  right: 0;
-  height: 96px;
-  background-color: #ffffff;
-  color: #555555;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-}
-
 /* Zwei Spalten: Liste links, Detail rechts */
 .contacts-main {
   margin-left: 232px;
@@ -232,10 +197,6 @@
   z-index: 10;
 }
 
-.d-none {
-  display: none;
-}
-
 /* Zweigeteiltes Popup: links dunkel mit Logo/Titel, rechts weiss mit Formular */
 .contact-modal {
   position: relative;
@@ -300,7 +261,7 @@
   height: 120px;
   font-size: 40px;
   flex-shrink: 0;
-  background-color: #d1d1d1;
+  background-color: var(--color-border);
 }
 
 .modal-avatar img {

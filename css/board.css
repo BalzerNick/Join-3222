@@ -38,20 +38,6 @@ button {
     transform: translateX(6px);
 }
 
-.empty-state {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 48px;
-    border: 1px dashed #686868;
-    border-radius: 10px;
-    color: #686868;
-    font-size: 16px;
-    text-align: center;
-    font-weight: 500;
-    background-color: #E7E7E7;
-}
-
 h2 {
     font-family: Inter;
 font-weight: 700;
@@ -82,7 +68,7 @@ font-size: 20px;
 }
 
 .add-task-button {
-    background-color: #2A3647;
+    background-color: var(--color-primary);
     width: 160px;
     height: 48px;
     color: white;
@@ -143,7 +129,7 @@ h1 {
 
 /* ===== KLAERUNG / ENTFERNEN BEIM MERGE (Denis) =====
    Globales html,body-Override (Segoe UI + #eef4fb) ueberschreibt style.css
-   (Inter + #f6f7f8). -> Nach Klaerung ENTFERNEN, Board soll style.css laden. ===== */
+   (Inter + var(--color-bg)). -> Nach Klaerung ENTFERNEN, Board soll style.css laden. ===== */
 html,
 body {
     margin: 0;
@@ -163,13 +149,6 @@ body {
     display: flex;
     min-height: calc(100vh - 70px);
     align-items: stretch;
-}
-
-.board-mask {
-    margin-left: 232px;
-    width: calc(100% - 232px);
-    min-height: calc(100vh - 70px);
-    overflow: hidden;
 }
 
 .column-header {
@@ -308,15 +287,3 @@ body {
     padding: 32px;
 }
 
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 232px;
-  height: 100vh;
-  background-color: #2A3647;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
