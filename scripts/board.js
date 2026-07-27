@@ -1,30 +1,14 @@
-let todos = [{
-    'id': 0,
-    'title': 'Putzen',
-    'category': 'todo'
-}, {
-    'id': 1,
-    'title': 'Kochen',
-    'category': 'in-progress'
-}, {
-    'id': 2,
-    'title': 'Einkaufen',
-    'category': 'in-progress'
-}, {
-    'id': 3,
-    'title': 'Wäsche waschen',
-    'category': 'done'
-}];
+let todos = [];
 
 // This variable stores the ID of the task that is currently being dragged.
-let currentDraggedElement;
+let currentDraggedElement = null;
 
 window.addEventListener('load', () => {
     initPage();
 });
 
-function initPage() {
-    updateHTML();
+async function initPage() {
+    await loadTasks();
 }
 
 function updateHTML() {
@@ -38,7 +22,7 @@ function updateHTML() {
 
 function renderColumn(columnId, columnName) {
     const column = document.getElementById(columnId);
-    const filteredTasks = todos.filter(t => t['category'] === columnId);
+    const filteredTasks = todos.filter(t => t['status'] === columnId);
     column.innerHTML = '';
 
     if (filteredTasks.length === 0) {
@@ -57,8 +41,35 @@ function startDragging(id) {
 }
 
 function generateTodoHTML(element) {
-    // Create the task card HTML with a draggable attribute.
-    return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="todo">${element['title']}</div>`;
+    const dueDate = element.dueDate ? `<span class="task-due">${element.dueDate}</span>` : "";
+    const priority = element.priority ? `<span class="task-priority badge-${element.priority.toLowerCase()}">${element.priority}</span>` : "";
+    const category = element.category ? `<span class="task-badge">${element.category}</span>` : "";
+    const description = element.description ? `<p class="task-description">${element.description}</p>` : "";
+    const subtaskTotal = element.subtasks ? Object.keys(element.subtasks).length : 0;
+    const subtaskDone = element.subtasks ? Object.values(element.subtasks).filter(sub => sub.done).length : 0;
+    const subtasks = subtaskTotal > 0 ? `<span class="task-extra-item">${subtaskDone}/${subtaskTotal} Subtasks</span>` : "";
+    const assignedCount = element.assignedTo ? element.assignedTo.length : 0;
+    const assigned = assignedCount > 0 ? `<span class="task-extra-item">${assignedCount} Assigned</span>` : "";
+
+    return `
+        <div draggable="true"
+             ondragstart="startDragging('${element.id}')"
+             onclick="openTaskDetail('${element.id}')"
+             class="todo">
+            <div class="task-topline">
+                <div class="task-topline-left">${category}</div>
+                <div class="task-topline-right">${priority}</div>
+            </div>
+            <h3 class="task-title">${element.title}</h3>
+            ${description}
+            <div class="task-meta-row">
+                <div class="task-meta-items">
+                    ${assigned}
+                    ${subtasks}
+                </div>
+                ${dueDate}
+            </div>
+        </div>`;
 }
 
 function allowDrop(ev) {
@@ -67,10 +78,12 @@ function allowDrop(ev) {
 }
 
 function moveTo(category) {
-    // Change the category of the dragged task and refresh the board.
-    todos[currentDraggedElement]['category'] = category;
+    // Change the status of the dragged task and refresh the board.
+    const task = todos.find(t => t.id === currentDraggedElement);
+    if (task) {
+        task.status = category;
+    }
     // Remove highlight from the drop target so it doesn't remain highlighted after drop.
-    // Check the element exists before calling the helper to avoid errors.
     const target = document.getElementById(category);
     if (target) removeHighlight(category);
     updateHTML();
@@ -100,4 +113,35 @@ function closeAddTaskDialog(event) {
     const modal = document.getElementById('add-task-modal');
     modal.classList.add('hidden');
     document.getElementById('modal-body').innerHTML = '';
+}
+
+function normalizeTask(task) {
+    let status = task.status;
+    if (status === "inProgress") status = "in-progress";
+    if (status === "awaitFeedback") status = "await-feedback";
+    return { ...task, status };
+}
+
+async function loadTasks() {
+    let tasksData = null;
+
+    try {
+        const response = await fetch("database-import.json");
+        if (response.ok) {
+            const localData = await response.json();
+            tasksData = localData.tasks;
+        } else {
+            console.error("Failed to load local task data", response.status, response.statusText);
+        }
+    } catch (error) {
+        console.error("Local load failed", error);
+    }
+
+    if (tasksData && typeof tasksData === "object") {
+        todos = Object.entries(tasksData).map(([id, task]) => ({ id, ...normalizeTask(task) }));
+    } else {
+        todos = [];
+    }
+
+    updateHTML();
 }
