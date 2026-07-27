@@ -1,11 +1,12 @@
 let contactArray = [];
 let names = [];
 let selectedContacts = [];
+const BASE_URL = "https://join-3222-default-rtdb.europe-west1.firebasedatabase.app/";
 
 /**
  * 
  */
-function init(){
+function init() {
     getContacts();
 }
 
@@ -58,10 +59,11 @@ function selectOption(contact) {
 /**
  * 
  */
-async function getContacts(){
-    let response = await fetch(`./database-import.json`);
+async function getContacts() {
+    // let response = await fetch(`./database-import.json`);
+    // let toJson = await response.json();
+    let response = await fetch(BASE_URL + "contacts.json");
     let toJson = await response.json();
-    
     await getContactElement(toJson);
 }
 
@@ -69,11 +71,11 @@ async function getContacts(){
  * 
  * @param {*} result 
  */
-async function getContactElement(result){
-    let contacts = Object.values(result.contacts);
-    
-    for(const element of contacts){
-        let contact ={
+async function getContactElement(result) {
+    let contacts = Object.values(result);
+
+    for (const element of contacts) {
+        let contact = {
             Name: element.name,
             Initials: await getInitials(element.name)
         }
@@ -87,7 +89,7 @@ async function getContactElement(result){
 /**
  * 
  */
-function getCoWorker(){
+function getCoWorker() {
     let dropbox = document.getElementById("contactList");
     for (let index = 0; index < contactArray.length; index++) {
         dropbox.innerHTML += getNameTemplate(contactArray[index], index);
@@ -99,11 +101,11 @@ function getCoWorker(){
  * @param {*} name 
  * @returns 
  */
-async function getInitials(name){
+async function getInitials(name) {
     let initials = name
-    .split(" ")
-    .map(word => word[0])
-    .join("");
+        .split(" ")
+        .map(word => word[0])
+        .join("");
 
     return initials
 }
@@ -139,7 +141,7 @@ function getTaskData() {
  * 
  * @param {*} value 
  */
-function chooseCategory(value){
+function chooseCategory(value) {
     let input = document.getElementById("category");
     input.value = " ";
     input.value = value;
