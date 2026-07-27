@@ -1,7 +1,7 @@
 /* ============================================================
    style.css - Globale Basis, wird auf JEDER Seite verlinkt.
    Enthaelt Reset, Farb-Variablen und die wiederverwendbaren
-   Klassen fuer Eingabefelder (.input),
+   Klassen fuer Buttons (.btn), Eingabefelder (.input),
    Footer und Navigation.
    ============================================================ */
 
@@ -48,7 +48,41 @@ body {
   border-color: var(--color-accent);
 }
 
-/* Buttons ausgelagert -> css/buttons.css */
+/* Buttons - Basis fuer alle Buttons (auch als Link a.btn) */
+.btn {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  border: unset;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 700;
+  transition: all 100ms ease;
+}
+
+/* Gefuellter Haupt-Button */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent);
+}
+
+/* Umrandeter Zweit-Button */
+.btn-secondary {
+  background-color: #ffffff;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
 
 /*Marcus 24.07.2026*/
 .help-heading {
@@ -86,7 +120,8 @@ body {
 }
 
 .footer-link {
-  color: var(--color-primary);
+  /* color: var(--color-primary); */
+  color: #FFFFFF;
   text-decoration: none;
   font-size: 14px;
 }
@@ -95,16 +130,6 @@ body {
   color: var(--color-accent);
 }
 
-/* /* Zurueck-Pfeil oben links (Sign-up, Legal, Privacy) 
-.back-arrow {
-  position: absolute;
-  top: 24px;
-  left: 40px;
-  font-size: 28px;
-  text-decoration: none;
-  color: var(--color-primary);
-}
- */
 .back-arrow:hover {
   color: var(--color-accent);
 }
@@ -174,10 +199,12 @@ li {
   position: fixed;
   left: 0;
   top: 0;
-  width: 200px;
+  width: 230px;
   height: 100vh;
   background-color: #091931;
   /* background-color: #2c3e50; Zuerst gewählte, passt aber nicht mit Figma*/
+  display: flex;
+  flex-direction: column;
 }
 
 /*Marcus 23.07.2026*/
@@ -187,6 +214,32 @@ li {
   left: 40px;
   width: 100px;
 }
+
+.menu-icons {
+  position: relative;
+  top: 250px;
+  left: -10px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.menu-icons-img:hover {
+  filter: brightness(70%);
+  cursor: pointer;
+}
+
+
+.policies {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: auto;
+  margin-left: 30px;
+  margin-bottom: 20px;
+}
+
 
 /*Marcus 23.07.2026*/
 header {
