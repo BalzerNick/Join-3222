@@ -30,7 +30,7 @@ function searchList() {
         if (text.includes(filter)) {
             items[index].style.display = "block";
         } else {
-            items[index].style.display = "none";
+            items[index].style.display = "none"; //hallo
         }
     }
 }
