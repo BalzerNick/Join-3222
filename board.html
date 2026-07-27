@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/board.css">
+    <link rel="stylesheet" href="./css/addTask.css">
+    <script src="./assets/templates/addTaskTemplate.js"></script>
+    <script src="./scripts/tasks.js"></script>
+    <script src="./scripts/board.js"></script>
 </head>
 <body onload="initPage()">
     <header>
@@ -89,10 +93,18 @@
         <div id="add-task-modal" class="modal-overlay hidden" onclick="closeAddTaskDialog(event)">
             <div class="modal-content" onclick="event.stopPropagation()">
                 <div class="modal-header">
-                    <h2>Add Task</h2>
                     <button class="modal-close" onclick="closeAddTaskDialog()">&times;</button>
                 </div>
                 <div id="modal-body" class="modal-body"></div>
+            </div>
+        </div>
+
+        <div id="task-detail-modal" class="modal-overlay hidden" onclick="closeTaskDetail(event)">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <button class="modal-close" onclick="closeTaskDetail()">&times;</button>
+                </div>
+                <div id="task-detail-body" class="modal-body"></div>
             </div>
         </div>
     </div>
