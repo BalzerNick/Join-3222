@@ -1,4 +1,5 @@
 let todos = [];
+let allContacts = {};
 
 // This variable stores the ID of the task that is currently being dragged.
 let currentDraggedElement = null;
@@ -115,11 +116,90 @@ function closeAddTaskDialog(event) {
     document.getElementById('modal-body').innerHTML = '';
 }
 
+function closeTaskDetail(event) {
+    if (event && event.target !== event.currentTarget) return;
+    const modal = document.getElementById('task-detail-modal');
+    modal.classList.add('hidden');
+    document.getElementById('task-detail-body').innerHTML = '';
+}
+
 function normalizeTask(task) {
     let status = task.status;
     if (status === "inProgress") status = "in-progress";
     if (status === "awaitFeedback") status = "await-feedback";
     return { ...task, status };
+}
+
+function renderAssignedContacts(ids) {
+    if (!ids || !Array.isArray(ids) || ids.length === 0) return "<p class='detail-empty'>No assigned contacts</p>";
+    return ids.map(id => {
+        const contact = allContacts[id] || { name: id };
+        const initials = contact.name.split(" ").map(part => part[0]).join("").slice(0, 2).toUpperCase();
+        return `
+            <div class="assigned-person">
+                <div class="avatar-circle">${initials}</div>
+                <div class="assigned-info">
+                    <span class="assigned-name">${contact.name}</span>
+                </div>
+            </div>`;
+    }).join("");
+}
+
+function renderSubtasks(subtasks) {
+    if (!subtasks || typeof subtasks !== "object") return "<p class='detail-empty'>No subtasks</p>";
+    return Object.values(subtasks).map(sub => `
+        <li class="subtask-item">
+            <label>
+                <input type="checkbox" ${sub.done ? "checked" : ""} disabled>
+                <span>${sub.title}</span>
+            </label>
+        </li>`).join("");
+}
+
+function openTaskDetail(id) {
+    const task = todos.find(t => t.id === id);
+    if (!task) return;
+    const modal = document.getElementById('task-detail-modal');
+    const modalBody = document.getElementById('task-detail-body');
+
+    const category = task.category ? `<span class="detail-category-badge">${task.category}</span>` : "";
+    const priority = task.priority ? `<span class="task-priority badge-${task.priority.toLowerCase()}">${task.priority}</span>` : "";
+    const description = task.description ? `<p class="task-detail-description">${task.description}</p>` : "";
+    const dueDate = task.dueDate ? `<span class="detail-value">${task.dueDate}</span>` : "<span class='detail-empty'>No due date</span>";
+
+    modalBody.innerHTML = `
+        <div class="task-detail-card">
+            <div class="task-detail-top">
+                <div>${category}</div>
+                <div>${priority}</div>
+            </div>
+            <h2 class="detail-title">${task.title}</h2>
+            ${description}
+            <div class="detail-grid">
+                <div class="detail-block">
+                    <span class="detail-label">Due date:</span>
+                    ${dueDate}
+                </div>
+                <div class="detail-block">
+                    <span class="detail-label">Priority:</span>
+                    ${priority}
+                </div>
+            </div>
+            <div class="detail-section">
+                <h3>Assigned To:</h3>
+                <div class="assigned-list">${renderAssignedContacts(task.assignedTo)}</div>
+            </div>
+            <div class="detail-section">
+                <h3>Subtasks</h3>
+                <ul class="subtask-list">${renderSubtasks(task.subtasks)}</ul>
+            </div>
+            <div class="detail-actions">
+                <button class="btn-detail btn-delete">Delete</button>
+                <button class="btn-detail btn-edit">Edit</button>
+            </div>
+        </div>`;
+
+    modal.classList.remove('hidden');
 }
 
 async function loadTasks() {
@@ -130,6 +210,7 @@ async function loadTasks() {
         if (response.ok) {
             const localData = await response.json();
             tasksData = localData.tasks;
+            allContacts = localData.contacts || {};
         } else {
             console.error("Failed to load local task data", response.status, response.statusText);
         }

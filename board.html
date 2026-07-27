@@ -78,6 +78,15 @@
                 <div id="modal-body" class="modal-body"></div>
             </div>
         </div>
+
+        <div id="task-detail-modal" class="modal-overlay hidden" onclick="closeTaskDetail(event)">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <button class="modal-close" onclick="closeTaskDetail()">&times;</button>
+                </div>
+                <div id="task-detail-body" class="modal-body"></div>
+            </div>
+        </div>
     </div>
 </body>
 </body>
