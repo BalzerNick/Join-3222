@@ -111,7 +111,7 @@ h1 {
     position: relative;
     margin-left: 232px;
     width: calc(100% - 232px);
-    min-height: 100vh;
+    min-height: calc(100vh - 70px);
     padding: 64px;
     box-sizing: border-box;
     background: #f8fafc;
@@ -161,14 +161,14 @@ body {
 
 .app-shell {
     display: flex;
-    min-height: 100vh;
+    min-height: calc(100vh - 70px);
     align-items: stretch;
 }
 
 .board-mask {
     margin-left: 232px;
     width: calc(100% - 232px);
-    min-height: 100vh;
+    min-height: calc(100vh - 70px);
     overflow: hidden;
 }
 

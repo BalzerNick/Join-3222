@@ -5,12 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join_Board</title>
     <link rel="icon" type="image/svg+xml" href="assets/icons/Favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/board.css">
     <script src="scripts/board.js"></script>
 </head>
 <body onload="initPage()">
+    <header>
+        Kanban Project Management Tool
+    </header>
+    <div class="menu-line">
+        <img src="assets/imgs/logoMainWhite.png" alt="Join Logo" class="menu-logo">
+        <div class="menu-icons">
+            <a href="summary_guest.html"><img src="assets/imgs/summary.png" class="menu-icons-img" alt="Summary"></a>
+            <a href="addTask.html"><img src="assets/imgs/addtask.png" class="menu-icons-img" alt="Add Task"></a>
+            <a href="board.html" class="active"><img src="assets/imgs/board.png" class="menu-icons-img" alt="Board"></a>
+            <a href="contacts.html"><img src="assets/imgs/contacts.png" class="menu-icons-img" alt="Contacts"></a>
+        </div>
+        <div class="policies">
+            <a href="privacyPolicy.html" class="footer-link">Privacy Policy</a>
+            <a href="legalNotice.html" class="footer-link">Legal notice</a>
+        </div>
+    </div>
     <div class="app-shell">
-        <aside class="navbar" id="navbar">Navbar (Platzhalter)</aside>
         <main class="board-mask">
 
             <div class="page-header">
@@ -78,6 +96,5 @@
             </div>
         </div>
     </div>
-</body>
 </body>
 </html>
