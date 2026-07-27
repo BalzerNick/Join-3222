@@ -1,7 +1,7 @@
 /* ============================================================
    style.css - Globale Basis, wird auf JEDER Seite verlinkt.
    Enthaelt Reset, Farb-Variablen und die wiederverwendbaren
-   Klassen fuer Buttons (.btn), Eingabefelder (.input),
+   Klassen fuer Eingabefelder (.input),
    Footer und Navigation.
    ============================================================ */
 
@@ -48,41 +48,7 @@ body {
   border-color: var(--color-accent);
 }
 
-/* Buttons - Basis fuer alle Buttons (auch als Link a.btn) */
-.btn {
-  display: inline-block;
-  text-align: center;
-  text-decoration: none;
-  border: unset;
-  cursor: pointer;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: 700;
-  transition: all 100ms ease;
-}
-
-/* Gefuellter Haupt-Button */
-.btn-primary {
-  background-color: var(--color-primary);
-  color: #ffffff;
-}
-
-.btn-primary:hover {
-  background-color: var(--color-accent);
-}
-
-/* Umrandeter Zweit-Button */
-.btn-secondary {
-  background-color: #ffffff;
-  color: var(--color-primary);
-  border: 1px solid var(--color-primary);
-}
-
-.btn-secondary:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-}
+/* Buttons ausgelagert -> css/buttons.css */
 
 /*Marcus 24.07.2026*/
 .help-heading {
