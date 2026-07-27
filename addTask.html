@@ -48,17 +48,17 @@
                 <div class="input-area">
                     <label>Priority</label>
                     <div class="priority-buttons">
-                        <button type="button" class="btn btn-secondary" id="btnUrgent">
-                            Urgent
-                            <!-- hier noch Bild rein mit doppel Pfeil nach oben -->
+                        <button type="button" class="btn btn-secondary btn-task btn-urgent" id="btnUrgent">
+                            <span>Urgent</span>
+                            <img class="medium" src="assets/icons/arrow up.svg" alt=" symbole for submit">
                         </button>
-                        <button type="button" class="btn btn-secondary" id="btnMedium">
-                            Medium
-                            <!-- hier noch Bild rein mit Gleich Zeichen -->
+                        <button type="button" class="btn btn-secondary btn-task btn-urgent" id="btnMedium">
+                            <span>Medium</span>
+                            <img class="medium" src="assets/icons/=.svg" alt=" symbole for submit">
                         </button>
-                        <button type="button" class="btn btn-secondary" id="btnLow">
-                            Low
-                            <!-- hier noch Bild rein mit doppel Pfeil nach unten -->
+                        <button type="button" class="btn btn-secondary btn-task btn-urgent" id="btnLow">
+                            <span>Low</span>
+                            <img class="medium" src="assets/icons/arrow down.svg" alt=" symbole for submit">
                         </button>
                     </div>
 
@@ -140,11 +140,14 @@
                 <span class="required-hint"><span class="required">*</span>This field is required</span>
                 <div class="button-area">
                     <!-- Bilder einfügen mit x und Hacken -->
-                    <button type="reset" class="btn btn-secondary btnTask">
+                    <button type="reset" class="btn btn-secondary btn-task">
                         <span>Clear</span>
-                        <img class="formBtnImages" src="assets/icons/close.svg" alt="x symbole for close">
+                        <img class="btn-img" src="assets/icons/close.svg" alt="x symbole for close">
                     </button>
-                    <button type="submit" class="btn btn-primary">Create Task </button>
+                    <button class="btn btn-primary btn-task"  type="submit">
+                         <span>Create Task</span>
+                        <img class="btn-img" src="assets/icons/check.svg" alt=" symbole for submit">
+                    </button>
                 </div>
             </div>
 
