@@ -7,7 +7,7 @@ Thumbs.db
 .idea/
 
 # Firebase / Secrets
-firebase-config.js
+# firebase-config.js
 .env
 
 # Logs
