@@ -70,3 +70,23 @@ header {
   margin-left: 30px;
   margin-bottom: 20px;
 }
+
+.help-btn {
+  margin-right: 40px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.help-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
