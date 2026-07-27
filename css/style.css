@@ -235,7 +235,7 @@ li {
 
 .policies {
   position: relative;
-  top: 750px;
+  top: 500px; 
   left: 30px;
   display: flex;
   flex-direction: column;
