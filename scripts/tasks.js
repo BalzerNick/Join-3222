@@ -2,8 +2,6 @@ let contactArray = [];
 
 function init(){
     getContacts();
-    searchList();
-    toggleDropdown(1,2);
 }
 
 /**
