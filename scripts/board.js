@@ -54,14 +54,24 @@ function startDragging(id) {
 
 function generateTodoHTML(element) {
     const dueDate = element.dueDate ? `<span class="task-due">${element.dueDate}</span>` : "";
-    const priority = element.priority ? `<span class="task-priority badge-${element.priority.toLowerCase()}">${element.priority}</span>` : "";
-    const category = element.category ? `<span class="task-badge">${element.category}</span>` : "";
+    const priority = element.priority ? getPriorityIcon(element.priority) : "";
+    const category = getCategoryBadge(element.category, false);
     const description = element.description ? `<p class="task-description">${element.description}</p>` : "";
     const subtaskTotal = element.subtasks ? Object.keys(element.subtasks).length : 0;
     const subtaskDone = element.subtasks ? Object.values(element.subtasks).filter(sub => sub.done).length : 0;
-    const subtasks = subtaskTotal > 0 ? `<span class="task-extra-item">${subtaskDone}/${subtaskTotal} Subtasks</span>` : "";
-    const assignedCount = element.assignedTo ? element.assignedTo.length : 0;
-    const assigned = assignedCount > 0 ? `<span class="task-extra-item">${assignedCount} Assigned</span>` : "";
+    const subtasks = subtaskTotal > 0 ? { done: subtaskDone, total: subtaskTotal, percent: Math.round((subtaskDone / subtaskTotal) * 100) } : null;
+
+    const avatarsHTML = getAvatarsHTML(element.assignedTo);
+
+    const subtaskHTML = subtasks ? `
+        <div class="subtask-row">
+            <div class="subtask-wrap">
+                <div class="subtask-progress" aria-hidden>
+                    <div class="subtask-progress-fill" style="width: ${subtasks.percent}%;"></div>
+                </div>
+                <div class="subtask-count">${subtasks.done}/${subtasks.total} Subtasks</div>
+            </div>
+        </div>` : "";
 
     return `
         <div draggable="true"
@@ -70,16 +80,16 @@ function generateTodoHTML(element) {
              class="todo">
             <div class="task-topline">
                 <div class="task-topline-left">${category}</div>
-                <div class="task-topline-right">${priority}</div>
             </div>
             <h3 class="task-title">${element.title}</h3>
             ${description}
-            <div class="task-meta-row">
-                <div class="task-meta-items">
-                    ${assigned}
-                    ${subtasks}
+
+            ${subtaskHTML}
+            <div class="task-footer">
+                <div class="footer-left">
+                    <div class="avatars">${avatarsHTML}</div>
                 </div>
-                ${dueDate}
+                <div class="footer-right">${priority}</div>
             </div>
         </div>`;
 }
@@ -173,8 +183,8 @@ function openTaskDetail(id) {
     const modal = document.getElementById('task-detail-modal');
     const modalBody = document.getElementById('task-detail-body');
 
-    const category = task.category ? `<span class="detail-category-badge">${task.category}</span>` : "";
-    const priority = task.priority ? `<span class="task-priority badge-${task.priority.toLowerCase()}">${task.priority}</span>` : "";
+    const category = getCategoryBadge(task.category, true);
+    const priority = task.priority ? getPriorityIcon(task.priority) : "";
     const description = task.description ? `<p class="task-detail-description">${task.description}</p>` : "";
     const dueDate = task.dueDate ? `<span class="detail-value">${task.dueDate}</span>` : "<span class='detail-empty'>No due date</span>";
 
@@ -241,4 +251,31 @@ async function loadTasks() {
 function findTask() {
     searchTerm = document.getElementById("searchInput").value.toLowerCase();
     updateHTML();
+}
+
+function getPriorityIcon(priority) {
+    if (!priority) return "";
+    const p = String(priority).toLowerCase();
+    const capitalized = p.charAt(0).toUpperCase() + p.slice(1);
+    const src = `assets/icons/Property%201=${capitalized}.png`;
+    return `<img class="priority-icon" src="${src}" alt="${priority}">`;
+}
+
+function getAvatarsHTML(ids) {
+    if (!ids || !Array.isArray(ids) || ids.length === 0) return "";
+    const max = 3;
+    return ids.slice(0, max).map(id => {
+        const contact = allContacts[id] || { name: id };
+        const initials = contact.name.split(" ").map(part => part[0]).join("").slice(0, 2).toUpperCase();
+        return `<span class="avatar-small" title="${contact.name}">${initials}</span>`;
+    }).join("");
+}
+
+function getCategoryBadge(category, isDetail = false) {
+    if (!category) return "";
+    const baseClass = isDetail ? 'detail-category-badge' : 'task-badge';
+    let extra = '';
+    if (category === 'User Story') extra = 'cat-user-story';
+    else if (category === 'Technical Task') extra = 'cat-technical-task';
+    return `<span class="${baseClass} ${extra}">${category}</span>`;
 }
