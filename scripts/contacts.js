@@ -1,4 +1,4 @@
-Test// Zwischenspeicher der geladenen Kontakte (fuer Detailansicht/Bearbeiten).
+// Zwischenspeicher der geladenen Kontakte (fuer Detailansicht/Bearbeiten).
 let allContacts = {};
 
 // Farbpalette fuer die Avatare (deterministisch pro Name gewaehlt).
