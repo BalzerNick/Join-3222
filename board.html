@@ -5,12 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join_Board</title>
     <link rel="icon" type="image/svg+xml" href="assets/icons/Favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/board.css">
-    <script src="scripts/board.js"></script>
+    <link rel="stylesheet" href="./css/addTask.css">
+    <script src="./assets/templates/addTaskTemplate.js"></script>
+    <script src="./scripts/tasks.js"></script>
+    <script src="./scripts/board.js"></script>
 </head>
 <body onload="initPage()">
+    <header>
+        Kanban Project Management Tool
+        <a href="help.html" class="help-btn" aria-label="Help">?</a>
+    </header>
+    <div class="menu-line">
+        <img src="assets/imgs/logoMainWhite.png" alt="Join Logo" class="menu-logo">
+        <div class="menu-icons">
+            <a href="summary_guest.html"><img src="assets/imgs/summary.png" class="menu-icons-img" alt="Summary"></a>
+            <a href="addTask.html"><img src="assets/imgs/addtask.png" class="menu-icons-img" alt="Add Task"></a>
+            <a href="board.html" class="active"><img src="assets/imgs/board.png" class="menu-icons-img" alt="Board"></a>
+            <a href="contacts.html"><img src="assets/imgs/contacts.png" class="menu-icons-img" alt="Contacts"></a>
+        </div>
+        <div class="policies">
+            <a href="privacyPolicy.html" class="footer-link">Privacy Policy</a>
+            <a href="legalNotice.html" class="footer-link">Legal notice</a>
+        </div>
+    </div>
     <div class="app-shell">
-        <aside class="navbar" id="navbar">Navbar (Platzhalter)</aside>
         <main class="board-mask">
 
             <div class="page-header">
@@ -71,13 +93,21 @@
         <div id="add-task-modal" class="modal-overlay hidden" onclick="closeAddTaskDialog(event)">
             <div class="modal-content" onclick="event.stopPropagation()">
                 <div class="modal-header">
-                    <h2>Add Task</h2>
                     <button class="modal-close" onclick="closeAddTaskDialog()">&times;</button>
                 </div>
                 <div id="modal-body" class="modal-body"></div>
             </div>
         </div>
+
+        <div id="task-detail-modal" class="modal-overlay hidden" onclick="closeTaskDetail(event)">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <button class="modal-close" onclick="closeTaskDetail()">&times;</button>
+                </div>
+                <div id="task-detail-body" class="modal-body"></div>
+            </div>
+        </div>
     </div>
-</body>
+    <script src="scripts/board.js"></script>
 </body>
 </html>
