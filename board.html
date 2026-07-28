@@ -21,7 +21,7 @@
                 </div>
                 <div class="page-actions">
                     <label class="search-input">
-                        <input type="text" placeholder="Find Task" />
+                        <input type="text" id="searchInput" oninput="findTask()" placeholder="Find Task">
                         <span><img src="./assets/icons/searchlens.png" alt="search"></span>
                     </label>
                     <button class="add-task-button" onclick="openAddTaskDialog()">Add Task +</button>

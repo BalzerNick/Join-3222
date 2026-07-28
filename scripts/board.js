@@ -1,5 +1,6 @@
 let todos = [];
 let allContacts = {};
+let searchTerm = "";
 
 // This variable stores the ID of the task that is currently being dragged.
 let currentDraggedElement = null;
@@ -23,7 +24,17 @@ function updateHTML() {
 
 function renderColumn(columnId, columnName) {
     const column = document.getElementById(columnId);
-    const filteredTasks = todos.filter(t => t['status'] === columnId);
+
+    const filteredTasks = todos.filter(task => {
+        const matchesStatus = task.status === columnId;
+
+        const matchesSearch =
+            task.title.toLowerCase().includes(searchTerm) ||
+            task.description.toLowerCase().includes(searchTerm);
+
+        return matchesStatus && matchesSearch;
+    });
+
     column.innerHTML = '';
 
     if (filteredTasks.length === 0) {
@@ -224,5 +235,10 @@ async function loadTasks() {
         todos = [];
     }
 
+    updateHTML();
+}
+
+function findTask() {
+    searchTerm = document.getElementById("searchInput").value.toLowerCase();
     updateHTML();
 }
