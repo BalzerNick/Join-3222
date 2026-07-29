@@ -24,10 +24,19 @@ function getInitials(name) {
 }
 
 function renderUserInitials() {
-  let name = "Anton Axt";  // TODO: echten eingeloggten User verwenden
+  // let name = "Anton Axt";  // TODO: echten eingeloggten User verwenden
   let el = document.getElementById("userInitials");
   if (!el) return;
-  el.textContent = getInitials(name);
+  let userData = localStorage.getItem("user");
+  if (!userData) return;
+  let user = JSON.parse(userData);
+  if (user.guest) {
+    el.textContent = "G";
+    return;
+  }
+  let name = user.name || "User"; // Fallback, falls der Name nicht vorhanden ist
+  let initials = getInitials(name);
+  el.textContent = initials;
 }
 
 document.addEventListener("DOMContentLoaded", renderUserInitials);

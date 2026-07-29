@@ -67,7 +67,9 @@ async function login() {
     return;
   }
   let users = await loadUsers();
-  if (findUser(users, data)) {
+  let foundUser = findUser(users, data);
+  if (foundUser) {
+    localStorage.setItem("user", JSON.stringify({ name: foundUser.name }));
     window.location.href = "board.html";
   } else {
     showLoginError("User nicht bekannt");
@@ -80,6 +82,7 @@ async function login() {
  * @returns {void}
  */
 function guestLogin() {
+  localStorage.setItem("user", JSON.stringify({ guest: true }));
   window.location.href = "board.html";
 }
 
