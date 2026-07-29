@@ -1,7 +1,7 @@
 let contactArray = [];
 let names = [];
 let selectedContacts = [];
-const BASE_URL = "https://join-3222-default-rtdb.europe-west1.firebasedatabase.app/";
+let selectedPriority = "medium";
 
 /**
  * 
@@ -18,10 +18,26 @@ function init() {
 function toggleDropdown(ul, arr) {
     let list = document.getElementById(ul);
     let arrow = document.getElementById(arr);
+    let wasOpen = !list.classList.contains("d-none");
 
-    list.classList.toggle("d-none");
-    arrow.classList.toggle("open");
+    closeAllDropdowns();
+
+    if (!wasOpen) {
+        list.classList.remove("d-none");
+        arrow.classList.add("open");
+    }
 }
+
+/**
+ *
+ */
+function closeAllDropdowns() {
+    document.getElementById("contactList").classList.add("d-none");
+    document.getElementById("contactArrow").classList.remove("open");
+    document.getElementById("categoryList").classList.add("d-none");
+}
+
+document.addEventListener("click", closeAllDropdowns);
 
 /**
  * 
@@ -60,8 +76,6 @@ function selectOption(contact) {
  * 
  */
 async function getContacts() {
-    // let response = await fetch(`./database-import.json`);
-    // let toJson = await response.json();
     let response = await fetch(BASE_URL + "contacts.json");
     let toJson = await response.json();
     await getContactElement(toJson);
@@ -113,8 +127,14 @@ async function getInitials(name) {
 /**
  * 
  */
-function submitTaskData() {
+function submitTaskData(event) {
+    event.preventDefault();
+
     let test = getTaskData();
+    //speichern in firebase mit PUT
+
+    showToast("Task created", duration = 2000)
+    resetTask();
 }
 
 /**
@@ -126,7 +146,7 @@ function getTaskData() {
         title: document.getElementById("taskName").value,
         description: document.getElementById("taskDescription").value,
         dueDate: document.getElementById("taskDeadline").value,
-        priority: "",
+        priority: selectedPriority,
         category: document.getElementById("category").value,
         status: "todo",
         assignedTo: selectedContacts,
@@ -138,8 +158,25 @@ function getTaskData() {
 }
 
 /**
- * 
- * @param {*} value 
+ *
+ * @param {*} priority
+ */
+function selectPriority(priority) {
+    selectedPriority = priority;
+    let buttons = document.querySelectorAll("#btnUrgent, #btnMedium, #btnLow");
+
+    for (const button of buttons) {
+        let isSelected = button.id.toLowerCase() === `btn${priority}`;
+        let img = button.querySelector("img");
+
+        button.classList.toggle("selected", isSelected);
+        img.src = isSelected ? img.dataset.iconSelected : img.dataset.icon;
+    }
+}
+
+/**
+ *
+ * @param {*} value
  */
 function chooseCategory(value) {
     let input = document.getElementById("category");
@@ -159,7 +196,46 @@ function toggleContact(index, checked) {
 
     if (checked) {
         selectedContacts.push(contact);
+        showContact(contact.Initials);
     } else {
         selectedContacts = selectedContacts.filter(c => c !== contact);
     }
+}
+
+/**
+ *
+ * @param {*} index
+ */
+function toggleContactRow(index) {
+    let checkbox = document.getElementById(`contactCheckbox${index}`);
+
+    checkbox.checked = !checkbox.checked;
+    toggleContact(index, checkbox.checked);
+}
+
+/**
+ * 
+ * @param {*} initial 
+ */
+function showContact(initial){
+    let contact = document.getElementById(`assignedContacts`)
+    contact.innerHTML += getContactInitial(initial);
+}
+
+/**
+ * 
+ */
+function resetTask(){
+    document.getElementById("addTaskForm").reset();
+    selectedContacts = [];
+    resetAssignedContacts();
+    selectPriority("medium")
+}
+
+/**
+ * 
+ */
+function resetAssignedContacts(){
+    let contact = document.getElementById(`assignedContacts`)
+    contact.innerHTML = ""
 }
