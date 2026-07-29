@@ -92,18 +92,7 @@ body {
 }
 
 
-.help-heading-blue-line {
-  display: flex;
-  align-items: center;
-  }
 
-/*Marcus 24.07.2026*/
-
-.blue-line {
-  margin-left: 20px;
-  margin-right: 20px;
-  height: 40px;
-}  
 
 /*Marcus 23.07.2026*/
 .back-arrow {
