@@ -1,4 +1,27 @@
-function getAddTaskPage(){
+function getNameTemplate(contact, index) {
+    return `
+        <li class="contact-li" onclick="toggleContactRow(${index})">
+            <span class="avatar">${contact.Initials}</span>
+            <span class="contact-name">${contact.Name}</span>
+            <input
+                id="contactCheckbox${index}"
+                class="contact-checkbox"
+                type="checkbox"
+                onclick="event.stopPropagation()"
+                onchange="toggleContact(${index}, this.checked)">
+        </li>
+    `;
+}
+
+function getContactInitial(initial) {
+    return `
+            <span class="avatar">
+                ${initial}
+            </span>
+    `
+}
+
+function getAddTaskPage() {
     return `    <main>
 
 

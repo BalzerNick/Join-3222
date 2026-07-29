@@ -13,8 +13,6 @@
   font-style: normal;
 }
 
-
-
 /* Farben zentral. TODO: mit euren Figma-Werten abgleichen. */
 :root {
   --color-primary: #2a3647;   /* dunkles Blau */
@@ -48,42 +46,6 @@ body {
   border-color: var(--color-accent);
 }
 
-/* Buttons - Basis fuer alle Buttons (auch als Link a.btn) */
-.btn {
-  display: inline-block;
-  text-align: center;
-  text-decoration: none;
-  border: unset;
-  cursor: pointer;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: 700;
-  transition: all 100ms ease;
-}
-
-/* Gefuellter Haupt-Button */
-.btn-primary {
-  background-color: var(--color-primary);
-  color: #ffffff;
-}
-
-.btn-primary:hover {
-  background-color: var(--color-accent);
-}
-
-/* Umrandeter Zweit-Button */
-.btn-secondary {
-  background-color: #ffffff;
-  color: var(--color-primary);
-  border: 1px solid var(--color-primary);
-}
-
-.btn-secondary:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-}
-
 /*Marcus 24.07.2026*/
 .help-heading {
   display: flex;
@@ -92,13 +54,23 @@ body {
 }
 
 
+.help-heading-blue-line {
+  display: flex;
+  align-items: center;
+  }
 
+/*Marcus 24.07.2026*/
+
+.blue-line {
+  margin-left: 20px;
+  margin-right: 20px;
+  height: 40px;
+}  
 
 /*Marcus 23.07.2026*/
 .back-arrow {
   margin-right: 0px;
 }
-
 
 /* Footer mit Rechts-Links, seitenuebergreifend */
 .footer {
