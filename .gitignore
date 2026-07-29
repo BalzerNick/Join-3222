@@ -16,11 +16,8 @@ Thumbs.db
 # Nur fuer mich - nicht committen
 Doku.md
 
-# HTML
-test.html
+test/
+.claude/
 
-#CSS
-test.css
-
-#JS
-test.js
+test/
+.claude/

@@ -40,3 +40,11 @@ function renderUserInitials() {
 }
 
 document.addEventListener("DOMContentLoaded", renderUserInitials);
+
+/**
+ * 
+ * @param {*} event 
+ */
+function noEvent(event){
+    event.stopPropagation();
+}
