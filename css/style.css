@@ -173,6 +173,7 @@ li {
 .step-heading {
   display: flex;
   align-items: baseline;
+  margin:0;
 }
 
 .step-number {
@@ -181,6 +182,7 @@ li {
 
 .step-text {
   margin-left: 32px;
+  margin: 0;
 }
 
 /*Marcus 23.07.2026*/
@@ -197,16 +199,22 @@ li {
 }
 
 /*Marcus 23.07.2026*/
-.menu-logo { 
+.menu-logo-link {
   position: absolute;
   top: 24px;
   left: 40px;
+}
+
+.menu-logo {
   width: 100px;
+  display: block;
+  margin-top: 64px;
+  margin-left: 66px;
 }
 
 .menu-icons {
   position: relative;
-  top: 250px;
+  top: 95px;
   left: -10px;
   display: flex;
   flex-direction: column;
@@ -236,11 +244,56 @@ header {
   justify-content: space-between;
   padding-left: 300px;
   align-items: center;
-  height: 70px;
+  height: 100px;
   /* padding: 16px 24px; */
   background-color: #ffffff;
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
 }
+
+.header-icons {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+.qmark {
+  position: relative;
+  height: 32px;
+  width: 32px;
+  margin-right: 20px;
+  align-items: center;
+}
+
+
+.qmark:hover{
+  transform: scale(1.15);
+  cursor: pointer;
+}
+
+
+.guest-icon {
+  height: 56px;
+  width: 56px;
+  margin-right: 40px;
+}
+
+.guest-icon:hover {
+  height: 56px;
+  width: 56px;
+  margin-right: 40px;
+  cursor: pointer; 
+}
+
+
+
+.guest-icon-hover {
+  height: 56px;
+  width: 56px;
+  margin-right: 40px;
+}
+
+
 
 /*Nick 26.07*/
 .d-none{
