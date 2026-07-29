@@ -155,7 +155,7 @@ li {
 
 /*Nick 26.07*/
 .d-none{
-  display: none;
+  display: none !important;
 }
 
 

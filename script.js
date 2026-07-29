@@ -23,4 +23,11 @@ function getInitials(name) {
   return (first + last).toUpperCase();
 }
 
+function renderUserInitials() {
+  let name = "Anton Axt";  // TODO: echten eingeloggten User verwenden
+  let el = document.getElementById("userInitials");
+  if (!el) return;
+  el.textContent = getInitials(name);
+}
 
+document.addEventListener("DOMContentLoaded", renderUserInitials);

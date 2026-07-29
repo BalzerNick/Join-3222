@@ -8,7 +8,6 @@ const AVATAR_COLORS = [
   "#0038FF", "#C3FF2B", "#FFE62B", "#FF4646", "#FFBB2B"
 ];
 
-
 /**
  * Wird beim Laden der Seite aufgerufen (body onload). Rendert die Kontaktliste.
  * @returns {Promise<void>}
@@ -20,7 +19,6 @@ async function renderContacts() {
   showContacts(allContacts, card, letter);
 }
 
-
 /**
  * Laedt alle Kontakte aus Firebase.
  * @returns {Promise<Object>} Die Kontakte als ID-Objekt (oder null).
@@ -29,7 +27,6 @@ async function loadContacts() {
   let response = await fetch(BASE_URL + "contacts.json");
   return await response.json();
 }
-
 
 /**
  * Laedt die Karten-Vorlage als Text.
@@ -40,7 +37,6 @@ async function loadTemplate() {
   return await response.text();
 }
 
-
 /**
  * Laedt die Buchstaben-Vorlage als Text.
  * @returns {Promise<string>} Die Buchstaben-Vorlage als HTML-Text.
@@ -49,7 +45,6 @@ async function loadLetterTemplate() {
   let response = await fetch("assets/templates/contactLetterTemplate.html");
   return await response.text();
 }
-
 
 /**
  * Wandelt das Kontakt-Objekt in ein alphabetisch sortiertes Array um.
@@ -61,7 +56,6 @@ function sortContacts(contacts) {
   list.sort((a, b) => a.name.localeCompare(b.name));
   return list;
 }
-
 
 /**
  * Baut das HTML mit Buchstaben-Gruppen und Kontaktkarten.
@@ -84,7 +78,6 @@ function buildContactsHtml(sorted, card, letterTpl) {
   return html;
 }
 
-
 /**
  * Sortiert, gruppiert und schreibt die Kontakte in die Liste.
  * @param {Object} contacts - Die Kontakte als ID-Objekt.
@@ -96,7 +89,6 @@ function showContacts(contacts, card, letterTpl) {
   let list = document.getElementById('contactList');
   list.innerHTML = buildContactsHtml(sortContacts(contacts), card, letterTpl);
 }
-
 
 /**
  * Ersetzt die Platzhalter in der Kartenvorlage durch die Kontaktdaten.
@@ -113,8 +105,6 @@ function fillTemplate(template, contact) {
     .replaceAll("{{email}}", contact.email);
 }
 
-
-
 /**
  * Waehlt anhand des Namens eine feste Farbe aus der Palette.
  * @param {string} name - Der Name des Kontakts.
@@ -128,7 +118,6 @@ function getAvatarColor(name) {
   return AVATAR_COLORS[sum % AVATAR_COLORS.length];
 }
 
-
 /**
  * Zeigt die Detailansicht eines Kontakts rechts an und markiert die Karte.
  * @param {string} id - Die ID des Kontakts.
@@ -141,7 +130,6 @@ async function showContactDetail(id) {
   highlightContact(id);
 }
 
-
 /**
  * Laedt die Detail-Vorlage als Text.
  * @returns {Promise<string>} Die Detail-Vorlage als HTML-Text.
@@ -150,7 +138,6 @@ async function loadDetailTemplate() {
   let response = await fetch("assets/templates/contactDetailTemplate.html");
   return await response.text();
 }
-
 
 /**
  * Ersetzt die Platzhalter in der Detail-Vorlage.
@@ -169,7 +156,6 @@ function fillDetailTemplate(template, id, contact) {
     .replaceAll("{{phone}}", contact.phone || "");
 }
 
-
 /**
  * Markiert die gewaehlte Karte aktiv und entfernt die Markierung der anderen.
  * @param {string} id - Die ID des aktiven Kontakts.
@@ -181,7 +167,6 @@ function highlightContact(id) {
   document.getElementById('card-' + id).classList.add('contact-active');
 }
 
-
 /**
  * Oeffnet das Popup zum Anlegen eines Kontakts.
  * @returns {Promise<void>}
@@ -192,7 +177,6 @@ async function openAddContact() {
   overlay.classList.remove('d-none');
 }
 
-
 /**
  * Laedt die Add-Popup-Vorlage als Text.
  * @returns {Promise<string>} Die Popup-Vorlage als HTML-Text.
@@ -202,7 +186,6 @@ async function loadAddContactTemplate() {
   return await response.text();
 }
 
-
 /**
  * Schliesst das Popup.
  * @returns {void}
@@ -210,7 +193,6 @@ async function loadAddContactTemplate() {
 function closeAddContact() {
   document.getElementById('addContactOverlay').classList.add('d-none');
 }
-
 
 /**
  * Liest die Eingaben aus dem Add-Popup.
@@ -224,7 +206,6 @@ function getNewContact() {
   };
 }
 
-
 /**
  * Speichert einen neuen Kontakt im Backend (POST erzeugt eine ID).
  * @param {{name: string, email: string, phone: string}} contact - Der neue Kontakt.
@@ -236,7 +217,6 @@ async function saveContact(contact) {
     body: JSON.stringify(contact)
   });
 }
-
 
 /**
  * Liest die Eingaben, speichert den Kontakt und aktualisiert die Liste.
@@ -253,7 +233,6 @@ async function createContact() {
   showToast("Contact successfully created");
 }
 
-
 /**
  * Oeffnet das Popup zum Bearbeiten mit den aktuellen Werten des Kontakts.
  * @param {string} id - Die ID des Kontakts.
@@ -265,7 +244,6 @@ async function openEditContact(id) {
   overlay.classList.remove('d-none');
 }
 
-
 /**
  * Laedt die Edit-Popup-Vorlage als Text.
  * @returns {Promise<string>} Die Edit-Vorlage als HTML-Text.
@@ -274,7 +252,6 @@ async function loadEditTemplate() {
   let response = await fetch("assets/templates/contactEditTemplate.html");
   return await response.text();
 }
-
 
 /**
  * Ersetzt die Platzhalter in der Edit-Vorlage durch die aktuellen Werte.
@@ -293,7 +270,6 @@ function fillEditTemplate(template, id, contact) {
     .replaceAll("{{phone}}", contact.phone || "");
 }
 
-
 /**
  * Liest die Eingaben aus dem Edit-Popup.
  * @returns {{name: string, email: string, phone: string}} Die geaenderten Daten.
@@ -305,7 +281,6 @@ function getEditContact() {
     phone: document.getElementById('editContactPhone').value.trim()
   };
 }
-
 
 /**
  * Ueberschreibt einen bestehenden Kontakt im Backend (PUT).
@@ -319,7 +294,6 @@ async function saveEditedContact(id, contact) {
     body: JSON.stringify(contact)
   });
 }
-
 
 /**
  * Liest die Eingaben, speichert die Aenderung und aktualisiert Liste + Detail.
@@ -338,7 +312,6 @@ async function updateContact(id) {
   showToast("Contact successfully updated");
 }
 
-
 /**
  * Loescht einen Kontakt im Backend und leert die Detailansicht.
  * @param {string} id - Die ID des Kontakts.
@@ -352,9 +325,3 @@ async function deleteContact(id) {
   showToast("Contact deleted");
 }
 
-function renderUserInitials() {
-let name = "Anton Axt";
-let initials = getInitials(name);
-// return initials;
-document.getElementById('userInitials').textContent = initials;
-}
