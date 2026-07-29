@@ -91,7 +91,8 @@ async function getContactElement(result) {
     for (const element of contacts) {
         let contact = {
             Name: element.name,
-            Initials: await getInitials(element.name)
+            Initials: await getInitials(element.name),
+            Color: getAvatarColor(element.name)
         }
         contactArray.push(contact);
     }
@@ -196,7 +197,7 @@ function toggleContact(index, checked) {
 
     if (checked) {
         selectedContacts.push(contact);
-        showContact(contact.Initials);
+        showContact(contact.Initials, contact.Color);
     } else {
         selectedContacts = selectedContacts.filter(c => c !== contact);
     }
@@ -214,12 +215,13 @@ function toggleContactRow(index) {
 }
 
 /**
- * 
- * @param {*} initial 
+ *
+ * @param {*} initial
+ * @param {*} color
  */
-function showContact(initial){
+function showContact(initial, color){
     let contact = document.getElementById(`assignedContacts`)
-    contact.innerHTML += getContactInitial(initial);
+    contact.innerHTML += getContactInitial(initial, color);
 }
 
 /**

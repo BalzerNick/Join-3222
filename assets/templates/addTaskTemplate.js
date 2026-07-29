@@ -1,7 +1,7 @@
 function getNameTemplate(contact, index) {
     return `
         <li class="contact-li" onclick="toggleContactRow(${index})">
-            <span class="avatar">${contact.Initials}</span>
+            <span class="avatar avatar-sm" style="background-color: ${contact.Color}">${contact.Initials}</span>
             <span class="contact-name">${contact.Name}</span>
             <input
                 id="contactCheckbox${index}"
@@ -13,9 +13,9 @@ function getNameTemplate(contact, index) {
     `;
 }
 
-function getContactInitial(initial) {
+function getContactInitial(initial, color) {
     return `
-            <span class="avatar">
+            <span class="avatar avatar-sm" style="background-color: ${color}">
                 ${initial}
             </span>
     `

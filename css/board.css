@@ -242,19 +242,8 @@ h2 {
     overflow: hidden;
 }
 
-.avatar-small {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: #0f172a;
-    color: white;
-    font-weight: 700;
-    font-size: 12px;
+.avatars .avatar-sm {
     border: 2px solid white;
-    flex: 0 0 auto;
 }
 
 .footer-right {
@@ -569,18 +558,6 @@ body {
     gap: 14px;
 }
 
-.avatar-circle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #0f172a;
-    color: white;
-    font-weight: 700;
-}
-
 .assigned-name {
     display: block;
     color: #0f172a;
@@ -781,18 +758,6 @@ body {
     display: flex;
     align-items: center;
     gap: 14px;
-}
-
-.avatar-circle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #0f172a;
-    color: white;
-    font-weight: 700;
 }
 
 .assigned-name {

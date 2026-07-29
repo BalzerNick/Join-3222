@@ -272,4 +272,38 @@ header {
   display: none !important;
 }
 
+/* Einheitlicher Avatar-Kreis (Initialen), seitenuebergreifend (Contacts, Board, Add Task).
+   Farbe wird per Inline-Style (getAvatarColor) gesetzt, Groesse ueber Modifier-Klassen. */
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.avatar-sm {
+  width: 32px;
+  height: 32px;
+  font-size: 12px;
+}
+
+.avatar-lg {
+  width: 80px;
+  height: 80px;
+  font-size: 24px;
+}
+
+.avatar-xl {
+  width: 120px;
+  height: 120px;
+  font-size: 40px;
+}
+
 

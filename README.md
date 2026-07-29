@@ -9,12 +9,15 @@ Multi-Page-Application (MPA) mit einer eigenen HTML-Seite je Bereich:
 
 - `index.html` – Login und Startseite
 - `signUp.html` – Registrierung
-- `summary.html`, `board.html`, `addTask.html`, `contacts.html` – geschuetzte Bereiche
+- `summary_guest.html`, `board.html`, `addTask.html`, `contacts.html` – geschuetzte Bereiche
+- `help.html` – Hilfeseite, `card.html` – Vorlage fuer Task-Karten
 - `legalNotice.html`, `privacyPolicy.html` – Rechtstexte
 
 Weitere Ordner und Dateien:
 
-- `css/` – `style.css` (global, auf jeder Seite verlinkt) plus eine CSS-Datei je Seite
+- `css/` – globale Dateien `style.css` (Reset, Farbvariablen, Basis), `navbar.css`
+  (Sidebar + Header) und `buttons.css` (Buttons), plus eine CSS-Datei je Seite.
+  Ladereihenfolge: `style.css → navbar.css → buttons.css → seiten.css`
 - `scripts/` – eine JS-Datei je Seite (`login.js`, `signUp.js`, `board.js` …)
 - `script.js` – gemeinsame, seitenuebergreifende Datei (u.a. Firebase-Verbindungstest)
 - `assets/` – `imgs/`, `fonts/` (Inter lokal via `@font-face`), `templates/`
@@ -43,6 +46,35 @@ Weitere Ordner und Dateien:
 
 Die Formulare nutzen keine HTML5-Validierung (`novalidate`), sondern eine
 eigene Pruefung in JavaScript.
+
+## Navigation und Layout (global)
+
+Sidebar und Header sind auf allen Bereichsseiten gleich und werden zentral in
+`navbar.css` gepflegt:
+
+- Feste linke Sidebar (`.menu-line`) mit Logo, Menue-Icons (Summary, Add Task,
+  Board, Contacts) und den Rechtstext-Links unten.
+- Weisser Header oben mit Titel, Hilfe-Button (`?` -> `help.html`) und dem
+  Nutzer-Avatar.
+- Das aktive Menue-Item wird als dunkler Balken ueber die volle Breite
+  markiert (`class="active"`).
+
+Buttons kommen aus `buttons.css` (`.btn`, `.btn-primary`, `.btn-secondary`) und
+nutzen zentrale Farbvariablen aus `style.css` (`--color-primary`,
+`--color-accent`, ...). Farben aendert man so an einer Stelle.
+
+## Eingeloggter Nutzer (Header-Avatar)
+
+Nach dem Login merkt sich die App den Nutzer im `localStorage` (Schluessel
+`user`), damit der Header auf jeder Seite die Initialen anzeigen kann:
+
+- **Login**: speichert `{"name": "..."}`.
+- **Gast-Login**: speichert `{"guest": true}`.
+
+`renderUserInitials()` in `script.js` laeuft per `DOMContentLoaded` auf jeder
+Seite, liest `user` und fuellt den Kreis oben rechts (`#userInitials`):
+Gast -> "G", echter Nutzer -> Initialen aus `getInitials(name)`. Ist niemand
+eingeloggt oder fehlt der Kreis, passiert nichts (Null-Schutz, kein Fehler).
 
 ## Rendering und Templates
 

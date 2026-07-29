@@ -155,10 +155,11 @@ function renderAssignedContacts(ids) {
     if (!ids || !Array.isArray(ids) || ids.length === 0) return "<p class='detail-empty'>No assigned contacts</p>";
     return ids.map(id => {
         const contact = allContacts[id] || { name: id };
-        const initials = contact.name.split(" ").map(part => part[0]).join("").slice(0, 2).toUpperCase();
+        const initials = getInitials(contact.name);
+        const color = getAvatarColor(contact.name);
         return `
             <div class="assigned-person">
-                <div class="avatar-circle">${initials}</div>
+                <div class="avatar" style="background-color: ${color}">${initials}</div>
                 <div class="assigned-info">
                     <span class="assigned-name">${contact.name}</span>
                 </div>
@@ -266,8 +267,9 @@ function getAvatarsHTML(ids) {
     const max = 3;
     return ids.slice(0, max).map(id => {
         const contact = allContacts[id] || { name: id };
-        const initials = contact.name.split(" ").map(part => part[0]).join("").slice(0, 2).toUpperCase();
-        return `<span class="avatar-small" title="${contact.name}">${initials}</span>`;
+        const initials = getInitials(contact.name);
+        const color = getAvatarColor(contact.name);
+        return `<span class="avatar avatar-sm" style="background-color: ${color}" title="${contact.name}">${initials}</span>`;
     }).join("");
 }
 
