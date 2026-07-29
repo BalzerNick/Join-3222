@@ -10,3 +10,11 @@ function showToast(message, duration = 2000) {
   toast.classList.add('toast-visible');
   setTimeout(() => toast.classList.remove('toast-visible'), duration);
 }
+
+/**
+ * 
+ * @param {*} event 
+ */
+function noEvent(event){
+    event.stopPropagation();
+}

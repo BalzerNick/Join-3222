@@ -21,7 +21,8 @@
         <img src="assets/imgs/logoMainWhite.png" alt="Join Logo" class="menu-logo">
         <div class="menu-icons">
             <a href="summary_guest.html"><img src="assets/imgs/summary.png" class="menu-icons-img" alt="Summary"></a>
-            <a href="addTask.html" class="active"><img src="assets/imgs/addtask.png" class="menu-icons-img" alt="Add Task"></a>
+            <a href="addTask.html" class="active"><img src="assets/imgs/addtask.png" class="menu-icons-img"
+                    alt="Add Task"></a>
             <a href="board.html"><img src="assets/imgs/board.png" class="menu-icons-img" alt="Board"></a>
             <a href="contacts.html"><img src="assets/imgs/contacts.png" class="menu-icons-img" alt="Contacts"></a>
         </div>
@@ -31,11 +32,8 @@
         </div>
     </div>
     <main>
-
-
         <h1>Add Task</h1>
-        <form id="addTaskForm">
-
+        <form id="addTaskForm" onsubmit="submitTaskData(event)" onreset="resetTask()">
             <div class="input-form">
                 <div class="input-area">
                     <label for="taskName">Title<span class="required">*</span></label>
@@ -51,29 +49,38 @@
 
                 <div class="divider"></div>
 
-                
+
                 <div class="input-area">
                     <label>Priority</label>
                     <div class="priority-buttons">
-                        <button type="button" class="btn btn-secondary" id="btnUrgent">
-                            Urgent
-                            <!-- hier noch Bild rein mit doppel Pfeil nach oben -->
+                        <button type="button" class="btn btn-secondary btn-task btn-priority-urgent"
+                            id="btnUrgent" onclick="selectPriority('urgent')">
+                            <span>Urgent</span>
+                            <img class="medium" src="assets/icons/arrow up.svg"
+                                data-icon="assets/icons/arrow up.svg" data-icon-selected="assets/icons/arrow up_choosed.svg"
+                                alt="Urgent priority icon">
                         </button>
-                        <button type="button" class="btn btn-secondary" id="btnMedium">
-                            Medium
-                            <!-- hier noch Bild rein mit Gleich Zeichen -->
+                        <button type="button"
+                            class="btn btn-secondary btn-task btn-priority-medium selected" id="btnMedium"
+                            onclick="selectPriority('medium')">
+                            <span>Medium</span>
+                            <img class="medium" src="assets/icons/=_choosed.svg" data-icon="assets/icons/=.svg"
+                                data-icon-selected="assets/icons/=_choosed.svg" alt="Medium priority icon">
                         </button>
-                        <button type="button" class="btn btn-secondary" id="btnLow">
-                            Low
-                            <!-- hier noch Bild rein mit doppel Pfeil nach unten -->
+                        <button type="button" class="btn btn-secondary btn-task btn-priority-low"
+                            id="btnLow" onclick="selectPriority('low')">
+                            <span>Low</span>
+                            <img class="medium" src="assets/icons/arrow down.svg"
+                                data-icon="assets/icons/arrow down.svg" data-icon-selected="assets/icons/arrow down_choosed.svg"
+                                alt="Low priority icon">
                         </button>
                     </div>
 
                     <label for="assignedTo">Assigned to</label>
-                    <div class="dropdown">
+                    <div class="dropdown" onclick="noEvent(event)">
                         <div class="input-wrapper">
                             <input class="input pointer" id="assignedTo" type="text"
-                                placeholder="Select contact to assign" oninput="searchList()"
+                                placeholder="Select contact to assign" autocomplete="off" oninput="searchList()"
                                 onclick="toggleDropdown(`contactList`, `contactArrow`)">
 
                             <span class="input-img pointer arrow" id="contactArrow"
@@ -81,7 +88,7 @@
                         </div>
 
 
-                        <ul class="dropdownList d-none" id="contactList">
+                        <ul class="dropdown-list dropdown-scroll d-none" id="contactList">
                             <li class="contact-li">
                                 <span class="avatar">
                                     NB
@@ -103,58 +110,75 @@
                         </ul>
                     </div>
 
+                    <div id="assignedContacts" class="assigned-contacts">
+
+                    </div>
+
                     <label for="category">Category<span class="required">*</span></label>
-                    <div class="dropdown">
+                    <div class="dropdown" onclick="noEvent(event)">
                         <div class="input-wrapper">
                             <input class="input pointer" id="category" type="text" placeholder="Select task category"
-                                oninput="searchList()" onclick="toggleDropdown(`categoryList`, `categoryArrow`)">
+                                autocomplete="off" oninput="searchList()"
+                                onclick="toggleDropdown(`categoryList`, `categoryArrow`)">
 
                             <span class="input-img pointer arrow" id="categoryArrow"
                                 onclick="toggleDropdown(`categoryList`, `categoryArrow`)">▼</span>
                         </div>
 
-
-                        <ul class="dropdownList d-none" id="categoryList">
-                            <li class="contact-li">
-                                <span class="avatar">
+                        <ul class="dropdown-list d-none" id="categoryList">
+                            <li class="contact-li" onclick="chooseCategory(`Technical Task`)">
+                                <span class="category-label">
                                     Technical Task
                                 </span>
                             </li>
-                            <li class="contact-li">
-                                <span class="avatar">
+                            <li class="contact-li" onclick="chooseCategory(`User Story`)">
+                                <span class="category-label">
                                     User Story
                                 </span>
                             </li>
                         </ul>
                     </div>
 
-
                     <label for="subtask">Subtask</label>
                     <div class="add-subtask">
                         <div class="input-wrapper">
                             <input class="input" id="subtask" type="text" placeholder="Add new subtask">
-
-                            <img src="" alt="">
-                            <span class="input-img subtask-divider">/</span>
-                            <img src="" alt="">
+                            <img class="input-img subtask-icon" src="assets/icons/add.svg" alt="Add subtask">
                         </div>
                     </div>
 
                 </div>
             </div>
 
-            <div class="submit-form">
-                <span class="required-hint"><span class="required">*</span>This field is required</span>
-                <div class="button-area">
-                    <!-- Bilder einfügen mit x und Hacken -->
-                    <button type="reset" class="btn btn-secondary">Clear </button>
-                    <button type="submit" class="btn btn-primary">Create Task </button>
-                </div>
+                    <div class="submit-form">
+            <span class="required-hint"><span class="required">*</span>This field is required</span>
+            <div class="button-area">
+                <!-- Bilder einfügen mit x und Hacken -->
+                <button type="reset" class="btn btn-secondary btn-task">
+                    <span>Clear</span>
+                    <img class="btn-img" src="assets/icons/close.svg" alt="x symbole for close">
+                </button>
+                <button class="btn btn-primary btn-task" type="submit">
+                    <span>Create Task</span>
+                    <img class="btn-img" src="assets/icons/check.svg" alt=" symbole for submit">
+                </button>
             </div>
+        </div>
 
         </form>
     </main>
+
+    <footer class="submit-form">
+
+    </footer>
+
+
+    <div id="toast" class="toast"></div>
+    <script src="firebase-config.js"></script>
+    <script src="assets/templates/addTaskTemplate.js"></script>
     <script src="scripts/tasks.js"></script>
+    <script src="script.js"></script>
+    <script src="test/test.js"></script>
 </body>
 
 </html>
