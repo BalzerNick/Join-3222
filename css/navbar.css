@@ -73,8 +73,8 @@ header {
 
 .help-btn {
   margin-right: 40px;
-  width: 34px;
-  height: 34px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: 2px solid var(--color-primary);
   color: var(--color-primary);
@@ -89,4 +89,30 @@ header {
 .help-btn:hover {
   border-color: var(--color-accent);
   color: var(--color-accent);
+}
+
+.user-initials {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--color-primary);
+  /* background-color: var(); */
+  color: var(--color-text);
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.user-initials:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+} 
+
+
+.header-right {
+  display: flex;
+  align-items: center;
+  padding-right: 32px;
 }

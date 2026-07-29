@@ -114,18 +114,6 @@ function fillTemplate(template, contact) {
 }
 
 
-/**
- * Bildet die Initialen aus dem Namen (z.B. "Anna Schmidt" -> "AS").
- * @param {string} name - Der vollstaendige Name.
- * @returns {string} Die Initialen in Grossbuchstaben.
- */
-function getInitials(name) {
-  let parts = name.split(" ");
-  let first = parts[0][0];
-  let last = parts[parts.length - 1][0];
-  return (first + last).toUpperCase();
-}
-
 
 /**
  * Waehlt anhand des Namens eine feste Farbe aus der Palette.
@@ -362,4 +350,11 @@ async function deleteContact(id) {
   document.getElementById('contactDetail').innerHTML = "";
   renderContacts();
   showToast("Contact deleted");
+}
+
+function renderUserInitials() {
+let name = "Anton Axt";
+let initials = getInitials(name);
+// return initials;
+document.getElementById('userInitials').textContent = initials;
 }
