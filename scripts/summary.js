@@ -51,6 +51,8 @@ function updateSummaryHTML() {
     setStatNumber("boardCount", tasks.length);
     setStatNumber("inProgressCount", countTasksByStatus("inProgress"));
     setStatNumber("awaitFeedbackCount", countTasksByStatus("awaitFeedback"));
+    setDate("uprisingdate", getMostUrgentTask()?.dueDate);
+
 }
 
 /**
@@ -61,4 +63,19 @@ function updateSummaryHTML() {
 function setStatNumber(id, value) {
     let counter = document.getElementById(id);
     if (counter) counter.textContent = value;
+}
+
+function setDate(id, date) {
+    let counter = document.getElementById(id);
+    if (counter) counter.textContent = date;
+} 
+
+
+function getMostUrgentTask() {
+    return tasks
+        .filter(task => task.priority === "urgent")
+        .reduce((earliest, task) => {
+            if (!earliest) return task;
+            return new Date(task.dueDate) < new Date(earliest.dueDate) ? task : earliest;
+        }, null);
 }
