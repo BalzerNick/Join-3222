@@ -167,12 +167,12 @@ function renderAssignedContacts(ids) {
     }).join("");
 }
 
-function renderSubtasks(subtasks) {
-    if (!subtasks || typeof subtasks !== "object") return "<p class='detail-empty'>No subtasks</p>";
-    return Object.values(subtasks).map(sub => `
+function renderSubtasks(taskId, subtasks) {
+    if (!subtasks || typeof subtasks !== "object" || Object.keys(subtasks).length === 0) return "<p class='detail-empty'>No subtasks</p>";
+    return Object.entries(subtasks).map(([subtaskId, sub]) => `
         <li class="subtask-item">
             <label>
-                <input type="checkbox" ${sub.done ? "checked" : ""} disabled>
+                <input type="checkbox" ${sub.done ? "checked" : ""} onchange="toggleSubtaskDone('${taskId}', '${subtaskId}', this.checked)">
                 <span>${sub.title}</span>
             </label>
         </li>`).join("");
@@ -193,7 +193,7 @@ function openTaskDetail(id) {
         <div class="task-detail-card">
             <div class="task-detail-top">
                 <div>${category}</div>
-                <div>${priority}</div>
+                <button class="modal-close task-detail-close" onclick="closeTaskDetail()">&times;</button>
             </div>
             <h2 class="detail-title">${task.title}</h2>
             ${description}
@@ -213,7 +213,7 @@ function openTaskDetail(id) {
             </div>
             <div class="detail-section">
                 <h3>Subtasks</h3>
-                <ul class="subtask-list">${renderSubtasks(task.subtasks)}</ul>
+                <ul class="subtask-list">${renderSubtasks(task.id, task.subtasks)}</ul>
             </div>
             <div class="detail-actions">
                 <button class="btn-detail btn-delete">Delete</button>
@@ -223,6 +223,7 @@ function openTaskDetail(id) {
 
     modal.classList.remove('hidden');
 }
+
 
 async function loadTasks() {
     let tasksData = null;
@@ -271,6 +272,13 @@ function getAvatarsHTML(ids) {
         const color = getAvatarColor(contact.name);
         return `<span class="avatar avatar-sm" style="background-color: ${color}" title="${contact.name}">${initials}</span>`;
     }).join("");
+}
+
+function toggleSubtaskDone(taskId, subtaskId, done) {
+    const task = todos.find(t => t.id === taskId);
+    if (!task || !task.subtasks || !task.subtasks[subtaskId]) return;
+    task.subtasks[subtaskId].done = done;
+    updateHTML();
 }
 
 function getCategoryBadge(category, isDetail = false) {
