@@ -11,8 +11,8 @@
 }
 
 .contacts-list-col {
-  width: 360px;
-  flex-shrink: 0;
+  flex: 45;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
@@ -26,7 +26,8 @@
 }
 
 .contact-detail {
-  flex: 1;
+  flex: 55;
+  min-width: 0;
   background-color: var(--color-bg);
   border-radius: 20px;
   padding: 32px;
@@ -52,7 +53,7 @@
 .contacts-intro {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 48px;
 }
 
 .contacts-intro h1 {
@@ -121,7 +122,7 @@
 .detail-head {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 48px;
   margin-bottom: 24px;
 }
 
@@ -205,7 +206,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 12px;
-  min-width: 340px;
+  min-width: 260px;
 }
 
 .modal-logo {
@@ -231,7 +232,7 @@
 
 .contact-modal-right {
   flex: 1;
-  padding: 48px;
+  padding: 48px 64px 48px 48px;
   display: flex;
   align-items: center;
   gap: 32px;
