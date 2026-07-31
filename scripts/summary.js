@@ -94,6 +94,7 @@ function getMostUrgentTask() {
 }
 
 
+
 /* function getMostUrgentTask() {
     return tasks
         .filter(task => task.priority === "urgent")
@@ -103,3 +104,5 @@ function getMostUrgentTask() {
         }, null);
 }
  */
+
+window.history.back();
