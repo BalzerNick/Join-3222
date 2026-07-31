@@ -59,6 +59,24 @@ function renderUserInitials() {
   el.textContent = initials;
 }
 
+function logout() {
+  localStorage.removeItem("user");
+  window.location.href = "index.html";
+}
+
+function toggleUserMenu() {
+  document.getElementById("userMenu").classList.toggle("open");
+}
+
+function closeUserMenu(event) {
+  let menu = document.getElementById("userMenu");
+  if (menu && !menu.contains(event.target)) {
+    menu.classList.remove("open");
+  }
+}
+
+document.addEventListener("click", closeUserMenu);
+
 document.addEventListener("DOMContentLoaded", renderUserInitials);
 
 /**

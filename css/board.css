@@ -1,5 +1,5 @@
 .drag-area {
-    min-height: 360px;
+    min-height: 500px;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -309,10 +309,6 @@ h2 {
     max-width: 1440px;
     min-height: calc(100vh - 128px);
     padding: 64px;
-    box-sizing: border-box;
-    background: #f8fafc;
-    border-radius: 28px;
-    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
     overflow: hidden;
     flex: 1;
 }
@@ -341,24 +337,7 @@ h2 {
 /* ===== KLAERUNG / ENTFERNEN BEIM MERGE (Denis) =====
    Globales html,body-Override (Segoe UI + #eef4fb) ueberschreibt style.css
    (Inter + var(--color-bg)). -> Nach Klaerung ENTFERNEN, Board soll style.css laden. ===== */
-html,
-body {
-    margin: 0;
-    height: 100%;
-    overflow: hidden;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #eef4fb;
-    color: #1e293b;
-    overflow-y: hidden;
-}
 
-body {
-    min-height: 100vh;
-}
-
-body {
-    min-height: 100vh;
-}
 
 .app-shell {
     display: flex;
@@ -569,7 +548,64 @@ body {
     padding: 0;
     margin: 0;
     display: grid;
+}
+
+.subtask-input-row {
+    display: grid;
     gap: 12px;
+    margin-bottom: 18px;
+}
+
+.subtask-entry {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.subtask-entry .input {
+    flex: 1 1 220px;
+    min-width: 160px;
+}
+
+.icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    background: #fff;
+    cursor: pointer;
+    transition: background 150ms ease, border-color 150ms ease;
+}
+
+.icon-button:hover {
+    background: #f8fafc;
+    border-color: #94a3b8;
+}
+
+.subtask-actions {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+    opacity: 0;
+    transition: opacity 150ms ease;
+}
+
+.subtask-item:hover .subtask-actions {
+    opacity: 1;
+}
+
+.subtask-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 16px;
+    background: #f8fafc;
 }
 
 .subtask-item label {
@@ -578,6 +614,7 @@ body {
     gap: 12px;
     font-size: 15px;
     color: #334155;
+    width: 100%;
 }
 
 .subtask-item input[type="checkbox"] {
@@ -666,6 +703,27 @@ body {
     align-items: center;
     gap: 16px;
     margin-bottom: 24px;
+}
+
+.task-detail-top-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.modal-close.task-detail-close {
+    width: 34px;
+    height: 34px;
+    font-size: 26px;
+    color: #1e293b;
+    border-radius: 12px;
+    background: #f8fafc;
+    border: none;
+    cursor: pointer;
+}
+
+.modal-close.task-detail-close:hover {
+    background: #e2e8f0;
 }
 
 .detail-category-badge,
@@ -763,14 +821,6 @@ body {
 .assigned-name {
     font-size: 15px;
     color: #0f172a;
-}
-
-.subtask-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 12px;
 }
 
 .subtask-item label {
