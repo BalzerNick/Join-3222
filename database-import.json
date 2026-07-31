@@ -57,7 +57,25 @@
         "sub1": { "title": "Entwurf schreiben", "done": true },
         "sub2": { "title": "Korrektur lesen", "done": true }
       }
+    },
+ 
+
+    "task6": {
+      "title": "Summary-Seite erstellen",
+      "description": "Werte aus der Database einbinden",
+      "dueDate": "2026-08-01",
+      "priority": "urgent",
+      "category": "Technical Task",
+      "status": "todo",
+      "assignedTo": ["contact1"],
+      "subtasks": {
+        "sub1": { "title": "HTML-Grundgeruest anlegen", "done": false }
+      }
     }
+
+
+
+
   },
   "contacts": {
     "contact1": {
