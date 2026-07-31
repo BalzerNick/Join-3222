@@ -105,4 +105,6 @@ function getMostUrgentTask() {
 }
  */
 
-window.history.back();
+function histarrow() {
+    window.history.back();
+}

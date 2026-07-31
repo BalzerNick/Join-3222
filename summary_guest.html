@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
+<!-- <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summary Guest</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/card-css.css">
+    <link rel="stylesheet" href="css/style.css"> 
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/card.css">
     <script src="./scripts/summary.js"></script>
 </head>
 <body>
@@ -15,7 +16,29 @@
         <a href="help.html"><img src="assets/imgs/qmark-dark.png" alt="Question Mark" class="qmark"></a>
         <img src="assets/imgs/G-icon.png" alt="Guest Icon" class="guest-icon">
         </div>
-    </header>      
+    </header>       -->
+
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join_Contacts</title>
+    <link rel="icon" type="image/svg+xml" href="assets/icons/Favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/contacts.css">
+    <link rel="stylesheet" href="css/card.css">
+    <script src="./scripts/summary.js"></script>
+</head>
+<body onload="renderContacts(); displayUserInitials();">
+    <header>
+        Kanban Project Management Tool
+        <div class="header-right">
+        <a href="help.html" class="help-btn" aria-label="Help">?</a>
+        <span class="user-initials" id="userInitials"></span>
+        </div>
+    </header>
+
 
         <div class="menu-line">
             <img src="assets/imgs/logoMainWhite.png" alt="Join Logo" class="menu-logo">
