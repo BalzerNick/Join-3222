@@ -84,14 +84,13 @@ header {
   text-decoration: none;
   font-weight: 700;
   font-size: 18px;
+    transition: background-color 100ms ease;
 }
 
-.help-btn:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-}
+
 
 .user-initials {
+  cursor: pointer;
   display: inline-block;
   width: 40px;
   height: 40px;
@@ -103,12 +102,12 @@ header {
   text-align: center;
   font-weight: bold;
   font-size: 16px;
+    transition: background-color 100ms ease;
 }
 
-.user-initials:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-} 
+.user-initials:hover, .help-btn:hover {
+  background-color: rgba(12, 46, 98, 0.12);
+}
 
 
 .header-right {
@@ -137,7 +136,7 @@ header {
   z-index: 30;
 }
 
-.user-menu:hover .user-dropdown {
+.user-menu.open .user-dropdown {
   display: flex;
 }
 
