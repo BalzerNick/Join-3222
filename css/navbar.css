@@ -92,6 +92,7 @@ header {
 }
 
 .user-initials {
+  cursor: pointer;
   display: inline-block;
   width: 40px;
   height: 40px;
@@ -137,7 +138,7 @@ header {
   z-index: 30;
 }
 
-.user-menu:hover .user-dropdown {
+.user-menu.open .user-dropdown {
   display: flex;
 }
 
