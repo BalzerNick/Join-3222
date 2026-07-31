@@ -70,8 +70,31 @@ function setDate(id, date) {
     if (counter) counter.textContent = date;
 } 
 
-
 function getMostUrgentTask() {
+    // Hier wird später die dringendste Aufgabe gespeichert.
+    let mostUrgentTask = null;
+    // Gehe jede Aufgabe im Array durch.
+    for (let i = 0; i < tasks.length; i++) {
+        let task = tasks[i];
+        // Nur Aufgaben mit der Priorität "urgent" berücksichtigen.
+        if (task.priority === "urgent") {
+            // Falls noch keine dringende Aufgabe gefunden wurde,
+            // wird diese als erste gespeichert.
+            if (mostUrgentTask === null) {
+                mostUrgentTask = task;
+            }
+            // Ansonsten vergleichen wir die Fälligkeitsdaten.
+            else if (new Date(task.dueDate) < new Date(mostUrgentTask.dueDate)) {
+                mostUrgentTask = task;
+            }
+        }
+    }
+    // Die dringendste Aufgabe zurückgeben.
+    return mostUrgentTask;
+}
+
+
+/* function getMostUrgentTask() {
     return tasks
         .filter(task => task.priority === "urgent")
         .reduce((earliest, task) => {
@@ -79,3 +102,4 @@ function getMostUrgentTask() {
             return new Date(task.dueDate) < new Date(earliest.dueDate) ? task : earliest;
         }, null);
 }
+ */
