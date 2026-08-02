@@ -7,6 +7,23 @@ window.addEventListener("load", () => {
 /**
  * Laedt die Task-Daten aus der Firebase Realtime Database und stoesst das Rendern an.
  */
+/* async function loadSummaryData() {
+    try {
+        const response = await fetch(BASE_URL + "tasks.json");
+        if (!response.ok) {
+            console.error("Failed to load task data", response.status, response.statusText);
+            return;
+        }
+        const data = await response.json();
+        tasks = data ? Object.values(data) : [];
+    } catch (error) {
+        console.error("Firebase load failed", error);
+        return;
+    }
+    updateSummaryHTML();
+}
+ */
+
 async function loadSummaryData() {
     try {
         const response = await fetch(BASE_URL + "tasks.json");
@@ -45,6 +62,7 @@ function countTasksByPriority(priority) {
 /**
  * Schreibt die berechneten Kennzahlen in die Summary-Kacheln.
  */
+
 function updateSummaryHTML() {
     setStatNumber("todoCount", countTasksByStatus("todo"));
     setStatNumber("doneCount", countTasksByStatus("done"));
@@ -53,7 +71,7 @@ function updateSummaryHTML() {
     setStatNumber("inProgressCount", countTasksByStatus("inProgress"));
     setStatNumber("awaitFeedbackCount", countTasksByStatus("awaitFeedback"));
     setDate("uprisingdate", getMostUrgentTask()?.dueDate);
-    setName("loginuser", getLoggedInUserName());
+    setName("loginuser", "greetingtag", getLoggedInUserName());
 }
 
 /**
@@ -71,10 +89,17 @@ function setDate(id, date) {
     if (counter) counter.textContent = date;
 } 
 
-function setName(id, name) {
-    let counter = document.getElementById(id);
-    if (counter) counter.textContent = name;
-} 
+function setName(iduser, idgreet, name) {
+    let greeting = document.getElementById(idgreet);
+    let counter = document.getElementById(iduser);
+
+    if (name) {
+        if (counter) counter.textContent = name;
+        if (greeting) greeting.textContent = "Good morning,";
+    } else {
+        if (greeting) greeting.textContent = "Good morning!";
+    }
+}
 
 function getMostUrgentTask() {
     // Hier wird später die dringendste Aufgabe gespeichert.
