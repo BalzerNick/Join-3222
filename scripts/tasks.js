@@ -16,6 +16,7 @@ function init() {
  * @param {*} arr 
  */
 function toggleDropdown(ul, arr) {
+    getCoWorker()
     let list = document.getElementById(ul);
     let arrow = document.getElementById(arr);
     let wasOpen = !list.classList.contains("d-none");
@@ -96,8 +97,6 @@ async function getContactElement(result) {
         }
         contactArray.push(contact);
     }
-
-    getCoWorker();
 }
 
 
@@ -106,6 +105,7 @@ async function getContactElement(result) {
  */
 function getCoWorker() {
     let dropbox = document.getElementById("contactList");
+    dropbox.innerHTML = "";
     for (let index = 0; index < contactArray.length; index++) {
         dropbox.innerHTML += getNameTemplate(contactArray[index], index);
     }
@@ -197,10 +197,10 @@ function toggleContact(index, checked) {
 
     if (checked) {
         selectedContacts.push(contact);
-        showContact(contact.Initials, contact.Color);
     } else {
         selectedContacts = selectedContacts.filter(c => c !== contact);
     }
+    renderContacts();
 }
 
 /**
@@ -219,9 +219,15 @@ function toggleContactRow(index) {
  * @param {*} initial
  * @param {*} color
  */
-function showContact(initial, color){
+function renderContacts(initial, color){
     let contact = document.getElementById(`assignedContacts`)
-    contact.innerHTML += getContactInitial(initial, color);
+    contact.innerHTML = ""
+
+    for (let index = 0; index < selectedContacts.length; index++) {
+        console.log(selectedContacts[index]);
+        
+        contact.innerHTML += getContactInitial(selectedContacts[index].Initials, selectedContacts[index].Color);
+    }
 }
 
 /**

@@ -135,7 +135,6 @@ form {
 }
 
 .input-wrapper {
-
     position: relative;
 }
 
@@ -303,4 +302,21 @@ input {
     display: flex;
     flex-direction: row;
     gap: 5px;
+}
+
+.subtask-area{
+    width: 100%;
+    display: flex;
+}
+
+.subtask{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.subtask-buttons{
+    display: flex;
+    flex-direction: row;
 }

@@ -11,6 +11,7 @@ window.addEventListener('load', () => {
 
 async function initPage() {
     await loadTasks();
+    getContacts()
 }
 
 function updateHTML() {
