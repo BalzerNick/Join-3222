@@ -156,11 +156,11 @@ function renderAssignedContacts(ids) {
     if (!ids || !Array.isArray(ids) || ids.length === 0) return "<p class='detail-empty'>No assigned contacts</p>";
     return ids.map(id => {
         const contact = allContacts[id] || { name: id };
-        const initials = getInitials(contact.name);
+        const initials = getBoardInitials(contact.name);
         const color = getAvatarColor(contact.name);
         return `
             <div class="assigned-person">
-                <div class="avatar" style="background-color: ${color}">${initials}</div>
+                ${getContactInitial(initials, color)}
                 <div class="assigned-info">
                     <span class="assigned-name">${contact.name}</span>
                 </div>
@@ -264,14 +264,24 @@ function getPriorityIcon(priority) {
     return `<img class="priority-icon" src="${src}" alt="${priority}">`;
 }
 
+function getBoardInitials(name) {
+    if (!name || typeof name !== 'string') return '';
+    return name
+        .split(' ')
+        .filter(Boolean)
+        .map(word => word[0])
+        .join('')
+        .toUpperCase();
+}
+
 function getAvatarsHTML(ids) {
     if (!ids || !Array.isArray(ids) || ids.length === 0) return "";
     const max = 3;
     return ids.slice(0, max).map(id => {
         const contact = allContacts[id] || { name: id };
-        const initials = getInitials(contact.name);
+        const initials = getBoardInitials(contact.name);
         const color = getAvatarColor(contact.name);
-        return `<span class="avatar avatar-sm" style="background-color: ${color}" title="${contact.name}">${initials}</span>`;
+        return getContactInitial(initials, color);
     }).join("");
 }
 
