@@ -22,6 +22,16 @@
   --color-text: #2a3647;
   --color-error: #ff8190;
   --radius: 10px;
+
+  /* Schriftgroessen-Skala, gegen Figma gemessen (auf gerade px gerundet).
+     xxl = Haupttitel, xl = grosse Namen/Begruessung, lg = Subtitle,
+     md = Abschnitts-Label, base = Fliesstext, sm = Sekundaertext. */
+  --fs-xxl: 60px;
+  --fs-xl: 48px;
+  --fs-lg: 28px;
+  --fs-md: 20px;
+  --fs-base: 16px;
+  --fs-sm: 14px;
 }
 
 body {
@@ -37,7 +47,7 @@ body {
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   padding: 12px 20px;
-  font-size: 16px;
+  font-size: var(--fs-base);
   width: 100%;
 }
 
@@ -84,7 +94,7 @@ body {
   /* color: var(--color-primary); */
   color: #FFFFFF;
   text-decoration: none;
-  font-size: 14px;
+  font-size: var(--fs-sm);
 }
 
 .footer-link:hover {
@@ -157,118 +167,6 @@ li {
   margin: 0;
 }
 
-/* Marcus 23.07.2026*/
-/* .menu-line {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 230px;
-  height: 100vh;
-  background-color: #091931;
-  display: flex;
-  flex-direction: column;
-}  */
-
-/*Marcus 23.07.2026*/
-/* .menu-logo-link {
-  position: absolute;
-  top: 24px;
-  left: 40px;
-} */
-
-/* .menu-logo {
-    position: absolute;
-  top: 24px;
-  left: 40px;
-  width: 100px;
-  display: block;
-  margin-top: 64px;
-  margin-left: 66px;
-} */
-
-/* .menu-icons {
-  position: relative;
-  top: 95px;
-  left: -10px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  margin-bottom: 20px;
-} */
-
-/* .menu-icons-img:hover {
-  filter: brightness(70%);
-  cursor: pointer;
-} */ */
-
-
-.policies {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  margin-top: auto;
-  margin-left: 30px;
-  margin-bottom: 20px;
-}
-
-
-/*Marcus 23.07.2026*/
-header {
-  display: flex;
-  justify-content: space-between;
-  padding-left: 300px;
-  align-items: center;
-  height: 100px;
-  /* padding: 16px 24px; */
-  background-color: #ffffff;
-  box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
-}
-
-.header-icons {
-  display: flex;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-}
-
-.qmark {
-  position: relative;
-  height: 32px;
-  width: 32px;
-  margin-right: 20px;
-  align-items: center;
-}
-
-
-.qmark:hover{
-  transform: scale(1.15);
-  cursor: pointer;
-}
-
-
-.guest-icon {
-  height: 56px;
-  width: 56px;
-  margin-right: 40px;
-}
-
-.guest-icon:hover {
-  height: 56px;
-  width: 56px;
-  margin-right: 40px;
-  cursor: pointer; 
-}
-
-
-
-.guest-icon-hover {
-  height: 56px;
-  width: 56px;
-  margin-right: 40px;
-}
-
-
-
 /*Nick 26.07*/
 .d-none{
   display: none !important;
@@ -286,7 +184,7 @@ header {
   border-radius: 50%;
   background-color: var(--color-primary);
   color: #ffffff;
-  font-size: 14px;
+  font-size: var(--fs-sm);
   font-weight: 700;
 }
 

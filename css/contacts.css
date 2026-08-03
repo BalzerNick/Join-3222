@@ -57,19 +57,19 @@
 }
 
 .contacts-intro h1 {
-  font-size: 48px;
+  font-size: var(--fs-xxl);
 }
 
 .contacts-intro-sub {
   border-left: 3px solid var(--color-accent);
   padding-left: 24px;
-  font-size: 24px;
+  font-size: var(--fs-lg);
 }
 
 /* Buchstaben-Ueberschrift der Gruppen */
 .contact-letter {
   margin: 24px 0 8px;
-  font-size: 20px;
+  font-size: var(--fs-md);
   font-weight: 400;
   border-bottom: 1px solid var(--color-border);
   padding-bottom: 4px;
@@ -111,11 +111,12 @@
 
 .contact-name {
   font-weight: 700;
+  font-size: var(--fs-md);
 }
 
 .contact-email {
   color: var(--color-accent);
-  font-size: 14px;
+  font-size: var(--fs-sm);
 }
 
 /* Detailansicht rechts */
@@ -143,7 +144,7 @@
   border: unset;
   cursor: pointer;
   color: var(--color-primary);
-  font-size: 14px;
+  font-size: var(--fs-sm);
   transition: color 100ms ease;
 }
 
@@ -206,7 +207,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 12px;
-  min-width: 260px;
+  min-width: 340px;
 }
 
 .modal-logo {
@@ -216,11 +217,11 @@
 }
 
 .modal-title {
-  font-size: 48px;
+  font-size: var(--fs-xxl);
 }
 
 .modal-subtitle {
-  font-size: 20px;
+  font-size: var(--fs-md);
 }
 
 .modal-underline {
@@ -232,7 +233,7 @@
 
 .contact-modal-right {
   flex: 1;
-  padding: 48px 64px 48px 48px;
+  padding: 48px;
   display: flex;
   align-items: center;
   gap: 32px;

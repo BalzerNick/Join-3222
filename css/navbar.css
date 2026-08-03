@@ -12,6 +12,7 @@ header {
   height: 70px;
   background-color: #ffffff;
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
+  font-size: var(--fs-md);
 }
 
 .menu-line {
@@ -84,10 +85,12 @@ header {
   text-decoration: none;
   font-weight: 700;
   font-size: 18px;
-    transition: background-color 100ms ease;
 }
 
-
+.help-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
 
 .user-initials {
   cursor: pointer;
@@ -101,13 +104,13 @@ header {
   color: var(--color-text);
   text-align: center;
   font-weight: bold;
-  font-size: 16px;
-    transition: background-color 100ms ease;
+  font-size: var(--fs-base);
 }
 
-.user-initials:hover, .help-btn:hover {
-  background-color: rgba(12, 46, 98, 0.12);
-}
+.user-initials:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+} 
 
 
 .header-right {
@@ -123,14 +126,15 @@ header {
 .user-dropdown {
   position: absolute;
   right: 0;
-  top: 150%;
+  top: 100%;
   min-width: 150px;
   display: none;
   flex-direction: column;
   padding: 8px;
+  border-top: 10px solid transparent;
   background-color: var(--color-primary);
-  /* background-clip: padding-box; */
-  border-radius: 12px 12px 12px 12px;
+  background-clip: padding-box;
+  border-radius: 12px 0 12px 12px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
   z-index: 30;
 }
@@ -144,7 +148,7 @@ header {
   text-decoration: none;
   padding: 8px 14px;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: var(--fs-base);
   cursor: pointer;
   white-space: nowrap;
 }
