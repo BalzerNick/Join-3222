@@ -147,7 +147,6 @@ input {
 .input-img {
     position: absolute;
     right: 15px;
-
 }
 
 .arrow,
@@ -275,7 +274,7 @@ input {
 .subtask-icon {
     width: 14px;
     height: 14px;
-    pointer-events: none;
+    cursor: pointer;
 }
 
 .button-area {
@@ -307,16 +306,37 @@ input {
 .subtask-area{
     width: 100%;
     display: flex;
+    flex-direction: column;
 }
 
 .subtask{
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    gap: 5px;
+}
+
+.subtask:hover{
+    display: flex;
 }
 
 .subtask-buttons{
-    display: flex;
-    flex-direction: row;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.subtask-buttons .input-img {
+  position: static;
+  right: auto;
+  top: auto;
+  transform: none;
+}
+
+.subtask-buttons .input-img:hover {
+    cursor: pointer;
 }

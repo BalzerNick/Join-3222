@@ -133,19 +133,26 @@
                     <label for="subtask">Subtask</label>
                     <div class="add-subtask">
                         <div class="input-wrapper">
-                            <input class="input" id="subtask" type="text" placeholder="Add new subtask" autocomplete="off">
-                            <!-- <div class="subtask-buttons input-img">
-                                <img class="input-img subtask-icon" src="assets/icons/add.svg" alt="Add subtask">
-                                <img class="input-img subtask-icon" src="" alt="/">
-                                <img class="input-img subtask-icon" src="" alt="+">
-                            </div> -->
+                            <input class="input" id="subtask" type="text" placeholder="Add new subtask" autocomplete="off" oninput="showButtons()">
+                            <div class="subtask-buttons input-img d-none" id="subtaskButtons">
+                                <img class="input-img subtask-icon pointer" src="assets/icons/close.svg" alt="x" onclick="clearSubtask()">
+                                <span>|</span>
+                                <img class="input-img subtask-icon pointer" src="assets/icons/check_black.svg" alt="Add subtask" onclick="safeSubtask()">
+                            </div>
                             
                         </div>
-                        <div class="subtask-area">
+                        <div class="subtask-area" id="subtaskArea">
                             <!-- <div class="subtask">
                                 <span>Test</span>
-                                <img src="" alt="test">
-                                <img src="" alt="test2">
+                                <img src="assets/icons/delete.svg" alt="test2">
+                                <span>|</span>
+                                <img src="assets/icons/edit.svg" alt="test">
+                            </div>
+                            <div class="subtask">
+                                <span>Test2</span>
+                                <img src="assets/icons/delete.svg" alt="test2">
+                                <span>|</span>
+                                <img src="assets/icons/edit.svg" alt="test">
                             </div> -->
                         </div>
                     </div>

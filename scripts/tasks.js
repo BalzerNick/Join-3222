@@ -1,7 +1,9 @@
 let contactArray = [];
 let names = [];
 let selectedContacts = [];
+let subtasks = {};
 let selectedPriority = "medium";
+let sub = false
 
 /**
  * 
@@ -53,7 +55,7 @@ function searchList() {
         if (text.includes(filter)) {
             items[index].style.display = "block";
         } else {
-            items[index].style.display = "none"; //hallo //test
+            items[index].style.display = "none"; 
         }
     }
 }
@@ -128,14 +130,46 @@ async function getInitials(name) {
 /**
  * 
  */
-function submitTaskData(event) {
+async function submitTaskData(event) {
     event.preventDefault();
 
-    let test = getTaskData();
-    //speichern in firebase mit PUT
+    let task = getTaskData();
+    let nextID = await getNextTaskId();
+    
+    postTask(`/tasks/${nextID}`, task);
 
     showToast("Task created", duration = 2000)
     resetTask();
+}
+
+/**
+ * 
+ * @param {*} path 
+ * @param {*} data 
+ * @returns 
+ */
+async function postTask(path ="", data = {}){
+    let response = await fetch(BASE_URL + path + ".json", {
+        method: "PUT",
+        header: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+    return responseToJson = await response.json
+}
+
+/**
+ * 
+ * @returns 
+ */
+async function getNextTaskId() {
+    let response = await fetch(BASE_URL + "/tasks.json");
+    let tasks = await response.json();
+    let id = Object.keys(tasks).length + 1
+
+
+    return "task"+id
 }
 
 /**
@@ -151,10 +185,9 @@ function getTaskData() {
         category: document.getElementById("category").value,
         status: "todo",
         assignedTo: selectedContacts,
-        subtasks: ""
+        subtasks: subtasks
     }
-    console.table(task);
-    console.table(task.assignedTo);
+
     return task;
 }
 
@@ -236,6 +269,8 @@ function renderContacts(initial, color){
 function resetTask(){
     document.getElementById("addTaskForm").reset();
     selectedContacts = [];
+    subtasks = [];
+    renderSubtask()
     resetAssignedContacts();
     selectPriority("medium")
 }
@@ -247,3 +282,75 @@ function resetAssignedContacts(){
     let contact = document.getElementById(`assignedContacts`)
     contact.innerHTML = ""
 }
+
+/**
+ * 
+ */
+function showButtons(){
+    const input = document.getElementById('subtask');
+    const buttons = document.getElementById("subtaskButtons");
+
+    if(input.value.length > 0 && sub == false){
+        buttons.classList.toggle('d-none')
+        sub = true;
+    }
+    else if(input.value.length == 0 && sub == true){
+         buttons.classList.toggle('d-none')
+        sub = false;
+    }
+}
+
+/**
+ * 
+ */
+function renderSubtask() {
+    const subtaskArea = document.getElementById('subtaskArea');
+    subtaskArea.innerHTML = "";
+    const keys = Object.keys(subtasks);
+
+    for (let i = 0; i < keys.length; i++) {
+        const key = keys[i];
+        
+        subtaskArea.innerHTML += getSubtask(key,subtasks[key].title);
+    }
+}
+
+/**
+ * 
+ */
+function safeSubtask(){
+    const input = document.getElementById('subtask').value;
+    let id = Object.keys(subtasks).length + 1;
+    
+    subtasks[`sub${id}`] = {
+        "title": input,
+        "done": false
+    };
+
+    clearSubtask()
+    renderSubtask();
+}
+
+/**
+ * 
+ */
+function deleteSubtask(key){
+    console.log(key);
+    
+    delete subtasks[key]
+    
+    renderSubtask();
+}
+
+/**
+ * 
+ */
+function clearSubtask(){
+    const input = document.getElementById('subtask');
+    input.value = "";
+    showButtons();
+}
+
+
+
+
