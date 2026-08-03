@@ -165,8 +165,14 @@
 }
 
 
+.greeting-block {
+  display: flex;
+  flex-direction: column;
+}
+
 .greetings {
-  font-size: 47px;
+  font-size: 40px;
+  margin: 0;
 }
 
 .third-line-txt {
@@ -179,10 +185,15 @@
   color: var(--color-primary);
 }
 
-
 .page-summary {
   max-width: 1440px;
   margin: 0;
   padding: 80px 24px 24px 100px;
   margin-left: 200px;
+}
+
+.user {
+  font-size: 55px;
+  margin-top: 10px;
+  margin-bottom: 0;
 }
