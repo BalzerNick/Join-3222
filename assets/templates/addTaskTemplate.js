@@ -21,6 +21,17 @@ function getContactInitial(initial, color) {
     `
 }
 
+function getSubtask(key, subtask){
+    return `
+        <div class="subtask" id="${key}">
+            <span>${subtask}</span>
+            <span>|</span>
+            <img src="assets/icons/delete.svg" alt="test2" onclick="deleteSubtask('${key}')">
+            <img src="assets/icons/edit.svg" alt="test">
+        </div>
+    `
+}
+
 function getAddTaskPage() {
     return `
     <main>
