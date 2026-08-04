@@ -1,62 +1,53 @@
 <!DOCTYPE html>
 <html lang="de">
-<!-- <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Summary Guest</title>
-    <link rel="stylesheet" href="css/style.css"> 
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/card.css">
-    <script src="./scripts/summary.js"></script>
-</head>
-<body>
-    <header>
-        <span>Kanban Project Management Tool</span>
-        <div class="header-icons">
-        <a href="help.html"><img src="assets/imgs/qmark-dark.png" alt="Question Mark" class="qmark"></a>
-        <img src="assets/imgs/G-icon.png" alt="Guest Icon" class="guest-icon">
-        </div>
-    </header>       -->
 
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join_Contacts</title>
     <link rel="icon" type="image/svg+xml" href="assets/icons/Favicon.svg">
+    
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/contacts.css">
     <link rel="stylesheet" href="css/card.css">
+   
     <script src="firebase-config.js"></script>
     <script src="./scripts/summary.js"></script>
 </head>
+
 <body onload="renderContacts(); displayUserInitials();">
     <header>
         Kanban Project Management Tool
         <div class="header-right">
         <a href="help.html" class="help-btn" aria-label="Help">?</a>
-        <span class="user-initials" id="userInitials"></span>
+        <div class="user-menu" id="userMenu">
+          <span class="user-initials" id="userInitials" onclick="toggleUserMenu()"></span>
+          <di>v class="user-dropdown">
+            <a href="legalNotice.html">Legal Notice</a>
+            <a href="privacyPolicy.html">Privacy Policy</a>
+            <a onclick="logout()">Log out</a>
+          </div>
+        </div>
         </div>
     </header>
-
-
-        <div class="menu-line">
-            <img src="assets/imgs/logoMainWhite.png" alt="Join Logo" class="menu-logo">
-            
-            <div class="menu-icons">
-                <img src="assets/imgs/summary.png" class="menu-icons-img" alt="Menu Icon">
-                <img src="assets/imgs/addtask.png" class="menu-icons-img" alt="Menu Icon">
-                <img src="assets/imgs/board.png" class="menu-icons-img" alt="Menu Icon">
-                <img src="assets/imgs/contacts.png" class="menu-icons-img" alt="Menu Icon">
-            </div>    
-            <!-- <a href="index.html" class="back-arrow"><img src="assets/imgs/summary.png" alt="Summary"></a> -->
-            <div class="policies">
-                <a href="privacyPolicy.html" class="footer-link">Privacy Policy</a>
-                <a href="legalNotice.html" class="footer-link">Legal notice</a>
-            </div>
+  
+    <div class="menu-line">
+        <img src="assets/imgs/logoMainWhite.png" alt="Join Logo" class="menu-logo">
+        <div class="menu">
+        <div class="menu-icons">
+            <a href="summary_guest.html"><img src="assets/imgs/summary.png" class="menu-icons-img" alt="Summary"></a>
+            <a href="addTask.html"><img src="assets/imgs/addtask.png" class="menu-icons-img" alt="Add Task"></a>
+            <a href="board.html"><img src="assets/imgs/board.png" class="menu-icons-img" alt="Board"></a>
+            <a href="contacts.html" class="active"><img src="assets/imgs/contacts.png" class="menu-icons-img" alt="Contacts"></a>
         </div>
-    <!-- <a href="index.html" class="back-arrow">&larr;</a> -->
+        </div>
+        <div class="policies">
+            <a href="privacyPolicy.html" class="footer-link">Privacy Policy</a>
+            <a href="legalNotice.html" class="footer-link">Legal notice</a>
+        </div>
+    </div>
 
     <main class="page-summary">
         <div class="help-heading-blue-line"><h1 class="join">Join 360</h1><img src="assets/imgs/blue-line.png" alt="Line Icon" class="blue-line">
@@ -119,8 +110,6 @@
         </div>
     </main>
 
-    <footer class="footer">
-        
-    </footer>
+  
 </body>
 </html>
