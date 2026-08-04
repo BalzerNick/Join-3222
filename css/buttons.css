@@ -32,7 +32,7 @@
 
 .btn-primary:hover {
   background-color: var(--btn-primary-bg-hover);
-  box-shadow: 2px 2px 6px 4px rgba(0,0,0,0.27);
+box-shadow: 0px 4px 0px 0px rgba(0,0,0,0.2);
 }
 
 /* Umrandeter Zweit-Button */
@@ -45,5 +45,5 @@
 .btn-secondary:hover {
   border-color: var(--btn-secondary-hover);
   color: var(--btn-secondary-hover);
-  box-shadow: 2px 2px 6px 4px rgba(0,0,0,0.27);
+box-shadow: 0px 4px 0px 0px rgba(0,0,0,0.2);
 }
