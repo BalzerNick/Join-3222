@@ -12,8 +12,8 @@ window.addEventListener('load', () => {
 });
 
 async function initPage() {
+    await loadContacts();
     await loadTasks();
-    getContacts()
 }
 
 function updateHTML() {
@@ -45,7 +45,7 @@ function renderColumn(columnId, columnName) {
     } else {
         for (let index = 0; index < filteredTasks.length; index++) {
             const element = filteredTasks[index];
-            column.innerHTML += generateTodoHTML(element);
+            column.innerHTML += getTaskTemplate(buildTaskTemplateData(element));
         }
     }
 }
@@ -55,17 +55,12 @@ function startDragging(id) {
     currentDraggedElement = id;
 }
 
-function generateTodoHTML(element) {
-    const dueDate = element.dueDate ? `<span class="task-due">${element.dueDate}</span>` : "";
-    const priority = element.priority ? getPriorityIcon(element.priority) : "";
-    const category = getCategoryBadge(element.category, false);
-    const description = element.description ? `<p class="task-description">${element.description}</p>` : "";
-    const subtaskTotal = element.subtasks ? Object.keys(element.subtasks).length : 0;
-    const subtaskDone = element.subtasks ? Object.values(element.subtasks).filter(sub => sub.done).length : 0;
+function buildTaskTemplateData(task) {
+    const category = getCategoryBadge(task.category, false);
+    const description = task.description ? `<p class="task-description">${task.description}</p>` : "";
+    const subtaskTotal = task.subtasks ? Object.keys(task.subtasks).length : 0;
+    const subtaskDone = task.subtasks ? Object.values(task.subtasks).filter(sub => sub.done).length : 0;
     const subtasks = subtaskTotal > 0 ? { done: subtaskDone, total: subtaskTotal, percent: Math.round((subtaskDone / subtaskTotal) * 100) } : null;
-
-    const avatarsHTML = getAvatarsHTML(element.assignedTo);
-
     const subtaskHTML = subtasks ? `
         <div class="subtask-row">
             <div class="subtask-wrap">
@@ -75,26 +70,15 @@ function generateTodoHTML(element) {
                 <div class="subtask-count">${subtasks.done}/${subtasks.total} Subtasks</div>
             </div>
         </div>` : "";
-
-    return `
-        <div draggable="true"
-             ondragstart="startDragging('${element.id}')"
-             onclick="openTaskDetail('${element.id}')"
-             class="todo">
-            <div class="task-topline">
-                <div class="task-topline-left">${category}</div>
-            </div>
-            <h3 class="task-title">${element.title}</h3>
-            ${description}
-
-            ${subtaskHTML}
-            <div class="task-footer">
-                <div class="footer-left">
-                    <div class="avatars">${avatarsHTML}</div>
-                </div>
-                <div class="footer-right">${priority}</div>
-            </div>
-        </div>`;
+    return {
+        id: task.id,
+        title: task.title,
+        category,
+        description,
+        priority: task.priority ? getPriorityIcon(task.priority) : "",
+        avatarsHTML: getAvatarsHTML(task.assignedTo),
+        subtaskHTML
+    };
 }
 
 function allowDrop(ev) {
@@ -102,16 +86,39 @@ function allowDrop(ev) {
     ev.preventDefault();
 }
 
-function moveTo(category) {
+async function moveTo(category) {
     // Change the status of the dragged task and refresh the board.
     const task = todos.find(t => t.id === currentDraggedElement);
     if (task) {
+        const previousStatus = task.status;
         task.status = category;
+        updateHTML();
+
+        try {
+            await updateTaskStatus(task.id, category);
+        } catch (error) {
+            console.error("Failed to persist task status update", error);
+            task.status = previousStatus;
+            updateHTML();
+        }
     }
     // Remove highlight from the drop target so it doesn't remain highlighted after drop.
     const target = document.getElementById(category);
     if (target) removeHighlight(category);
-    updateHTML();
+}
+
+async function updateTaskStatus(taskId, status) {
+    const response = await fetch(BASE_URL + `tasks/${taskId}.json`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ status })
+    });
+
+    if (!response.ok) {
+        throw new Error(`Firebase status update failed: ${response.status} ${response.statusText}`);
+    }
 }
 
 function highlight(id) {
@@ -156,10 +163,33 @@ function normalizeTask(task) {
     return { ...task, status };
 }
 
+async function loadContacts() {
+    try {
+        const response = await fetch(BASE_URL + "contacts.json");
+        if (response.ok) {
+            allContacts = await response.json();
+        } else {
+            console.error("Failed to load Firebase contacts", response.status, response.statusText);
+            allContacts = {};
+        }
+    } catch (error) {
+        console.error("Firebase contacts load failed", error);
+        allContacts = {};
+    }
+}
+
 function renderAssignedContacts(ids) {
     if (!ids || !Array.isArray(ids) || ids.length === 0) return "<p class='detail-empty'>No assigned contacts</p>";
-    return ids.map(id => {
-        const contact = allContacts[id] || { name: id };
+    return ids.map(item => {
+        let contact;
+        if (typeof item === 'string') {
+            contact = allContacts[item] || { name: item };
+        } else if (item && typeof item === 'object') {
+            const name = item.name || item.Name || item.Name || item.Initials || JSON.stringify(item);
+            contact = { name };
+        } else {
+            contact = { name: String(item) };
+        }
         const initials = getBoardInitials(contact.name);
         const color = getAvatarColor(contact.name);
         return `
@@ -189,47 +219,24 @@ function openTaskDetail(id) {
     const modal = document.getElementById('task-detail-modal');
     const modalBody = document.getElementById('task-detail-body');
 
-    modalBody.innerHTML = getTaskDetailHTML(task);
-    modal.classList.remove('hidden');
-}
-
-function getTaskDetailHTML(task) {
     const category = getCategoryBadge(task.category, true);
     const priority = task.priority ? getPriorityIcon(task.priority) : "";
     const description = task.description ? `<p class="task-detail-description">${escapeHtml(task.description)}</p>` : "";
     const dueDate = task.dueDate ? `<span class="detail-value">${escapeHtml(task.dueDate)}</span>` : "<span class='detail-empty'>No due date</span>";
+    const assignedContactsHTML = renderAssignedContacts(task.assignedTo);
+    const subtasksHTML = renderSubtasks(task.id, task.subtasks);
 
-    return `
-        <div class="task-detail-card">
-            <div class="task-detail-top">
-                <div>${category}</div>
-                <button class="modal-close task-detail-close" onclick="closeTaskDetail()">&times;</button>
-            </div>
-            <h2 class="detail-title">${escapeHtml(task.title)}</h2>
-            ${description}
-            <div class="detail-grid">
-                <div class="detail-block">
-                    <span class="detail-label">Due date:</span>
-                    ${dueDate}
-                </div>
-                <div class="detail-block">
-                    <span class="detail-label">Priority:</span>
-                    ${priority}
-                </div>
-            </div>
-            <div class="detail-section">
-                <h3>Assigned To:</h3>
-                <div class="assigned-list">${renderAssignedContacts(task.assignedTo)}</div>
-            </div>
-            <div class="detail-section">
-                <h3>Subtasks</h3>
-                <ul class="subtask-list">${renderSubtasks(task.id, task.subtasks)}</ul>
-            </div>
-            <div class="detail-actions">
-                <button class="btn-detail btn-delete" onclick="deleteTask('${task.id}')">Delete</button>
-                <button class="btn-detail btn-edit" onclick="enterEditMode('${task.id}')">Edit</button>
-            </div>
-        </div>`;
+    modalBody.innerHTML = getTaskDetailTemplate({
+        id: task.id,
+        title: task.title,
+        category,
+        priority,
+        description,
+        dueDate,
+        assignedContactsHTML,
+        subtasksHTML
+    });
+    modal.classList.remove('hidden');
 }
 
 function escapeHtml(text) {
@@ -252,65 +259,21 @@ function enterEditMode(taskId) {
         done: !!sub.done
     }));
 
-    const modalBody = document.getElementById('task-detail-body');
-    modalBody.innerHTML = getTaskEditHTML(task);
-    setupTaskEditForm();
-}
-
-function getTaskEditHTML(task) {
     const category = getCategoryBadge(task.category, true);
     const dueDate = task.dueDate ? escapeHtml(task.dueDate) : "";
     const description = task.description ? escapeHtml(task.description) : "";
+    const assignedContactsHTML = renderAssignedContacts(task.assignedTo);
+    const modalBody = document.getElementById('task-detail-body');
 
-    return `
-        <div class="task-detail-card">
-            <div class="task-detail-top">
-                <div>${category}</div>
-                <button class="modal-close task-detail-close" onclick="closeTaskDetail()">&times;</button>
-            </div>
-            <form id="task-edit-form" class="task-edit-form" onsubmit="saveTaskEdits(event)">
-                <div class="form-row">
-                    <label for="editTaskTitle">Title</label>
-                    <input id="editTaskTitle" class="task-edit-input" type="text" value="${escapeHtml(task.title)}" required>
-                </div>
-                <div class="form-row">
-                    <label for="editTaskDescription">Description</label>
-                    <textarea id="editTaskDescription" class="task-edit-textarea">${description}</textarea>
-                </div>
-                <div class="detail-grid edit-grid">
-                    <div class="detail-block edit-block">
-                        <label class="detail-label" for="editTaskDeadline">Due date</label>
-                        <input id="editTaskDeadline" class="task-edit-input" type="date" value="${dueDate}">
-                    </div>
-                    <div class="detail-block edit-block">
-                        <span class="detail-label">Priority</span>
-                        <div class="edit-priority-buttons">
-                            <button type="button" class="priority-select" onclick="setEditPriority('urgent')">Urgent</button>
-                            <button type="button" class="priority-select" onclick="setEditPriority('medium')">Medium</button>
-                            <button type="button" class="priority-select" onclick="setEditPriority('low')">Low</button>
-                        </div>
-                        <input type="hidden" id="editTaskPriority" value="${escapeHtml(task.priority || 'medium')}">
-                    </div>
-                </div>
-                <div class="detail-section">
-                    <h3>Assigned To</h3>
-                    <div class="assigned-list">${renderAssignedContacts(task.assignedTo)}</div>
-                </div>
-                <div class="detail-section">
-                    <h3>Subtasks</h3>
-                    <div class="subtask-entry">
-                        <input id="editSubtaskInput" class="task-edit-input" type="text" placeholder="Add new subtask">
-                        <button type="button" class="icon-button" onclick="addEditSubtask()">✔</button>
-                        <button type="button" class="icon-button" onclick="resetEditSubtaskInput()">✖</button>
-                    </div>
-                    <div id="editSubtaskList" class="subtask-list edit-subtask-list"></div>
-                </div>
-                <div class="detail-actions">
-                    <button type="button" class="btn-detail btn-delete" onclick="deleteTask('${task.id}')">Delete</button>
-                    <button type="submit" class="btn-detail btn-edit">Save</button>
-                </div>
-            </form>
-        </div>`;
+    modalBody.innerHTML = getTaskEditTemplate({
+        id: task.id,
+        title: task.title,
+        category,
+        dueDate,
+        description,
+        assignedContactsHTML
+    });
+    setupTaskEditForm();
 }
 
 function setupTaskEditForm() {
@@ -418,16 +381,14 @@ async function loadTasks() {
     let tasksData = null;
 
     try {
-        const response = await fetch("database-import.json");
+        const response = await fetch(BASE_URL + "tasks.json");
         if (response.ok) {
-            const localData = await response.json();
-            tasksData = localData.tasks;
-            allContacts = localData.contacts || {};
+            tasksData = await response.json();
         } else {
-            console.error("Failed to load local task data", response.status, response.statusText);
+            console.error("Failed to load Firebase task data", response.status, response.statusText);
         }
     } catch (error) {
-        console.error("Local load failed", error);
+        console.error("Firebase task load failed", error);
     }
 
     if (tasksData && typeof tasksData === "object") {
@@ -436,6 +397,7 @@ async function loadTasks() {
         todos = [];
     }
 
+    console.info("Board loaded tasks:", todos.length, todos.map(task => task.id));
     updateHTML();
 }
 
@@ -465,19 +427,50 @@ function getBoardInitials(name) {
 function getAvatarsHTML(ids) {
     if (!ids || !Array.isArray(ids) || ids.length === 0) return "";
     const max = 3;
-    return ids.slice(0, max).map(id => {
-        const contact = allContacts[id] || { name: id };
+    return ids.slice(0, max).map(item => {
+        let contact;
+        if (typeof item === 'string') {
+            contact = allContacts[item] || { name: item };
+        } else if (item && typeof item === 'object') {
+            const name = item.name || item.Name || item.Initials || JSON.stringify(item);
+            contact = { name };
+        } else {
+            contact = { name: String(item) };
+        }
         const initials = getBoardInitials(contact.name);
         const color = getAvatarColor(contact.name);
         return getContactInitial(initials, color);
     }).join("");
 }
 
-function toggleSubtaskDone(taskId, subtaskId, done) {
+async function toggleSubtaskDone(taskId, subtaskId, done) {
     const task = todos.find(t => t.id === taskId);
     if (!task || !task.subtasks || !task.subtasks[subtaskId]) return;
+
     task.subtasks[subtaskId].done = done;
     updateHTML();
+
+    try {
+        await updateSubtaskDone(taskId, subtaskId, done);
+    } catch (error) {
+        console.error("Failed to persist subtask state", error);
+        task.subtasks[subtaskId].done = !done;
+        updateHTML();
+    }
+}
+
+async function updateSubtaskDone(taskId, subtaskId, done) {
+    const response = await fetch(BASE_URL + `tasks/${taskId}/subtasks/${subtaskId}.json`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ done })
+    });
+
+    if (!response.ok) {
+        throw new Error(`Firebase subtask update failed: ${response.status} ${response.statusText}`);
+    }
 }
 
 function getCategoryBadge(category, isDetail = false) {
