@@ -51,7 +51,10 @@ header {
   cursor: pointer;
 }
 
-.menu-icons a:hover,
+.menu-icons a:hover{
+  background-color: #2A3D59;
+}
+
 .menu-icons a.active {
   background-color: #091931;
 }
