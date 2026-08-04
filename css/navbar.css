@@ -48,7 +48,6 @@ header {
   align-items: center;
   width: 100%;
   box-sizing: border-box;
-  padding: 8px 0 8px 30px;
   cursor: pointer;
 }
 
@@ -58,7 +57,7 @@ header {
 }
 
 .menu-icons-img {
-  width: 150px;
+  width: 100%;
   height: auto;
   display: block;
 }
@@ -74,8 +73,8 @@ header {
 
 .help-btn {
   margin-right: 40px;
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   border: 2px solid var(--color-primary);
   color: var(--color-primary);

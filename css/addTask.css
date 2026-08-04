@@ -155,11 +155,6 @@ input {
     align-items: center;
 }
 
-.contact-li:hover {}
-
-.avatar {
-    padding-left: 10px;
-}
 
 .contact-checkbox {
     margin: 10px;
