@@ -13,6 +13,9 @@ window.addEventListener('load', () => {
 
 async function initPage() {
     await loadContacts();
+    if (typeof getContacts === 'function') {
+        await getContacts();
+    }
     await loadTasks();
 }
 
@@ -131,12 +134,203 @@ function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area-highlight');
 }
 
-function openAddTaskDialog() {
+function openAddTaskDialog(status = 'todo') {
     const modal = document.getElementById('add-task-modal');
     const modalBody = document.getElementById('modal-body');
 
     modalBody.innerHTML = getAddTaskPage();
+    resetBoardAddTaskState();
+    injectBoardTaskStatus(status);
+    attachBoardTaskFormHandler();
+    setupBoardSubtaskControls();
     modal.classList.remove('hidden');
+    document.body.classList.add('modal-open');
+}
+
+function resetBoardAddTaskState() {
+    if (typeof selectedContacts !== 'undefined') {
+        selectedContacts = [];
+    }
+    if (typeof subtasks !== 'undefined') {
+        subtasks = {};
+    }
+    if (typeof sub !== 'undefined') {
+        sub = false;
+    }
+    if (typeof editingSubtaskKey !== 'undefined') {
+        editingSubtaskKey = null;
+    }
+    if (typeof selectedPriority !== 'undefined') {
+        selectedPriority = 'medium';
+    }
+
+    const subtaskInput = document.getElementById('subtask');
+    if (subtaskInput) {
+        subtaskInput.value = '';
+    }
+    const subtaskArea = document.getElementById('subtaskArea');
+    if (subtaskArea) {
+        subtaskArea.innerHTML = '';
+    }
+    const assignedContacts = document.getElementById('assignedContacts');
+    if (assignedContacts) {
+        assignedContacts.innerHTML = '';
+    }
+    const subtaskButtons = document.getElementById('subtaskButtons');
+    if (subtaskButtons) {
+        subtaskButtons.classList.add('d-none');
+    }
+}
+
+function injectBoardTaskStatus(status) {
+    const form = document.getElementById('addTaskForm');
+    if (!form) return;
+
+    let statusInput = document.getElementById('taskStatus');
+    if (!statusInput) {
+        statusInput = document.createElement('input');
+        statusInput.type = 'hidden';
+        statusInput.id = 'taskStatus';
+        statusInput.name = 'taskStatus';
+        form.appendChild(statusInput);
+    }
+    statusInput.value = status;
+}
+
+function attachBoardTaskFormHandler() {
+    const form = document.getElementById('addTaskForm');
+    if (!form) return;
+
+    form.onsubmit = submitBoardTaskData;
+}
+
+function setupBoardSubtaskControls() {
+    const subtaskInput = document.getElementById('subtask');
+    if (!subtaskInput) return;
+
+    const subtaskArea = document.querySelector('.subtask-area');
+    if (subtaskArea && !subtaskArea.id) {
+        subtaskArea.id = 'subtaskArea';
+    }
+
+    subtaskInput.oninput = function() {
+        if (typeof showButtons === 'function') {
+            showButtons();
+        }
+    };
+
+    const wrapper = subtaskInput.parentElement;
+    if (!wrapper) return;
+
+    if (!document.getElementById('subtaskButtons')) {
+        const buttons = document.createElement('div');
+        buttons.className = 'subtask-buttons input-img d-none';
+        buttons.id = 'subtaskButtons';
+        buttons.innerHTML = `
+            <img class="input-img subtask-icon pointer" src="assets/icons/close.svg" alt="x" onclick="clearSubtask()">
+            <span>|</span>
+            <img class="input-img subtask-icon pointer" src="assets/icons/check_black.svg" alt="Add subtask" onclick="safeSubtask()">
+        `;
+        wrapper.appendChild(buttons);
+    }
+}
+
+async function submitBoardTaskData(event) {
+    event.preventDefault();
+
+    const title = document.getElementById('taskName')?.value.trim();
+    if (!title) {
+        alert('Please enter a title.');
+        return;
+    }
+
+    const task = {
+        title,
+        description: document.getElementById('taskDescription')?.value.trim() || '',
+        dueDate: document.getElementById('taskDeadline')?.value || '',
+        priority: getBoardDialogPriority(),
+        category: document.getElementById('category')?.value || '',
+        status: document.getElementById('taskStatus')?.value || 'todo',
+        assignedTo: typeof selectedContacts !== 'undefined' ? selectedContacts : [],
+        subtasks: typeof subtasks !== 'undefined' ? subtasks : {}
+    };
+
+    try {
+        const nextID = await getNextBoardTaskId();
+        const response = await fetch(BASE_URL + `tasks/${nextID}.json`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(task)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Task create failed: ${response.status} ${response.statusText}`);
+        }
+    } catch (error) {
+        console.error('Board task creation failed', error);
+        alert('Failed to create task. Please try again.');
+        return;
+    }
+
+    if (typeof resetTask === 'function') {
+        try {
+            resetTask();
+        } catch (resetError) {
+            console.warn('Board resetTask failed', resetError);
+        }
+    }
+
+    closeAddTaskDialog();
+    await loadTasks();
+    showBoardToast('Task added to Board', 2000);
+}
+
+function getBoardDialogPriority() {
+    const urgent = document.getElementById('btnUrgent');
+    const medium = document.getElementById('btnMedium');
+    const low = document.getElementById('btnLow');
+
+    if (urgent?.classList.contains('selected')) return 'urgent';
+    if (low?.classList.contains('selected')) return 'low';
+    if (medium?.classList.contains('selected')) return 'medium';
+    return 'medium';
+}
+
+function showBoardToast(message, duration = 2000) {
+    const toast = document.getElementById('center-toast');
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('center-toast-visible');
+    if (toast._timeout) {
+        clearTimeout(toast._timeout);
+    }
+    toast._timeout = setTimeout(() => {
+        toast.classList.remove('center-toast-visible');
+        toast._timeout = null;
+    }, duration);
+}
+
+async function getNextBoardTaskId() {
+    const response = await fetch(BASE_URL + 'tasks.json');
+    if (!response.ok) {
+        throw new Error(`Firebase load tasks failed: ${response.status} ${response.statusText}`);
+    }
+    const tasks = await response.json();
+    if (!tasks || typeof tasks !== 'object') {
+        return 'task1';
+    }
+
+    const ids = Object.keys(tasks)
+        .map(key => {
+            const match = key.match(/^task(\d+)$/);
+            return match ? Number(match[1]) : 0;
+        })
+        .filter(num => num > 0);
+
+    const next = ids.length === 0 ? 1 : Math.max(...ids) + 1;
+    return 'task' + next;
 }
 
 function closeAddTaskDialog(event) {
@@ -145,6 +339,7 @@ function closeAddTaskDialog(event) {
     const modal = document.getElementById('add-task-modal');
     modal.classList.add('hidden');
     document.getElementById('modal-body').innerHTML = '';
+    removeModalOpenFlag();
 }
 
 function closeTaskDetail(event) {
@@ -154,6 +349,7 @@ function closeTaskDetail(event) {
     document.getElementById('task-detail-body').innerHTML = '';
     editingTaskId = null;
     taskEditSubtasks = [];
+    removeModalOpenFlag();
 }
 
 function normalizeTask(task) {
@@ -237,6 +433,11 @@ function openTaskDetail(id) {
         subtasksHTML
     });
     modal.classList.remove('hidden');
+    document.body.classList.add('modal-open');
+}
+
+function removeModalOpenFlag() {
+    document.body.classList.remove('modal-open');
 }
 
 function escapeHtml(text) {
@@ -263,6 +464,7 @@ function enterEditMode(taskId) {
     const dueDate = task.dueDate ? escapeHtml(task.dueDate) : "";
     const description = task.description ? escapeHtml(task.description) : "";
     const assignedContactsHTML = renderAssignedContacts(task.assignedTo);
+    const priority = task.priority ? String(task.priority).toLowerCase() : 'medium';
     const modalBody = document.getElementById('task-detail-body');
 
     modalBody.innerHTML = getTaskEditTemplate({
@@ -271,7 +473,8 @@ function enterEditMode(taskId) {
         category,
         dueDate,
         description,
-        assignedContactsHTML
+        assignedContactsHTML,
+        priority
     });
     setupTaskEditForm();
 }
@@ -291,9 +494,9 @@ function setupTaskEditForm() {
 }
 
 function updateEditPriorityButtons() {
-    const current = document.getElementById('editTaskPriority')?.value || 'medium';
+    const current = (document.getElementById('editTaskPriority')?.value || 'medium').toLowerCase();
     document.querySelectorAll('.priority-select').forEach(button => {
-        button.classList.toggle('selected', button.textContent.toLowerCase() === current);
+        button.classList.toggle('selected', button.textContent.trim().toLowerCase() === current);
     });
 }
 
@@ -346,11 +549,15 @@ function editTaskSubtask(subtaskId) {
     renderEditSubtasks();
 }
 
-function saveTaskEdits(event) {
+async function saveTaskEdits(event) {
     event.preventDefault();
     const task = todos.find(t => t.id === editingTaskId);
     if (!task) return;
 
+    const previousTask = {
+        ...task,
+        subtasks: JSON.parse(JSON.stringify(task.subtasks || {}))
+    };
     const title = document.getElementById('editTaskTitle')?.value.trim();
     const description = document.getElementById('editTaskDescription')?.value.trim();
     const dueDate = document.getElementById('editTaskDeadline')?.value;
@@ -365,16 +572,70 @@ function saveTaskEdits(event) {
         return obj;
     }, {});
 
+    const updates = {
+        title: task.title,
+        description: task.description,
+        dueDate: task.dueDate,
+        priority: task.priority,
+        subtasks: task.subtasks
+    };
+
     editingTaskId = null;
     taskEditSubtasks = [];
     updateHTML();
     closeTaskDetail();
+
+    try {
+        await updateTaskData(task.id, updates);
+    } catch (error) {
+        console.error('Failed to save task edits', error);
+        const originalIndex = todos.findIndex(t => t.id === task.id);
+        if (originalIndex !== -1) {
+            todos[originalIndex] = previousTask;
+        }
+        updateHTML();
+        alert('Speichern fehlgeschlagen. Bitte versuche es erneut.');
+    }
 }
 
-function deleteTask(taskId) {
+async function deleteTask(taskId) {
+    const previousTodos = [...todos];
     todos = todos.filter(task => task.id !== taskId);
     updateHTML();
     closeTaskDetail();
+
+    try {
+        await deleteTaskFromFirebase(taskId);
+    } catch (error) {
+        console.error('Failed to delete task', error);
+        todos = previousTodos;
+        updateHTML();
+        alert('Löschen fehlgeschlagen. Bitte versuche es erneut.');
+    }
+}
+
+async function updateTaskData(taskId, updates) {
+    const response = await fetch(BASE_URL + `tasks/${taskId}.json`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updates)
+    });
+
+    if (!response.ok) {
+        throw new Error(`Firebase task update failed: ${response.status} ${response.statusText}`);
+    }
+}
+
+async function deleteTaskFromFirebase(taskId) {
+    const response = await fetch(BASE_URL + `tasks/${taskId}.json`, {
+        method: 'DELETE'
+    });
+
+    if (!response.ok) {
+        throw new Error(`Firebase task delete failed: ${response.status} ${response.statusText}`);
+    }
 }
 
 async function loadTasks() {
