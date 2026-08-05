@@ -1,7 +1,0 @@
-async function loadNavbar() {
-  let response = await fetch('assets/templates/navbar.html');
-  let container = document.getElementById('navbarContainer');
-  if (container) container.innerHTML = await response.text();
-}
-
-window.addEventListener('DOMContentLoaded', loadNavbar);
