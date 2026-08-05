@@ -7,10 +7,9 @@
   line-height: 1.5;
 }
 
-.legal-notice h1 {
-  font-size: var(--fs-xxl);
+/* .legal-notice h1 {
   margin-bottom: 40px;
-}
+} */
 
 .legal-notice h2 {
   font-size: 24px;
