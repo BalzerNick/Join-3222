@@ -4,6 +4,7 @@ let selectedContacts = [];
 let subtasks = {};
 let selectedPriority = "medium";
 let sub = false
+let editingSubtaskKey = null;
 
 /**
  * 
@@ -94,7 +95,7 @@ async function getContactElement(result) {
     for (const element of contacts) {
         let contact = {
             Name: element.name,
-            Initials: await getInitials(element.name),
+            Initials: element.initials,
             Color: getAvatarColor(element.name)
         }
         contactArray.push(contact);
@@ -114,21 +115,7 @@ function getCoWorker() {
 }
 
 /**
- * 
- * @param {*} name 
- * @returns 
- */
-async function getInitials(name) {
-    let initials = name
-        .split(" ")
-        .map(word => word[0])
-        .join("");
-
-    return initials
-}
-
-/**
- * 
+ *
  */
 async function submitTaskData(event) {
     event.preventDefault();
@@ -167,7 +154,6 @@ async function getNextTaskId() {
     let response = await fetch(BASE_URL + "/tasks.json");
     let tasks = await response.json();
     let id = Object.keys(tasks).length + 1
-
 
     return "task"+id
 }
@@ -310,8 +296,12 @@ function renderSubtask() {
 
     for (let i = 0; i < keys.length; i++) {
         const key = keys[i];
-        
-        subtaskArea.innerHTML += getSubtask(key,subtasks[key].title);
+
+        if (key === editingSubtaskKey) {
+            subtaskArea.innerHTML += getSubtaskEdit(key, subtasks[key].title);
+        } else {
+            subtaskArea.innerHTML += getSubtask(key, subtasks[key].title);
+        }
     }
 }
 
@@ -332,13 +322,44 @@ function safeSubtask(){
 }
 
 /**
- * 
+ *
  */
 function deleteSubtask(key){
     console.log(key);
-    
+
     delete subtasks[key]
-    
+
+    if (editingSubtaskKey === key) {
+        editingSubtaskKey = null;
+    }
+
+    renderSubtask();
+}
+
+/**
+ *
+ */
+function editSubtask(key){
+    editingSubtaskKey = key;
+    renderSubtask();
+
+    const input = document.getElementById(`editInput-${key}`);
+    input.focus();
+    input.setSelectionRange(input.value.length, input.value.length);
+}
+
+/**
+ *
+ */
+function confirmEditSubtask(key){
+    const input = document.getElementById(`editInput-${key}`);
+    const value = input.value.trim();
+
+    if (value.length > 0) {
+        subtasks[key].title = value;
+    }
+
+    editingSubtaskKey = null;
     renderSubtask();
 }
 

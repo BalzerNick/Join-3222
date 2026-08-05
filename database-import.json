@@ -77,58 +77,68 @@
 
 
   },
-  "contacts": {
-    "contact1": {
-      "name": "Anna Schmidt",
-      "email": "anna.schmidt@example.com",
-      "phone": "+49 151 1234567"
-    },
-    "contact2": {
-      "name": "Ben Fischer",
-      "email": "ben.fischer@example.com",
-      "phone": "+49 160 2345678"
-    },
-    "contact3": {
-      "name": "Clara Weber",
-      "email": "clara.weber@example.com",
-      "phone": "+49 170 3456789"
-    },
-    "contact4": {
-      "name": "David Mueller",
-      "email": "david.mueller@example.com",
-      "phone": "+49 152 4567890"
-    },
-    "contact5": {
-      "name": "Emma Wagner",
-      "email": "emma.wagner@example.com",
-      "phone": "+49 176 5678901"
-    },
-    "contact6": {
-      "name": "Felix Becker",
-      "email": "felix.becker@example.com",
-      "phone": "+49 157 6789012"
-    },
-    "contact7": {
-      "name": "Greta Hoffmann",
-      "email": "greta.hoffmann@example.com",
-      "phone": "+49 151 7890123"
-    },
-    "contact8": {
-      "name": "Hannes Schulz",
-      "email": "hannes.schulz@example.com",
-      "phone": "+49 160 8901234"
-    },
-    "contact9": {
-      "name": "Ida Koch",
-      "email": "ida.koch@example.com",
-      "phone": "+49 170 9012345"
-    },
-    "contact10": {
-      "name": "Jan Richter",
-      "email": "jan.richter@example.com",
-      "phone": "+49 152 0123456"
-    }
-  },
+ "contacts": {
+   "contact1": {
+     "email": "anna.schmidt@example.com",
+     "initials": "AS",
+     "name": "Anna Schmidt",
+     "phone": "+49 151 1234567"
+   },
+   "contact10": {
+     "email": "jan.richter@example.com",
+     "initials": "JR",
+     "name": "Jan Richter",
+     "phone": "+49 152 0123456"
+   },
+   "contact2": {
+     "email": "ben.fischer@example.com",
+     "initials": "BF",
+     "name": "Ben Fischer",
+     "phone": "+49 160 2345678"
+   },
+   "contact3": {
+     "email": "clara.weber@example.com",
+     "initials": "CW",
+     "name": "Clara Weber",
+     "phone": "+49 170 3456789"
+   },
+   "contact4": {
+     "email": "david.mueller@example.com",
+     "initials": "DM",
+     "name": "David Mueller",
+     "phone": "+49 152 4567890"
+   },
+   "contact5": {
+     "email": "emma.wagner@example.com",
+     "initials": "EW",
+     "name": "Emma Wagner",
+     "phone": "+49 176 5678901"
+   },
+   "contact6": {
+     "email": "felix.becker@example.com",
+     "initials": "FB",
+     "name": "Felix Becker",
+     "phone": "+49 157 6789012"
+   },
+   "contact7": {
+     "email": "greta.hoffmann@example.com",
+     "initials": "GH",
+     "name": "Greta Hoffmann",
+     "phone": "+49 151 7890123"
+   },
+   "contact8": {
+     "email": "hannes.schulz@example.com",
+     "initials": "HS",
+     "name": "Hannes Schulz",
+     "phone": "+49 160 8901234"
+   },
+   "contact9": {
+     "email": "ida.koch@example.com",
+     "initials": "IK",
+     "name": "Ida Koch",
+     "phone": "+49 170 9012345"
+   }
+ },
   "users": {
     "user1": {
       "name": "Max Mustermann",

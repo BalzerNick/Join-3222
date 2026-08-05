@@ -307,17 +307,75 @@ input {
     width: 100%;
     display: flex;
     flex-direction: column;
+    margin-top: 8px;
 }
 
 .subtask{
     width: 100%;
+    box-sizing: border-box;
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 10px;
 }
 
 .subtask:hover{
+    background-color: var(--color-bg);
+}
+
+.subtask-text {
+    overflow-wrap: anywhere;
+}
+
+.subtask-text::before {
+    content: "•";
+    margin-right: 8px;
+}
+
+.subtask-actions {
     display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 150ms ease;
+}
+
+.subtask:hover .subtask-actions {
+    opacity: 1;
+}
+
+.subtask-divider {
+    color: var(--color-border);
+}
+
+.subtask-editing {
+    padding: 8px 12px 4px;
+    border-radius: 0;
+}
+
+.subtask-edit-input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    border-bottom: 1px solid var(--color-accent);
+    border-radius: 0;
+    padding: 4px 4px 8px;
+    font-size: 16px;
+    font-family: inherit;
+    color: var(--color-primary);
+    background: transparent;
+}
+
+.subtask-edit-input:focus {
+    outline: none;
+}
+
+.subtask-actions-edit {
+    opacity: 1;
 }
 
 .subtask-buttons{
