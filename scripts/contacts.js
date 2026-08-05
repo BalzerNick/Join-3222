@@ -93,7 +93,7 @@ function fillTemplate(template, contact) {
   return template
     .replaceAll("{{id}}", contact.id)
     .replaceAll("{{color}}", getAvatarColor(contact.name))
-    .replaceAll("{{initials}}", getInitials(contact.name))
+    .replaceAll("{{initials}}", contact.initials)
     .replaceAll("{{name}}", contact.name)
     .replaceAll("{{email}}", contact.email);
 }
@@ -182,7 +182,8 @@ function getNewContact() {
   return {
     name: document.getElementById('newContactName').value.trim(),
     email: document.getElementById('newContactEmail').value.trim(),
-    phone: document.getElementById('newContactPhone').value.trim()
+    phone: document.getElementById('newContactPhone').value.trim(),
+    initials: getInitials(document.getElementById('newContactName').value.trim())
   };
 }
 
@@ -258,7 +259,8 @@ function getEditContact() {
   return {
     name: document.getElementById('editContactName').value.trim(),
     email: document.getElementById('editContactEmail').value.trim(),
-    phone: document.getElementById('editContactPhone').value.trim()
+    phone: document.getElementById('editContactPhone').value.trim(),
+    initials: getInitials(document.getElementById('editContactName').value.trim())
   };
 }
 

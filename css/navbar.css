@@ -52,14 +52,16 @@ header {
 }
 
 .menu-icons a:hover{
-  background-color: #2A3D59;
+  background-color: rgba(12, 46, 98);
 }
+
 
 .menu-icons a.active {
   background-color: #091931;
 }
 
 .menu-icons-img {
+  width: 100%;
   width: 100%;
   height: auto;
   display: block;

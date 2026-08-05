@@ -155,3 +155,11 @@
   font-size: var(--fs-sm);
   color: var(--color-primary);
 }
+
+/* Nur in Marcus' card.css vorhanden, fehlt auf main */
+.page-summary {
+  max-width: 1440px;
+  margin: 0;
+  padding: 80px 24px 24px 100px;
+  margin-left: 200px;
+}

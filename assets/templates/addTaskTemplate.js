@@ -24,10 +24,25 @@ function getContactInitial(initial, color) {
 function getSubtask(key, subtask){
     return `
         <div class="subtask" id="${key}">
-            <span>${subtask}</span>
-            <span>|</span>
-            <img src="assets/icons/delete.svg" alt="test2" onclick="deleteSubtask('${key}')">
-            <img src="assets/icons/edit.svg" alt="test">
+            <span class="subtask-text">${subtask}</span>
+            <div class="subtask-actions">
+                <img class="subtask-icon pointer" src="assets/icons/edit.svg" alt="Edit subtask" onclick="editSubtask('${key}')">
+                <span class="subtask-divider">|</span>
+                <img class="subtask-icon pointer" src="assets/icons/delete.svg" alt="Delete subtask" onclick="deleteSubtask('${key}')">
+            </div>
+        </div>
+    `
+}
+
+function getSubtaskEdit(key, subtask){
+    return `
+        <div class="subtask subtask-editing" id="${key}">
+            <input class="subtask-edit-input" id="editInput-${key}" type="text" value="${subtask}" autocomplete="off"
+                onkeydown="if(event.key === 'Enter'){ event.preventDefault(); confirmEditSubtask('${key}'); }">
+            <div class="subtask-actions subtask-actions-edit">
+                <img class="subtask-icon pointer" src="assets/icons/delete.svg" alt="Delete subtask" onclick="deleteSubtask('${key}')">
+                <img class="subtask-icon pointer" src="assets/icons/check_black.svg" alt="Confirm edit" onclick="confirmEditSubtask('${key}')">
+            </div>
         </div>
     `
 }

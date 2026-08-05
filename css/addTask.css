@@ -13,7 +13,7 @@ h1 {
     margin-bottom: 30px;
 }
 
-form{
+form {
     max-width: 900px;
 }
 
@@ -76,8 +76,49 @@ form{
     gap: 16px;
 }
 
-.priority-icon {
-    font-weight: 700;
+.btn-priority-urgent,
+.btn-priority-medium,
+.btn-priority-low {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-sizing: border-box;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: var(--color-primary);
+    font-size: var(--fs-base);
+    font-family: inherit;
+    padding: 12px 16px;
+    min-width: 100px;
+    white-space: nowrap;
+}
+
+.btn-priority-urgent:hover,
+.btn-priority-medium:hover,
+.btn-priority-low:hover {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-priority-urgent.selected,
+.btn-priority-medium.selected,
+.btn-priority-low.selected {
+    color: #ffffff;
+    border-color: transparent;
+}
+
+.btn-priority-urgent.selected {
+    background-color: #FF3D00;
+}
+
+.btn-priority-medium.selected {
+    background-color: #FFA800;
+}
+
+.btn-priority-low.selected {
+    background-color: #7AE229;
 }
 
 .submit-form {
@@ -87,13 +128,13 @@ form{
     margin-top: 40px;
 }
 
-.dropdown {
+.dropdown,
+.add-subtask {
     width: 400px;
     position: relative;
 }
 
 .input-wrapper {
-    
     position: relative;
 }
 
@@ -106,16 +147,21 @@ input {
 .input-img {
     position: absolute;
     right: 15px;
+}
 
+.arrow,
+.subtask-icon {
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .arrow {
-    top: 50%;
-    transform: translateY(-50%);
     transition: 0.3s;
 }
 
-.pointer {
+.pointer,
+.dropdown-list li,
+.contact-checkbox {
     cursor: pointer;
 }
 
@@ -123,52 +169,232 @@ input {
     transform: translateY(-50%) rotate(180deg);
 }
 
-.dropdownList {
+.dropdown-list {
     position: absolute;
+    top: calc(100% + 1px);
     width: 100%;
-    padding: 0;
+    box-sizing: border-box;
+    padding: 8px;
     margin: 0;
     list-style: none;
-    background: white;
-    border: 1px solid #ccc;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     z-index: 5;
+    max-height: 300px;
 }
 
-.dropdownList li {
-    cursor: pointer;
+.dropdown-scroll {
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
-.dropdownList li:hover {
-    background-color: #eee;
-}
-
-.dropdownList.show {
+.dropdown-list.show {
     display: block;
 }
 
 .contact-li {
     margin: 0;
     width: 100%;
+    box-sizing: border-box;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding: 8px 16px;
+    border-radius: 10px;
+    color: var(--color-primary);
 }
 
+.contact-li:hover {
+    background-color: var(--color-bg);
+}
+
+.contact-li:has(.contact-checkbox:checked) {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+.category-label {
+    padding-left: 10px;
+}
+
+.contact-name {
+    flex: 1;
+    margin-left: 12px;
+}
 
 .contact-checkbox {
-    margin: 10px;
-    padding-right: 10px;
-    width: 24px;
-    height: 24px;
+    appearance: none;
+    -webkit-appearance: none;
+    margin: 0;
+    padding: 0;
+    width: 16px;
+    height: 16px;
+    box-sizing: border-box;
+    border: 2px solid #000000;
+    border-radius: 4px;
+    position: relative;
+    flex-shrink: 0;
+    transition: box-shadow 100ms ease;
 }
 
-.add-subtask {
-    width: 400px;
-    position: relative;
+.contact-checkbox:hover {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.contact-checkbox:checked {
+    background-color: var(--color-primary);
+    border-color: #ffffff;
+}
+
+.contact-checkbox:checked::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 7px;
+    height: 11px;
+    background-color: var(--color-primary);
+}
+
+.contact-checkbox:checked::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: -5px;
+    width: 6px;
+    height: 12px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.subtask-icon {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+
+.button-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 280px
+}
+
+.btn-task{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.btn-img,
+.medium {
+    height: 14px;
+    width: 14px;
+    margin-left: 8px;
+}
+
+.assigned-contacts{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.subtask-area{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+}
+
+.subtask{
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 10px;
+}
+
+.subtask:hover{
+    background-color: var(--color-bg);
+}
+
+.subtask-text {
+    overflow-wrap: anywhere;
+}
+
+.subtask-text::before {
+    content: "•";
+    margin-right: 8px;
+}
+
+.subtask-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 150ms ease;
+}
+
+.subtask:hover .subtask-actions {
+    opacity: 1;
 }
 
 .subtask-divider {
-    top: 50%;
-    transform: translateY(-100%);
+    color: var(--color-border);
+}
+
+.subtask-editing {
+    padding: 8px 12px 4px;
+    border-radius: 0;
+}
+
+.subtask-edit-input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    border-bottom: 1px solid var(--color-accent);
+    border-radius: 0;
+    padding: 4px 4px 8px;
+    font-size: var(--fs-base);
+    font-family: inherit;
+    color: var(--color-primary);
+    background: transparent;
+}
+
+.subtask-edit-input:focus {
+    outline: none;
+}
+
+.subtask-actions-edit {
+    opacity: 1;
+}
+
+.subtask-buttons{
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.subtask-buttons .input-img {
+  position: static;
+  right: auto;
+  top: auto;
+  transform: none;
+}
+
+.subtask-buttons .input-img:hover {
+    cursor: pointer;
 }
