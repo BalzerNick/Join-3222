@@ -136,3 +136,12 @@ function getLoggedInUserName() {
 function histarrow() {
     window.history.back();
 }
+
+// new Date().toLocaleTimeString() , new Date().toTimeString()
+function getCurrentTime() {
+    let jetzt = new Date();
+    let stunden = jetzt.getHours();     // Stunden (0-23)
+    let minuten = jetzt.getMinutes();   // Minuten (0-59)
+    let sekunden = jetzt.getSeconds();
+    console.log(`Aktuelle Uhrzeit: ${stunden}:${minuten}:${sekunden}`);
+}

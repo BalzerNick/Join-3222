@@ -12,24 +12,22 @@
     <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/contacts.css">
     <link rel="stylesheet" href="css/card.css">
-   
-    <script src="firebase-config.js"></script>
-    <script src="./scripts/summary.js"></script>
+    <!-- <link rel="stylesheet" href="css/card-css.css"> -->
+
 </head>
 
-<body onload="renderContacts(); displayUserInitials();">
-    <header>
-        Kanban Project Management Tool
+<body onload="displayUserInitials(); getCurrentTime();">
+    <header>Kanban Project Management Tool
         <div class="header-right">
-        <a href="help.html" class="help-btn" aria-label="Help">?</a>
-        <div class="user-menu" id="userMenu">
-          <span class="user-initials" id="userInitials" onclick="toggleUserMenu()"></span>
-          <di>v class="user-dropdown">
-            <a href="legalNotice.html">Legal Notice</a>
-            <a href="privacyPolicy.html">Privacy Policy</a>
-            <a onclick="logout()">Log out</a>
-          </div>
-        </div>
+            <a href="help.html" class="help-btn" aria-label="Help">?</a>
+            <div class="user-menu" id="userMenu">
+                <span class="user-initials" id="userInitials" onclick="toggleUserMenu()"></span>
+                <div class="user-dropdown">
+                    <a href="legalNotice.html">Legal Notice</a>
+                    <a href="privacyPolicy.html">Privacy Policy</a>
+                    <a onclick="logout()">Log out</a>
+                </div>
+            </div>
         </div>
     </header>
   
@@ -109,7 +107,17 @@
             </div>
         </div>
     </main>
-
+    <footer></footer>
+    
+    
+    <div id="toast" class="toast"></div>
+    <script src="firebase-config.js"></script>
+    <script src="assets/templates/addTaskTemplate.js"></script>
+    <script src="scripts/tasks.js"></script>
+    <script src="script.js"></script>
+    <script src="test/test.js"></script>
+    <script src="./scripts/summary.js"></script>
+    
   
 </body>
 </html>
