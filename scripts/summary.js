@@ -5,23 +5,41 @@ window.addEventListener("load", () => {
 });
 
 /**
- * Laedt die Task-Daten aus der lokalen JSON-Datei und stoesst das Rendern an.
+ * Laedt die Task-Daten aus der Firebase Realtime Database und stoesst das Rendern an.
  */
-async function loadSummaryData() {
+/* async function loadSummaryData() {
     try {
-        const response = await fetch("database-import.json");
+        const response = await fetch(BASE_URL + "tasks.json");
         if (!response.ok) {
             console.error("Failed to load task data", response.status, response.statusText);
             return;
         }
         const data = await response.json();
-        tasks = data.tasks ? Object.values(data.tasks) : [];
+        tasks = data ? Object.values(data) : [];
     } catch (error) {
-        console.error("Local load failed", error);
+        console.error("Firebase load failed", error);
         return;
     }
     updateSummaryHTML();
 }
+ */
+
+async function loadSummaryData() {
+    try {
+        const response = await fetch(BASE_URL + "tasks.json");
+        if (!response.ok) {
+            console.error("Failed to load task data", response.status, response.statusText);
+            return;
+        }
+        const data = await response.json();
+        tasks = data ? Object.values(data) : [];
+    } catch (error) {
+        console.error("Firebase load failed", error);
+        return;
+    }
+    updateSummaryHTML();
+}
+
 
 /**
  * Zaehlt alle Tasks mit einem bestimmten Status.
@@ -44,6 +62,7 @@ function countTasksByPriority(priority) {
 /**
  * Schreibt die berechneten Kennzahlen in die Summary-Kacheln.
  */
+
 function updateSummaryHTML() {
     setStatNumber("todoCount", countTasksByStatus("todo"));
     setStatNumber("doneCount", countTasksByStatus("done"));
@@ -52,7 +71,7 @@ function updateSummaryHTML() {
     setStatNumber("inProgressCount", countTasksByStatus("inProgress"));
     setStatNumber("awaitFeedbackCount", countTasksByStatus("awaitFeedback"));
     setDate("uprisingdate", getMostUrgentTask()?.dueDate);
-
+    setName("loginuser", "greetingtag", getLoggedInUserName());
 }
 
 /**
@@ -69,6 +88,18 @@ function setDate(id, date) {
     let counter = document.getElementById(id);
     if (counter) counter.textContent = date;
 } 
+
+function setName(iduser, idgreet, name) {
+    let greeting = document.getElementById(idgreet);
+    let counter = document.getElementById(iduser);
+
+    if (name) {
+        if (counter) counter.textContent = name;
+        if (greeting) greeting.textContent = "Good morning,";
+    } else {
+        if (greeting) greeting.textContent = "Good morning!";
+    }
+}
 
 function getMostUrgentTask() {
     // Hier wird später die dringendste Aufgabe gespeichert.
@@ -94,16 +125,13 @@ function getMostUrgentTask() {
 }
 
 
-
-/* function getMostUrgentTask() {
-    return tasks
-        .filter(task => task.priority === "urgent")
-        .reduce((earliest, task) => {
-            if (!earliest) return task;
-            return new Date(task.dueDate) < new Date(earliest.dueDate) ? task : earliest;
-        }, null);
+function getLoggedInUserName() {
+    let userData = localStorage.getItem("user");
+    if (!userData) return null;
+    let user = JSON.parse(userData);
+    return user.name;
 }
- */
+
 
 function histarrow() {
     window.history.back();

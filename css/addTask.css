@@ -8,7 +8,7 @@ main {
 }
 
 h1 {
-    font-size: 61px;
+    font-size: var(--fs-xxl);
     font-weight: 700;
     margin-bottom: 30px;
 }
@@ -35,7 +35,7 @@ form {
 }
 
 .input-area label {
-    font-size: 16px;
+    font-size: var(--fs-base);
     margin-top: 16px;
 }
 
@@ -54,7 +54,7 @@ form {
     box-sizing: border-box;
     border: 1px solid var(--color-border);
     border-radius: 10px;
-    font-size: 16px;
+    font-size: var(--fs-base);
     font-family: inherit;
     color: var(--color-primary);
     z-index: 1;
@@ -89,7 +89,7 @@ form {
     border-radius: 10px;
     background-color: #ffffff;
     color: var(--color-primary);
-    font-size: 16px;
+    font-size: var(--fs-base);
     font-family: inherit;
     padding: 12px 16px;
     min-width: 100px;
@@ -364,7 +364,7 @@ input {
     border-bottom: 1px solid var(--color-accent);
     border-radius: 0;
     padding: 4px 4px 8px;
-    font-size: 16px;
+    font-size: var(--fs-base);
     font-family: inherit;
     color: var(--color-primary);
     background: transparent;
