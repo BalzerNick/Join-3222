@@ -12,6 +12,7 @@ header {
   height: 70px;
   background-color: #ffffff;
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
+  font-size: var(--fs-md);
 }
 
 .menu-line {
@@ -34,7 +35,7 @@ header {
 
 .menu-icons {
   position: relative;
-  top: 180px;
+  top: 260px;
   left: 0;
   display: flex;
   flex-direction: column;
@@ -47,17 +48,21 @@ header {
   align-items: center;
   width: 100%;
   box-sizing: border-box;
-  padding: 8px 0 8px 30px;
   cursor: pointer;
 }
 
-.menu-icons a:hover,
+.menu-icons a:hover{
+  background-color: rgba(12, 46, 98);
+}
+
+
 .menu-icons a.active {
   background-color: #091931;
 }
 
 .menu-icons-img {
-  width: 150px;
+  width: 100%;
+  width: 100%;
   height: auto;
   display: block;
 }
@@ -73,8 +78,8 @@ header {
 
 .help-btn {
   margin-right: 40px;
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   border: 2px solid var(--color-primary);
   color: var(--color-primary);
@@ -84,10 +89,11 @@ header {
   text-decoration: none;
   font-weight: 700;
   font-size: 18px;
-    transition: background-color 100ms ease;
 }
 
-
+.help-btn:hover {
+  background-color: #0C2E621F;
+}
 
 .user-initials {
   cursor: pointer;
@@ -101,13 +107,12 @@ header {
   color: var(--color-text);
   text-align: center;
   font-weight: bold;
-  font-size: 16px;
-    transition: background-color 100ms ease;
+  font-size: var(--fs-base);
 }
 
-.user-initials:hover, .help-btn:hover {
-  background-color: rgba(12, 46, 98, 0.12);
-}
+.user-initials:hover {
+  background-color: #0C2E621F;
+} 
 
 
 .header-right {
@@ -145,7 +150,7 @@ header {
   text-decoration: none;
   padding: 8px 14px;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: var(--fs-base);
   cursor: pointer;
   white-space: nowrap;
 }

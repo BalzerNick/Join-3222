@@ -8,7 +8,7 @@ main {
 }
 
 h1 {
-    font-size: 61px;
+    font-size: var(--fs-xxl);
     font-weight: 700;
     margin-bottom: 30px;
 }
@@ -35,7 +35,7 @@ form {
 }
 
 .input-area label {
-    font-size: 16px;
+    font-size: var(--fs-base);
     margin-top: 16px;
 }
 
@@ -54,7 +54,7 @@ form {
     box-sizing: border-box;
     border: 1px solid var(--color-border);
     border-radius: 10px;
-    font-size: 16px;
+    font-size: var(--fs-base);
     font-family: inherit;
     color: var(--color-primary);
     z-index: 1;
@@ -89,7 +89,7 @@ form {
     border-radius: 10px;
     background-color: #ffffff;
     color: var(--color-primary);
-    font-size: 16px;
+    font-size: var(--fs-base);
     font-family: inherit;
     padding: 12px 16px;
     min-width: 100px;
@@ -135,7 +135,6 @@ form {
 }
 
 .input-wrapper {
-
     position: relative;
 }
 
@@ -148,7 +147,6 @@ input {
 .input-img {
     position: absolute;
     right: 15px;
-
 }
 
 .arrow,
@@ -276,7 +274,7 @@ input {
 .subtask-icon {
     width: 14px;
     height: 14px;
-    pointer-events: none;
+    cursor: pointer;
 }
 
 .button-area {
@@ -303,4 +301,100 @@ input {
     display: flex;
     flex-direction: row;
     gap: 5px;
+}
+
+.subtask-area{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+}
+
+.subtask{
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 10px;
+}
+
+.subtask:hover{
+    background-color: var(--color-bg);
+}
+
+.subtask-text {
+    overflow-wrap: anywhere;
+}
+
+.subtask-text::before {
+    content: "•";
+    margin-right: 8px;
+}
+
+.subtask-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 150ms ease;
+}
+
+.subtask:hover .subtask-actions {
+    opacity: 1;
+}
+
+.subtask-divider {
+    color: var(--color-border);
+}
+
+.subtask-editing {
+    padding: 8px 12px 4px;
+    border-radius: 0;
+}
+
+.subtask-edit-input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    border-bottom: 1px solid var(--color-accent);
+    border-radius: 0;
+    padding: 4px 4px 8px;
+    font-size: var(--fs-base);
+    font-family: inherit;
+    color: var(--color-primary);
+    background: transparent;
+}
+
+.subtask-edit-input:focus {
+    outline: none;
+}
+
+.subtask-actions-edit {
+    opacity: 1;
+}
+
+.subtask-buttons{
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.subtask-buttons .input-img {
+  position: static;
+  right: auto;
+  top: auto;
+  transform: none;
+}
+
+.subtask-buttons .input-img:hover {
+    cursor: pointer;
 }

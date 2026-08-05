@@ -10,21 +10,30 @@
     <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/contacts.css">
 </head>
-<body onload="renderContacts(); displayUserInitials();">
+<body onload="renderContacts()">
     <header>
         Kanban Project Management Tool
         <div class="header-right">
         <a href="help.html" class="help-btn" aria-label="Help">?</a>
-        <span class="user-initials" id="userInitials"></span>
+        <div class="user-menu" id="userMenu">
+          <span class="user-initials" id="userInitials" onclick="toggleUserMenu()"></span>
+          <div class="user-dropdown">
+            <a href="legalNotice.html">Legal Notice</a>
+            <a href="privacyPolicy.html">Privacy Policy</a>
+            <a onclick="logout()">Log out</a>
+          </div>
+        </div>
         </div>
     </header>
     <div class="menu-line">
         <img src="assets/imgs/logoMainWhite.png" alt="Join Logo" class="menu-logo">
+        <div class="menu">
         <div class="menu-icons">
             <a href="summary_guest.html"><img src="assets/imgs/summary.png" class="menu-icons-img" alt="Summary"></a>
             <a href="addTask.html"><img src="assets/imgs/addtask.png" class="menu-icons-img" alt="Add Task"></a>
             <a href="board.html"><img src="assets/imgs/board.png" class="menu-icons-img" alt="Board"></a>
             <a href="contacts.html" class="active"><img src="assets/imgs/contacts.png" class="menu-icons-img" alt="Contacts"></a>
+        </div>
         </div>
         <div class="policies">
             <a href="privacyPolicy.html" class="footer-link">Privacy Policy</a>
