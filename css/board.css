@@ -98,9 +98,9 @@ h1 {
     margin-left: 232px;
     width: calc(100% - 232px);
     min-height: calc(100vh - 70px);
-    padding: 64px;
+    padding: 80px 44px 80px 80px;
     box-sizing: border-box;
-    background: #f8fafc;
+    background: #f6f7f8;
     border-radius: 28px;
     box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
     overflow: hidden;
