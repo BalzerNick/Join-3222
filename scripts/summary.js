@@ -95,10 +95,10 @@ function setName(iduser, idgreet, name) {
 
     if (name) {
         if (counter) counter.textContent = name;
-        if (greeting) greeting.textContent = "Good morning,";
+        // if (greeting) greeting.textContent = "Good morning,";
     } else {
-        if (greeting) greeting.textContent = "Good morning!";
-    }
+        /* if (greeting) greeting.textContent = "Good morning!"; */
+    } 
 }
 
 function getMostUrgentTask() {
@@ -135,4 +135,28 @@ function getLoggedInUserName() {
 
 function histarrow() {
     window.history.back();
+}
+
+// new Date().toLocaleTimeString() , new Date().toTimeString()
+function getCurrentTime() {
+    let now = new Date();
+    let thehours = now.getHours();     // Stunden (0-23)
+    let theminutes = now.getMinutes();   // Minuten (0-59)
+    let thesconds = now.getSeconds();
+    console.log(`Aktuelle Uhrzeit: ${thehours}:${theminutes}:${thesconds}`);
+    if (0 <= thehours && thehours < 12) {
+        return "Good morning!";
+    }
+    else if (12 <= thehours && thehours < 18) {
+        return "Good afternoon!";
+    }
+    else {
+        return "Good evening!";
+    }
+}
+
+function startGreeting() {
+    let greeting = getCurrentTime();
+    console.log(`Greeting: ${greeting}`);
+    document.getElementById("greetingtag").textContent = greeting;
 }
