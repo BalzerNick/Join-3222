@@ -7,9 +7,7 @@ main {
     left: 0;
 }
 
-h1 {
-    font-size: var(--fs-xxl);
-    font-weight: 700;
+main h1 {
     margin-bottom: 30px;
 }
 
