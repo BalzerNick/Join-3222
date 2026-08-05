@@ -47,17 +47,20 @@ header {
   align-items: center;
   width: 100%;
   box-sizing: border-box;
-  padding: 8px 0 8px 30px;
   cursor: pointer;
 }
 
-.menu-icons a:hover,
+.menu-icons a:hover{
+  background-color: rgba(12, 46, 98);
+}
+
+
 .menu-icons a.active {
   background-color: #091931;
 }
 
 .menu-icons-img {
-  width: 150px;
+  width: 100%;
   height: auto;
   display: block;
 }
