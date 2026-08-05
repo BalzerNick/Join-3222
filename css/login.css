@@ -64,7 +64,6 @@ p {
 .login-form h1 {
   text-align: center;
   color: #000000;
-  font-size: var(--fs-xxl);
 }
 
 .login-form h1::after {
