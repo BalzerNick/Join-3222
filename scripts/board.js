@@ -416,7 +416,7 @@ function openTaskDetail(id) {
     const modalBody = document.getElementById('task-detail-body');
 
     const category = getCategoryBadge(task.category, true);
-    const priority = task.priority ? getPriorityIcon(task.priority) : "";
+    const priority = getPriorityDetail(task.priority);
     const description = task.description ? `<p class="task-detail-description">${escapeHtml(task.description)}</p>` : "";
     const dueDate = task.dueDate ? `<span class="detail-value">${escapeHtml(task.dueDate)}</span>` : "<span class='detail-empty'>No due date</span>";
     const assignedContactsHTML = renderAssignedContacts(task.assignedTo);
@@ -673,6 +673,18 @@ function getPriorityIcon(priority) {
     const capitalized = p.charAt(0).toUpperCase() + p.slice(1);
     const src = `assets/icons/Property%201=${capitalized}.png`;
     return `<img class="priority-icon" src="${src}" alt="${priority}">`;
+}
+
+function getPriorityDetail(priority) {
+    if (!priority) return "<span class='detail-empty'>No priority</span>";
+    const normalized = String(priority).toLowerCase();
+    const labels = {
+        urgent: 'Urgent',
+        medium: 'Medium',
+        low: 'Low'
+    };
+    const label = labels[normalized] || (normalized.charAt(0).toUpperCase() + normalized.slice(1));
+    return `<span class="priority-detail-value"><span class="priority-detail-text">${label}</span>${getPriorityIcon(normalized)}</span>`;
 }
 
 function getBoardInitials(name) {

@@ -48,8 +48,8 @@ function getTaskDetailTemplate(data) {
                 <ul class="subtask-list">${data.subtasksHTML}</ul>
             </div>
             <div class="detail-actions">
-                <button class="btn-detail btn-delete" onclick="deleteTask('${data.id}')">Delete</button>
-                <button class="btn-detail btn-edit" onclick="enterEditMode('${data.id}')">Edit</button>
+                <button class="btn-detail btn-delete" onclick="deleteTask('${data.id}')"><img src="assets/icons/delete.svg" alt="delete">Delete</button>
+                <button class="btn-detail btn-edit" onclick="enterEditMode('${data.id}')"><img src="assets/icons/edit.svg" alt="edit">Edit</button>
             </div>
         </div>`;
 }
