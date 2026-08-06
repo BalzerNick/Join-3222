@@ -38,7 +38,9 @@ body {
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   color: var(--color-text);
   background-color: var(--color-bg);
-  margin: 0; /*Marcus 24.07.2026 wegn Abstand des headers nach rechts */
+  margin: 0 auto; /*Marcus 24.07.2026 wegn Abstand des headers nach rechts */
+  max-width: 1440px;
+  padding: 24px;
 }
 
 /* Eingabefelder - seitenuebergreifend gleich */
