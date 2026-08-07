@@ -3,6 +3,8 @@ let allContacts = {};
 let searchTerm = "";
 let editingTaskId = null;
 let taskEditSubtasks = [];
+let taskEditSelectedContacts = [];
+let taskEditContactPool = [];
 
 // This variable stores the ID of the task that is currently being dragged.
 let currentDraggedElement = null;
@@ -349,6 +351,8 @@ function closeTaskDetail(event) {
     document.getElementById('task-detail-body').innerHTML = '';
     editingTaskId = null;
     taskEditSubtasks = [];
+    taskEditSelectedContacts = [];
+    taskEditContactPool = [];
     removeModalOpenFlag();
 }
 
@@ -460,23 +464,86 @@ function enterEditMode(taskId) {
         done: !!sub.done
     }));
 
-    const category = getCategoryBadge(task.category, true);
+    taskEditContactPool = Object.values(allContacts).map(c => ({
+        Name: c.name || c.Name || '',
+        Initials: c.initials || getBoardInitials(c.name || c.Name || ''),
+        Color: getAvatarColor(c.name || c.Name || '')
+    }));
+
+    const assignedTo = task.assignedTo || [];
+    taskEditSelectedContacts = assignedTo.map(item => {
+        const name = typeof item === 'string' ? item : (item.Name || item.name || '');
+        const match = taskEditContactPool.find(c => c.Name === name);
+        return match || { Name: name, Initials: getBoardInitials(name), Color: getAvatarColor(name) };
+    }).filter(c => c.Name);
+
     const dueDate = task.dueDate ? escapeHtml(task.dueDate) : "";
     const description = task.description ? escapeHtml(task.description) : "";
-    const assignedContactsHTML = renderAssignedContacts(task.assignedTo);
     const priority = task.priority ? String(task.priority).toLowerCase() : 'medium';
+    const contactListHTML = buildEditContactListHTML();
+    const assignedAvatarsHTML = buildEditAssignedAvatarsHTML();
     const modalBody = document.getElementById('task-detail-body');
 
     modalBody.innerHTML = getTaskEditTemplate({
         id: task.id,
         title: task.title,
-        category,
         dueDate,
         description,
-        assignedContactsHTML,
-        priority
+        priority,
+        contactListHTML,
+        assignedAvatarsHTML
     });
     setupTaskEditForm();
+}
+
+function buildEditContactListHTML() {
+    return taskEditContactPool.map((contact, index) => {
+        const isSelected = taskEditSelectedContacts.some(c => c.Name === contact.Name);
+        return `
+            <li class="edit-contact-li ${isSelected ? 'selected' : ''}" onclick="toggleEditContact(${index}, this)">
+                <span class="avatar avatar-sm" style="background-color: ${contact.Color}">${contact.Initials}</span>
+                <span class="edit-contact-name">${contact.Name}</span>
+                <input type="checkbox" class="contact-checkbox" ${isSelected ? 'checked' : ''} onclick="event.stopPropagation()">
+            </li>`;
+    }).join('');
+}
+
+function buildEditAssignedAvatarsHTML() {
+    return taskEditSelectedContacts.map(c =>
+        `<span class="avatar avatar-sm" style="background-color: ${c.Color}">${c.Initials}</span>`
+    ).join('');
+}
+
+function toggleEditContact(index, listItem) {
+    const contact = taskEditContactPool[index];
+    if (!contact) return;
+    const selectedIndex = taskEditSelectedContacts.findIndex(c => c.Name === contact.Name);
+    const checkbox = listItem.querySelector('.contact-checkbox');
+    if (selectedIndex >= 0) {
+        taskEditSelectedContacts.splice(selectedIndex, 1);
+        listItem.classList.remove('selected');
+        if (checkbox) checkbox.checked = false;
+    } else {
+        taskEditSelectedContacts.push(contact);
+        listItem.classList.add('selected');
+        if (checkbox) checkbox.checked = true;
+    }
+    renderEditAssignedAvatars();
+}
+
+function renderEditAssignedAvatars() {
+    const container = document.getElementById('editAssignedAvatars');
+    if (!container) return;
+    container.innerHTML = buildEditAssignedAvatarsHTML();
+}
+
+function toggleEditContactDropdown(event) {
+    event.stopPropagation();
+    const list = document.getElementById('editContactList');
+    const arrow = document.getElementById('editContactArrow');
+    if (!list) return;
+    list.classList.toggle('d-none');
+    if (arrow) arrow.textContent = list.classList.contains('d-none') ? '▼' : '▲';
 }
 
 function setupTaskEditForm() {
@@ -491,12 +558,32 @@ function setupTaskEditForm() {
     }
     updateEditPriorityButtons();
     renderEditSubtasks();
+
+    const closeDropdown = (e) => {
+        const dropdown = document.querySelector('.edit-contact-dropdown');
+        if (dropdown && !dropdown.contains(e.target)) {
+            const list = document.getElementById('editContactList');
+            const arrow = document.getElementById('editContactArrow');
+            if (list) list.classList.add('d-none');
+            if (arrow) arrow.textContent = '▼';
+        }
+    };
+    document.addEventListener('click', closeDropdown, { once: false });
+    document.getElementById('task-edit-form')?.addEventListener('reset', () => {
+        document.removeEventListener('click', closeDropdown);
+    });
 }
 
 function updateEditPriorityButtons() {
     const current = (document.getElementById('editTaskPriority')?.value || 'medium').toLowerCase();
-    document.querySelectorAll('.priority-select').forEach(button => {
-        button.classList.toggle('selected', button.textContent.trim().toLowerCase() === current);
+    const map = { urgent: 'editBtnUrgent', medium: 'editBtnMedium', low: 'editBtnLow' };
+    Object.entries(map).forEach(([priority, btnId]) => {
+        const btn = document.getElementById(btnId);
+        if (!btn) return;
+        const isSelected = priority === current;
+        btn.classList.toggle('selected', isSelected);
+        const img = btn.querySelector('img');
+        if (img) img.src = isSelected ? img.dataset.iconSelected : img.dataset.icon;
     });
 }
 
@@ -510,13 +597,14 @@ function renderEditSubtasks() {
     const list = document.getElementById('editSubtaskList');
     if (!list) return;
     list.innerHTML = taskEditSubtasks.map(subtask => `
-        <div class="subtask-item editable" data-subtask-id="${subtask.id}">
-            <span class="subtask-title">${escapeHtml(subtask.title)}</span>
-            <div class="subtask-actions">
-                <button type="button" onclick="editTaskSubtask('${subtask.id}')">✎</button>
-                <button type="button" onclick="deleteTaskSubtask('${subtask.id}')">✖</button>
+        <li class="edit-subtask-li" data-subtask-id="${subtask.id}">
+            <span class="edit-subtask-title">${escapeHtml(subtask.title)}</span>
+            <div class="edit-subtask-actions">
+                <img class="subtask-icon pointer" src="assets/icons/edit.svg" alt="edit" onclick="editTaskSubtask('${subtask.id}')">
+                <span class="subtask-divider">|</span>
+                <img class="subtask-icon pointer" src="assets/icons/delete.svg" alt="delete" onclick="deleteTaskSubtask('${subtask.id}')">
             </div>
-        </div>
+        </li>
     `).join('');
 }
 
@@ -567,6 +655,7 @@ async function saveTaskEdits(event) {
     task.description = description || '';
     task.dueDate = dueDate || '';
     task.priority = priority;
+    task.assignedTo = [...taskEditSelectedContacts];
     task.subtasks = taskEditSubtasks.reduce((obj, sub) => {
         obj[sub.id] = { title: sub.title, done: sub.done };
         return obj;
@@ -577,6 +666,7 @@ async function saveTaskEdits(event) {
         description: task.description,
         dueDate: task.dueDate,
         priority: task.priority,
+        assignedTo: task.assignedTo,
         subtasks: task.subtasks
     };
 
