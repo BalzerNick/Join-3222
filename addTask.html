@@ -133,7 +133,8 @@
                     <label for="subtask">Subtask</label>
                     <div class="add-subtask">
                         <div class="input-wrapper">
-                            <input class="input" id="subtask" type="text" placeholder="Add new subtask" autocomplete="off" oninput="showButtons()">
+                            <input class="input" id="subtask" type="text" placeholder="Add new subtask" autocomplete="off" oninput="showButtons()"
+                                onkeydown="if(event.key === 'Enter'){ event.preventDefault(); safeSubtask(); }">
                             <div class="subtask-buttons input-img d-none" id="subtaskButtons">
                                 <img class="input-img subtask-icon pointer" src="assets/icons/close.svg" alt="x" onclick="clearSubtask()">
                                 <span>|</span>
@@ -142,18 +143,7 @@
                             
                         </div>
                         <div class="subtask-area" id="subtaskArea">
-                            <!-- <div class="subtask">
-                                <span>Test</span>
-                                <img src="assets/icons/delete.svg" alt="test2">
-                                <span>|</span>
-                                <img src="assets/icons/edit.svg" alt="test">
-                            </div>
-                            <div class="subtask">
-                                <span>Test2</span>
-                                <img src="assets/icons/delete.svg" alt="test2">
-                                <span>|</span>
-                                <img src="assets/icons/edit.svg" alt="test">
-                            </div> -->
+
                         </div>
                     </div>
 
