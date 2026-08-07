@@ -266,12 +266,11 @@ h2 {
 
 .board-mask {
     position: relative;
-    margin-left: 232px;
     width: calc(100% - 232px);
     max-width: 1440px;
     min-height: calc(100vh - 128px);
     padding: 64px;
-    padding-top: 84px;
+    padding-top: 110px;
     overflow: hidden;
     flex: 1;
 }

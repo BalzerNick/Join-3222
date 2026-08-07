@@ -9,7 +9,7 @@ header {
   justify-content: space-between;
   padding-left: 300px;
   align-items: center;
-  height: 70px;
+  height: 96px;
   background-color: #ffffff;
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
   font-size: var(--fs-md);
@@ -19,7 +19,7 @@ header {
   position: fixed;
   left: 0;
   top: 0;
-  width: 230px;
+  width: 232px;
   height: 100vh;
   background-color: var(--color-primary);
   display: flex;
