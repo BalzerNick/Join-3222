@@ -11,6 +11,19 @@
   margin-right: 20px;
 }
 
+.stat-card:hover, .stat-card-small:hover, .stat-card-wide:hover {
+  background-color: var(--color-primary);
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+}
+
+
+:is(.stat-card, .stat-card-small, .stat-card-wide):hover .stat-number {
+  color: #ffffff;
+}
+
+
+
 .stat-card-small {
   display: flex;
   flex-direction: column;
@@ -74,7 +87,6 @@
 
 .stat-label {
   font-size: var(--fs-md);
-  color: var(--color-primary);
   margin-top: 4px;
   margin-left: 70px;
 }
@@ -120,7 +132,6 @@
   margin-top: -10px;
   display: flex;
   font-size: 18px;
-  color: var(--color-primary);
   margin-left: 12px;
 }
 
@@ -129,7 +140,6 @@
   margin-top: 10px;
   display: flex;
   font-size: var(--fs-sm);
-  color: var(--color-primary);
   margin-left: 12px;
 }
 
@@ -153,7 +163,6 @@
   justify-content: center;
   text-align: center;
   font-size: var(--fs-sm);
-  color: var(--color-primary);
 }
 
 /* Nur in Marcus' card.css vorhanden, fehlt auf main */
