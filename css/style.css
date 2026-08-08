@@ -48,6 +48,11 @@ body {
 } */
 
 /* Eingabefelder - seitenuebergreifend gleich */
+
+h3 {
+  font-size: 20px;
+}
+
 .input {
   border: unset;
   border: 1px solid var(--color-border);
@@ -85,7 +90,19 @@ body {
 
 /*Marcus 23.07.2026*/
 .back-arrow {
-  margin-right: 0px;
+  margin-top: 25px;
+  margin-right: 215px;
+  height: 21px;
+  width: 22px;
+  cursor: pointer;
+}
+
+
+@media (max-width: 1700px) {
+  .back-arrow {
+    margin-top: 12px;
+    margin-right: 0;
+  }
 }
 
 /* Footer mit Rechts-Links, seitenuebergreifend */
@@ -160,10 +177,13 @@ li {
   margin-bottom: 16px;
 }
 
+
+
 .step-heading {
   display: flex;
   align-items: baseline;
-  margin:0;
+  margin: 0;
+  margin-bottom: 0px;
 }
 
 .step-number {
@@ -171,8 +191,8 @@ li {
 }
 
 .step-text {
-  margin-left: 32px;
   margin: 0;
+  margin-left: 32px;
 }
 
 /*Nick 26.07*/
@@ -215,4 +235,10 @@ li {
   font-size: 40px;
 }
 
+.help-headline {
+  font-size: 61px;
+}
 
+.nomargin {
+  margin: 0;
+}
