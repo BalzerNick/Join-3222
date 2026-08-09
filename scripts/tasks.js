@@ -36,9 +36,9 @@ function toggleDropdown(ul, arr) {
  *
  */
 function closeAllDropdowns() {
-    document.getElementById("contactList").classList.add("d-none");
-    document.getElementById("contactArrow").classList.remove("open");
-    document.getElementById("categoryList").classList.add("d-none");
+    document.getElementById("contactList")?.classList.add("d-none");
+    document.getElementById("contactArrow")?.classList.remove("open");
+    document.getElementById("categoryList")?.classList.add("d-none");
 }
 
 document.addEventListener("click", closeAllDropdowns);
@@ -309,9 +309,14 @@ function renderSubtask() {
  * 
  */
 function safeSubtask(){
-    const input = document.getElementById('subtask').value;
+    const input = document.getElementById('subtask').value.trim();
+
+    if (input.length === 0) {
+        return;
+    }
+
     let id = Object.keys(subtasks).length + 1;
-    
+
     subtasks[`sub${id}`] = {
         "title": input,
         "done": false

@@ -48,8 +48,8 @@ function getTaskDetailTemplate(data) {
                 <ul class="subtask-list">${data.subtasksHTML}</ul>
             </div>
             <div class="detail-actions">
-                <button class="btn-detail btn-delete" onclick="deleteTask('${data.id}')">Delete</button>
-                <button class="btn-detail btn-edit" onclick="enterEditMode('${data.id}')">Edit</button>
+                <button class="btn-detail btn-delete" onclick="deleteTask('${data.id}')"><img src="assets/icons/delete.svg" alt="delete">Delete</button>
+                <button class="btn-detail btn-edit" onclick="enterEditMode('${data.id}')"><img src="assets/icons/edit.svg" alt="edit">Edit</button>
             </div>
         </div>`;
 }
@@ -58,7 +58,7 @@ function getTaskEditTemplate(data) {
     return `
         <div class="task-detail-card">
             <div class="task-detail-top">
-                <div>${data.category}</div>
+                <div></div>
                 <button class="modal-close task-detail-close" onclick="closeTaskDetail()">&times;</button>
             </div>
             <form id="task-edit-form" class="task-edit-form" onsubmit="saveTaskEdits(event)">
@@ -70,37 +70,53 @@ function getTaskEditTemplate(data) {
                     <label for="editTaskDescription">Description</label>
                     <textarea id="editTaskDescription" class="task-edit-textarea">${data.description}</textarea>
                 </div>
-                <div class="detail-grid edit-grid">
-                    <div class="detail-block edit-block">
-                        <label class="detail-label" for="editTaskDeadline">Due date</label>
+                <div class="form-row">
+                    <label for="editTaskDeadline">Due date</label>
+                    <div class="edit-date-wrapper">
                         <input id="editTaskDeadline" class="task-edit-input" type="date" value="${data.dueDate}">
                     </div>
-                    <div class="detail-block edit-block">
-                        <span class="detail-label">Priority</span>
-                        <div class="edit-priority-buttons">
-                            <button type="button" class="priority-select" onclick="setEditPriority('urgent')">Urgent</button>
-                            <button type="button" class="priority-select" onclick="setEditPriority('medium')">Medium</button>
-                            <button type="button" class="priority-select" onclick="setEditPriority('low')">Low</button>
+                </div>
+                <div class="form-row">
+                    <label>Priority</label>
+                    <div class="priority-buttons edit-priority-buttons">
+                        <button type="button" class="btn btn-secondary btn-task btn-priority-urgent" id="editBtnUrgent" onclick="setEditPriority('urgent')">
+                            <span>Urgent</span>
+                            <img src="assets/icons/arrow up.svg" data-icon="assets/icons/arrow up.svg" data-icon-selected="assets/icons/arrow up_choosed.svg" alt="urgent">
+                        </button>
+                        <button type="button" class="btn btn-secondary btn-task btn-priority-medium" id="editBtnMedium" onclick="setEditPriority('medium')">
+                            <span>Medium</span>
+                            <img src="assets/icons/=.svg" data-icon="assets/icons/=.svg" data-icon-selected="assets/icons/=_choosed.svg" alt="medium">
+                        </button>
+                        <button type="button" class="btn btn-secondary btn-task btn-priority-low" id="editBtnLow" onclick="setEditPriority('low')">
+                            <span>Low</span>
+                            <img src="assets/icons/arrow down.svg" data-icon="assets/icons/arrow down.svg" data-icon-selected="assets/icons/arrow down_choosed.svg" alt="low">
+                        </button>
+                    </div>
+                    <input type="hidden" id="editTaskPriority" value="${data.priority}">
+                </div>
+                <div class="form-row">
+                    <label>Assigned to</label>
+                    <div class="edit-contact-dropdown" onclick="noEvent(event)">
+                        <div class="edit-contact-input-row" onclick="toggleEditContactDropdown(event)">
+                            <span class="edit-contact-placeholder">Select contacts to assign</span>
+                            <span class="edit-dropdown-arrow" id="editContactArrow">▼</span>
                         </div>
-                        <input type="hidden" id="editTaskPriority" value="${data.priority}">
+                        <ul class="edit-contact-list d-none" id="editContactList">
+                            ${data.contactListHTML}
+                        </ul>
                     </div>
+                    <div id="editAssignedAvatars" class="edit-assigned-avatars">${data.assignedAvatarsHTML}</div>
                 </div>
-                <div class="detail-section">
-                    <h3>Assigned To</h3>
-                    <div class="assigned-list">${data.assignedContactsHTML}</div>
-                </div>
-                <div class="detail-section">
-                    <h3>Subtasks</h3>
-                    <div class="subtask-entry">
+                <div class="form-row">
+                    <label>Subtasks</label>
+                    <div class="edit-subtask-entry">
                         <input id="editSubtaskInput" class="task-edit-input" type="text" placeholder="Add new subtask">
-                        <button type="button" class="icon-button" onclick="addEditSubtask()">✔</button>
-                        <button type="button" class="icon-button" onclick="resetEditSubtaskInput()">✖</button>
+                        <button type="button" class="edit-subtask-add-btn" onclick="addEditSubtask()">+</button>
                     </div>
-                    <div id="editSubtaskList" class="subtask-list edit-subtask-list"></div>
+                    <ul id="editSubtaskList" class="edit-subtask-list-ul"></ul>
                 </div>
-                <div class="detail-actions">
-                    <button type="button" class="btn-detail btn-delete" onclick="deleteTask('${data.id}')">Delete</button>
-                    <button type="submit" class="btn-detail btn-edit">Save</button>
+                <div class="edit-form-footer">
+                    <button type="submit" class="btn-ok-edit">Ok <img src="assets/icons/check.svg" alt="ok"></button>
                 </div>
             </form>
         </div>`;

@@ -26,7 +26,7 @@
   /* Schriftgroessen-Skala, gegen Figma gemessen (auf gerade px gerundet).
      xxl = Haupttitel, xl = grosse Namen/Begruessung, lg = Subtitle,
      md = Abschnitts-Label, base = Fliesstext, sm = Sekundaertext. */
-  --fs-xxl: 60px;
+  --fs-xxl: 62px;
   --fs-xl: 48px;
   --fs-lg: 28px;
   --fs-md: 20px;
@@ -151,9 +151,9 @@ li {
   margin-left: 200px;
 }
 
-.page h1 {
+/* .page h1 {
   margin-bottom: 16px;
-}
+} */
 
 /* Toast-Benachrichtigung: schwebt oben aus der Mitte rein (seitenuebergreifend) */
 .toast {
@@ -237,6 +237,11 @@ li {
 
 .help-headline {
   font-size: 61px;
+}
+
+h1 {
+  font-size: var(--fs-xxl);
+  margin: 0;
 }
 
 .nomargin {

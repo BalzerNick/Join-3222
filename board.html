@@ -52,7 +52,7 @@
                         <input type="text" id="searchInput" oninput="findTask()" placeholder="Find Task">
                         <span><img src="./assets/icons/searchlens.png" alt="search"></span>
                     </label>
-                    <button class="add-task-button" onclick="openAddTaskDialog()">Add Task +</button>
+                    <button class="add-task-button" onclick="openAddTaskDialog('todo')">Add Task +</button>
                 </div>
             </div>
 
@@ -61,7 +61,7 @@
                 <section class="column">
                 <div class="column-header">  
                 <h2>To Do</h2>
-                <button onclick="openAddTaskDialog()"><img src="./assets/icons/plus_add_task.png" alt="add task"></button>
+                <button onclick="openAddTaskDialog('todo')"><img src="./assets/icons/plus_add_task.png" alt="add task"></button>
                 </div>
                 <div class="drag-area" id="todo" ondrop="moveTo('todo')" ondragleave="removeHighlight('todo')"
                     ondragover="allowDrop(event); highlight('todo')"></div>
@@ -70,7 +70,7 @@
             <section class="column">
                 <div class="column-header">  
                 <h2>In Progress</h2>
-                <button onclick="openAddTaskDialog()"><img src="./assets/icons/plus_add_task.png" alt="add task"></button>
+                <button onclick="openAddTaskDialog('in-progress')"><img src="./assets/icons/plus_add_task.png" alt="add task"></button>
                 </div>
                 <div class="drag-area" id="in-progress" ondrop="moveTo('in-progress')" ondragleave="removeHighlight('in-progress')"
                     ondragover="allowDrop(event); highlight('in-progress')"></div>
@@ -79,7 +79,7 @@
             <section class="column">
                 <div class="column-header">  
                 <h2>Await feedback</h2>
-                <button onclick="openAddTaskDialog()"><img src="./assets/icons/plus_add_task.png" alt="add task"></button>
+                <button onclick="openAddTaskDialog('await-feedback')"><img src="./assets/icons/plus_add_task.png" alt="add task"></button>
                 </div>
                 <div class="drag-area" id="await-feedback" ondrop="moveTo('await-feedback')" ondragleave="removeHighlight('await-feedback')"
                     ondragover="allowDrop(event); highlight('await-feedback')"></div>
@@ -112,6 +112,7 @@
                 <div id="task-detail-body" class="modal-body"></div>
             </div>
         </div>
+        <div id="center-toast" class="center-toast"></div>
     </div>
     <script src="firebase-config.js"></script>
     <script src="./assets/templates/addTaskTemplate.js"></script>
