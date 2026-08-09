@@ -4,26 +4,6 @@ window.addEventListener("load", () => {
     loadSummaryData();
 });
 
-/**
- * Laedt die Task-Daten aus der Firebase Realtime Database und stoesst das Rendern an.
- */
-/* async function loadSummaryData() {
-    try {
-        const response = await fetch(BASE_URL + "tasks.json");
-        if (!response.ok) {
-            console.error("Failed to load task data", response.status, response.statusText);
-            return;
-        }
-        const data = await response.json();
-        tasks = data ? Object.values(data) : [];
-    } catch (error) {
-        console.error("Firebase load failed", error);
-        return;
-    }
-    updateSummaryHTML();
-}
- */
-
 async function loadSummaryData() {
     try {
         const response = await fetch(BASE_URL + "tasks.json");
