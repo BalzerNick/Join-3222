@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join_Login</title>
+    <link rel="icon" type="image/svg+xml" href="assets/icons/Favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/login.css">
+    <style>
+        /* .login-main braucht position: relative als Bezugsrahmen fuer das Overlay */
+        .login-main {
+            position: relative;
+        }
+
+        /* Intro-Overlay: deckt den Login-Inhalt kurz zu und blendet dann weg */
+        .intro-overlay {
+            position: absolute;
+            inset: 0;
+            background-color: var(--color-primary);
+            z-index: 10;
+            animation: introFade 500ms ease 2s forwards;
+        }
+
+        @keyframes introFade {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+        }
+
+
+        /* Logo-Intro: startet gross in der Bildschirmmitte, fliegt dann zur
+           echten Header-Position (top:24px; left:40px; width:100px). */
+        @keyframes logoIntro {
+            from {
+                top: 50%;
+                left: 50%;
+                width: 200px;
+                transform: translate(-50%, -50%);
+            }
+            to {
+                top: 24px;
+                left: 40px;
+                width: 100px;
+                transform: translate(0, 0);
+            }
+        }
+
+        .login-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            transform: translate(-50%, -50%);
+            animation: logoIntro 1.5s ease-in-out 0.3s forwards;
+            z-index: 10;
+        }
+
+        /* Crossfade: weisses Logo blendet aus, farbiges Logo blendet ein,
+           waehrend beide gleichzeitig die logoIntro-Bewegung mitmachen. */
+        @keyframes fadeOutLogo {
+            to { opacity: 0; }
+        }
+
+        @keyframes fadeInLogo {
+            to { opacity: 1; }
+        }
+
+        .login-logo-white {
+            animation: logoIntro 1.5s ease-in-out 0.3s forwards,
+                       fadeOutLogo 1.5s ease-in-out 0.3s forwards;
+        }
+
+        .login-logo-color {
+            opacity: 0;
+            animation: logoIntro 1.5s ease-in-out 0.3s forwards,
+                       fadeInLogo 1.5s ease-in-out 0.3s forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-frame">
+        <div class="intro-overlay"></div>
+    <a href="index.html">
+        <img src="assets/imgs/logoMainWhite.png" alt="Join Logo" class="login-logo login-logo-white">
+        <img src="assets/imgs/logoMain.png" alt="Join Logo" class="login-logo login-logo-color">
+    </a>
+
+    <header class="login-header">
+        <span class="login-header-text">Not a user?</span>
+        <button class="btn btn-primary" type="button" onclick="signUp()">Sign up</button>
+    </header>
+
+    <main class="login-main">
+        
+        <form class="login-form" novalidate>
+            <h1>Log in</h1>
+
+            <input class="input" type="email" id="loginEmail" placeholder="Email">
+            <input class="input" type="password" id="loginPassword" placeholder="Password">
+
+            <span id="loginError" class="error-message"></span>
+
+            <div class="login-buttons">
+                <button class="btn btn-primary" type="button" onclick="login()">Log in</button>
+                <button class="btn btn-secondary" type="button" onclick="guestLogin()">Guest Log in</button>
+            </div>
+        </form>
+    </main>
+
+    <footer class="footer">
+        <a href="privacyPolicy.html" class="footer-link">Privacy Policy</a>
+        <a href="legalNotice.html" class="footer-link">Legal notice</a>
+    </footer>
+    </div>
+
+    <script src="firebase-config.js"></script>
+    <script src="script.js"></script>
+    <script src="scripts/login.js"></script>
+</body>
+</html>
