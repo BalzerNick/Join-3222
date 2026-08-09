@@ -64,16 +64,16 @@ function getTaskEditTemplate(data) {
             <form id="task-edit-form" class="task-edit-form" onsubmit="saveTaskEdits(event)">
                 <div class="form-row">
                     <label for="editTaskTitle">Title</label>
-                    <input id="editTaskTitle" class="task-edit-input" type="text" value="${data.title}" required>
+                    <input id="editTaskTitle" class="input task-edit-input" type="text" value="${data.title}" required>
                 </div>
                 <div class="form-row">
                     <label for="editTaskDescription">Description</label>
-                    <textarea id="editTaskDescription" class="task-edit-textarea">${data.description}</textarea>
+                    <textarea id="editTaskDescription" class="input task-edit-textarea">${data.description}</textarea>
                 </div>
                 <div class="form-row">
                     <label for="editTaskDeadline">Due date</label>
                     <div class="edit-date-wrapper">
-                        <input id="editTaskDeadline" class="task-edit-input" type="date" value="${data.dueDate}">
+                        <input id="editTaskDeadline" class="input task-edit-input" type="date" value="${data.dueDate}">
                     </div>
                 </div>
                 <div class="form-row">
@@ -110,7 +110,7 @@ function getTaskEditTemplate(data) {
                 <div class="form-row">
                     <label>Subtasks</label>
                     <div class="edit-subtask-entry">
-                        <input id="editSubtaskInput" class="task-edit-input" type="text" placeholder="Add new subtask">
+                        <input id="editSubtaskInput" class="input task-edit-input" type="text" placeholder="Add new subtask">
                         <button type="button" class="edit-subtask-add-btn" onclick="addEditSubtask()">+</button>
                     </div>
                     <ul id="editSubtaskList" class="edit-subtask-list-ul"></ul>

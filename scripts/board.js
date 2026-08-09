@@ -510,7 +510,7 @@ function buildEditContactListHTML() {
 
 function buildEditAssignedAvatarsHTML() {
     return taskEditSelectedContacts.map(c =>
-        `<span class="avatar avatar-sm" style="background-color: ${c.Color}">${c.Initials}</span>`
+        `<span class="avatar avatar-sm edit-assigned-avatar" style="background-color: ${c.Color}" title="${escapeHtml(c.Name)}">${c.Initials}</span>`
     ).join('');
 }
 
