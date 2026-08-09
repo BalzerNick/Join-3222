@@ -61,6 +61,19 @@ p {
   width: min(90vw, 420px);
 }
 
+
+@media (max-width: 500px) {
+  .login-form {
+    width: min(90vw, 300px);
+  }
+}
+
+@media (max-width: 430px) {
+  .login-form {
+    width: min(90vw, 250px);
+  }
+}
+
 .login-form h1 {
   text-align: center;
   color: #000000;
