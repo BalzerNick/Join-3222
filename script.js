@@ -59,6 +59,8 @@ function renderUserInitials() {
   el.textContent = initials;
 }
 
+renderUserInitials();
+
 function logout() {
   localStorage.removeItem("user");
   window.location.href = "index.html";
