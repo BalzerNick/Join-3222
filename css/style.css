@@ -29,7 +29,7 @@
   --fs-xxl: 62px;
   --fs-xl: 48px;
   --fs-lg: 28px;
-  --fs-md: 20px;
+  --fs-md: 2fi0px;
   --fs-base: 16px;
   --fs-sm: 14px;
 }
@@ -121,7 +121,7 @@ h3 {
 }
 
 .footer-link:hover {
-  color: var(--color-accent);
+  color: color-mix(in srgb, var(--btn-secondary-text, var(--color-primary)) 60%, var(--color-accent) 40%);
 }
 
 .back-arrow:hover {
