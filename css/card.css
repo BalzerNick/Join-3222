@@ -99,6 +99,35 @@
   top: 4px;
 }
 
+.icon-wrap {
+  position: relative;
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+  margin-right: 20px;
+  top: 4px;
+}
+
+.icon-wrap .pencil-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-right: 0;
+  transition: opacity 0.15s ease;
+}
+
+.icon-wrap .icon-hover {
+  opacity: 0;
+}
+
+.stat-card:hover .icon-wrap .icon-default {
+  opacity: 0;
+}
+
+.stat-card:hover .icon-wrap .icon-hover {
+  opacity: 1;
+}
+
 .red-arrow-circle-icon {
   width: 45px;
   height: 45px;
