@@ -1,4 +1,3 @@
-let contactArray = [];
 let names = [];
 let selectedContacts = [];
 let subtasks = {};
@@ -8,17 +7,11 @@ let editingSubtaskKey = null;
 
 /**
  * 
- */
-function init() {
-    getContacts();
-}
-
-/**
- * 
  * @param {*} ul 
  * @param {*} arr 
  */
-function toggleDropdown(ul, arr) {
+async function toggleDropdown(ul, arr) {
+    await getContacts();
     getCoWorker()
     let list = document.getElementById(ul);
     let arrow = document.getElementById(arr);
@@ -71,7 +64,6 @@ function selectOption(contact) {
     let arrow = document.getElementById("arrow");
 
     input.value = contact;
-
     list.classList.remove("show");
     arrow.classList.remove("open");
 }
@@ -79,38 +71,13 @@ function selectOption(contact) {
 /**
  * 
  */
-async function getContacts() {
-    let response = await fetch(BASE_URL + "contacts.json");
-    let toJson = await response.json();
-    await getContactElement(toJson);
-}
-
-/**
- * 
- * @param {*} result 
- */
-async function getContactElement(result) {
-    let contacts = Object.values(result);
-
-    for (const element of contacts) {
-        let contact = {
-            Name: element.name,
-            Initials: element.initials,
-            Color: getAvatarColor(element.name)
-        }
-        contactArray.push(contact);
-    }
-}
-
-
-/**
- * 
- */
 function getCoWorker() {
     let dropbox = document.getElementById("contactList");
     dropbox.innerHTML = "";
+    let loggedinUser = getUser();
     for (let index = 0; index < contactArray.length; index++) {
-        dropbox.innerHTML += getNameTemplate(contactArray[index], index);
+        let user = testUser(loggedinUser, contactArray[index]);
+        dropbox.innerHTML += getNameTemplate(user, contactArray[index].Initials, index, contactArray[index].Color);
     }
 }
 
@@ -119,43 +86,13 @@ function getCoWorker() {
  */
 async function submitTaskData(event) {
     event.preventDefault();
-
     let task = getTaskData();
-    let nextID = await getNextTaskId();
-    
-    postTask(`/tasks/${nextID}`, task);
+    let tasks = await getNextTaskId();
+    let nextId = Object.keys(tasks).length + 1
 
+    postTask(`/tasks/${nextId}`, task);
     showToast("Task created", duration = 2000)
     resetTask();
-}
-
-/**
- * 
- * @param {*} path 
- * @param {*} data 
- * @returns 
- */
-async function postTask(path ="", data = {}){
-    let response = await fetch(BASE_URL + path + ".json", {
-        method: "PUT",
-        header: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
-    });
-    return responseToJson = await response.json
-}
-
-/**
- * 
- * @returns 
- */
-async function getNextTaskId() {
-    let response = await fetch(BASE_URL + "/tasks.json");
-    let tasks = await response.json();
-    let id = Object.keys(tasks).length + 1
-
-    return "task"+id
 }
 
 /**
@@ -173,7 +110,6 @@ function getTaskData() {
         assignedTo: selectedContacts,
         subtasks: subtasks
     }
-
     return task;
 }
 
@@ -241,10 +177,9 @@ function toggleContactRow(index) {
 function renderContacts(initial, color){
     let contact = document.getElementById(`assignedContacts`)
     contact.innerHTML = ""
-
+    let user = getUser();
     for (let index = 0; index < selectedContacts.length; index++) {
-        console.log(selectedContacts[index]);
-        
+        testUser(user);
         contact.innerHTML += getContactInitial(selectedContacts[index].Initials, selectedContacts[index].Color);
     }
 }
@@ -377,6 +312,28 @@ function clearSubtask(){
     showButtons();
 }
 
+/**
+ * 
+ * @returns 
+ */
+function getUser(){
+    const user = localStorage.getItem("user");
+    return user;
+}
 
+/**
+ * 
+ * @param {*} loggedinUser 
+ * @param {*} user 
+ * @returns 
+ */
+function testUser(loggedinUser, user){
+    if(JSON.parse(loggedinUser).name == user.Name){
+        return user.Name +" (you)"
+    }
+    else{
+        return user.Name
+    }
+}
 
 

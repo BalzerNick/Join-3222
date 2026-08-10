@@ -62,9 +62,12 @@ header {
 
 .menu-icons-img {
   width: 100%;
-  width: 100%;
   height: auto;
   display: block;
+}
+
+.menu-icons-mobile {
+  display: none;
 }
 
 .policies {
@@ -157,4 +160,101 @@ header {
 
 .user-dropdown a:hover {
   background-color: var(--color-accent);
+}
+
+/* ============================================================
+   Responsive: ab 768px wandert die Sidebar nach unten und wird
+   zur fixen Navbar am unteren Bildschirmrand (Footer-Look).
+   ============================================================ */
+@media (max-width: 768px) {
+  header {
+    padding-left: 24px;
+    padding-right: 16px;
+  }
+
+  .menu-line {
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 -2px 14px rgba(0, 0, 0, 0.1);
+  }
+
+  .menu-logo,
+  .policies {
+    display: none;
+  }
+
+  .menu-icons {
+    position: static;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: stretch;
+    height: 100%;
+    width: 100%;
+    margin-bottom: 0;
+    gap: 0;
+  }
+
+  .menu-icons a {
+    width: auto;
+    height: 100%;
+    padding: 8px 16px;
+    box-sizing: border-box;
+    border-radius: 16px;
+  }
+
+  .menu-icons-img-desktop {
+    display: none;
+  }
+
+  .menu-icons-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .menu-icons-img-mobile {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+
+  .menu-icons-label {
+    color: #cdcdcd;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  .menu-icons a.active .menu-icons-label {
+    color: #ffffff;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding-left: 16px;
+    font-size: var(--fs-base);
+  }
+
+  .menu-line {
+    height: 64px;
+  }
+
+  .menu-icons a {
+    padding: 6px 10px;
+  }
+
+  .menu-icons-img-mobile {
+    width: 20px;
+    height: 20px;
+  }
+
+  .menu-icons-label {
+    font-size: 9px;
+  }
 }
