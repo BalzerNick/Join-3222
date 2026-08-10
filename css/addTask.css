@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 main {
     padding: 80px 80px;
     color: var(--color-primary);
@@ -5,6 +9,7 @@ main {
     margin-top: 0;
     max-width: 1440px;
     left: 0;
+    box-sizing: border-box;
 }
 
 h1 {
@@ -50,7 +55,8 @@ form {
 }
 
 #addTaskForm .input {
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     box-sizing: border-box;
     border: 1px solid var(--color-border);
     border-radius: 10px;
@@ -73,6 +79,7 @@ form {
 
 .priority-buttons {
     display: flex;
+    flex-wrap: wrap;
     gap: 16px;
 }
 
@@ -130,7 +137,8 @@ form {
 
 .dropdown,
 .add-subtask {
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     position: relative;
 }
 

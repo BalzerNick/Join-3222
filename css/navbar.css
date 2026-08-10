@@ -62,9 +62,12 @@ header {
 
 .menu-icons-img {
   width: 100%;
-  width: 100%;
   height: auto;
   display: block;
+}
+
+.menu-icons-mobile {
+  display: none;
 }
 
 .policies {
@@ -189,7 +192,8 @@ header {
     position: static;
     flex-direction: row;
     justify-content: space-around;
-    align-items: center;
+    align-items: stretch;
+    height: 100%;
     width: 100%;
     margin-bottom: 0;
     gap: 0;
@@ -197,11 +201,37 @@ header {
 
   .menu-icons a {
     width: auto;
-    padding: 12px 24px;
+    height: 100%;
+    padding: 8px 16px;
+    box-sizing: border-box;
+    border-radius: 16px;
   }
 
-  .menu-icons-img {
-    width: 28px;
+  .menu-icons-img-desktop {
+    display: none;
+  }
+
+  .menu-icons-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .menu-icons-img-mobile {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+
+  .menu-icons-label {
+    color: #cdcdcd;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  .menu-icons a.active .menu-icons-label {
+    color: #ffffff;
   }
 }
 
@@ -216,10 +246,15 @@ header {
   }
 
   .menu-icons a {
-    padding: 8px 12px;
+    padding: 6px 10px;
   }
 
-  .menu-icons-img {
-    width: 24px;
+  .menu-icons-img-mobile {
+    width: 20px;
+    height: 20px;
+  }
+
+  .menu-icons-label {
+    font-size: 9px;
   }
 }
