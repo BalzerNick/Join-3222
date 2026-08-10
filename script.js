@@ -75,8 +75,6 @@ function closeUserMenu(event) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", renderUserInitials);
-
 /**
  * 
  * @param {*} event 

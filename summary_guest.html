@@ -15,7 +15,7 @@
 
 </head>
 
-<body onload="getCurrentTime(); startGreeting()" onclick="closeUserMenu(event)">
+<body onload="getCurrentTime(); startGreeting(); renderUserInitials()" onclick="closeUserMenu(event)">
     <header>Kanban Project Management Tool
         <div class="header-right">
             <a href="help.html" class="help-btn" aria-label="Help">?</a>
@@ -109,7 +109,7 @@
 
         <div class="second-line">
             <div class="stat-card-wide">
-                    <img src="assets/imgs/red-arrow-circle.png" alt="To-do Icon" class="red-arrow-circle-icon">
+                    <img src="assets/icons/urgent_arrow.png" alt="To-do Icon" class="red-arrow-circle-icon">
                     <div class="stat-number-col">
                         <span class="stat-number" id="urgentCount">0</span>
                         <span class="stat-label">Urgent</span>
