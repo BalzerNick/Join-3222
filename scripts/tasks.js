@@ -41,8 +41,6 @@ function closeAllDropdowns() {
     document.getElementById("categoryList")?.classList.add("d-none");
 }
 
-document.addEventListener("click", closeAllDropdowns);
-
 /**
  * 
  */

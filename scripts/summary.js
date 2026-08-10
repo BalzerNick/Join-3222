@@ -1,9 +1,5 @@
 let tasks = [];
 
-window.addEventListener("load", () => {
-    loadSummaryData();
-});
-
 async function loadSummaryData() {
     try {
         const response = await fetch(BASE_URL + "tasks.json");
