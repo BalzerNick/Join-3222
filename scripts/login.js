@@ -76,7 +76,6 @@ async function login() {
   }
 }
 
-
 /**
  * Wird vom "Guest Log in"-Button aufgerufen. Springt ohne Pruefung aufs Board.
  * @returns {void}
@@ -85,7 +84,6 @@ function guestLogin() {
   localStorage.setItem("user", JSON.stringify({ guest: true }));
   window.location.href = "summary_guest.html";
 }
-
 
 /**
  * Wird vom "Sign up"-Button aufgerufen. Springt zur Registrierungsseite.
