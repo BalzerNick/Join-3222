@@ -75,8 +75,6 @@ function closeUserMenu(event) {
   }
 }
 
-document.addEventListener("click", closeUserMenu);
-
 document.addEventListener("DOMContentLoaded", renderUserInitials);
 
 /**
