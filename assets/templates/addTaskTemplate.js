@@ -54,7 +54,6 @@ function getAddTaskPage() {
 
         <form id="addTaskForm" onsubmit="submitTaskData(event)" onreset="resetTask()">
             <div class="input-form">
-
                 <div class="input-area">
                     <label for="taskName">Title<span class="required">*</span></label>
                     <input class="input" type="text" id="taskName" name="taskName" required placeholder="Enter a title">
@@ -69,88 +68,61 @@ function getAddTaskPage() {
 
                 <div class="divider"></div>
 
+
                 <div class="input-area">
                     <label>Priority</label>
-
                     <div class="priority-buttons">
-                        <button type="button" class="btn btn-secondary btn-task btn-priority-urgent"
-                            id="btnUrgent" onclick="selectPriority('urgent')">
+                        <button type="button" class="btn btn-secondary btn-task btn-priority-urgent" id="btnUrgent"
+                            onclick="selectPriority('urgent')">
                             <span>Urgent</span>
-                            <img class="medium"
-                                src="assets/icons/arrow up.svg"
-                                data-icon="assets/icons/arrow up.svg"
-                                data-icon-selected="assets/icons/arrow up_choosed.svg"
-                                alt="Urgent priority icon">
+                            <img class="medium" src="assets/icons/arrow up.svg" data-icon="assets/icons/arrow up.svg"
+                                data-icon-selected="assets/icons/arrow up_choosed.svg" alt="Urgent priority icon">
                         </button>
-
-                        <button type="button"
-                            class="btn btn-secondary btn-task btn-priority-medium selected"
-                            id="btnMedium"
-                            onclick="selectPriority('medium')">
+                        <button type="button" class="btn btn-secondary btn-task btn-priority-medium selected"
+                            id="btnMedium" onclick="selectPriority('medium')">
                             <span>Medium</span>
-                            <img class="medium"
-                                src="assets/icons/=_choosed.svg"
-                                data-icon="assets/icons/=.svg"
-                                data-icon-selected="assets/icons/=_choosed.svg"
-                                alt="Medium priority icon">
+                            <img class="medium" src="assets/icons/=_choosed.svg" data-icon="assets/icons/=.svg"
+                                data-icon-selected="assets/icons/=_choosed.svg" alt="Medium priority icon">
                         </button>
-
-                        <button type="button"
-                            class="btn btn-secondary btn-task btn-priority-low"
-                            id="btnLow"
+                        <button type="button" class="btn btn-secondary btn-task btn-priority-low" id="btnLow"
                             onclick="selectPriority('low')">
                             <span>Low</span>
-                            <img class="medium"
-                                src="assets/icons/arrow down.svg"
+                            <img class="medium" src="assets/icons/arrow down.svg"
                                 data-icon="assets/icons/arrow down.svg"
-                                data-icon-selected="assets/icons/arrow down_choosed.svg"
-                                alt="Low priority icon">
+                                data-icon-selected="assets/icons/arrow down_choosed.svg" alt="Low priority icon">
                         </button>
                     </div>
 
                     <label for="assignedTo">Assigned to</label>
-
                     <div class="dropdown" onclick="noEvent(event)">
                         <div class="input-wrapper">
-                            <input class="input pointer"
-                                id="assignedTo"
-                                type="text"
-                                placeholder="Select contact to assign"
-                                autocomplete="off"
-                                oninput="searchList()"
+                            <input class="input pointer" id="assignedTo" type="text"
+                                placeholder="Select contact to assign" autocomplete="off" oninput="searchList()"
                                 onclick="toggleDropdown('contactList', 'contactArrow')">
 
-                            <span class="input-img pointer arrow"
-                                id="contactArrow"
-                                onclick="toggleDropdown('contactList', 'contactArrow')">
-                                ▼
-                            </span>
+                            <span class="input-img pointer arrow" id="contactArrow"
+                                onclick="toggleDropdown('contactList', 'contactArrow')">▼</span>
                         </div>
 
+
                         <ul class="dropdown-list dropdown-scroll d-none" id="contactList">
+
                         </ul>
                     </div>
 
-                    <div id="assignedContacts" class="assigned-contacts"></div>
+                    <div id="assignedContacts" class="assigned-contacts">
+
+                    </div>
 
                     <label for="category">Category<span class="required">*</span></label>
-
                     <div class="dropdown" onclick="noEvent(event)">
                         <div class="input-wrapper">
-                            <input class="input pointer"
-                                id="category"
-                                type="text"
-                                placeholder="Select task category"
-                                autocomplete="off"
-                                oninput="searchList()"
-                                onclick="toggleDropdown('categoryList', 'categoryArrow')"
-                                required>
+                            <input class="input pointer" id="category" type="text" placeholder="Select task category"
+                                autocomplete="off" oninput="searchList()"
+                                onclick="toggleDropdown('categoryList', 'categoryArrow')" required>
 
-                            <span class="input-img pointer arrow"
-                                id="categoryArrow"
-                                onclick="toggleDropdown('categoryList', 'categoryArrow')">
-                                ▼
-                            </span>
+                            <span class="input-img pointer arrow" id="categoryArrow"
+                                onclick="toggleDropdown('categoryList', 'categoryArrow')">▼</span>
                         </div>
 
                         <ul class="dropdown-list d-none" id="categoryList">
@@ -169,45 +141,39 @@ function getAddTaskPage() {
                     </div>
 
                     <label for="subtask">Subtask</label>
-
                     <div class="add-subtask">
                         <div class="input-wrapper">
-                            <input class="input"
-                                id="subtask"
-                                type="text"
-                                placeholder="Add new subtask" autocomplete="off">
-                        </div>
+                            <input class="input" id="subtask" type="text" placeholder="Add new subtask" autocomplete="off" oninput="showButtons()"
+                                onkeydown="if(event.key === 'Enter'){ event.preventDefault(); safeSubtask(); }">
+                            <div class="subtask-buttons input-img d-none" id="subtaskButtons">
+                                <img class="input-img subtask-icon pointer" src="assets/icons/close.svg" alt="x" onclick="clearSubtask()">
+                                <span>|</span>
+                                <img class="input-img subtask-icon pointer" src="assets/icons/check_black.svg" alt="Add subtask" onclick="safeSubtask()">
+                            </div>
 
-                        <div class="subtask-area">
+                        </div>
+                        <div class="subtask-area" id="subtaskArea">
+
                         </div>
                     </div>
 
                 </div>
             </div>
 
-            <div class="submit-form">
-                <span class="required-hint">
-                    <span class="required">*</span>
-                    This field is required
-                </span>
 
+            <div class="submit-form">
+                <span class="required-hint"><span class="required">*</span>This field is required</span>
                 <div class="button-area">
                     <button type="reset" class="btn btn-secondary btn-task">
                         <span>Clear</span>
-                        <img class="btn-img"
-                            src="assets/icons/close.svg"
-                            alt="Close icon">
+                        <img class="btn-img" src="assets/icons/close.svg" alt="x symbole for close">
                     </button>
-
                     <button class="btn btn-primary btn-task" type="submit">
                         <span>Create Task</span>
-                        <img class="btn-img"
-                            src="assets/icons/check.svg"
-                            alt="Submit icon">
+                        <img class="btn-img" src="assets/icons/check.svg" alt=" symbole for submit">
                     </button>
                 </div>
             </div>
-
         </form>
     </main>
     `;

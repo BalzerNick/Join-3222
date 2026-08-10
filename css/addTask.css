@@ -147,8 +147,7 @@ input {
     right: 15px;
 }
 
-.arrow,
-.subtask-icon {
+.arrow {
     top: 50%;
     transform: translateY(-50%);
 }
