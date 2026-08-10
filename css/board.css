@@ -596,6 +596,7 @@ body.modal-open {
 .task-edit-textarea {
     min-height: 120px;
     resize: vertical;
+    width: unset;
 }
 
 
