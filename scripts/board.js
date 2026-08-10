@@ -13,6 +13,7 @@ async function initPage() {
     await loadContacts();
     if (typeof getContacts === 'function') await getContacts();
     await loadTasks();
+    renderUserInitials();
 }
 
 function updateHTML() {
