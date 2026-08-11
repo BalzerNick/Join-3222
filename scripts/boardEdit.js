@@ -19,9 +19,9 @@ function enterEditMode(taskId) {
     taskEditSelectedContacts = mapTaskEditContacts(task.assignedTo || []);
     document.getElementById('task-detail-body').innerHTML = getTaskEditTemplate({
         id: task.id,
-        title: escapeHtml(task.title || ''),
-        dueDate: task.dueDate ? escapeHtml(task.dueDate) : '',
-        description: task.description ? escapeHtml(task.description) : '',
+        title: task.title || '',
+        dueDate: task.dueDate || '',
+        description: task.description || '',
         priority: task.priority ? String(task.priority).toLowerCase() : 'medium',
         contactListHTML: buildEditContactListHTML(),
         assignedAvatarsHTML: buildEditAssignedAvatarsHTML()
@@ -110,16 +110,16 @@ function buildTaskEditContactPool() {
 function buildEditContactListHTML() {
     return taskEditContactPool.map((contact, index) => getEditContactListItemTemplate({
         ...contact,
-        Initials: escapeHtml(contact.Initials),
-        Name: escapeHtml(contact.Name)
+        Initials: contact.Initials,
+        Name: contact.Name
     }, index, taskEditSelectedContacts.some(item => item.Name === contact.Name))).join('');
 }
 
 function buildEditAssignedAvatarsHTML() {
     return taskEditSelectedContacts.map(contact => getEditAssignedAvatarTemplate({
         ...contact,
-        Name: escapeHtml(contact.Name),
-        Initials: escapeHtml(contact.Initials)
+        Name: contact.Name,
+        Initials: contact.Initials
     })).join('');
 }
 
@@ -186,7 +186,7 @@ function renderEditSubtasks() {
     const list = document.getElementById('editSubtaskList');
     if (!list) return;
     list.innerHTML = taskEditSubtasks
-        .map(subtask => getEditSubtaskItemTemplate({ ...subtask, title: escapeHtml(subtask.title) }))
+    .map(subtask => getEditSubtaskItemTemplate({ ...subtask, title: subtask.title }))
         .join('');
 }
 
