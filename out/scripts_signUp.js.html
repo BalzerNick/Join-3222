@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: scripts/signUp.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: scripts/signUp.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Liest alle Eingaben aus dem Registrierungsformular.
+ * @returns {{name: string, email: string, password: string, confirm: string, accept: boolean}} Die Eingaben.
+ */
+function getSignupInputs() {
+  return {
+    name: document.getElementById('signupName').value.trim(),
+    email: document.getElementById('signupEmail').value.trim(),
+    password: document.getElementById('signupPassword').value.trim(),
+    confirm: document.getElementById('signupConfirm').value.trim(),
+    accept: document.getElementById('acceptPrivacy').checked
+  };
+}
+
+
+/**
+ * Zeigt eine Fehlermeldung im Formular an (leerer Text = weg).
+ * @param {string} message - Der Fehlertext.
+ * @returns {void}
+ */
+function showSignupError(message) {
+  document.getElementById('signupError').textContent = message;
+}
+
+
+/**
+ * Prueft die Registrierungseingaben.
+ * @param {{name: string, email: string, password: string, confirm: string, accept: boolean}} data - Die Eingaben.
+ * @returns {string} Fehlertext, leer wenn alles ok ist.
+ */
+function validateSignup(data) {
+  if (!data.name || !data.email || !data.password) return "Bitte alle Felder ausfuellen.";
+  if (!data.email.includes("@")) return "Bitte eine gueltige E-Mail eingeben.";
+  if (data.password !== data.confirm) return "Passwoerter stimmen nicht ueberein.";
+  if (!data.accept) return "Bitte die Datenschutzerklaerung akzeptieren.";
+  return "";
+}
+
+
+/**
+ * Speichert einen neuen User im Backend (POST erzeugt eine neue ID).
+ * @param {{name: string, email: string, password: string}} user - Der neue User.
+ * @returns {Promise&lt;void>}
+ */
+async function saveUser(user) {
+  await fetch(BASE_URL + "users.json", {
+    method: "POST",
+    body: JSON.stringify(user)
+  });
+}
+
+
+/**
+ * Wird vom "Sign up"-Button aufgerufen. Prueft und speichert den User.
+ * @returns {Promise&lt;void>}
+ */
+async function registerUser() {
+  let data = getSignupInputs();
+  let error = validateSignup(data);
+  if (error) {
+    showSignupError(error);
+    return;
+  }
+  await saveUser({ name: data.name, email: data.email, password: data.password });
+  showToast("You signed up successfully");
+  setTimeout(() => window.location.href = "index.html", 1500);
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#buildContactsHtml">buildContactsHtml</a></li><li><a href="global.html#chooseCategory">chooseCategory</a></li><li><a href="global.html#clearSubtask">clearSubtask</a></li><li><a href="global.html#closeAddContact">closeAddContact</a></li><li><a href="global.html#closeAllDropdowns">closeAllDropdowns</a></li><li><a href="global.html#confirmEditSubtask">confirmEditSubtask</a></li><li><a href="global.html#countTasksByPriority">countTasksByPriority</a></li><li><a href="global.html#countTasksByStatus">countTasksByStatus</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#fillDetailTemplate">fillDetailTemplate</a></li><li><a href="global.html#fillEditTemplate">fillEditTemplate</a></li><li><a href="global.html#fillTemplate">fillTemplate</a></li><li><a href="global.html#findUser">findUser</a></li><li><a href="global.html#getAvatarColor">getAvatarColor</a></li><li><a href="global.html#getCoWorker">getCoWorker</a></li><li><a href="global.html#getContactElement">getContactElement</a></li><li><a href="global.html#getContacts">getContacts</a></li><li><a href="global.html#getEditContact">getEditContact</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#getLoginInputs">getLoginInputs</a></li><li><a href="global.html#getNewContact">getNewContact</a></li><li><a href="global.html#getNextTaskId">getNextTaskId</a></li><li><a href="global.html#getSignupInputs">getSignupInputs</a></li><li><a href="global.html#getTaskData">getTaskData</a></li><li><a href="global.html#getTaskDetailTemplate">getTaskDetailTemplate</a></li><li><a href="global.html#getTaskEditTemplate">getTaskEditTemplate</a></li><li><a href="global.html#getTaskTemplate">getTaskTemplate</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#highlightContact">highlightContact</a></li><li><a href="global.html#isLoginFilled">isLoginFilled</a></li><li><a href="global.html#loadAddContactTemplate">loadAddContactTemplate</a></li><li><a href="global.html#loadContacts">loadContacts</a></li><li><a href="global.html#loadDetailTemplate">loadDetailTemplate</a></li><li><a href="global.html#loadEditTemplate">loadEditTemplate</a></li><li><a href="global.html#loadLetterTemplate">loadLetterTemplate</a></li><li><a href="global.html#loadTemplate">loadTemplate</a></li><li><a href="global.html#loadUsers">loadUsers</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#noEvent">noEvent</a></li><li><a href="global.html#openAddContact">openAddContact</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#postTask">postTask</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderSubtask">renderSubtask</a></li><li><a href="global.html#resetAssignedContacts">resetAssignedContacts</a></li><li><a href="global.html#resetTask">resetTask</a></li><li><a href="global.html#safeSubtask">safeSubtask</a></li><li><a href="global.html#saveContact">saveContact</a></li><li><a href="global.html#saveEditedContact">saveEditedContact</a></li><li><a href="global.html#saveUser">saveUser</a></li><li><a href="global.html#searchList">searchList</a></li><li><a href="global.html#selectOption">selectOption</a></li><li><a href="global.html#selectPriority">selectPriority</a></li><li><a href="global.html#setStatNumber">setStatNumber</a></li><li><a href="global.html#showButtons">showButtons</a></li><li><a href="global.html#showContactDetail">showContactDetail</a></li><li><a href="global.html#showContacts">showContacts</a></li><li><a href="global.html#showLoginError">showLoginError</a></li><li><a href="global.html#showSignupError">showSignupError</a></li><li><a href="global.html#showToast">showToast</a></li><li><a href="global.html#signUp">signUp</a></li><li><a href="global.html#sortContacts">sortContacts</a></li><li><a href="global.html#submitTaskData">submitTaskData</a></li><li><a href="global.html#testUser">testUser</a></li><li><a href="global.html#toggleContact">toggleContact</a></li><li><a href="global.html#toggleContactRow">toggleContactRow</a></li><li><a href="global.html#toggleDropdown">toggleDropdown</a></li><li><a href="global.html#updateContact">updateContact</a></li><li><a href="global.html#updateSummaryHTML">updateSummaryHTML</a></li><li><a href="global.html#validateSignup">validateSignup</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Tue Aug 11 2026 11:04:51 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
