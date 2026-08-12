@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: assets/templates/boardTemplates.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: assets/templates/boardTemplates.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Builds the board task card template.
+ * @param {Object} data
+ * @returns {string}
+ */
+function getTaskTemplate(data) {
+    return `
+        &lt;div draggable="true" ondragstart="startDragging('${data.id}')" onclick="openTaskDetail('${data.id}')" class="todo">
+            ${getTaskCardTopTemplate(data.category)}
+            &lt;h3 class="task-title">${data.title}&lt;/h3>
+            ${data.description}
+            ${data.subtaskHTML}
+            ${getTaskFooterTemplate(data)}
+        &lt;/div>`;
+}
+
+
+/**
+ * Builds the task detail modal template.
+ * @param {Object} data
+ * @returns {string}
+ */
+function getTaskDetailTemplate(data) {
+    return `
+        &lt;div class="task-detail-card">
+            ${getTaskDetailHeaderTemplate(data.category)}
+            &lt;h2 class="detail-title">${data.title}&lt;/h2>
+            ${data.description}
+            ${getTaskDetailMetaTemplate(data)}
+            ${getTaskDetailAssignedTemplate(data.assignedContactsHTML)}
+            ${getTaskDetailSubtasksTemplate(data.subtasksHTML)}
+            ${getTaskDetailActionsTemplate(data.id)}
+        &lt;/div>`;
+}
+
+
+/**
+ * Builds the task edit modal template.
+ * @param {Object} data
+ * @returns {string}
+ */
+function getTaskEditTemplate(data) {
+    return `
+        &lt;div class="task-detail-card">
+            ${getTaskEditHeaderTemplate()}
+            &lt;form id="task-edit-form" class="task-edit-form" onsubmit="saveTaskEdits(event)">
+                ${getTaskEditTextInputTemplate('Title', 'editTaskTitle', data.title, 'text', true)}
+                ${getTaskEditTextareaTemplate('Description', 'editTaskDescription', data.description)}
+                ${getTaskEditDateInputTemplate(data.dueDate)}
+                ${getTaskEditPriorityTemplate(data.priority)}
+                ${getTaskEditAssignedTemplate(data)}
+                ${getTaskEditSubtasksTemplate()}
+                ${getTaskEditFooterTemplate()}
+            &lt;/form>
+        &lt;/div>`;
+}
+
+
+function getTaskCardTopTemplate(category) {
+    return `
+        &lt;div class="task-topline">
+            &lt;div class="task-topline-left">${category}&lt;/div>
+        &lt;/div>`;
+}
+
+
+function getTaskFooterTemplate(data) {
+    return `
+        &lt;div class="task-footer">
+            &lt;div class="footer-left">&lt;div class="avatars">${data.avatarsHTML}&lt;/div>&lt;/div>
+            &lt;div class="footer-right">${data.priority}&lt;/div>
+        &lt;/div>`;
+}
+
+
+function getTaskDetailHeaderTemplate(category) {
+    return `
+        &lt;div class="task-detail-top">
+            &lt;div>${category}&lt;/div>
+            &lt;button class="modal-close task-detail-close" onclick="closeTaskDetail()">&amp;times;&lt;/button>
+        &lt;/div>`;
+}
+
+
+function getTaskDetailMetaTemplate(data) {
+    return `
+        &lt;div class="detail-grid">
+            &lt;div class="detail-block">&lt;span class="detail-label">Due date:&lt;/span>${data.dueDate}&lt;/div>
+            &lt;div class="detail-block">&lt;span class="detail-label">Priority:&lt;/span>${data.priority}&lt;/div>
+        &lt;/div>`;
+}
+
+
+function getTaskDetailAssignedTemplate(assignedContactsHTML) {
+    return `
+        &lt;div class="detail-section">
+            &lt;h3>Assigned To:&lt;/h3>
+            &lt;div class="assigned-list">${assignedContactsHTML}&lt;/div>
+        &lt;/div>`;
+}
+
+
+function getTaskDetailSubtasksTemplate(subtasksHTML) {
+    return `
+        &lt;div class="detail-section">
+            &lt;h3>Subtasks&lt;/h3>
+            &lt;ul class="subtask-list">${subtasksHTML}&lt;/ul>
+        &lt;/div>`;
+}
+
+
+function getTaskDetailActionsTemplate(taskId) {
+    return `
+        &lt;div class="detail-actions">
+            &lt;button class="btn-detail btn-delete" onclick="deleteTask('${taskId}')">&lt;img src="assets/icons/delete.svg" alt="delete">Delete&lt;/button>
+            &lt;button class="btn-detail btn-edit" onclick="enterEditMode('${taskId}')">&lt;img src="assets/icons/edit.svg" alt="edit">Edit&lt;/button>
+        &lt;/div>`;
+}
+
+
+function getTaskEditHeaderTemplate() {
+    return `
+        &lt;div class="task-detail-top">
+            &lt;div>&lt;/div>
+            &lt;button class="modal-close task-detail-close" onclick="closeTaskDetail()">&amp;times;&lt;/button>
+        &lt;/div>`;
+}
+
+
+function getTaskEditTextInputTemplate(label, id, value, type, required = false) {
+    return `
+        &lt;div class="form-row">
+            &lt;label for="${id}">${label}&lt;/label>
+            &lt;input id="${id}" class="input task-edit-input" type="${type}" value="${value}" ${required ? 'required' : ''}>
+        &lt;/div>`;
+}
+
+
+function getTaskEditTextareaTemplate(label, id, value) {
+    return `
+        &lt;div class="form-row">
+            &lt;label for="${id}">${label}&lt;/label>
+            &lt;textarea id="${id}" class="input task-edit-textarea">${value}&lt;/textarea>
+        &lt;/div>`;
+}
+
+
+function getTaskEditDateInputTemplate(value) {
+    return `
+        &lt;div class="form-row">
+            &lt;label for="editTaskDeadline">Due date&lt;/label>
+            &lt;div class="edit-date-wrapper">
+                &lt;input id="editTaskDeadline" class="input task-edit-input" type="date" value="${value}">
+            &lt;/div>
+        &lt;/div>`;
+}
+
+
+function getTaskEditPriorityTemplate(priority) {
+    return `
+        &lt;div class="form-row">
+            &lt;label>Priority&lt;/label>
+            &lt;div class="priority-buttons edit-priority-buttons">${getTaskEditPriorityButtonsTemplate()}&lt;/div>
+            &lt;input type="hidden" id="editTaskPriority" value="${priority}">
+        &lt;/div>`;
+}
+
+
+function getTaskEditPriorityButtonsTemplate() {
+    return getTaskEditPriorityButton('Urgent', 'urgent', 'editBtnUrgent', 'assets/icons/arrow up.svg', 'assets/icons/arrow up_choosed.svg') +
+        getTaskEditPriorityButton('Medium', 'medium', 'editBtnMedium', 'assets/icons/=.svg', 'assets/icons/=_choosed.svg') +
+        getTaskEditPriorityButton('Low', 'low', 'editBtnLow', 'assets/icons/arrow down.svg', 'assets/icons/arrow down_choosed.svg');
+}
+
+
+function getTaskEditPriorityButton(label, value, id, icon, selectedIcon) {
+    return `
+        &lt;button type="button" class="btn btn-secondary btn-task btn-priority-${value}" id="${id}" onclick="setEditPriority('${value}')">
+            &lt;span>${label}&lt;/span>
+            &lt;img src="${icon}" data-icon="${icon}" data-icon-selected="${selectedIcon}" alt="${value}">
+        &lt;/button>`;
+}
+
+
+function getTaskEditAssignedTemplate(data) {
+    return `
+        &lt;div class="form-row">
+            &lt;label>Assigned to&lt;/label>
+            &lt;div class="edit-contact-dropdown" onclick="noEvent(event)">
+                &lt;div class="edit-contact-input-row" onclick="toggleEditContactDropdown(event)">
+                    &lt;span class="edit-contact-placeholder">Select contacts to assign&lt;/span>
+                    &lt;span class="edit-dropdown-arrow" id="editContactArrow">▼&lt;/span>
+                &lt;/div>
+                &lt;ul class="edit-contact-list d-none" id="editContactList">${data.contactListHTML}&lt;/ul>
+            &lt;/div>
+            &lt;div id="editAssignedAvatars" class="edit-assigned-avatars">${data.assignedAvatarsHTML}&lt;/div>
+        &lt;/div>`;
+}
+
+
+function getTaskEditSubtasksTemplate() {
+    return `
+        &lt;div class="form-row">
+            &lt;label>Subtasks&lt;/label>
+            &lt;div class="edit-subtask-entry">
+                &lt;input id="editSubtaskInput" class="input task-edit-input" type="text" placeholder="Add new subtask">
+                &lt;button type="button" class="edit-subtask-add-btn" onclick="addEditSubtask()">+&lt;/button>
+            &lt;/div>
+            &lt;ul id="editSubtaskList" class="edit-subtask-list-ul">&lt;/ul>
+        &lt;/div>`;
+}
+
+
+function getTaskEditFooterTemplate() {
+    return `
+        &lt;div class="edit-form-footer">
+            &lt;button type="submit" class="btn-ok-edit">Ok &lt;img src="assets/icons/check.svg" alt="ok">&lt;/button>
+        &lt;/div>`;
+}
+
+
+function getBoardEmptyColumnTemplate(columnName) {
+    return `&lt;div class="empty-state">No tasks ${columnName}&lt;/div>`;
+}
+
+
+function getBoardSubtaskButtonsTemplate() {
+    return `
+        &lt;img class="input-img subtask-icon pointer" src="assets/icons/close.svg" alt="x" onclick="clearSubtask()">
+        &lt;span>|&lt;/span>
+        &lt;img class="input-img subtask-icon pointer" src="assets/icons/check_black.svg" alt="Add subtask" onclick="safeSubtask()">`;
+}
+
+
+function getTaskDescriptionTemplate(description, className = 'task-description') {
+    return `&lt;p class="${className}">${description}&lt;/p>`;
+}
+
+
+function getTaskDueDateTemplate(dueDate) {
+    return dueDate ? `&lt;span class="detail-value">${dueDate}&lt;/span>` : "&lt;span class='detail-empty'>No due date&lt;/span>";
+}
+
+
+function getTaskSubtaskProgressTemplate(progress) {
+    return `
+        &lt;div class="subtask-row">
+            &lt;div class="subtask-wrap">
+                &lt;div class="subtask-progress" aria-hidden>
+                    &lt;div class="subtask-progress-fill" style="width: ${progress.percent}%;">&lt;/div>
+                &lt;/div>
+                &lt;div class="subtask-count">${progress.done}/${progress.total} Subtasks&lt;/div>
+            &lt;/div>
+        &lt;/div>`;
+}
+
+
+function getEmptyAssignedContactsTemplate() {
+    return "&lt;p class='detail-empty'>No assigned contacts&lt;/p>";
+}
+
+
+function getAssignedContactTemplate(contactInitialHtml, contactName) {
+    return `
+        &lt;div class="assigned-person">
+            ${contactInitialHtml}
+            &lt;div class="assigned-info">&lt;span class="assigned-name">${contactName}&lt;/span>&lt;/div>
+        &lt;/div>`;
+}
+
+
+function getEmptySubtasksTemplate() {
+    return "&lt;p class='detail-empty'>No subtasks&lt;/p>";
+}
+
+
+function getTaskSubtaskItemTemplate(taskId, subtaskId, isDone, title) {
+    return `
+        &lt;li class="subtask-item">
+            &lt;label>
+                &lt;input type="checkbox" ${isDone ? 'checked' : ''} onchange="toggleSubtaskDone('${taskId}', '${subtaskId}', this.checked)">
+                &lt;span>${title}&lt;/span>
+            &lt;/label>
+        &lt;/li>`;
+}
+
+
+function getPriorityIconTemplate(label, altText) {
+    return `&lt;img class="priority-icon" src="assets/icons/Property%201=${label}.png" alt="${altText}">`;
+}
+
+
+function getPriorityDetailTemplate(label, iconHtml) {
+    return `&lt;span class="priority-detail-value">&lt;span class="priority-detail-text">${label}&lt;/span>${iconHtml}&lt;/span>`;
+}
+
+
+function getEmptyPriorityTemplate() {
+    return "&lt;span class='detail-empty'>No priority&lt;/span>";
+}
+
+
+function getCategoryBadgeTemplate(badgeClass, extraClass, category) {
+    return `&lt;span class="${badgeClass} ${extraClass}">${category}&lt;/span>`;
+}
+
+
+function getEditContactListItemTemplate(contact, index, isSelected) {
+    return `
+        &lt;li class="edit-contact-li ${isSelected ? 'selected' : ''}" onclick="toggleEditContact(${index}, this)">
+            &lt;span class="avatar avatar-sm" style="background-color: ${contact.Color}">${contact.Initials}&lt;/span>
+            &lt;span class="edit-contact-name">${contact.Name}&lt;/span>
+            &lt;input type="checkbox" class="contact-checkbox" ${isSelected ? 'checked' : ''} onclick="event.stopPropagation()">
+        &lt;/li>`;
+}
+
+
+function getEditAssignedAvatarTemplate(contact) {
+    return `&lt;span class="avatar avatar-sm edit-assigned-avatar" style="background-color: ${contact.Color}" title="${contact.Name}">${contact.Initials}&lt;/span>`;
+}
+
+
+function getEditSubtaskItemTemplate(subtask) {
+    return `
+        &lt;li class="edit-subtask-li" data-subtask-id="${subtask.id}">
+            &lt;span class="edit-subtask-title">${subtask.title}&lt;/span>
+            &lt;div class="edit-subtask-actions">
+                &lt;img class="subtask-icon pointer" src="assets/icons/edit.svg" alt="edit" onclick="editTaskSubtask('${subtask.id}')">
+                &lt;span class="subtask-divider">|&lt;/span>
+                &lt;img class="subtask-icon pointer" src="assets/icons/delete.svg" alt="delete" onclick="deleteTaskSubtask('${subtask.id}')">
+            &lt;/div>
+        &lt;/li>`;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#buildContactsHtml">buildContactsHtml</a></li><li><a href="global.html#chooseCategory">chooseCategory</a></li><li><a href="global.html#clearSubtask">clearSubtask</a></li><li><a href="global.html#closeAddContact">closeAddContact</a></li><li><a href="global.html#closeAllDropdowns">closeAllDropdowns</a></li><li><a href="global.html#confirmEditSubtask">confirmEditSubtask</a></li><li><a href="global.html#countTasksByPriority">countTasksByPriority</a></li><li><a href="global.html#countTasksByStatus">countTasksByStatus</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#fillDetailTemplate">fillDetailTemplate</a></li><li><a href="global.html#fillEditTemplate">fillEditTemplate</a></li><li><a href="global.html#fillTemplate">fillTemplate</a></li><li><a href="global.html#findUser">findUser</a></li><li><a href="global.html#getAvatarColor">getAvatarColor</a></li><li><a href="global.html#getCoWorker">getCoWorker</a></li><li><a href="global.html#getContactElement">getContactElement</a></li><li><a href="global.html#getContacts">getContacts</a></li><li><a href="global.html#getEditContact">getEditContact</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#getLoginInputs">getLoginInputs</a></li><li><a href="global.html#getNewContact">getNewContact</a></li><li><a href="global.html#getNextTaskId">getNextTaskId</a></li><li><a href="global.html#getSignupInputs">getSignupInputs</a></li><li><a href="global.html#getTaskData">getTaskData</a></li><li><a href="global.html#getTaskDetailTemplate">getTaskDetailTemplate</a></li><li><a href="global.html#getTaskEditTemplate">getTaskEditTemplate</a></li><li><a href="global.html#getTaskTemplate">getTaskTemplate</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#highlightContact">highlightContact</a></li><li><a href="global.html#isLoginFilled">isLoginFilled</a></li><li><a href="global.html#loadAddContactTemplate">loadAddContactTemplate</a></li><li><a href="global.html#loadContacts">loadContacts</a></li><li><a href="global.html#loadDetailTemplate">loadDetailTemplate</a></li><li><a href="global.html#loadEditTemplate">loadEditTemplate</a></li><li><a href="global.html#loadLetterTemplate">loadLetterTemplate</a></li><li><a href="global.html#loadTemplate">loadTemplate</a></li><li><a href="global.html#loadUsers">loadUsers</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#noEvent">noEvent</a></li><li><a href="global.html#openAddContact">openAddContact</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#postTask">postTask</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderSubtask">renderSubtask</a></li><li><a href="global.html#resetAssignedContacts">resetAssignedContacts</a></li><li><a href="global.html#resetTask">resetTask</a></li><li><a href="global.html#safeSubtask">safeSubtask</a></li><li><a href="global.html#saveContact">saveContact</a></li><li><a href="global.html#saveEditedContact">saveEditedContact</a></li><li><a href="global.html#saveUser">saveUser</a></li><li><a href="global.html#searchList">searchList</a></li><li><a href="global.html#selectOption">selectOption</a></li><li><a href="global.html#selectPriority">selectPriority</a></li><li><a href="global.html#setStatNumber">setStatNumber</a></li><li><a href="global.html#showButtons">showButtons</a></li><li><a href="global.html#showContactDetail">showContactDetail</a></li><li><a href="global.html#showContacts">showContacts</a></li><li><a href="global.html#showLoginError">showLoginError</a></li><li><a href="global.html#showSignupError">showSignupError</a></li><li><a href="global.html#showToast">showToast</a></li><li><a href="global.html#signUp">signUp</a></li><li><a href="global.html#sortContacts">sortContacts</a></li><li><a href="global.html#submitTaskData">submitTaskData</a></li><li><a href="global.html#testUser">testUser</a></li><li><a href="global.html#toggleContact">toggleContact</a></li><li><a href="global.html#toggleContactRow">toggleContactRow</a></li><li><a href="global.html#toggleDropdown">toggleDropdown</a></li><li><a href="global.html#updateContact">updateContact</a></li><li><a href="global.html#updateSummaryHTML">updateSummaryHTML</a></li><li><a href="global.html#validateSignup">validateSignup</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Tue Aug 11 2026 11:05:21 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

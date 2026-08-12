@@ -76,7 +76,6 @@ async function loadContacts() {
 
 async function loadTasks() {
     todos = mapLoadedTasks(await fetchTaskCollection());
-    console.info('Board loaded tasks:', todos.length, todos.map(task => task.id));
     updateHTML();
 }
 
@@ -282,21 +281,12 @@ function removeModalOpenFlag() {
     document.body.classList.remove('modal-open');
 }
 
-function escapeHtml(text) {
-    return String(text)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-}
-
 function buildTaskTemplateData(task) {
     return {
         id: task.id,
-        title: escapeHtml(task.title || ''),
+        title: task.title || '',
         category: getCategoryBadge(task.category),
-        description: task.description ? getTaskDescriptionTemplate(escapeHtml(task.description)) : '',
+        description: task.description ? getTaskDescriptionTemplate(task.description) : '',
         priority: task.priority ? getPriorityIcon(task.priority) : '',
         avatarsHTML: getAvatarsHTML(task.assignedTo),
         subtaskHTML: getTaskSubtaskHtml(task.subtasks)
@@ -315,11 +305,11 @@ function openTaskDetail(id) {
     if (!task) return;
     document.getElementById('task-detail-body').innerHTML = getTaskDetailTemplate({
         id: task.id,
-        title: escapeHtml(task.title || ''),
+        title: task.title || '',
         category: getCategoryBadge(task.category, true),
         priority: getPriorityDetail(task.priority),
-        description: task.description ? getTaskDescriptionTemplate(escapeHtml(task.description), 'task-detail-description') : '',
-        dueDate: getTaskDueDateTemplate(task.dueDate ? escapeHtml(task.dueDate) : ''),
+        description: task.description ? getTaskDescriptionTemplate(task.description, 'task-detail-description') : '',
+        dueDate: getTaskDueDateTemplate(task.dueDate ? task.dueDate : ''),
         assignedContactsHTML: renderAssignedContacts(task.assignedTo),
         subtasksHTML: renderSubtasks(task.id, task.subtasks)
     });
@@ -331,14 +321,14 @@ function renderAssignedContacts(ids) {
     if (!Array.isArray(ids) || ids.length === 0) return getEmptyAssignedContactsTemplate();
     return ids.map(item => {
         const contact = getBoardContact(item);
-        return getAssignedContactTemplate(getContactInitial(contact.initials, contact.color), escapeHtml(contact.name));
+        return getAssignedContactTemplate(getContactInitial(contact.initials, contact.color), contact.name);
     }).join('');
 }
 
 function renderSubtasks(taskId, subtasks) {
     if (!subtasks || typeof subtasks !== 'object' || Object.keys(subtasks).length === 0) return getEmptySubtasksTemplate();
     return Object.entries(subtasks).map(([subtaskId, subtask]) =>
-        getTaskSubtaskItemTemplate(taskId, subtaskId, subtask.done, escapeHtml(subtask.title))
+        getTaskSubtaskItemTemplate(taskId, subtaskId, subtask.done, subtask.title)
     ).join('');
 }
 
@@ -346,14 +336,14 @@ function getPriorityIcon(priority) {
     if (!priority) return '';
     const normalized = String(priority).toLowerCase();
     const label = normalized.charAt(0).toUpperCase() + normalized.slice(1);
-    return getPriorityIconTemplate(label, escapeHtml(normalized));
+    return getPriorityIconTemplate(label, normalized);
 }
 
 function getPriorityDetail(priority) {
     if (!priority) return getEmptyPriorityTemplate();
     const normalized = String(priority).toLowerCase();
     const labels = { urgent: 'Urgent', medium: 'Medium', low: 'Low' };
-    const label = labels[normalized] || escapeHtml(normalized.charAt(0).toUpperCase() + normalized.slice(1));
+    const label = labels[normalized] || normalized.charAt(0).toUpperCase() + normalized.slice(1);
     return getPriorityDetailTemplate(label, getPriorityIcon(priority));
 }
 
@@ -376,5 +366,5 @@ function getCategoryBadge(category, isDetail = false) {
     if (!category) return '';
     const badgeClass = isDetail ? 'detail-category-badge' : 'task-badge';
     const extraClass = category === 'User Story' ? 'cat-user-story' : (category === 'Technical Task' ? 'cat-technical-task' : '');
-    return getCategoryBadgeTemplate(badgeClass, extraClass, escapeHtml(category));
+    return getCategoryBadgeTemplate(badgeClass, extraClass, category);
 }

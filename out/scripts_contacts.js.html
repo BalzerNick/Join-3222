@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: scripts/contacts.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: scripts/contacts.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// Zwischenspeicher der geladenen Kontakte (fuer Detailansicht/Bearbeiten).
+let allContacts = {};
+
+/**
+ * Wird beim Laden der Seite aufgerufen (body onload). Rendert die Kontaktliste.
+ * @returns {Promise&lt;void>}
+ */
+async function renderContacts() {
+  allContacts = await loadContacts() || {};
+  let card = await loadTemplate();
+  let letter = await loadLetterTemplate();
+  showContacts(allContacts, card, letter);
+}
+
+/**
+ * Laedt alle Kontakte aus Firebase.
+ * @returns {Promise&lt;Object>} Die Kontakte als ID-Objekt (oder null).
+ */
+async function loadContacts() {
+  let response = await fetch(BASE_URL + "contacts.json");
+  return await response.json();
+}
+
+/**
+ * Laedt die Karten-Vorlage als Text.
+ * @returns {Promise&lt;string>} Die Vorlage als HTML-Text.
+ */
+async function loadTemplate() {
+  let response = await fetch("assets/templates/contactsTemplate.html");
+  return await response.text();
+}
+
+/**
+ * Laedt die Buchstaben-Vorlage als Text.
+ * @returns {Promise&lt;string>} Die Buchstaben-Vorlage als HTML-Text.
+ */
+async function loadLetterTemplate() {
+  let response = await fetch("assets/templates/contactLetterTemplate.html");
+  return await response.text();
+}
+
+/**
+ * Wandelt das Kontakt-Objekt in ein alphabetisch sortiertes Array um.
+ * @param {Object} contacts - Die Kontakte als ID-Objekt.
+ * @returns {Array&lt;Object>} Die nach Name sortierten Kontakte inklusive id.
+ */
+function sortContacts(contacts) {
+  let list = Object.keys(contacts).map(id => ({ id, ...contacts[id] }));
+  list.sort((a, b) => a.name.localeCompare(b.name));
+  return list;
+}
+
+/**
+ * Baut das HTML mit Buchstaben-Gruppen und Kontaktkarten.
+ * @param {Array&lt;Object>} sorted - Die sortierten Kontakte.
+ * @param {string} card - Die Kartenvorlage.
+ * @param {string} letterTpl - Die Buchstaben-Vorlage.
+ * @returns {string} Das fertige Listen-HTML.
+ */
+function buildContactsHtml(sorted, card, letterTpl) {
+  let html = "";
+  let currentLetter = "";
+  for (let contact of sorted) {
+    let letter = contact.name[0].toUpperCase();
+    if (letter !== currentLetter) {
+      currentLetter = letter;
+      html += letterTpl.replaceAll("{{letter}}", letter);
+    }
+    html += fillTemplate(card, contact);
+  }
+  return html;
+}
+
+/**
+ * Sortiert, gruppiert und schreibt die Kontakte in die Liste.
+ * @param {Object} contacts - Die Kontakte als ID-Objekt.
+ * @param {string} card - Die Kartenvorlage.
+ * @param {string} letterTpl - Die Buchstaben-Vorlage.
+ * @returns {void}
+ */
+function showContacts(contacts, card, letterTpl) {
+  let list = document.getElementById('contactList');
+  list.innerHTML = buildContactsHtml(sortContacts(contacts), card, letterTpl);
+}
+
+/**
+ * Ersetzt die Platzhalter in der Kartenvorlage durch die Kontaktdaten.
+ * @param {string} template - Die Vorlage mit Platzhaltern.
+ * @param {{id: string, name: string, email: string}} contact - Ein Kontakt.
+ * @returns {string} Die gefuellte Karte als HTML.
+ */
+function fillTemplate(template, contact) {
+  return template
+    .replaceAll("{{id}}", contact.id)
+    .replaceAll("{{color}}", getAvatarColor(contact.name))
+    .replaceAll("{{initials}}", contact.initials)
+    .replaceAll("{{name}}", contact.name)
+    .replaceAll("{{email}}", contact.email);
+}
+
+/**
+ * Zeigt die Detailansicht eines Kontakts rechts an und markiert die Karte.
+ * @param {string} id - Die ID des Kontakts.
+ * @returns {Promise&lt;void>}
+ */
+async function showContactDetail(id) {
+  let template = await loadDetailTemplate();
+  let detail = document.getElementById('contactDetail');
+  detail.innerHTML = fillDetailTemplate(template, id, allContacts[id]);
+  highlightContact(id);
+}
+
+/**
+ * Laedt die Detail-Vorlage als Text.
+ * @returns {Promise&lt;string>} Die Detail-Vorlage als HTML-Text.
+ */
+async function loadDetailTemplate() {
+  let response = await fetch("assets/templates/contactDetailTemplate.html");
+  return await response.text();
+}
+
+/**
+ * Ersetzt die Platzhalter in der Detail-Vorlage.
+ * @param {string} template - Die Detail-Vorlage.
+ * @param {string} id - Die ID des Kontakts.
+ * @param {{name: string, email: string, phone: string}} contact - Der Kontakt.
+ * @returns {string} Die gefuellte Detailansicht als HTML.
+ */
+function fillDetailTemplate(template, id, contact) {
+  return template
+    .replaceAll("{{id}}", id)
+    .replaceAll("{{color}}", getAvatarColor(contact.name))
+    .replaceAll("{{initials}}", getInitials(contact.name))
+    .replaceAll("{{name}}", contact.name)
+    .replaceAll("{{email}}", contact.email)
+    .replaceAll("{{phone}}", contact.phone || "");
+}
+
+/**
+ * Markiert die gewaehlte Karte aktiv und entfernt die Markierung der anderen.
+ * @param {string} id - Die ID des aktiven Kontakts.
+ * @returns {void}
+ */
+function highlightContact(id) {
+  let cards = document.querySelectorAll('.contact');
+  cards.forEach(card => card.classList.remove('contact-active'));
+  document.getElementById('card-' + id).classList.add('contact-active');
+}
+
+/**
+ * Oeffnet das Popup zum Anlegen eines Kontakts.
+ * @returns {Promise&lt;void>}
+ */
+async function openAddContact() {
+  let overlay = document.getElementById('addContactOverlay');
+  overlay.innerHTML = await loadAddContactTemplate();
+  overlay.classList.remove('d-none');
+}
+
+/**
+ * Laedt die Add-Popup-Vorlage als Text.
+ * @returns {Promise&lt;string>} Die Popup-Vorlage als HTML-Text.
+ */
+async function loadAddContactTemplate() {
+  let response = await fetch("assets/templates/addContactTemplate.html");
+  return await response.text();
+}
+
+/**
+ * Schliesst das Popup.
+ * @returns {void}
+ */
+function closeAddContact() {
+  document.getElementById('addContactOverlay').classList.add('d-none');
+}
+
+/**
+ * Liest die Eingaben aus dem Add-Popup.
+ * @returns {{name: string, email: string, phone: string}} Der neue Kontakt.
+ */
+function getNewContact() {
+  return {
+    name: document.getElementById('newContactName').value.trim(),
+    email: document.getElementById('newContactEmail').value.trim(),
+    phone: document.getElementById('newContactPhone').value.trim(),
+    initials: getInitials(document.getElementById('newContactName').value.trim())
+  };
+}
+
+/**
+ * Speichert einen neuen Kontakt im Backend (POST erzeugt eine ID).
+ * @param {{name: string, email: string, phone: string}} contact - Der neue Kontakt.
+ * @returns {Promise&lt;void>}
+ */
+async function saveContact(contact) {
+  await fetch(BASE_URL + "contacts.json", {
+    method: "POST",
+    body: JSON.stringify(contact)
+  });
+}
+
+/**
+ * Liest die Eingaben, speichert den Kontakt und aktualisiert die Liste.
+ * @returns {Promise&lt;void>}
+ */
+async function createContact() {
+  let contact = getNewContact();
+  if (!contact.name || !contact.email) {
+    return;
+  }
+  await saveContact(contact);
+  closeAddContact();
+  renderContacts();
+  showToast("Contact successfully created");
+}
+
+/**
+ * Oeffnet das Popup zum Bearbeiten mit den aktuellen Werten des Kontakts.
+ * @param {string} id - Die ID des Kontakts.
+ * @returns {Promise&lt;void>}
+ */
+async function openEditContact(id) {
+  let overlay = document.getElementById('addContactOverlay');
+  overlay.innerHTML = fillEditTemplate(await loadEditTemplate(), id, allContacts[id]);
+  overlay.classList.remove('d-none');
+}
+
+/**
+ * Laedt die Edit-Popup-Vorlage als Text.
+ * @returns {Promise&lt;string>} Die Edit-Vorlage als HTML-Text.
+ */
+async function loadEditTemplate() {
+  let response = await fetch("assets/templates/contactEditTemplate.html");
+  return await response.text();
+}
+
+/**
+ * Ersetzt die Platzhalter in der Edit-Vorlage durch die aktuellen Werte.
+ * @param {string} template - Die Edit-Vorlage.
+ * @param {string} id - Die ID des Kontakts.
+ * @param {{name: string, email: string, phone: string}} contact - Der Kontakt.
+ * @returns {string} Die gefuellte Edit-Vorlage als HTML.
+ */
+function fillEditTemplate(template, id, contact) {
+  return template
+    .replaceAll("{{id}}", id)
+    .replaceAll("{{color}}", getAvatarColor(contact.name))
+    .replaceAll("{{initials}}", getInitials(contact.name))
+    .replaceAll("{{name}}", contact.name)
+    .replaceAll("{{email}}", contact.email)
+    .replaceAll("{{phone}}", contact.phone || "");
+}
+
+/**
+ * Liest die Eingaben aus dem Edit-Popup.
+ * @returns {{name: string, email: string, phone: string}} Die geaenderten Daten.
+ */
+function getEditContact() {
+  return {
+    name: document.getElementById('editContactName').value.trim(),
+    email: document.getElementById('editContactEmail').value.trim(),
+    phone: document.getElementById('editContactPhone').value.trim(),
+    initials: getInitials(document.getElementById('editContactName').value.trim())
+  };
+}
+
+/**
+ * Ueberschreibt einen bestehenden Kontakt im Backend (PUT).
+ * @param {string} id - Die ID des Kontakts.
+ * @param {{name: string, email: string, phone: string}} contact - Die neuen Daten.
+ * @returns {Promise&lt;void>}
+ */
+async function saveEditedContact(id, contact) {
+  await fetch(BASE_URL + "contacts/" + id + ".json", {
+    method: "PUT",
+    body: JSON.stringify(contact)
+  });
+}
+
+/**
+ * Liest die Eingaben, speichert die Aenderung und aktualisiert Liste + Detail.
+ * @param {string} id - Die ID des Kontakts.
+ * @returns {Promise&lt;void>}
+ */
+async function updateContact(id) {
+  let contact = getEditContact();
+  if (!contact.name || !contact.email) {
+    return;
+  }
+  await saveEditedContact(id, contact);
+  closeAddContact();
+  await renderContacts();
+  showContactDetail(id);
+  showToast("Contact successfully updated");
+}
+
+/**
+ * Loescht einen Kontakt im Backend und leert die Detailansicht.
+ * @param {string} id - Die ID des Kontakts.
+ * @returns {Promise&lt;void>}
+ */
+async function deleteContact(id) {
+  await fetch(BASE_URL + "contacts/" + id + ".json", { method: "DELETE" });
+  closeAddContact();
+  document.getElementById('contactDetail').innerHTML = "";
+  renderContacts();
+  showToast("Contact deleted");
+}
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#buildContactsHtml">buildContactsHtml</a></li><li><a href="global.html#chooseCategory">chooseCategory</a></li><li><a href="global.html#clearSubtask">clearSubtask</a></li><li><a href="global.html#closeAddContact">closeAddContact</a></li><li><a href="global.html#closeAllDropdowns">closeAllDropdowns</a></li><li><a href="global.html#confirmEditSubtask">confirmEditSubtask</a></li><li><a href="global.html#countTasksByPriority">countTasksByPriority</a></li><li><a href="global.html#countTasksByStatus">countTasksByStatus</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#fillDetailTemplate">fillDetailTemplate</a></li><li><a href="global.html#fillEditTemplate">fillEditTemplate</a></li><li><a href="global.html#fillTemplate">fillTemplate</a></li><li><a href="global.html#findUser">findUser</a></li><li><a href="global.html#getAvatarColor">getAvatarColor</a></li><li><a href="global.html#getCoWorker">getCoWorker</a></li><li><a href="global.html#getContactElement">getContactElement</a></li><li><a href="global.html#getContacts">getContacts</a></li><li><a href="global.html#getEditContact">getEditContact</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#getLoginInputs">getLoginInputs</a></li><li><a href="global.html#getNewContact">getNewContact</a></li><li><a href="global.html#getNextTaskId">getNextTaskId</a></li><li><a href="global.html#getSignupInputs">getSignupInputs</a></li><li><a href="global.html#getTaskData">getTaskData</a></li><li><a href="global.html#getTaskDetailTemplate">getTaskDetailTemplate</a></li><li><a href="global.html#getTaskEditTemplate">getTaskEditTemplate</a></li><li><a href="global.html#getTaskTemplate">getTaskTemplate</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#highlightContact">highlightContact</a></li><li><a href="global.html#isLoginFilled">isLoginFilled</a></li><li><a href="global.html#loadAddContactTemplate">loadAddContactTemplate</a></li><li><a href="global.html#loadContacts">loadContacts</a></li><li><a href="global.html#loadDetailTemplate">loadDetailTemplate</a></li><li><a href="global.html#loadEditTemplate">loadEditTemplate</a></li><li><a href="global.html#loadLetterTemplate">loadLetterTemplate</a></li><li><a href="global.html#loadTemplate">loadTemplate</a></li><li><a href="global.html#loadUsers">loadUsers</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#noEvent">noEvent</a></li><li><a href="global.html#openAddContact">openAddContact</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#postTask">postTask</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderSubtask">renderSubtask</a></li><li><a href="global.html#resetAssignedContacts">resetAssignedContacts</a></li><li><a href="global.html#resetTask">resetTask</a></li><li><a href="global.html#safeSubtask">safeSubtask</a></li><li><a href="global.html#saveContact">saveContact</a></li><li><a href="global.html#saveEditedContact">saveEditedContact</a></li><li><a href="global.html#saveUser">saveUser</a></li><li><a href="global.html#searchList">searchList</a></li><li><a href="global.html#selectOption">selectOption</a></li><li><a href="global.html#selectPriority">selectPriority</a></li><li><a href="global.html#setStatNumber">setStatNumber</a></li><li><a href="global.html#showButtons">showButtons</a></li><li><a href="global.html#showContactDetail">showContactDetail</a></li><li><a href="global.html#showContacts">showContacts</a></li><li><a href="global.html#showLoginError">showLoginError</a></li><li><a href="global.html#showSignupError">showSignupError</a></li><li><a href="global.html#showToast">showToast</a></li><li><a href="global.html#signUp">signUp</a></li><li><a href="global.html#sortContacts">sortContacts</a></li><li><a href="global.html#submitTaskData">submitTaskData</a></li><li><a href="global.html#testUser">testUser</a></li><li><a href="global.html#toggleContact">toggleContact</a></li><li><a href="global.html#toggleContactRow">toggleContactRow</a></li><li><a href="global.html#toggleDropdown">toggleDropdown</a></li><li><a href="global.html#updateContact">updateContact</a></li><li><a href="global.html#updateSummaryHTML">updateSummaryHTML</a></li><li><a href="global.html#validateSignup">validateSignup</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Tue Aug 11 2026 11:05:21 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
