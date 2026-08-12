@@ -24,6 +24,8 @@ async function getContactElement(result) {
         }
         contactArray.push(contact);
     }
+
+    setContactStorage(contactArray);
 }
 
 /**

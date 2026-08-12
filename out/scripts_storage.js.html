@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: scripts/summary.js</title>
+    <title>JSDoc: Source: scripts/storage.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: scripts/summary.js</h1>
+    <h1 class="page-title">Source: scripts/storage.js</h1>
 
     
 
@@ -26,143 +26,29 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>let tasks = [];
-
-async function loadSummaryData() {
-    try {
-        const response = await fetch(BASE_URL + "tasks.json");
-        if (!response.ok) {
-            console.error("Failed to load task data", response.status, response.statusText);
-            return;
-        }
-        const data = await response.json();
-        tasks = data ? Object.values(data) : [];
-    } catch (error) {
-        console.error("Firebase load failed", error);
-        return;
-    }
-    updateSummaryHTML();
-}
-
+            <pre class="prettyprint source linenums"><code>/**
+ * Javascript Function to set and get Items from Session Storage
+ * We use Session Storage and not Local Storage because we get the Data at the beginning of the Session after the Login
+ * from our firebase database with a API.
+ * After the Session we dont need the Data anymore because there are saved in the database.
+ */
 
 /**
- * Zaehlt alle Tasks mit einem bestimmten Status.
- * @param {string} status
- * @returns {number}
+ * 
+ * @param {*} contacts 
  */
-function countTasksByStatus(status) {
-    return tasks.filter(task => task.status === status).length;
+function setContactStorage(contacts){
+    sessionStorage.setItem("contacts", JSON.stringify(contacts));
 }
 
 /**
- * Zaehlt alle Tasks mit einer bestimmten Prioritaet.
- * @param {string} priority
- * @returns {number}
+ * 
+ * @returns the contacts saved in sessionStorage
  */
-function countTasksByPriority(priority) {
-    return tasks.filter(task => task.priority === priority).length;
-}
+function getContactStorage(){
+    let tempContacts = JSON.parse(sessionStorage.getItem("contacts"));
 
-/**
- * Schreibt die berechneten Kennzahlen in die Summary-Kacheln.
- */
-
-function updateSummaryHTML() {
-    setStatNumber("todoCount", countTasksByStatus("todo"));
-    setStatNumber("doneCount", countTasksByStatus("done"));
-    setStatNumber("urgentCount", countTasksByPriority("urgent"));
-    setStatNumber("boardCount", tasks.length);
-    setStatNumber("inProgressCount", countTasksByStatus("inProgress"));
-    setStatNumber("awaitFeedbackCount", countTasksByStatus("awaitFeedback"));
-    setDate("uprisingdate", getMostUrgentTask()?.dueDate);
-    setName("loginuser", "greetingtag", getLoggedInUserName());
-}
-
-/**
- * Setzt den Text eines Elements, falls es auf der Seite vorhanden ist.
- * @param {string} id
- * @param {number} value
- */
-function setStatNumber(id, value) {
-    let counter = document.getElementById(id);
-    if (counter) counter.textContent = value;
-}
-
-function setDate(id, date) {
-    let counter = document.getElementById(id);
-    if (counter) counter.textContent = date;
-} 
-
-function setName(iduser, idgreet, name) {
-    let greeting = document.getElementById(idgreet);
-    let counter = document.getElementById(iduser);
-
-    if (name) {
-        if (counter) counter.textContent = name;
-        // if (greeting) greeting.textContent = "Good morning,";
-    } else {
-        /* if (greeting) greeting.textContent = "Good morning!"; */
-    } 
-}
-
-function getMostUrgentTask() {
-    // Hier wird später die dringendste Aufgabe gespeichert.
-    let mostUrgentTask = null;
-    // Gehe jede Aufgabe im Array durch.
-    for (let i = 0; i &lt; tasks.length; i++) {
-        let task = tasks[i];
-        // Nur Aufgaben mit der Priorität "urgent" berücksichtigen.
-        if (task.priority === "urgent") {
-            // Falls noch keine dringende Aufgabe gefunden wurde,
-            // wird diese als erste gespeichert.
-            if (mostUrgentTask === null) {
-                mostUrgentTask = task;
-            }
-            // Ansonsten vergleichen wir die Fälligkeitsdaten.
-            else if (new Date(task.dueDate) &lt; new Date(mostUrgentTask.dueDate)) {
-                mostUrgentTask = task;
-            }
-        }
-    }
-    // Die dringendste Aufgabe zurückgeben.
-    return mostUrgentTask;
-}
-
-
-function getLoggedInUserName() {
-    let userData = localStorage.getItem("user");
-    if (!userData) return null;
-    let user = JSON.parse(userData);
-    return user.name;
-}
-
-
-function histarrow() {
-    window.history.back();
-}
-
-// new Date().toLocaleTimeString() , new Date().toTimeString()
-function getCurrentTime() {
-    let now = new Date();
-    let thehours = now.getHours();     // Stunden (0-23)
-    let theminutes = now.getMinutes();   // Minuten (0-59)
-    let thesconds = now.getSeconds();
-    console.log(`Aktuelle Uhrzeit: ${thehours}:${theminutes}:${thesconds}`);
-    if (0 &lt;= thehours &amp;&amp; thehours &lt; 12) {
-        return "Good morning!";
-    }
-    else if (12 &lt;= thehours &amp;&amp; thehours &lt; 18) {
-        return "Good afternoon!";
-    }
-    else {
-        return "Good evening!";
-    }
-}
-
-function startGreeting() {
-    let greeting = getCurrentTime();
-    console.log(`Greeting: ${greeting}`);
-    document.getElementById("greetingtag").textContent = greeting;
+    return tempContacts;
 }</code></pre>
         </article>
     </section>
