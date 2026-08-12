@@ -63,6 +63,7 @@
 }
 
 .stat-number-col .stat-label {
+  font-size: var(--fs-base);
   margin: 0;
 }
 
@@ -160,7 +161,7 @@
 .date-txt {
   margin-top: -10px;
   display: flex;
-  font-size: 18px;
+  font-size: var(--fs-md);
   margin-left: 12px;
 }
 
@@ -168,7 +169,7 @@
 .date-condition {
   margin-top: 10px;
   display: flex;
-  font-size: var(--fs-sm);
+  font-size: var(--fs-base);
   margin-left: 12px;
 }
 
@@ -191,7 +192,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: var(--fs-sm);
+  font-size: var(--fs-md);
 }
 
 /* Nur in Marcus' card.css vorhanden, fehlt auf main */
