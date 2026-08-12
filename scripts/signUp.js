@@ -24,6 +24,16 @@ function showSignupError(message) {
 
 
 /**
+ * Prueft, ob das Passwort mindestens 8 Zeichen lang ist.
+ * @param {string} password - Das zu pruefende Passwort.
+ * @returns {boolean} true, wenn das Passwort lang genug ist.
+ */
+function isPasswordLongEnough(password) {
+  return password.length >= 8;
+}
+
+
+/**
  * Prueft die Registrierungseingaben.
  * @param {{name: string, email: string, password: string, confirm: string, accept: boolean}} data - Die Eingaben.
  * @returns {string} Fehlertext, leer wenn alles ok ist.
@@ -31,6 +41,7 @@ function showSignupError(message) {
 function validateSignup(data) {
   if (!data.name || !data.email || !data.password) return "Bitte alle Felder ausfuellen.";
   if (!data.email.includes("@")) return "Bitte eine gueltige E-Mail eingeben.";
+  if (!isPasswordLongEnough(data.password)) return "Passwort muss mindestens 8 Zeichen lang sein.";
   if (data.password !== data.confirm) return "Passwoerter stimmen nicht ueberein.";
   if (!data.accept) return "Bitte die Datenschutzerklaerung akzeptieren.";
   return "";
