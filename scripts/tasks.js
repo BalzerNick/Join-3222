@@ -27,14 +27,11 @@ async function toggleDropdown(ul, arr) {
 
 /**
  * 
- * @returns  hallo
  */
 function closeAllDropdowns() {
     document.getElementById("contactList")?.classList.add("d-none");
     document.getElementById("contactArrow")?.classList.remove("open");
     document.getElementById("categoryList")?.classList.add("d-none");
-
-    return "hallo"
 }
 
 /**
