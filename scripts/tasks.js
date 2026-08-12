@@ -27,7 +27,7 @@ async function toggleDropdown(ul, arr) {
 
 /**
  * 
- * @returns 
+ * @returns  hallo
  */
 function closeAllDropdowns() {
     document.getElementById("contactList")?.classList.add("d-none");
