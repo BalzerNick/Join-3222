@@ -10,9 +10,10 @@
     <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/contacts.css">
 </head>
-<body onload="renderContacts()" onclick="closeUserMenu(event)">
+<body onload="renderContacts()" onclick="closeUserMenu(event); closeContactMenu(event)">
     <header>
-        Kanban Project Management Tool
+        <span class="header-title">Kanban Project Management Tool</span>
+        <img src="assets/imgs/logoMain.png" alt="Join Logo" class="header-logo-mobile">
         <div class="header-right">
         <a href="help.html" class="help-btn" aria-label="Help">?</a>
         <div class="user-menu" id="userMenu">
@@ -27,13 +28,11 @@
     </header>
     <div class="menu-line">
         <img src="assets/imgs/logoMainWhite.png" alt="Join Logo" class="menu-logo">
-        <div class="menu">
         <div class="menu-icons">
             <a href="summary_guest.html"><img src="assets/imgs/summary.png" class="menu-icons-img menu-icons-img-desktop" alt="Summary"><span class="menu-icons-mobile"><img src="assets/icons/navbar/summary_img.svg" class="menu-icons-img-mobile" alt=""><span class="menu-icons-label">Summary</span></span></a>
             <a href="addTask.html"><img src="assets/imgs/addtask.png" class="menu-icons-img menu-icons-img-desktop" alt="Add Task"><span class="menu-icons-mobile"><img src="assets/icons/navbar/addTask_img.svg" class="menu-icons-img-mobile" alt=""><span class="menu-icons-label">Add Task</span></span></a>
             <a href="board.html"><img src="assets/imgs/board.png" class="menu-icons-img menu-icons-img-desktop" alt="Board"><span class="menu-icons-mobile"><img src="assets/icons/navbar/board_img.svg" class="menu-icons-img-mobile" alt=""><span class="menu-icons-label">Board</span></span></a>
             <a href="contacts.html" class="active"><img src="assets/imgs/contacts.png" class="menu-icons-img menu-icons-img-desktop" alt="Contacts"><span class="menu-icons-mobile"><img src="assets/icons/navbar/contacts_img.svg" class="menu-icons-img-mobile" alt=""><span class="menu-icons-label">Contacts</span></span></a>
-        </div>
         </div>
         <div class="policies">
             <a href="privacyPolicy.html" class="footer-link">Privacy Policy</a>
@@ -49,11 +48,13 @@
             <div id="contactList"></div>
         </div>
 
-        <div id="contactDetail" class="contact-detail">
+        <div class="contact-detail">
             <div class="contacts-intro">
                 <h1>Contacts</h1>
                 <span class="contacts-intro-sub">Better with a team</span>
+                <img src="assets/imgs/arrow.png" alt="Back" class="contacts-back" onclick="closeContactDetail()">
             </div>
+            <div id="contactDetail"></div>
         </div>
     </main>
 

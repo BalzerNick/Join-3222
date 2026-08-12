@@ -108,6 +108,36 @@ async function showContactDetail(id) {
   let detail = document.getElementById('contactDetail');
   detail.innerHTML = fillDetailTemplate(template, id, allContacts[id]);
   highlightContact(id);
+  document.querySelector('.contacts-main').classList.add('detail-open');
+}
+
+/**
+ * Zurueck zur Kontaktliste (nur mobil sichtbarer Pfeil).
+ * @returns {void}
+ */
+function closeContactDetail() {
+  document.querySelector('.contacts-main').classList.remove('detail-open');
+  document.querySelectorAll('.contact').forEach(card => card.classList.remove('contact-active'));
+}
+
+/**
+ * Zeigt bzw. versteckt das mobile Edit/Delete-Menue.
+ * @returns {void}
+ */
+function toggleContactMenu() {
+  document.querySelector('.detail-actions').classList.toggle('open');
+}
+
+/**
+ * Schliesst das mobile Menue beim Klick daneben (body onclick).
+ * @param {Event} event - Das Klick-Ereignis.
+ * @returns {void}
+ */
+function closeContactMenu(event) {
+  let menu = document.querySelector('.detail-actions');
+  let button = document.querySelector('.detail-menu-btn');
+  if (!menu || menu.contains(event.target) || button.contains(event.target)) return;
+  menu.classList.remove('open');
 }
 
 /**
@@ -155,6 +185,7 @@ async function openAddContact() {
   let overlay = document.getElementById('addContactOverlay');
   overlay.innerHTML = await loadAddContactTemplate();
   overlay.classList.remove('d-none');
+  lockScroll(true);
 }
 
 /**
@@ -172,6 +203,7 @@ async function loadAddContactTemplate() {
  */
 function closeAddContact() {
   document.getElementById('addContactOverlay').classList.add('d-none');
+  lockScroll(false);
 }
 
 /**
@@ -223,6 +255,7 @@ async function openEditContact(id) {
   let overlay = document.getElementById('addContactOverlay');
   overlay.innerHTML = fillEditTemplate(await loadEditTemplate(), id, allContacts[id]);
   overlay.classList.remove('d-none');
+  lockScroll(true);
 }
 
 /**
@@ -303,6 +336,7 @@ async function deleteContact(id) {
   await fetch(BASE_URL + "contacts/" + id + ".json", { method: "DELETE" });
   closeAddContact();
   document.getElementById('contactDetail').innerHTML = "";
+  closeContactDetail();
   renderContacts();
   showToast("Contact deleted");
 }

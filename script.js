@@ -12,6 +12,16 @@ function showToast(message, duration = 2000) {
 }
 
 /**
+ * Sperrt oder loest das Scrollen im Hintergrund (fuer offene Overlays).
+ * @param {boolean} locked - true sperrt das Scrollen, false gibt es wieder frei.
+ * @returns {void}
+ */
+function lockScroll(locked) {
+  document.documentElement.classList.toggle('no-scroll', locked);
+  document.body.classList.toggle('no-scroll', locked);
+}
+
+/**
  * Bildet die Initialen aus dem Namen (z.B. "Anna Schmidt" -> "AS").
  * @param {string} name - Der vollstaendige Name.
  * @returns {string} Die Initialen in Grossbuchstaben.

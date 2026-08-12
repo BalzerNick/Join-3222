@@ -60,6 +60,7 @@ h3 {
   padding: 12px 20px;
   font-size: var(--fs-base);
   width: 100%;
+  box-sizing: border-box;
 }
 
 .input:focus {
@@ -173,6 +174,18 @@ li {
   transform: translate(-50%, 40px);
 }
 
+/* Mobil breiter und kleinere Schrift, damit die Meldung in eine Zeile passt */
+@media (max-width: 768px) {
+  .toast {
+    box-sizing: border-box;
+    width: calc(100% - 32px);
+    padding: 16px;
+    font-size: var(--fs-sm);
+    text-align: center;
+    white-space: nowrap;
+  }
+}
+
 .page h2 {
   font-size: var(--fs-lg);
   margin-bottom: 16px;
@@ -199,6 +212,11 @@ li {
 /*Nick 26.07*/
 .d-none{
   display: none !important;
+}
+
+/* Sperrt das Scrollen im Hintergrund, solange ein Overlay offen ist */
+.no-scroll {
+  overflow: hidden;
 }
 
 /* Einheitlicher Avatar-Kreis (Initialen), seitenuebergreifend (Contacts, Board, Add Task).
