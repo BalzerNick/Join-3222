@@ -115,7 +115,7 @@
 
 .contact-email {
   color: var(--color-accent);
-  font-size: var(--fs-sm);
+  font-size: var(--fs-base);
 }
 
 /* Detailansicht rechts */
@@ -127,6 +127,7 @@
 }
 
 .detail-name {
+  font-size: var(--fs-xl);
   margin-bottom: 8px;
 }
 
@@ -157,10 +158,12 @@
 }
 
 .detail-label {
+  font-size: var(--fs-md);
   margin: 16px 0;
 }
 
 .detail-line {
+  font-size: var(--fs-base);
   margin-bottom: 16px;
 }
 

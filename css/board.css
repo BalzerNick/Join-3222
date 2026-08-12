@@ -103,7 +103,7 @@ h2 {
 
 .task-title {
     margin: 0;
-    font-size: 20px;
+    font-size: var(--fs-md);
     line-height: 1.2;
     color: #111827;
 }
@@ -111,7 +111,7 @@ h2 {
 .task-description {
     margin: 0 0 16px;
     color: #475569;
-    font-size: 14px;
+    font-size: var(--fs-base);
     line-height: 1.6;
 }
 
