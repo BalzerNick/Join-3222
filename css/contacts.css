@@ -7,7 +7,7 @@
   padding: 0px;
   display: flex;
   gap: 48px;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 96px);
 }
 
 .contacts-list-col {
@@ -106,6 +106,15 @@
 .contact-info {
   display: flex;
   flex-direction: column;
+  /* min-width: 0 erlaubt das Kuerzen, sonst sprengen lange E-Mails die Spalte */
+  min-width: 0;
+}
+
+.contact-name,
+.contact-email {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .contact-name {
@@ -235,6 +244,9 @@
 
 .contact-modal-right {
   flex: 1;
+  /* ohne min-width: 0 kann die rechte Haelfte nicht schrumpfen und wird
+     vom overflow: hidden des Popups rechts abgeschnitten */
+  min-width: 0;
   padding: 48px;
   display: flex;
   align-items: center;
@@ -253,6 +265,7 @@
 
 .modal-form {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -306,15 +319,14 @@
 }
 
 /* ============================================================
-   Responsive: ab 768px sitzt die Navbar unten (navbar.css).
-   Liste und Detailansicht teilen sich den Screen - ein Klick auf
-   einen Kontakt schaltet auf die Detailansicht um, der Pfeil zurueck.
+   Responsive Stufe 1: ab 1100px passen Liste und Detail nicht mehr
+   nebeneinander (Name/E-Mail brechen um, "Contacts" laeuft aus der
+   Spalte). Darum ab hier eine Spalte: die Liste fuellt den Platz,
+   ein Klick auf einen Kontakt schaltet auf die Detailansicht um,
+   der Pfeil oben rechts zurueck. Die Sidebar bleibt noch links.
    ============================================================ */
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
   .contacts-main {
-    margin-left: 0;
-    height: auto;
-    min-height: calc(100vh - 176px);
     gap: 0;
   }
 
@@ -325,14 +337,8 @@
     min-width: 0;
   }
 
-  .contacts-list-col {
-    padding: 16px 16px 104px;
-  }
-
   .contact-detail {
     display: none;
-    border-radius: 0;
-    padding: 24px 16px 104px;
   }
 
   .contacts-main.detail-open .contacts-list-col {
@@ -341,6 +347,11 @@
 
   .contacts-main.detail-open .contact-detail {
     display: block;
+  }
+
+  /* Button behaelt seine Spaltenbreite, statt ueber den Screen zu laufen */
+  .add-contact-btn {
+    max-width: 352px;
   }
 
   /* Titel stapelt, die blaue Linie wandert unter den Untertitel */
@@ -388,63 +399,8 @@
     font-size: var(--fs-lg);
   }
 
-  /* "Add new contact" und das Kontakt-Menue werden zu runden Buttons */
-  .add-contact-btn,
-  .detail-menu-btn {
-    position: fixed;
-    right: 16px;
-    bottom: 96px;
-    z-index: 5;
-    width: 56px;
-    height: 56px;
-    margin: 0;
-    padding: 0;
-    border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  }
-
-  .add-contact-btn {
-    font-size: 0;
-  }
-
-  .add-contact-btn .btn-icon {
-    width: 26px;
-    height: 26px;
-  }
-
-  .detail-menu-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: unset;
-    background-color: var(--color-primary);
-    cursor: pointer;
-  }
-
-  /* Edit/Delete liegen mobil im schwebenden Menue ueber dem Button */
-  .detail-actions {
-    display: none;
-    position: fixed;
-    right: 16px;
-    bottom: 160px;
-    z-index: 5;
-    flex-direction: column;
-    gap: 8px;
-    padding: 12px 16px;
-    background-color: #ffffff;
-    border-radius: 20px 20px 0 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-
-  .detail-actions.open {
-    display: flex;
-  }
-
-  .detail-action {
-    font-size: var(--fs-base);
-  }
-
-  /* Popup: dunkler Kopf oben, Formular darunter, Avatar auf der Kante */
+  /* Popup: dunkler Kopf oben, Formular darunter, Avatar auf der Kante.
+     Nebeneinander passen die beiden Haelften hier nicht mehr. */
   .contact-modal {
     flex-direction: column;
     width: min(90vw, 400px);
@@ -503,5 +459,82 @@
 
   .add-contact-buttons .btn-cancel {
     display: none;
+  }
+}
+
+/* ============================================================
+   Responsive Stufe 2: ab 768px sitzt die Navbar unten (navbar.css),
+   die Seite nutzt die volle Breite und die Buttons werden mobil.
+   ============================================================ */
+@media (max-width: 768px) {
+  .contacts-main {
+    margin-left: 0;
+    height: auto;
+    min-height: calc(100vh - 176px);
+  }
+
+  .contacts-list-col {
+    padding: 16px 16px 104px;
+  }
+
+  .contact-detail {
+    border-radius: 0;
+    padding: 24px 16px 104px;
+  }
+
+  /* "Add new contact" und das Kontakt-Menue werden zu runden Buttons */
+  .add-contact-btn,
+  .detail-menu-btn {
+    position: fixed;
+    right: 16px;
+    bottom: 96px;
+    z-index: 5;
+    width: 56px;
+    height: 56px;
+    margin: 0;
+    padding: 0;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+
+  .add-contact-btn {
+    font-size: 0;
+  }
+
+  .add-contact-btn .btn-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .detail-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: unset;
+    background-color: var(--color-primary);
+    cursor: pointer;
+  }
+
+  /* Edit/Delete liegen mobil im schwebenden Menue ueber dem Button */
+  .detail-actions {
+    display: none;
+    position: fixed;
+    right: 16px;
+    bottom: 160px;
+    z-index: 5;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 16px;
+    background-color: #ffffff;
+    border-radius: 20px 20px 0 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .detail-actions.open {
+    display: flex;
+  }
+
+  .detail-action {
+    font-size: var(--fs-base);
   }
 }
