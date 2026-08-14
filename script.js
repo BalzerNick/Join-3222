@@ -53,6 +53,13 @@ function getAvatarColor(name) {
   return AVATAR_COLORS[sum % AVATAR_COLORS.length];
 }
 
+/**
+ * Schreibt die Initialen des eingeloggten Users in den Avatar im Header.
+ * Gaeste bekommen ein "G". Tut nichts, wenn das Element fehlt oder niemand
+ * eingeloggt ist. Wird beim Laden dieser Datei einmal aufgerufen.
+ *
+ * @returns {void}
+ */
 function renderUserInitials() {
   // let name = "Anton Axt";  // TODO: echten eingeloggten User verwenden
   let el = document.getElementById("userInitials");
@@ -71,15 +78,33 @@ function renderUserInitials() {
 
 renderUserInitials();
 
+/**
+ * Beendet die Sitzung: entfernt den User aus dem localStorage und springt
+ * zurueck zur Login-Seite.
+ *
+ * @returns {void}
+ */
 function logout() {
   localStorage.removeItem("user");
   window.location.href = "index.html";
 }
 
+/**
+ * Oeffnet bzw. schliesst das Klappmenue hinter dem Avatar im Header.
+ *
+ * @returns {void}
+ */
 function toggleUserMenu() {
   document.getElementById("userMenu").classList.toggle("open");
 }
 
+/**
+ * Schliesst das User-Menue, wenn der Klick daneben ging. Haengt am Dokument,
+ * damit ein Klick irgendwo auf der Seite das Menue zumacht.
+ *
+ * @param {Event} event - Das Klick-Ereignis.
+ * @returns {void}
+ */
 function closeUserMenu(event) {
   let menu = document.getElementById("userMenu");
   if (menu && !menu.contains(event.target)) {
@@ -88,8 +113,12 @@ function closeUserMenu(event) {
 }
 
 /**
- * 
- * @param {*} event 
+ * Stoppt das Weiterreichen des Ereignisses nach oben. Wird auf Elementen
+ * innerhalb eines Overlays benutzt, damit ein Klick darauf das Overlay nicht
+ * schliesst.
+ *
+ * @param {Event} event - Das zu stoppende Ereignis.
+ * @returns {void}
  */
 function noEvent(event){
     event.stopPropagation();

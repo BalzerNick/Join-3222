@@ -2,6 +2,8 @@ let contactArray = [];
 
 /**
  * API Zugriff auf die Datenbank um die Kontakte zu bekommen
+ *
+ * @returns {Promise<void>}
  */
 async function getContacts() {
     let response = await fetch(BASE_URL + "contacts.json");
@@ -11,7 +13,9 @@ async function getContacts() {
 
 /**
  * Funktion um jeden Kontakt aus der Datenbank als Objekt in einem Array zu speichern
- * @param {*} result The API result from the Database with all Contacts
+ *
+ * @param {Object} result The API result from the Database with all Contacts
+ * @returns {Promise<void>}
  */
 async function getContactElement(result) {
     let contacts = Object.values(result);
@@ -28,7 +32,8 @@ async function getContactElement(result) {
 
 /**
  * API Zugriff auf Datenbank um die Tasks zu bekommen
- * @returns all task in json format from the database
+ *
+ * @returns {Promise<Object>} all task in json format from the database
  */
 async function getNextTaskId() {
     let response = await fetch(BASE_URL + "/tasks.json");
@@ -40,9 +45,10 @@ async function getNextTaskId() {
 
 /**
  * Funktion um einen neuen Task zu speichern.
- * @param {*} path 
- * @param {*} data 
- * @returns the database's response regarding the task to be saved
+ *
+ * @param {string} [path=""] - Pfad unterhalb der Datenbank-Wurzel, ohne ".json", z.B. "/tasks/5".
+ * @param {Object} [data={}] - Der zu speichernde Task.
+ * @returns {Promise<Object>} the database's response regarding the task to be saved
  */
 async function postTask(path ="", data = {}){
     let response = await fetch(BASE_URL + path + ".json", {

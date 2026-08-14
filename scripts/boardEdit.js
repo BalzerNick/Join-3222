@@ -1,3 +1,11 @@
+/**
+ * Closes the detail modal, drops the edit state and releases the page scroll.
+ * When called from the backdrop, a click that started inside the modal is
+ * ignored.
+ *
+ * @param {Event} [event] - The click event, if the call comes from the backdrop.
+ * @returns {void}
+ */
 function closeTaskDetail(event) {
     if (event && event.target !== event.currentTarget) return;
     cleanupEditDropdownHandler();
@@ -10,6 +18,14 @@ function closeTaskDetail(event) {
     removeModalOpenFlag();
 }
 
+/**
+ * Switches the detail modal into edit mode. Builds working copies of the
+ * subtasks and the assigned contacts, so that cancelling leaves the task
+ * untouched. Does nothing if the id is unknown.
+ *
+ * @param {string} taskId - Database key of the task.
+ * @returns {void}
+ */
 function enterEditMode(taskId) {
     const task = todos.find(todo => todo.id === taskId);
     if (!task) return;
@@ -29,6 +45,12 @@ function enterEditMode(taskId) {
     setupTaskEditForm();
 }
 
+/**
+ * Wires up the edit form after its markup has been inserted: subtask input,
+ * priority buttons, subtask list and the outside-click handler of the dropdown.
+ *
+ * @returns {void}
+ */
 function setupTaskEditForm() {
     bindEditSubtaskInput();
     updateEditPriorityButtons();
@@ -36,6 +58,12 @@ function setupTaskEditForm() {
     registerEditDropdownHandler();
 }
 
+/**
+ * Highlights the priority button that matches the hidden priority field and
+ * swaps the icons of all three buttons accordingly.
+ *
+ * @returns {void}
+ */
 function updateEditPriorityButtons() {
     const current = (document.getElementById('editTaskPriority')?.value || 'medium').toLowerCase();
     Object.entries({ urgent: 'editBtnUrgent', medium: 'editBtnMedium', low: 'editBtnLow' }).forEach(([priority, buttonId]) => {
@@ -48,12 +76,26 @@ function updateEditPriorityButtons() {
     });
 }
 
+/**
+ * Stores the picked priority in the hidden field and refreshes the buttons.
+ *
+ * @param {string} priority - The priority to select.
+ * @returns {void}
+ */
 function setEditPriority(priority) {
     const input = document.getElementById('editTaskPriority');
     if (input) input.value = priority;
     updateEditPriorityButtons();
 }
 
+/**
+ * Submit handler of the edit form. Applies the changes to the board right
+ * away and then saves them. If the write fails, the previous state of the
+ * task is restored and an alert is shown.
+ *
+ * @param {Event} event - The submit event; its default action is prevented.
+ * @returns {Promise<void>}
+ */
 async function saveTaskEdits(event) {
     event.preventDefault();
     const task = todos.find(todo => todo.id === editingTaskId);
@@ -83,6 +125,13 @@ async function saveTaskEdits(event) {
     }
 }
 
+/**
+ * Deletes a task. The card disappears from the board immediately; if the
+ * delete fails, the previous board state is restored and an alert is shown.
+ *
+ * @param {string} taskId - Database key of the task.
+ * @returns {Promise<void>}
+ */
 async function deleteTask(taskId) {
     const previousTodos = [...todos];
     todos = todos.filter(task => task.id !== taskId);
@@ -100,6 +149,12 @@ async function deleteTask(taskId) {
 
 let editDropdownCloseHandler = null;
 
+/**
+ * Builds the pool of contacts available for assignment from the contacts
+ * cached by the board.
+ *
+ * @returns {Array<Object>} All contacts with name, initials and avatar colour.
+ */
 function buildTaskEditContactPool() {
     return Object.values(allContacts).map(contact => {
         const name = contact.name || contact.Name || '';
@@ -107,6 +162,12 @@ function buildTaskEditContactPool() {
     });
 }
 
+/**
+ * Builds the contact dropdown of the edit form, ticking everyone who is
+ * already assigned.
+ *
+ * @returns {string} The list entries as HTML.
+ */
 function buildEditContactListHTML() {
     return taskEditContactPool.map((contact, index) => getEditContactListItemTemplate({
         ...contact,
@@ -115,6 +176,11 @@ function buildEditContactListHTML() {
     }, index, taskEditSelectedContacts.some(item => item.Name === contact.Name))).join('');
 }
 
+/**
+ * Builds the avatar row of the assigned contacts below the dropdown.
+ *
+ * @returns {string} The avatars as HTML.
+ */
 function buildEditAssignedAvatarsHTML() {
     return taskEditSelectedContacts.map(contact => getEditAssignedAvatarTemplate({
         ...contact,
@@ -123,6 +189,14 @@ function buildEditAssignedAvatarsHTML() {
     })).join('');
 }
 
+/**
+ * Adds a contact to the selection or removes it again, and updates the row,
+ * its checkbox and the avatar row accordingly.
+ *
+ * @param {number} index - Position of the contact in the contact pool.
+ * @param {HTMLElement} listItem - The clicked list row.
+ * @returns {void}
+ */
 function toggleEditContact(index, listItem) {
     const contact = taskEditContactPool[index];
     if (!contact) return;
@@ -137,6 +211,13 @@ function toggleEditContact(index, listItem) {
     if (container) container.innerHTML = buildEditAssignedAvatarsHTML();
 }
 
+/**
+ * Opens or closes the contact dropdown of the edit form. Stops the event so
+ * the outside-click handler does not close it again straight away.
+ *
+ * @param {Event} event - The click event on the dropdown field.
+ * @returns {void}
+ */
 function toggleEditContactDropdown(event) {
     event.stopPropagation();
     const list = document.getElementById('editContactList');
@@ -144,6 +225,12 @@ function toggleEditContactDropdown(event) {
     setEditContactDropdownState(list.classList.contains('d-none'));
 }
 
+/**
+ * Registers the handler that closes the contact dropdown on a click anywhere
+ * outside of it. Any previously registered handler is removed first.
+ *
+ * @returns {void}
+ */
 function registerEditDropdownHandler() {
     cleanupEditDropdownHandler();
     editDropdownCloseHandler = event => {
@@ -154,12 +241,24 @@ function registerEditDropdownHandler() {
     document.onclick = editDropdownCloseHandler;
 }
 
+/**
+ * Removes the outside-click handler of the contact dropdown, so it does not
+ * outlive the closed modal.
+ *
+ * @returns {void}
+ */
 function cleanupEditDropdownHandler() {
     if (!editDropdownCloseHandler) return;
     if (document.onclick === editDropdownCloseHandler) document.onclick = null;
     editDropdownCloseHandler = null;
 }
 
+/**
+ * Shows or hides the contact dropdown and flips its arrow.
+ *
+ * @param {boolean} shouldOpen - true opens the dropdown, false closes it.
+ * @returns {void}
+ */
 function setEditContactDropdownState(shouldOpen) {
     const list = document.getElementById('editContactList');
     if (!list) return;
@@ -168,10 +267,22 @@ function setEditContactDropdownState(shouldOpen) {
     if (arrow) arrow.textContent = shouldOpen ? '▲' : '▼';
 }
 
+/**
+ * Turns the stored subtask object into the array the edit form works on.
+ *
+ * @param {Object} subtasks - The subtasks of the task, keyed by id.
+ * @returns {Array<{id: string, title: string, done: boolean}>} The subtasks as an array, empty if there are none.
+ */
 function mapTaskEditSubtasks(subtasks) {
     return Object.entries(subtasks || {}).map(([id, subtask]) => ({ id, title: subtask.title, done: !!subtask.done }));
 }
 
+/**
+ * Makes the Enter key in the subtask input add a subtask instead of
+ * submitting the whole form.
+ *
+ * @returns {void}
+ */
 function bindEditSubtaskInput() {
     const input = document.getElementById('editSubtaskInput');
     if (!input) return;
@@ -182,6 +293,11 @@ function bindEditSubtaskInput() {
     };
 }
 
+/**
+ * Redraws the subtask list of the edit form from the working copy.
+ *
+ * @returns {void}
+ */
 function renderEditSubtasks() {
     const list = document.getElementById('editSubtaskList');
     if (!list) return;
@@ -190,6 +306,12 @@ function renderEditSubtasks() {
         .join('');
 }
 
+/**
+ * Adds the text of the subtask input to the working copy and clears the
+ * input. An empty input is ignored.
+ *
+ * @returns {void}
+ */
 function addEditSubtask() {
     const input = document.getElementById('editSubtaskInput');
     if (!input) return;
@@ -200,11 +322,25 @@ function addEditSubtask() {
     renderEditSubtasks();
 }
 
+/**
+ * Removes a subtask from the working copy. The change reaches the database
+ * only when the form is saved.
+ *
+ * @param {string} subtaskId - Key of the subtask.
+ * @returns {void}
+ */
 function deleteTaskSubtask(subtaskId) {
     taskEditSubtasks = taskEditSubtasks.filter(item => item.id !== subtaskId);
     renderEditSubtasks();
 }
 
+/**
+ * Asks for a new title of a subtask via a browser prompt. Cancelling or
+ * entering only whitespace keeps the old title.
+ *
+ * @param {string} subtaskId - Key of the subtask.
+ * @returns {void}
+ */
 function editTaskSubtask(subtaskId) {
     const subtask = taskEditSubtasks.find(item => item.id === subtaskId);
     if (!subtask) return;
@@ -214,6 +350,11 @@ function editTaskSubtask(subtaskId) {
     renderEditSubtasks();
 }
 
+/**
+ * Turns the working copy back into the object shape the database expects.
+ *
+ * @returns {Object} The subtasks keyed by id.
+ */
 function buildTaskEditSubtaskMap() {
     return taskEditSubtasks.reduce((map, subtask) => {
         map[subtask.id] = { title: subtask.title, done: subtask.done };
@@ -221,6 +362,15 @@ function buildTaskEditSubtaskMap() {
     }, {});
 }
 
+/**
+ * Ticks or unticks a subtask in the detail view. The progress bar updates
+ * immediately; if the write fails, the checkbox is reverted.
+ *
+ * @param {string} taskId - Database key of the task.
+ * @param {string} subtaskId - Key of the subtask.
+ * @param {boolean} done - The new state.
+ * @returns {Promise<void>}
+ */
 async function toggleSubtaskDone(taskId, subtaskId, done) {
     const task = todos.find(item => item.id === taskId);
     if (!task || !task.subtasks || !task.subtasks[subtaskId]) return;
@@ -235,6 +385,14 @@ async function toggleSubtaskDone(taskId, subtaskId, done) {
     }
 }
 
+/**
+ * Resolves the assignedTo entries of a task against the contact pool.
+ * Entries that are no longer in the pool are rebuilt from their name;
+ * entries without a name are dropped.
+ *
+ * @param {Array<string|Object>} assignedTo - The assigned contacts, as ids or objects.
+ * @returns {Array<Object>} The resolved contacts.
+ */
 function mapTaskEditContacts(assignedTo) {
     return assignedTo.map(item => {
         const name = typeof item === 'string' ? item : (item.Name || item.name || '');
