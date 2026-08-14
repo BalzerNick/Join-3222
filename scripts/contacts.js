@@ -1,4 +1,4 @@
-// Zwischenspeicher der geladenen Kontakte (fuer Detailansicht/Bearbeiten).
+// Cache of the loaded contacts (used by the detail and edit views).
 let allContacts = {};
 
 /**

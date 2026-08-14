@@ -116,25 +116,25 @@ function setName(iduser, idgreet, name) {
  * @returns {?Object} The most urgent task, or null if no task has priority "urgent".
  */
 function getMostUrgentTask() {
-    // Hier wird später die dringendste Aufgabe gespeichert.
+    // Holds the most urgent task once one is found.
     let mostUrgentTask = null;
-    // Gehe jede Aufgabe im Array durch.
+    // Walk through every task in the array.
     for (let i = 0; i < tasks.length; i++) {
         let task = tasks[i];
-        // Nur Aufgaben mit der Priorität "urgent" berücksichtigen.
+        // Only consider tasks with priority "urgent".
         if (task.priority === "urgent") {
-            // Falls noch keine dringende Aufgabe gefunden wurde,
-            // wird diese als erste gespeichert.
+            // If no urgent task has been found yet,
+            // this one is stored as the first candidate.
             if (mostUrgentTask === null) {
                 mostUrgentTask = task;
             }
-            // Ansonsten vergleichen wir die Fälligkeitsdaten.
+            // Otherwise compare the due dates.
             else if (new Date(task.dueDate) < new Date(mostUrgentTask.dueDate)) {
                 mostUrgentTask = task;
             }
         }
     }
-    // Die dringendste Aufgabe zurückgeben.
+    // Return the most urgent task.
     return mostUrgentTask;
 }
 
@@ -169,8 +169,8 @@ function histarrow() {
  */
 function getCurrentTime() {
     let now = new Date();
-    let thehours = now.getHours();     // Stunden (0-23)
-    let theminutes = now.getMinutes();   // Minuten (0-59)
+    let thehours = now.getHours();     // hours (0-23)
+    let theminutes = now.getMinutes();   // minutes (0-59)
     let thesconds = now.getSeconds();
     console.log(`Aktuelle Uhrzeit: ${thehours}:${theminutes}:${thesconds}`);
     if (0 <= thehours && thehours < 12) {

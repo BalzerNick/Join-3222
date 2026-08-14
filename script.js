@@ -38,7 +38,7 @@ function getInitials(name) {
   return (first + last).toUpperCase();
 }
 
-// Farbpalette fuer die Avatare (deterministisch pro Name gewaehlt).
+// Colour palette for the avatars (picked deterministically per name).
 const AVATAR_COLORS = [
   "#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8",
   "#1FD7C1", "#FF745E", "#FFA35E", "#FC71FF", "#FFC701",
@@ -69,7 +69,7 @@ function getAvatarColor(name) {
  * @returns {void}
  */
 function renderUserInitials() {
-  // let name = "Anton Axt";  // TODO: echten eingeloggten User verwenden
+  // let name = "Anton Axt";  // TODO: use the actually logged in user
   let el = document.getElementById("userInitials");
   if (!el) return;
   let userData = localStorage.getItem("user");
@@ -79,7 +79,7 @@ function renderUserInitials() {
     el.textContent = "G";
     return;
   }
-  let name = user.name || "User"; // Fallback, falls der Name nicht vorhanden ist
+  let name = user.name || "User"; // Fallback in case the name is missing
   let initials = getInitials(name);
   el.textContent = initials;
 }
