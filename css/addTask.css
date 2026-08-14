@@ -1,15 +1,18 @@
+body {
+    overflow-x: hidden;
+}
+
 main {
-    padding: 80px 80px;
+    padding: 110px 117px;
     color: var(--color-primary);
     margin-left: 232px;
     margin-top: 0;
     max-width: 1440px;
     left: 0;
+    box-sizing: border-box;
 }
 
-h1 {
-    font-size: var(--fs-xxl);
-    font-weight: 700;
+main h1 {
     margin-bottom: 30px;
 }
 
@@ -50,11 +53,12 @@ form {
 }
 
 #addTaskForm .input {
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     box-sizing: border-box;
     border: 1px solid var(--color-border);
     border-radius: 10px;
-    font-size: var(--fs-base);
+    font-size: var(--fs-md);
     font-family: inherit;
     color: var(--color-primary);
     z-index: 1;
@@ -73,6 +77,7 @@ form {
 
 .priority-buttons {
     display: flex;
+    flex-wrap: wrap;
     gap: 16px;
 }
 
@@ -89,7 +94,7 @@ form {
     border-radius: 10px;
     background-color: #ffffff;
     color: var(--color-primary);
-    font-size: var(--fs-base);
+    font-size: var(--fs-md);
     font-family: inherit;
     padding: 12px 16px;
     min-width: 100px;
@@ -130,7 +135,8 @@ form {
 
 .dropdown,
 .add-subtask {
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     position: relative;
 }
 
@@ -182,6 +188,7 @@ input {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     z-index: 5;
     max-height: 300px;
+    font-size: var(--fs-md);
 }
 
 .dropdown-scroll {
@@ -283,6 +290,10 @@ input {
     width: 280px
 }
 
+.button-area .btn {
+    font-size: var(--fs-md);
+}
+
 .btn-task{
     display: flex;
     flex-direction: row;
@@ -363,7 +374,7 @@ input {
     border-bottom: 1px solid var(--color-accent);
     border-radius: 0;
     padding: 4px 4px 8px;
-    font-size: var(--fs-base);
+    font-size: var(--fs-md);
     font-family: inherit;
     color: var(--color-primary);
     background: transparent;
@@ -396,4 +407,82 @@ input {
 
 .subtask-buttons .input-img:hover {
     cursor: pointer;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+/* Tablet: rechte Formhaelfte wandert unter die linke */
+@media (max-width: 1024px) {
+    main {
+        padding: 48px 32px;
+    }
+
+    form {
+        max-width: 100%;
+    }
+
+    .input-form {
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .divider {
+        width: 100%;
+        height: 1px;
+        align-self: auto;
+    }
+
+    #addTaskForm .input,
+    .dropdown,
+    .add-subtask {
+        width: 100%;
+    }
+}
+
+/* Mobile: Sidebar ist jetzt unten (navbar.css), Content braucht
+   dafuer keinen linken Rand mehr, aber unten Platz fuer die Navbar */
+@media (max-width: 768px) {
+    main {
+        margin-left: 0;
+        padding: 32px 24px 104px;
+    }
+}
+
+/* Kleine Screens: letzter Feinschliff fuer Ueberschrift/Buttons */
+@media (max-width: 480px) {
+    main {
+        padding: 24px 16px 104px;
+    }
+
+    h1 {
+        font-size: var(--fs-lg);
+        margin-bottom: 20px;
+    }
+
+    .priority-buttons {
+        flex-wrap: wrap;
+    }
+
+    .btn-priority-urgent,
+    .btn-priority-medium,
+    .btn-priority-low {
+        flex: 1 1 100px;
+        min-width: 0;
+    }
+
+    .submit-form {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    .button-area {
+        width: 100%;
+    }
+
+    .button-area .btn {
+        flex: 1;
+    }
 }

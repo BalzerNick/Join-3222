@@ -11,6 +11,19 @@
   margin-right: 20px;
 }
 
+.stat-card:hover, .stat-card-small:hover, .stat-card-wide:hover {
+  background-color: var(--color-primary);
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+}
+
+
+:is(.stat-card, .stat-card-small, .stat-card-wide):hover .stat-number {
+  color: #ffffff;
+}
+
+
+
 .stat-card-small {
   display: flex;
   flex-direction: column;
@@ -50,6 +63,7 @@
 }
 
 .stat-number-col .stat-label {
+  font-size: var(--fs-base);
   margin: 0;
 }
 
@@ -74,7 +88,6 @@
 
 .stat-label {
   font-size: var(--fs-md);
-  color: var(--color-primary);
   margin-top: 4px;
   margin-left: 70px;
 }
@@ -85,6 +98,35 @@
   margin-right: 20px;
   position: relative;
   top: 4px;
+}
+
+.icon-wrap {
+  position: relative;
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+  margin-right: 20px;
+  top: 4px;
+}
+
+.icon-wrap .pencil-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-right: 0;
+  transition: opacity 0.1s ease;
+}
+
+.icon-wrap .icon-hover {
+  opacity: 0;
+}
+
+.stat-card:hover .icon-wrap .icon-default {
+  opacity: 0;
+}
+
+.stat-card:hover .icon-wrap .icon-hover {
+  opacity: 1;
 }
 
 .red-arrow-circle-icon {
@@ -119,8 +161,7 @@
 .date-txt {
   margin-top: -10px;
   display: flex;
-  font-size: 18px;
-  color: var(--color-primary);
+  font-size: var(--fs-md);
   margin-left: 12px;
 }
 
@@ -128,8 +169,7 @@
 .date-condition {
   margin-top: 10px;
   display: flex;
-  font-size: var(--fs-sm);
-  color: var(--color-primary);
+  font-size: var(--fs-base);
   margin-left: 12px;
 }
 
@@ -152,14 +192,12 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: var(--fs-sm);
-  color: var(--color-primary);
+  font-size: var(--fs-md);
 }
 
 /* Nur in Marcus' card.css vorhanden, fehlt auf main */
 .page-summary {
   max-width: 1440px;
   margin: 0;
-  padding: 80px 24px 24px 100px;
-  margin-left: 200px;
+  padding: 110px 24px 24px 350px;
 }

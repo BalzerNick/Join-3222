@@ -15,8 +15,9 @@
 
 </head>
 
-<body onload="getCurrentTime(); startGreeting()">
-    <header>Kanban Project Management Tool
+<body onload="getCurrentTime(); startGreeting(); loadSummaryData()" onclick="closeUserMenu(event); closeAllDropdowns()">
+    <header><span class="header-title">Kanban Project Management Tool</span>
+        <img src="assets/imgs/logoMain.png" alt="Join Logo" class="header-logo-mobile">
         <div class="header-right">
             <a href="help.html" class="help-btn" aria-label="Help">?</a>
             <div class="user-menu" id="userMenu">
@@ -36,34 +37,56 @@
         alt="Join Logo"
         class="menu-logo"
       />
-      <div class="menu">
         <div class="menu-icons">
           <a href="summary_guest.html" class="active"
             ><img
               src="assets/imgs/summary.png"
-              class="menu-icons-img"
+              class="menu-icons-img menu-icons-img-desktop"
               alt="Summary"
-          /></a>
+            /><span class="menu-icons-mobile"
+              ><img
+                src="assets/icons/navbar/summary_img.svg"
+                class="menu-icons-img-mobile"
+                alt=""
+              /><span class="menu-icons-label">Summary</span></span
+          ></a>
           <a href="addTask.html"
             ><img
               src="assets/imgs/addtask.png"
-              class="menu-icons-img"
+              class="menu-icons-img menu-icons-img-desktop"
               alt="Add Task"
-          /></a>
+            /><span class="menu-icons-mobile"
+              ><img
+                src="assets/icons/navbar/addTask_img.svg"
+                class="menu-icons-img-mobile"
+                alt=""
+              /><span class="menu-icons-label">Add Task</span></span
+          ></a>
           <a href="board.html"
             ><img
               src="assets/imgs/board.png"
-              class="menu-icons-img"
+              class="menu-icons-img menu-icons-img-desktop"
               alt="Board"
-          /></a>
+            /><span class="menu-icons-mobile"
+              ><img
+                src="assets/icons/navbar/board_img.svg"
+                class="menu-icons-img-mobile"
+                alt=""
+              /><span class="menu-icons-label">Board</span></span
+          ></a>
           <a href="contacts.html"
             ><img
               src="assets/imgs/contacts.png"
-              class="menu-icons-img"
+              class="menu-icons-img menu-icons-img-desktop"
               alt="Contacts"
-          /></a>
+            /><span class="menu-icons-mobile"
+              ><img
+                src="assets/icons/navbar/contacts_img.svg"
+                class="menu-icons-img-mobile"
+                alt=""
+              /><span class="menu-icons-label">Contacts</span></span
+          ></a>
         </div>
-      </div>
       <div class="policies">
         <a href="privacyPolicy.html" class="footer-link">Privacy Policy</a>
         <a href="legalNotice.html" class="footer-link">Legal notice</a>
@@ -84,11 +107,18 @@
       <div class="summary-1Line">
         <div class="stat-card">
           <div class="stat-number-row">
-            <img
-              src="assets/imgs/pencil-icon-circle-black.png"
-              alt="To-do Icon"
-              class="pencil-icon"
-            />
+            <span class="icon-wrap">
+              <img
+                src="assets/icons/in_backlog_edit_dark.png"
+                alt="To-do Icon"
+                class="pencil-icon icon-default"
+              />
+              <img
+                src="assets/icons/in_backlog_edit_white.png"
+                alt="To-do Icon"
+                class="pencil-icon icon-hover"
+              />
+            </span>
             <span class="stat-number" id="todoCount">0</span>
           </div>
           <p class="stat-label">To-do</p>
@@ -96,11 +126,18 @@
 
         <div class="stat-card">
           <div class="stat-number-row">
-            <img
-              src="assets/imgs/hook-icon.png"
-              alt="To-do Icon"
-              class="pencil-icon"
-            />
+            <span class="icon-wrap">
+              <img
+                src="assets/icons/in_backlog_check_dark.png"
+                alt="Done Icon"
+                class="pencil-icon icon-default"
+              />
+              <img
+                src="assets/icons/in_backlog_check_white.png"
+                alt="Done Icon"
+                class="pencil-icon icon-hover"
+              />
+            </span>
             <span class="stat-number" id="doneCount">0</span>
           </div>
           <p class="stat-label">Done</p>
@@ -109,7 +146,7 @@
 
         <div class="second-line">
             <div class="stat-card-wide">
-                    <img src="assets/imgs/red-arrow-circle.png" alt="To-do Icon" class="red-arrow-circle-icon">
+                    <img src="assets/icons/urgent_arrow.png" alt="To-do Icon" class="red-arrow-circle-icon">
                     <div class="stat-number-col">
                         <span class="stat-number" id="urgentCount">0</span>
                         <span class="stat-label">Urgent</span>

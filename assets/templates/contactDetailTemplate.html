@@ -1,6 +1,6 @@
 <div class="detail-card">
   <div class="detail-head">
-    <div class="avatar avatar-lg" data-color="{{color}}" style="background-color: #ccc;">{{initials}}</div>
+    <div class="avatar avatar-lg" style="background-color: {{color}}">{{initials}}</div>
     <div>
       <h2 class="detail-name">{{name}}</h2>
       <div class="detail-actions">
@@ -13,4 +13,9 @@
   <p class="detail-label">Contact Information</p>
   <p class="detail-line"><strong>Email</strong><br><a href="mailto:{{email}}">{{email}}</a></p>
   <p class="detail-line"><strong>Phone</strong><br>{{phone}}</p>
+
+  <!-- Nur mobil sichtbar: oeffnet Edit/Delete als schwebendes Menue -->
+  <button class="detail-menu-btn" type="button" onclick="toggleContactMenu()">
+    <img src="assets/icons/more_vert.svg" alt="Options">
+  </button>
 </div>

@@ -9,17 +9,22 @@ header {
   justify-content: space-between;
   padding-left: 300px;
   align-items: center;
-  height: 70px;
+  height: 96px;
   background-color: #ffffff;
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
   font-size: var(--fs-md);
+}
+
+/* Logo im Header ersetzt mobil den Titel-Text */
+.header-logo-mobile {
+  display: none;
 }
 
 .menu-line {
   position: fixed;
   left: 0;
   top: 0;
-  width: 230px;
+  width: 232px;
   height: 100vh;
   background-color: var(--color-primary);
   display: flex;
@@ -62,9 +67,12 @@ header {
 
 .menu-icons-img {
   width: 100%;
-  width: 100%;
   height: auto;
   display: block;
+}
+
+.menu-icons-mobile {
+  display: none;
 }
 
 .policies {
@@ -157,4 +165,109 @@ header {
 
 .user-dropdown a:hover {
   background-color: var(--color-accent);
+}
+
+/* ============================================================
+   Responsive: ab 768px wandert die Sidebar nach unten und wird
+   zur fixen Navbar am unteren Bildschirmrand (Footer-Look).
+   ============================================================ */
+@media (max-width: 768px) {
+  header {
+    padding-left: 24px;
+    padding-right: 16px;
+  }
+
+  .header-title,
+  .help-btn {
+    display: none;
+  }
+
+  .header-logo-mobile {
+    display: block;
+    height: 40px;
+  }
+
+  .menu-line {
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 -2px 14px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    z-index: 1000;
+  }
+
+  .menu-logo,
+  .policies {
+    display: none;
+  }
+
+  .menu-icons {
+    position: static;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 0 8px;
+    box-sizing: border-box;
+    margin-bottom: 0;
+    gap: 0;
+  }
+
+  /* Ein Menuepunkt ist laut Figma 80x76, der Rest verteilt sich dazwischen */
+  .menu-icons a {
+    width: 80px;
+    height: 76px;
+    justify-content: center;
+    padding: 0;
+    box-sizing: border-box;
+    border-radius: 16px;
+  }
+
+  .menu-icons-img-desktop {
+    display: none;
+  }
+
+  .menu-icons-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .menu-icons-img-mobile {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+
+  .menu-icons-label {
+    color: #cdcdcd;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  .menu-icons a.active .menu-icons-label {
+    color: #ffffff;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding-left: 16px;
+    font-size: var(--fs-base);
+  }
+
+  .menu-icons-img-mobile {
+    width: 20px;
+    height: 20px;
+  }
+
+  .menu-icons-label {
+    font-size: 9px;
+  }
 }
