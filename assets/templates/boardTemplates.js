@@ -1,7 +1,8 @@
 /**
- * Builds the board task card template.
- * @param {Object} data
- * @returns {string}
+ * Builds a draggable task card for the board.
+ *
+ * @param {Object} data - The render data of the card, holding id, title, category badge, description, priority icon, avatars and subtask progress as ready made HTML.
+ * @returns {string} The complete task card as HTML.
  */
 function getTaskTemplate(data) {
     return `
@@ -16,9 +17,10 @@ function getTaskTemplate(data) {
 
 
 /**
- * Builds the task detail modal template.
- * @param {Object} data
- * @returns {string}
+ * Builds the content of the task detail modal.
+ *
+ * @param {Object} data - The render data of the modal, holding id, title, category badge, priority row, description, due date, assigned contacts and subtask checklist as ready made HTML.
+ * @returns {string} The complete modal content as HTML.
  */
 function getTaskDetailTemplate(data) {
     return `
@@ -35,9 +37,10 @@ function getTaskDetailTemplate(data) {
 
 
 /**
- * Builds the task edit modal template.
- * @param {Object} data
- * @returns {string}
+ * Builds the edit form of a task, prefilled with its current values.
+ *
+ * @param {Object} data - The render data of the form, holding id, title, due date, description, priority plus the contact dropdown and avatar row as ready made HTML.
+ * @returns {string} The complete edit form as HTML.
  */
 function getTaskEditTemplate(data) {
     return `

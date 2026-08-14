@@ -1,8 +1,9 @@
 let tasks = [];
 
 /**
- * Laedt alle Tasks aus der Datenbank und aktualisiert danach die Kacheln.
- * Netzwerk- und HTTP-Fehler werden geloggt, die Kacheln bleiben dann leer.
+ * Loads all tasks from the database into the module level tasks array and
+ * refreshes the metric tiles afterwards. Network and HTTP errors are logged
+ * and leave the tiles untouched.
  *
  * @returns {Promise<void>}
  */
@@ -24,27 +25,29 @@ async function loadSummaryData() {
 
 
 /**
- * Zaehlt alle Tasks mit einem bestimmten Status.
+ * Counts all tasks that currently sit in a given board column.
  *
- * @param {string} status - Der gesuchte Status, z.B. "todo".
- * @returns {number} Die Anzahl der passenden Tasks.
+ * @param {string} status - The status to count, for example "todo" or "done".
+ * @returns {number} The number of tasks carrying that status.
  */
 function countTasksByStatus(status) {
     return tasks.filter(task => task.status === status).length;
 }
 
 /**
- * Zaehlt alle Tasks mit einer bestimmten Prioritaet.
+ * Counts all tasks that carry a given priority.
  *
- * @param {string} priority - Die gesuchte Prioritaet, z.B. "urgent".
- * @returns {number} Die Anzahl der passenden Tasks.
+ * @param {string} priority - The priority to count: "urgent", "medium" or "low".
+ * @returns {number} The number of tasks carrying that priority.
  */
 function countTasksByPriority(priority) {
     return tasks.filter(task => task.priority === priority).length;
 }
 
 /**
- * Schreibt die berechneten Kennzahlen in die Summary-Kacheln.
+ * Writes all calculated metrics into the summary tiles: the counts per
+ * column, the total, the urgent count, the closest urgent due date and the
+ * name of the logged in user.
  *
  * @returns {void}
  */
@@ -61,10 +64,11 @@ function updateSummaryHTML() {
 }
 
 /**
- * Setzt den Text eines Elements, falls es auf der Seite vorhanden ist.
+ * Writes a number into a metric tile, if that tile exists on the current
+ * page.
  *
- * @param {string} id - Die ID des Ziel-Elements.
- * @param {number} value - Die anzuzeigende Zahl.
+ * @param {string} id - Id of the element that receives the number.
+ * @param {number} value - The number that is displayed in the tile.
  * @returns {void}
  */
 function setStatNumber(id, value) {
@@ -73,10 +77,10 @@ function setStatNumber(id, value) {
 }
 
 /**
- * Setzt ein Datum in ein Element, falls es auf der Seite vorhanden ist.
+ * Writes a date into an element, if that element exists on the current page.
  *
- * @param {string} id - Die ID des Ziel-Elements.
- * @param {string} [date] - Das Datum im Format YYYY-MM-DD.
+ * @param {string} id - Id of the element that receives the date.
+ * @param {string} [date] - The date in ISO format (YYYY-MM-DD). Undefined clears the element.
  * @returns {void}
  */
 function setDate(id, date) {
@@ -85,12 +89,12 @@ function setDate(id, date) {
 } 
 
 /**
- * Schreibt den Usernamen neben die Begruessung. Fuer Gaeste ohne Namen
- * wird nichts geschrieben.
+ * Writes the user name next to the greeting. Nothing is written for guests,
+ * where the name is missing.
  *
- * @param {string} iduser - Die ID des Elements fuer den Namen.
- * @param {string} idgreet - Die ID des Begruessungs-Elements.
- * @param {?string} name - Der Name des eingeloggten Users, oder null bei Gaesten.
+ * @param {string} iduser - Id of the element that holds the user name.
+ * @param {string} idgreet - Id of the greeting element next to the name.
+ * @param {?string} name - Name of the logged in user, or null for a guest session.
  * @returns {void}
  */
 function setName(iduser, idgreet, name) {
@@ -106,9 +110,10 @@ function setName(iduser, idgreet, name) {
 }
 
 /**
- * Sucht den dringenden Task mit dem naechstliegenden Faelligkeitsdatum.
+ * Finds the urgent task whose due date lies closest to today. Tasks with any
+ * other priority are ignored.
  *
- * @returns {?Object} Der dringendste Task, oder null wenn kein Task die Prioritaet "urgent" hat.
+ * @returns {?Object} The most urgent task, or null if no task has priority "urgent".
  */
 function getMostUrgentTask() {
     // Hier wird später die dringendste Aufgabe gespeichert.
@@ -135,9 +140,9 @@ function getMostUrgentTask() {
 
 
 /**
- * Liest den Namen des eingeloggten Users aus dem localStorage.
+ * Reads the name of the logged in user out of localStorage.
  *
- * @returns {?string} Der Name, oder null wenn niemand eingeloggt ist.
+ * @returns {?string} The name of the user, or null if nobody is logged in.
  */
 function getLoggedInUserName() {
     let userData = localStorage.getItem("user");
@@ -148,7 +153,7 @@ function getLoggedInUserName() {
 
 
 /**
- * Geht einen Schritt zurueck im Browser-Verlauf. Haengt am Zurueck-Pfeil.
+ * Goes one step back in the browser history. Bound to the back arrow.
  *
  * @returns {void}
  */
@@ -158,9 +163,9 @@ function histarrow() {
 
 // new Date().toLocaleTimeString() , new Date().toTimeString()
 /**
- * Baut die zur Tageszeit passende Begruessung.
+ * Builds the greeting that matches the current time of day.
  *
- * @returns {string} "Good morning!" vor 12, "Good afternoon!" vor 18, sonst "Good evening!".
+ * @returns {string} "Good morning!" before 12, "Good afternoon!" before 18, otherwise "Good evening!".
  */
 function getCurrentTime() {
     let now = new Date();
@@ -180,7 +185,7 @@ function getCurrentTime() {
 }
 
 /**
- * Schreibt die Tageszeit-Begruessung in das Begruessungs-Element.
+ * Writes the time of day greeting into the greeting element of the page.
  *
  * @returns {void}
  */

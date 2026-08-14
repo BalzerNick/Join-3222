@@ -204,8 +204,8 @@ function toggleContactRow(index) {
  * Redraws the avatar row of the assigned contacts below the assignment
  * field.
  *
- * @param {string} [initial] - Wird nicht benutzt; die Initialen kommen aus selectedContacts.
- * @param {string} [color] - Wird nicht benutzt; die Farbe kommt aus selectedContacts.
+ * @param {string} [initial] - Not used; the initials are taken from selectedContacts instead.
+ * @param {string} [color] - Not used; the colour is taken from selectedContacts instead.
  * @returns {void}
  */
 function renderContacts(initial, color){

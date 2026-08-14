@@ -2,7 +2,9 @@
 let allContacts = {};
 
 /**
- * Wird beim Laden der Seite aufgerufen (body onload). Rendert die Kontaktliste.
+ * Entry point of the contacts page, called from the body onload attribute.
+ * Loads the contacts and both templates and renders the grouped list.
+ *
  * @returns {Promise<void>}
  */
 async function renderContacts() {
@@ -13,8 +15,9 @@ async function renderContacts() {
 }
 
 /**
- * Laedt alle Kontakte aus Firebase.
- * @returns {Promise<Object>} Die Kontakte als ID-Objekt (oder null).
+ * Loads all contacts from the Firebase database.
+ *
+ * @returns {Promise<?Object>} All contacts keyed by their id, or null if the database holds none.
  */
 async function loadContacts() {
   let response = await fetch(BASE_URL + "contacts.json");
@@ -22,8 +25,9 @@ async function loadContacts() {
 }
 
 /**
- * Laedt die Karten-Vorlage als Text.
- * @returns {Promise<string>} Die Vorlage als HTML-Text.
+ * Loads the contact card template from the templates folder.
+ *
+ * @returns {Promise<string>} The card template as HTML text, still containing its placeholders.
  */
 async function loadTemplate() {
   let response = await fetch("assets/templates/contactsTemplate.html");
@@ -31,8 +35,9 @@ async function loadTemplate() {
 }
 
 /**
- * Laedt die Buchstaben-Vorlage als Text.
- * @returns {Promise<string>} Die Buchstaben-Vorlage als HTML-Text.
+ * Loads the template for the letter separators of the contact list.
+ *
+ * @returns {Promise<string>} The letter template as HTML text, still containing its placeholder.
  */
 async function loadLetterTemplate() {
   let response = await fetch("assets/templates/contactLetterTemplate.html");
@@ -40,9 +45,11 @@ async function loadLetterTemplate() {
 }
 
 /**
- * Wandelt das Kontakt-Objekt in ein alphabetisch sortiertes Array um.
- * @param {Object} contacts - Die Kontakte als ID-Objekt.
- * @returns {Array<Object>} Die nach Name sortierten Kontakte inklusive id.
+ * Turns the contact object into an array sorted by name, keeping the
+ * database key of every contact as an id property.
+ *
+ * @param {Object} contacts - All contacts keyed by their id.
+ * @returns {Array<Object>} The contacts sorted by name, each one including its id.
  */
 function sortContacts(contacts) {
   let list = Object.keys(contacts).map(id => ({ id, ...contacts[id] }));
@@ -51,11 +58,13 @@ function sortContacts(contacts) {
 }
 
 /**
- * Baut das HTML mit Buchstaben-Gruppen und Kontaktkarten.
- * @param {Array<Object>} sorted - Die sortierten Kontakte.
- * @param {string} card - Die Kartenvorlage.
- * @param {string} letterTpl - Die Buchstaben-Vorlage.
- * @returns {string} Das fertige Listen-HTML.
+ * Builds the list markup and inserts a letter separator whenever the first
+ * letter of the name changes.
+ *
+ * @param {Array<Object>} sorted - The contacts sorted by name, as returned by sortContacts.
+ * @param {string} card - The contact card template with its placeholders.
+ * @param {string} letterTpl - The letter separator template with its placeholder.
+ * @returns {string} The finished contact list as HTML.
  */
 function buildContactsHtml(sorted, card, letterTpl) {
   let html = "";
@@ -72,10 +81,11 @@ function buildContactsHtml(sorted, card, letterTpl) {
 }
 
 /**
- * Sortiert, gruppiert und schreibt die Kontakte in die Liste.
- * @param {Object} contacts - Die Kontakte als ID-Objekt.
- * @param {string} card - Die Kartenvorlage.
- * @param {string} letterTpl - Die Buchstaben-Vorlage.
+ * Sorts and groups the contacts and writes the result into the list element.
+ *
+ * @param {Object} contacts - All contacts keyed by their id.
+ * @param {string} card - The contact card template with its placeholders.
+ * @param {string} letterTpl - The letter separator template with its placeholder.
  * @returns {void}
  */
 function showContacts(contacts, card, letterTpl) {
@@ -84,10 +94,12 @@ function showContacts(contacts, card, letterTpl) {
 }
 
 /**
- * Ersetzt die Platzhalter in der Kartenvorlage durch die Kontaktdaten.
- * @param {string} template - Die Vorlage mit Platzhaltern.
- * @param {{id: string, name: string, email: string}} contact - Ein Kontakt.
- * @returns {string} Die gefuellte Karte als HTML.
+ * Replaces the placeholders of the card template with the data of one
+ * contact.
+ *
+ * @param {string} template - The card template containing the {{...}} placeholders.
+ * @param {Object} contact - The contact to render, including its id, name, email and initials.
+ * @returns {string} The filled contact card as HTML.
  */
 function fillTemplate(template, contact) {
   return template
@@ -99,8 +111,10 @@ function fillTemplate(template, contact) {
 }
 
 /**
- * Zeigt die Detailansicht eines Kontakts rechts an und markiert die Karte.
- * @param {string} id - Die ID des Kontakts.
+ * Shows the detail view of a contact on the right hand side and highlights
+ * the matching card in the list.
+ *
+ * @param {string} id - The database key of the contact to display.
  * @returns {Promise<void>}
  */
 async function showContactDetail(id) {
@@ -112,7 +126,9 @@ async function showContactDetail(id) {
 }
 
 /**
- * Zurueck zur Kontaktliste (nur mobil sichtbarer Pfeil).
+ * Returns from the detail view back to the contact list and clears the card
+ * highlight. Bound to the back arrow that is only visible on mobile.
+ *
  * @returns {void}
  */
 function closeContactDetail() {
@@ -121,7 +137,8 @@ function closeContactDetail() {
 }
 
 /**
- * Zeigt bzw. versteckt das mobile Edit/Delete-Menue.
+ * Opens or closes the mobile edit and delete menu of the detail view.
+ *
  * @returns {void}
  */
 function toggleContactMenu() {
@@ -129,8 +146,10 @@ function toggleContactMenu() {
 }
 
 /**
- * Schliesst das mobile Menue beim Klick daneben (body onclick).
- * @param {Event} event - Das Klick-Ereignis.
+ * Closes the mobile menu when the click happened next to it. Bound to the
+ * body onclick attribute.
+ *
+ * @param {Event} event - The click event, used to find out what was clicked.
  * @returns {void}
  */
 function closeContactMenu(event) {
@@ -141,8 +160,9 @@ function closeContactMenu(event) {
 }
 
 /**
- * Laedt die Detail-Vorlage als Text.
- * @returns {Promise<string>} Die Detail-Vorlage als HTML-Text.
+ * Loads the template of the contact detail view.
+ *
+ * @returns {Promise<string>} The detail template as HTML text, still containing its placeholders.
  */
 async function loadDetailTemplate() {
   let response = await fetch("assets/templates/contactDetailTemplate.html");
@@ -150,11 +170,13 @@ async function loadDetailTemplate() {
 }
 
 /**
- * Ersetzt die Platzhalter in der Detail-Vorlage.
- * @param {string} template - Die Detail-Vorlage.
- * @param {string} id - Die ID des Kontakts.
- * @param {{name: string, email: string, phone: string}} contact - Der Kontakt.
- * @returns {string} Die gefuellte Detailansicht als HTML.
+ * Replaces the placeholders of the detail template with the data of one
+ * contact.
+ *
+ * @param {string} template - The detail template containing the {{...}} placeholders.
+ * @param {string} id - The database key of the contact, used by the edit and delete buttons.
+ * @param {Object} contact - The contact to render, with name, email and phone.
+ * @returns {string} The filled detail view as HTML.
  */
 function fillDetailTemplate(template, id, contact) {
   return template
@@ -167,8 +189,10 @@ function fillDetailTemplate(template, id, contact) {
 }
 
 /**
- * Markiert die gewaehlte Karte aktiv und entfernt die Markierung der anderen.
- * @param {string} id - Die ID des aktiven Kontakts.
+ * Marks the chosen card as active and removes the highlight from all other
+ * cards.
+ *
+ * @param {string} id - The database key of the contact whose card is highlighted.
  * @returns {void}
  */
 function highlightContact(id) {
@@ -178,7 +202,8 @@ function highlightContact(id) {
 }
 
 /**
- * Oeffnet das Popup zum Anlegen eines Kontakts.
+ * Opens the popup for creating a contact and locks the page behind it.
+ *
  * @returns {Promise<void>}
  */
 async function openAddContact() {
@@ -189,8 +214,9 @@ async function openAddContact() {
 }
 
 /**
- * Laedt die Add-Popup-Vorlage als Text.
- * @returns {Promise<string>} Die Popup-Vorlage als HTML-Text.
+ * Loads the template of the add contact popup.
+ *
+ * @returns {Promise<string>} The popup template as HTML text.
  */
 async function loadAddContactTemplate() {
   let response = await fetch("assets/templates/addContactTemplate.html");
@@ -198,7 +224,8 @@ async function loadAddContactTemplate() {
 }
 
 /**
- * Schliesst das Popup.
+ * Closes the add and edit popup and releases the page scroll again.
+ *
  * @returns {void}
  */
 function closeAddContact() {
@@ -207,8 +234,10 @@ function closeAddContact() {
 }
 
 /**
- * Liest die Eingaben aus dem Add-Popup.
- * @returns {{name: string, email: string, phone: string}} Der neue Kontakt.
+ * Reads the inputs of the add contact popup. The initials are derived from
+ * the entered name.
+ *
+ * @returns {Object} The new contact with name, email, phone and initials.
  */
 function getNewContact() {
   return {
@@ -220,8 +249,9 @@ function getNewContact() {
 }
 
 /**
- * Speichert einen neuen Kontakt im Backend (POST erzeugt eine ID).
- * @param {{name: string, email: string, phone: string}} contact - Der neue Kontakt.
+ * Saves a new contact in the database. POST makes Firebase generate the id.
+ *
+ * @param {Object} contact - The contact record that is stored.
  * @returns {Promise<void>}
  */
 async function saveContact(contact) {
@@ -232,7 +262,9 @@ async function saveContact(contact) {
 }
 
 /**
- * Liest die Eingaben, speichert den Kontakt und aktualisiert die Liste.
+ * Handler of the create button in the add popup. Saves the contact and
+ * refreshes the list. Does nothing if name or email are empty.
+ *
  * @returns {Promise<void>}
  */
 async function createContact() {
@@ -247,8 +279,9 @@ async function createContact() {
 }
 
 /**
- * Oeffnet das Popup zum Bearbeiten mit den aktuellen Werten des Kontakts.
- * @param {string} id - Die ID des Kontakts.
+ * Opens the edit popup, prefilled with the current values of the contact.
+ *
+ * @param {string} id - The database key of the contact to edit.
  * @returns {Promise<void>}
  */
 async function openEditContact(id) {
@@ -259,8 +292,9 @@ async function openEditContact(id) {
 }
 
 /**
- * Laedt die Edit-Popup-Vorlage als Text.
- * @returns {Promise<string>} Die Edit-Vorlage als HTML-Text.
+ * Loads the template of the edit contact popup.
+ *
+ * @returns {Promise<string>} The edit template as HTML text, still containing its placeholders.
  */
 async function loadEditTemplate() {
   let response = await fetch("assets/templates/contactEditTemplate.html");
@@ -268,11 +302,13 @@ async function loadEditTemplate() {
 }
 
 /**
- * Ersetzt die Platzhalter in der Edit-Vorlage durch die aktuellen Werte.
- * @param {string} template - Die Edit-Vorlage.
- * @param {string} id - Die ID des Kontakts.
- * @param {{name: string, email: string, phone: string}} contact - Der Kontakt.
- * @returns {string} Die gefuellte Edit-Vorlage als HTML.
+ * Replaces the placeholders of the edit template with the current values of
+ * the contact.
+ *
+ * @param {string} template - The edit template containing the {{...}} placeholders.
+ * @param {string} id - The database key of the contact, used by the save button.
+ * @param {Object} contact - The contact to edit, with name, email and phone.
+ * @returns {string} The filled edit popup as HTML.
  */
 function fillEditTemplate(template, id, contact) {
   return template
@@ -285,8 +321,10 @@ function fillEditTemplate(template, id, contact) {
 }
 
 /**
- * Liest die Eingaben aus dem Edit-Popup.
- * @returns {{name: string, email: string, phone: string}} Die geaenderten Daten.
+ * Reads the inputs of the edit popup. The initials are derived from the
+ * entered name.
+ *
+ * @returns {Object} The changed contact data with name, email, phone and initials.
  */
 function getEditContact() {
   return {
@@ -298,9 +336,10 @@ function getEditContact() {
 }
 
 /**
- * Ueberschreibt einen bestehenden Kontakt im Backend (PUT).
- * @param {string} id - Die ID des Kontakts.
- * @param {{name: string, email: string, phone: string}} contact - Die neuen Daten.
+ * Overwrites an existing contact in the database via PUT.
+ *
+ * @param {string} id - The database key of the contact that is overwritten.
+ * @param {Object} contact - The new contact data that replaces the stored record.
  * @returns {Promise<void>}
  */
 async function saveEditedContact(id, contact) {
@@ -311,8 +350,11 @@ async function saveEditedContact(id, contact) {
 }
 
 /**
- * Liest die Eingaben, speichert die Aenderung und aktualisiert Liste + Detail.
- * @param {string} id - Die ID des Kontakts.
+ * Handler of the save button in the edit popup. Stores the change and
+ * refreshes both the list and the detail view. Does nothing if name or email
+ * are empty.
+ *
+ * @param {string} id - The database key of the contact that is updated.
  * @returns {Promise<void>}
  */
 async function updateContact(id) {
@@ -328,8 +370,10 @@ async function updateContact(id) {
 }
 
 /**
- * Loescht einen Kontakt im Backend und leert die Detailansicht.
- * @param {string} id - Die ID des Kontakts.
+ * Deletes a contact from the database, empties the detail view and refreshes
+ * the list.
+ *
+ * @param {string} id - The database key of the contact that is deleted.
  * @returns {Promise<void>}
  */
 async function deleteContact(id) {

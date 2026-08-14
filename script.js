@@ -1,7 +1,9 @@
 /**
- * Zeigt eine kurze Meldung, die oben aus der Mitte einschwebt (seitenuebergreifend).
- * @param {string} message - Der anzuzeigende Text.
- * @param {number} [duration=2000] - Anzeigedauer in Millisekunden.
+ * Shows a short message that floats in from the top centre of the page and
+ * disappears again on its own. Available on every page.
+ *
+ * @param {string} message - The text that is displayed inside the toast.
+ * @param {number} [duration=2000] - How long the message stays visible, in milliseconds.
  * @returns {void}
  */
 function showToast(message, duration = 2000) {
@@ -12,8 +14,9 @@ function showToast(message, duration = 2000) {
 }
 
 /**
- * Sperrt oder loest das Scrollen im Hintergrund (fuer offene Overlays).
- * @param {boolean} locked - true sperrt das Scrollen, false gibt es wieder frei.
+ * Locks or releases scrolling of the page behind an open overlay.
+ *
+ * @param {boolean} locked - Pass true to lock scrolling, false to release it again.
  * @returns {void}
  */
 function lockScroll(locked) {
@@ -22,9 +25,11 @@ function lockScroll(locked) {
 }
 
 /**
- * Bildet die Initialen aus dem Namen (z.B. "Anna Schmidt" -> "AS").
- * @param {string} name - Der vollstaendige Name.
- * @returns {string} Die Initialen in Grossbuchstaben.
+ * Builds the initials of a name from its first and its last word, for
+ * example "Anna Schmidt" becomes "AS".
+ *
+ * @param {string} name - The full name of the person. Must not be empty.
+ * @returns {string} The initials in upper case.
  */
 function getInitials(name) {
   let parts = name.split(" ");
@@ -41,9 +46,12 @@ const AVATAR_COLORS = [
 ];
 
 /**
- * Waehlt anhand des Namens eine feste Farbe aus der Palette (konsistent ueberall im Projekt).
- * @param {string} name - Der Name des Kontakts.
- * @returns {string} Ein Hex-Farbwert.
+ * Picks a fixed colour from the palette by summing up the character codes of
+ * the name. The same name always yields the same colour, which keeps avatars
+ * consistent across all pages.
+ *
+ * @param {string} name - The name of the contact the avatar belongs to.
+ * @returns {string} A hex colour value from AVATAR_COLORS, for example "#FF7A00".
  */
 function getAvatarColor(name) {
   let sum = 0;
@@ -54,9 +62,9 @@ function getAvatarColor(name) {
 }
 
 /**
- * Schreibt die Initialen des eingeloggten Users in den Avatar im Header.
- * Gaeste bekommen ein "G". Tut nichts, wenn das Element fehlt oder niemand
- * eingeloggt ist. Wird beim Laden dieser Datei einmal aufgerufen.
+ * Writes the initials of the logged in user into the avatar in the header.
+ * Guests get a "G". Does nothing if the element is missing or nobody is
+ * logged in. Runs once when this file is loaded.
  *
  * @returns {void}
  */
@@ -79,8 +87,8 @@ function renderUserInitials() {
 renderUserInitials();
 
 /**
- * Beendet die Sitzung: entfernt den User aus dem localStorage und springt
- * zurueck zur Login-Seite.
+ * Ends the session by removing the user from localStorage and returning to
+ * the login page.
  *
  * @returns {void}
  */
@@ -90,7 +98,7 @@ function logout() {
 }
 
 /**
- * Oeffnet bzw. schliesst das Klappmenue hinter dem Avatar im Header.
+ * Opens or closes the dropdown menu behind the avatar in the header.
  *
  * @returns {void}
  */
@@ -99,10 +107,10 @@ function toggleUserMenu() {
 }
 
 /**
- * Schliesst das User-Menue, wenn der Klick daneben ging. Haengt am Dokument,
- * damit ein Klick irgendwo auf der Seite das Menue zumacht.
+ * Closes the user menu when the click happened outside of it. Bound to the
+ * document, so a click anywhere on the page dismisses the menu.
  *
- * @param {Event} event - Das Klick-Ereignis.
+ * @param {Event} event - The click event, used to find out what was clicked.
  * @returns {void}
  */
 function closeUserMenu(event) {
@@ -113,11 +121,10 @@ function closeUserMenu(event) {
 }
 
 /**
- * Stoppt das Weiterreichen des Ereignisses nach oben. Wird auf Elementen
- * innerhalb eines Overlays benutzt, damit ein Klick darauf das Overlay nicht
- * schliesst.
+ * Stops the event from bubbling up. Used on elements inside an overlay so
+ * that a click on them does not trigger the close handler of the overlay.
  *
- * @param {Event} event - Das zu stoppende Ereignis.
+ * @param {Event} event - The event whose propagation is stopped.
  * @returns {void}
  */
 function noEvent(event){
