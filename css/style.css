@@ -71,8 +71,10 @@ h3 {
 /*Marcus 24.07.2026*/
 .help-heading {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; 
   align-items: center;
+  position: relative;
+  width: 100%;
 }
 
 
@@ -99,13 +101,28 @@ h3 {
 }
 
 
-@media (max-width: 1700px) {
+@media (max-width: 1750px) {
   .back-arrow {
     margin-top: 12px;
-    margin-right: 0;
+    margin-right: clamp(0px, 95.31vw - 1460.38px, 190px);
+    /* margin-right: 200px; */
   }
-}
+}   
+/* 
+@media (max-width: 1750px) {
+  .back-arrow {
+    margin-top: 12px;
+    margin-right: 190px;
+  }
+}   */
 
+@media (max-width: 1555px) {
+  .back-arrow {
+    margin-top: 12px;
+    margin-right: 10px;
+  }
+}  
+ 
 /* Footer mit Rechts-Links, seitenuebergreifend */
 .footer {
   display: flex;
@@ -126,7 +143,7 @@ h3 {
 }
 
 .back-arrow:hover {
-  color: var(--color-accent);
+  scale: 1.2;
 }
 
 /* Inhaltsbreite fuer grosse Monitore (Summary, Board, Contacts).
