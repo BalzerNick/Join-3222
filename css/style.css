@@ -138,9 +138,21 @@ h3 {
   font-size: var(--fs-sm);
 }
 
+.footer-link-index {
+  /* color: var(--color-primary); */
+  color: #686868;
+  text-decoration: none;
+  font-size: var(--fs-sm);
+}
+
 .footer-link:hover {
   color: color-mix(in srgb, var(--btn-secondary-text, var(--color-primary)) 60%, var(--color-accent) 40%);
 }
+
+.footer-link-index:hover {
+  color: color-mix(in srgb, var(--btn-secondary-text, var(--color-primary)) 60%, var(--color-accent) 40%);
+}
+
 
 .back-arrow:hover {
   scale: 1.2;
@@ -207,8 +219,6 @@ li {
   font-size: var(--fs-lg);
   margin-bottom: 16px;
 }
-
-
 
 .step-heading {
   display: flex;
