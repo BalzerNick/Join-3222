@@ -68,6 +68,25 @@ h3 {
   border-color: var(--color-accent);
 }
 
+/* Icon im Eingabefeld: Wrapper wird zum Bezugsrahmen, Icon liegt absolut
+   ueber dem rechten Rand des Inputs. */
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper .input {
+  padding-right: 48px;
+}
+
+.input-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  pointer-events: none;
+}
+
 /*Marcus 24.07.2026*/
 .help-heading {
   display: flex;
