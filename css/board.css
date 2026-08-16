@@ -10,7 +10,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 48px;
+    height: 48px;
+    width: stretch;
     border: 1px dashed #686868;
     border-radius: 10px;
     color: #686868;
@@ -632,14 +633,29 @@ body.modal-open {
 .subtask-item input[type="checkbox"] {
     width: 18px;
     height: 18px;
-    padding: 12px 20px 12px 12px;
     appearance: none;
     -webkit-appearance: none;
     margin: 0;
     border: none;
     border-radius: 0;
     cursor: pointer;
+    position: relative;
+    z-index: 1;
     background: center / contain no-repeat url("../assets/icons/Check-box.svg");
+    flex-shrink: 0;
+}
+
+.subtask-item input[type="checkbox"]:hover::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: rgba(148, 163, 184, 0.2);
+    z-index: -1;
 }
 
 .subtask-item input[type="checkbox"]:checked {
@@ -1009,9 +1025,31 @@ body.modal-open {
 
 @media (max-width: 1430px) {
     .drag-container {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        display: flex;
+        flex-direction: column;
         gap: 26px;
+    }
+
+    .column {
+        width: 100%;
+        min-width: 0;
+        flex: 1 1 auto;
+    }
+
+    .drag-area {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 16px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        position: relative;
+    }
+
+    .todo {
+        flex: 1 1 280px;
+        max-width: 252px;
+        min-width: 252px;
     }
 }
 
@@ -1026,7 +1064,7 @@ body.modal-open {
         gap: 20px 10px;
     }
 
-    .page-header > div:first-child {
+    .page-header>div:first-child {
         grid-area: title;
     }
 
@@ -1066,6 +1104,8 @@ body.modal-open {
 
 @media (max-width: 768px) {
     .board-mask {
+        padding-left: 24px;
+        padding-right: 24px;
         padding-bottom: 100px
     }
 }
