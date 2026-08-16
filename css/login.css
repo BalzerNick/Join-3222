@@ -57,6 +57,12 @@ p {
 }
 
 
+@media (max-width: 850px) {
+  .login-logo {
+    width: 60px;
+  }
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
