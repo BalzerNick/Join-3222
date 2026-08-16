@@ -36,19 +36,40 @@
 
 
         /* Logo-Intro: startet gross in der Bildschirmmitte, fliegt dann zur
-           echten Header-Position (top:24px; left:40px; width:100px). */
-        @keyframes logoIntro {
+           echten Header-Position (top:24px; left:40px).
+           Position und Groesse sind bewusst getrennte Keyframes, damit die
+           Groesse unten per Media-Query fuer Mobile ueberschrieben werden
+           kann, ohne die Positions-Animation duplizieren zu muessen. */
+        @keyframes logoIntroPosition {
             from {
                 top: 50%;
                 left: 50%;
-                width: 200px;
                 transform: translate(-50%, -50%);
             }
             to {
                 top: 24px;
                 left: 40px;
-                width: 100px;
                 transform: translate(0, 0);
+            }
+        }
+
+        @keyframes logoIntroSize {
+            from {
+                width: 200px;
+            }
+            to {
+                width: 100px;
+            }
+        }
+
+        @media (max-width: 550px) {
+            @keyframes logoIntroSize {
+                from {
+                    width: 120px;
+                }
+                to {
+                    width: 60px;
+                }
             }
         }
 
@@ -58,7 +79,8 @@
             left: 50%;
             width: 200px;
             transform: translate(-50%, -50%);
-            animation: logoIntro 1.5s ease-in-out 0.3s forwards;
+            animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
+                       logoIntroSize 1.5s ease-in-out 0.3s forwards;
             z-index: 10;
         }
 
@@ -73,13 +95,15 @@
         }
 
         .login-logo-white {
-            animation: logoIntro 1.5s ease-in-out 0.3s forwards,
+            animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
+                       logoIntroSize 1.5s ease-in-out 0.3s forwards,
                        fadeOutLogo 1.5s ease-in-out 0.3s forwards;
         }
 
         .login-logo-color {
             opacity: 0;
-            animation: logoIntro 1.5s ease-in-out 0.3s forwards,
+            animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
+                       logoIntroSize 1.5s ease-in-out 0.3s forwards,
                        fadeInLogo 1.5s ease-in-out 0.3s forwards;
         }
     </style>
@@ -93,30 +117,37 @@
     </a>
 
     <header class="login-header">
-        <span class="login-header-text">Not a user?</span>
+        <span class="login-header-text">Not a Join user?</span>
         <button class="btn btn-primary" type="button" onclick="signUp()">Sign up</button>
     </header>
 
     <main class="login-main">
-        
         <form class="login-form" novalidate>
             <h1>Log in</h1>
-
-            <input class="input" type="email" id="loginEmail" placeholder="Email">
+            <div class="input-wrapper">
+                <input class="input" type="email" id="loginEmail" placeholder="Email">
+                <img src="assets/icons/email.png" alt="" class="input-icon">
+            </div>
+            <div class="input-wrapper">
             <input class="input" type="password" id="loginPassword" placeholder="Password">
-
+            <img src="assets/icons/lock.png" alt="" class="input-icon">
             <span id="loginError" class="error-message"></span>
-
+            </div>
             <div class="login-buttons">
                 <button class="btn btn-primary" type="button" onclick="login()">Log in</button>
                 <button class="btn btn-secondary" type="button" onclick="guestLogin()">Guest Log in</button>
             </div>
         </form>
+        <div class="login-container-mobile">
+            <span class="login-header-text">Not a Join user?</span>
+            <button class="btn btn-primary" type="button" onclick="signUp()">Sign up</button>
+        </div>
+
     </main>
 
     <footer class="footer">
-        <a href="privacyPolicy.html" class="footer-link">Privacy Policy</a>
-        <a href="legalNotice.html" class="footer-link">Legal notice</a>
+        <a href="privacyPolicy.html" class="footer-link-index">Privacy Policy</a>
+        <a href="legalNotice.html" class="footer-link-index">Legal notice</a>
     </footer>
     </div>
 

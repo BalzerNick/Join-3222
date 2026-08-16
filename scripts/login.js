@@ -1,6 +1,7 @@
 /**
- * Liest die Eingaben aus dem Login-Formular.
- * @returns {{email: string, password: string}} Die getrimmten Eingaben.
+ * Reads email and password out of the login form and trims both values.
+ *
+ * @returns {{email: string, password: string}} The trimmed inputs of the login form.
  */
 function getLoginInputs() {
   let email = document.getElementById('loginEmail').value.trim();
@@ -10,8 +11,9 @@ function getLoginInputs() {
 
 
 /**
- * Zeigt eine Fehlermeldung unter dem Formular an (leerer Text = weg).
- * @param {string} message - Der Fehlertext.
+ * Shows an error message below the login form.
+ *
+ * @param {string} message - The error text to display. Pass an empty string to hide the message.
  * @returns {void}
  */
 function showLoginError(message) {
@@ -20,9 +22,10 @@ function showLoginError(message) {
 
 
 /**
- * Prueft, ob beide Pflichtfelder ausgefuellt sind.
- * @param {{email: string, password: string}} data - Die Login-Eingaben.
- * @returns {boolean} true, wenn beide Felder gefuellt sind.
+ * Checks whether both required fields of the login form have been filled in.
+ *
+ * @param {{email: string, password: string}} data - The inputs as returned by getLoginInputs.
+ * @returns {boolean} True if neither email nor password is empty.
  */
 function isLoginFilled(data) {
   return data.email !== "" && data.password !== "";
@@ -30,8 +33,9 @@ function isLoginFilled(data) {
 
 
 /**
- * Laedt alle User aus der Firebase-Datenbank.
- * @returns {Promise<Object>} Das User-Objekt (oder null bei leerer DB).
+ * Loads all registered users from the Firebase database.
+ *
+ * @returns {Promise<?Object>} All users keyed by their id, or null if the database holds none.
  */
 async function loadUsers() {
   let response = await fetch(BASE_URL + "users.json");
@@ -40,10 +44,12 @@ async function loadUsers() {
 
 
 /**
- * Sucht einen User mit passender E-Mail und passendem Passwort.
- * @param {Object} users - Alle User als ID-Objekt.
- * @param {{email: string, password: string}} data - Die Login-Eingaben.
- * @returns {Object|null} Der gefundene User oder null.
+ * Searches for a user whose email and password both match the entered
+ * credentials.
+ *
+ * @param {Object} users - All users keyed by their id, as returned by loadUsers.
+ * @param {{email: string, password: string}} data - The credentials entered in the login form.
+ * @returns {?Object} The matching user, or null if no user matches.
  */
 function findUser(users, data) {
   for (let id in users) {
@@ -57,7 +63,10 @@ function findUser(users, data) {
 
 
 /**
- * Wird vom "Log in"-Button aufgerufen. Prueft Felder und Backend.
+ * Handler of the "Log in" button. Validates the form, checks the credentials
+ * against the database and, on success, stores the session and opens the
+ * summary page. Otherwise an error message is shown.
+ *
  * @returns {Promise<void>}
  */
 async function login() {
@@ -77,7 +86,9 @@ async function login() {
 }
 
 /**
- * Wird vom "Guest Log in"-Button aufgerufen. Springt ohne Pruefung aufs Board.
+ * Handler of the "Guest Log in" button. Starts a guest session without any
+ * check and jumps straight to the summary page.
+ *
  * @returns {void}
  */
 function guestLogin() {
@@ -86,7 +97,8 @@ function guestLogin() {
 }
 
 /**
- * Wird vom "Sign up"-Button aufgerufen. Springt zur Registrierungsseite.
+ * Handler of the "Sign up" button. Opens the registration page.
+ *
  * @returns {void}
  */
 function signUp() {

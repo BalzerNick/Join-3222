@@ -15,6 +15,11 @@ header {
   font-size: var(--fs-md);
 }
 
+/* Logo im Header ersetzt mobil den Titel-Text */
+.header-logo-mobile {
+  display: none;
+}
+
 .menu-line {
   position: fixed;
   left: 0;
@@ -172,6 +177,16 @@ header {
     padding-right: 16px;
   }
 
+  .header-title,
+  .help-btn {
+    display: none;
+  }
+
+  .header-logo-mobile {
+    display: block;
+    height: 40px;
+  }
+
   .menu-line {
     top: auto;
     bottom: 0;
@@ -193,18 +208,22 @@ header {
   .menu-icons {
     position: static;
     flex-direction: row;
-    justify-content: space-around;
-    align-items: stretch;
+    justify-content: space-between;
+    align-items: center;
     height: 100%;
     width: 100%;
+    padding: 0 8px;
+    box-sizing: border-box;
     margin-bottom: 0;
     gap: 0;
   }
 
+  /* Ein Menuepunkt ist laut Figma 80x76, der Rest verteilt sich dazwischen */
   .menu-icons a {
-    width: auto;
-    height: 100%;
-    padding: 8px 16px;
+    width: 80px;
+    height: 76px;
+    justify-content: center;
+    padding: 0;
     box-sizing: border-box;
     border-radius: 16px;
   }
@@ -241,14 +260,6 @@ header {
   header {
     padding-left: 16px;
     font-size: var(--fs-base);
-  }
-
-  .menu-line {
-    height: 64px;
-  }
-
-  .menu-icons a {
-    padding: 6px 10px;
   }
 
   .menu-icons-img-mobile {

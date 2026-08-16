@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: scripts/summary.js</title>
+    <title>JSDoc: Source: assets/templates/addTaskTemplate.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: scripts/summary.js</h1>
+    <h1 class="page-title">Source: assets/templates/addTaskTemplate.js</h1>
 
     
 
@@ -26,202 +26,224 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>let tasks = [];
-
-/**
- * Loads all tasks from the database into the module level tasks array and
- * refreshes the metric tiles afterwards. Network and HTTP errors are logged
- * and leave the tiles untouched.
+            <pre class="prettyprint source linenums"><code>/**
+ * Builds one row of the contact dropdown, with avatar, name and checkbox.
  *
- * @returns {Promise&lt;void>}
+ * @param {string} name - The display name, possibly with a '(you)' suffix.
+ * @param {string} initials - The initials shown in the avatar.
+ * @param {number} index - Position of the contact in contactArray.
+ * @param {string} color - Background colour of the avatar.
+ * @returns {string} The list row as HTML.
  */
-async function loadSummaryData() {
-    try {
-        const response = await fetch(BASE_URL + "tasks.json");
-        if (!response.ok) {
-            console.error("Failed to load task data", response.status, response.statusText);
-            return;
-        }
-        const data = await response.json();
-        tasks = data ? Object.values(data) : [];
-    } catch (error) {
-        console.error("Firebase load failed", error);
-        return;
-    }
-    updateSummaryHTML();
-}
-
-
-/**
- * Counts all tasks that currently sit in a given board column.
- *
- * @param {string} status - The status to count, for example "todo" or "done".
- * @returns {number} The number of tasks carrying that status.
- */
-function countTasksByStatus(status) {
-    return tasks.filter(task => task.status === status).length;
+function getNameTemplate(name, initials, index, color) {
+    return `
+        &lt;li class="contact-li" onclick="toggleContactRow(${index})">
+            &lt;span class="avatar avatar-sm" style="background-color: ${color}">${initials}&lt;/span>
+            &lt;span class="contact-name">${name}&lt;/span>
+            &lt;input
+                id="contactCheckbox${index}"
+                class="contact-checkbox"
+                type="checkbox"
+                onclick="event.stopPropagation()"
+                onchange="toggleContact(${index}, this.checked)">
+        &lt;/li>
+    `;
 }
 
 /**
- * Counts all tasks that carry a given priority.
+ * Builds a single avatar badge. Used by the Add-Task form and the board.
  *
- * @param {string} priority - The priority to count: "urgent", "medium" or "low".
- * @returns {number} The number of tasks carrying that priority.
+ * @param {string} initial - The initials to show.
+ * @param {string} color - Background colour of the avatar.
+ * @returns {string} The avatar as HTML.
  */
-function countTasksByPriority(priority) {
-    return tasks.filter(task => task.priority === priority).length;
+function getContactInitial(initial, color) {
+    return `
+            &lt;span class="avatar avatar-sm" style="background-color: ${color}">
+                ${initial}
+            &lt;/span>
+    `
 }
 
 /**
- * Writes all calculated metrics into the summary tiles: the counts per
- * column, the total, the urgent count, the closest urgent due date and the
- * name of the logged in user.
+ * Builds a subtask row in its normal state, with edit and delete icons.
  *
- * @returns {void}
+ * @param {string} key - Key of the subtask, e.g. 'sub1'.
+ * @param {string} subtask - The subtask title.
+ * @returns {string} The row as HTML.
  */
-
-function updateSummaryHTML() {
-    setStatNumber("todoCount", countTasksByStatus("todo"));
-    setStatNumber("doneCount", countTasksByStatus("done"));
-    setStatNumber("urgentCount", countTasksByPriority("urgent"));
-    setStatNumber("boardCount", tasks.length);
-    setStatNumber("inProgressCount", countTasksByStatus("inProgress"));
-    setStatNumber("awaitFeedbackCount", countTasksByStatus("awaitFeedback"));
-    setDate("uprisingdate", getMostUrgentTask()?.dueDate);
-    setName("loginuser", "greetingtag", getLoggedInUserName());
+function getSubtask(key, subtask){
+    return `
+        &lt;div class="subtask" id="${key}">
+            &lt;span class="subtask-text">${subtask}&lt;/span>
+            &lt;div class="subtask-actions">
+                &lt;img class="subtask-icon pointer" src="assets/icons/edit.svg" alt="Edit subtask" onclick="editSubtask('${key}')">
+                &lt;span class="subtask-divider">|&lt;/span>
+                &lt;img class="subtask-icon pointer" src="assets/icons/delete.svg" alt="Delete subtask" onclick="deleteSubtask('${key}')">
+            &lt;/div>
+        &lt;/div>
+    `
 }
 
 /**
- * Writes a number into a metric tile, if that tile exists on the current
- * page.
+ * Builds a subtask row in edit state, as an input field that also confirms
+ * on the Enter key.
  *
- * @param {string} id - Id of the element that receives the number.
- * @param {number} value - The number that is displayed in the tile.
- * @returns {void}
+ * @param {string} key - Key of the subtask, e.g. 'sub1'.
+ * @param {string} subtask - The current subtask title.
+ * @returns {string} The row as HTML.
  */
-function setStatNumber(id, value) {
-    let counter = document.getElementById(id);
-    if (counter) counter.textContent = value;
+function getSubtaskEdit(key, subtask){
+    return `
+        &lt;div class="subtask subtask-editing" id="${key}">
+            &lt;input class="subtask-edit-input" id="editInput-${key}" type="text" value="${subtask}" autocomplete="off"
+                onkeydown="if(event.key === 'Enter'){ event.preventDefault(); confirmEditSubtask('${key}'); }">
+            &lt;div class="subtask-actions subtask-actions-edit">
+                &lt;img class="subtask-icon pointer" src="assets/icons/delete.svg" alt="Delete subtask" onclick="deleteSubtask('${key}')">
+                &lt;img class="subtask-icon pointer" src="assets/icons/check_black.svg" alt="Confirm edit" onclick="confirmEditSubtask('${key}')">
+            &lt;/div>
+        &lt;/div>
+    `
 }
 
 /**
- * Writes a date into an element, if that element exists on the current page.
+ * Builds the complete Add-Task form. Used by the board to fill its Add-Task
+ * dialog with the same markup the standalone page uses.
  *
- * @param {string} id - Id of the element that receives the date.
- * @param {string} [date] - The date in ISO format (YYYY-MM-DD). Undefined clears the element.
- * @returns {void}
+ * @returns {string} The whole form as HTML.
  */
-function setDate(id, date) {
-    let counter = document.getElementById(id);
-    if (counter) counter.textContent = date;
-} 
+function getAddTaskPage() {
+    return `
+    &lt;main>
+        &lt;h1>Add Task&lt;/h1>
 
-/**
- * Writes the user name next to the greeting. Nothing is written for guests,
- * where the name is missing.
- *
- * @param {string} iduser - Id of the element that holds the user name.
- * @param {string} idgreet - Id of the greeting element next to the name.
- * @param {?string} name - Name of the logged in user, or null for a guest session.
- * @returns {void}
- */
-function setName(iduser, idgreet, name) {
-    let greeting = document.getElementById(idgreet);
-    let counter = document.getElementById(iduser);
+        &lt;form id="addTaskForm" onsubmit="submitTaskData(event)" onreset="resetTask()">
+            &lt;div class="input-form">
+                &lt;div class="input-area">
+                    &lt;label for="taskName">Title&lt;span class="required">*&lt;/span>&lt;/label>
+                    &lt;input class="input" type="text" id="taskName" name="taskName" required placeholder="Enter a title">
 
-    if (name) {
-        if (counter) counter.textContent = name;
-        // if (greeting) greeting.textContent = "Good morning,";
-    } else {
-        /* if (greeting) greeting.textContent = "Good morning!"; */
-    } 
+                    &lt;label for="taskDescription">Description&lt;/label>
+                    &lt;textarea class="input" id="taskDescription" name="taskDescription"
+                        placeholder="Enter a Description">&lt;/textarea>
+
+                    &lt;label for="taskDeadline">Due date&lt;span class="required">*&lt;/span>&lt;/label>
+                    &lt;input class="input" type="date" id="taskDeadline" name="taskDeadline" required>
+                &lt;/div>
+
+                &lt;div class="divider">&lt;/div>
+
+
+                &lt;div class="input-area">
+                    &lt;label>Priority&lt;/label>
+                    &lt;div class="priority-buttons">
+                        &lt;button type="button" class="btn btn-secondary btn-task btn-priority-urgent" id="btnUrgent"
+                            onclick="selectPriority('urgent')">
+                            &lt;span>Urgent&lt;/span>
+                            &lt;img class="medium" src="assets/icons/arrow up.svg" data-icon="assets/icons/arrow up.svg"
+                                data-icon-selected="assets/icons/arrow up_choosed.svg" alt="Urgent priority icon">
+                        &lt;/button>
+                        &lt;button type="button" class="btn btn-secondary btn-task btn-priority-medium selected"
+                            id="btnMedium" onclick="selectPriority('medium')">
+                            &lt;span>Medium&lt;/span>
+                            &lt;img class="medium" src="assets/icons/=_choosed.svg" data-icon="assets/icons/=.svg"
+                                data-icon-selected="assets/icons/=_choosed.svg" alt="Medium priority icon">
+                        &lt;/button>
+                        &lt;button type="button" class="btn btn-secondary btn-task btn-priority-low" id="btnLow"
+                            onclick="selectPriority('low')">
+                            &lt;span>Low&lt;/span>
+                            &lt;img class="medium" src="assets/icons/arrow down.svg"
+                                data-icon="assets/icons/arrow down.svg"
+                                data-icon-selected="assets/icons/arrow down_choosed.svg" alt="Low priority icon">
+                        &lt;/button>
+                    &lt;/div>
+
+                    &lt;label for="assignedTo">Assigned to&lt;/label>
+                    &lt;div class="dropdown" onclick="noEvent(event)">
+                        &lt;div class="input-wrapper">
+                            &lt;input class="input pointer" id="assignedTo" type="text"
+                                placeholder="Select contact to assign" autocomplete="off" oninput="searchList()"
+                                onclick="toggleDropdown('contactList', 'contactArrow')">
+
+                            &lt;span class="input-img pointer arrow" id="contactArrow"
+                                onclick="toggleDropdown('contactList', 'contactArrow')">▼&lt;/span>
+                        &lt;/div>
+
+
+                        &lt;ul class="dropdown-list dropdown-scroll d-none" id="contactList">
+
+                        &lt;/ul>
+                    &lt;/div>
+
+                    &lt;div id="assignedContacts" class="assigned-contacts">
+
+                    &lt;/div>
+
+                    &lt;label for="category">Category&lt;span class="required">*&lt;/span>&lt;/label>
+                    &lt;div class="dropdown" onclick="noEvent(event)">
+                        &lt;div class="input-wrapper">
+                            &lt;input class="input pointer" id="category" type="text" placeholder="Select task category"
+                                autocomplete="off" oninput="searchList()"
+                                onclick="toggleDropdown('categoryList', 'categoryArrow')" required>
+
+                            &lt;span class="input-img pointer arrow" id="categoryArrow"
+                                onclick="toggleDropdown('categoryList', 'categoryArrow')">▼&lt;/span>
+                        &lt;/div>
+
+                        &lt;ul class="dropdown-list d-none" id="categoryList">
+                            &lt;li class="contact-li" onclick="chooseCategory('Technical Task')">
+                                &lt;span class="category-label">
+                                    Technical Task
+                                &lt;/span>
+                            &lt;/li>
+
+                            &lt;li class="contact-li" onclick="chooseCategory('User Story')">
+                                &lt;span class="category-label">
+                                    User Story
+                                &lt;/span>
+                            &lt;/li>
+                        &lt;/ul>
+                    &lt;/div>
+
+                    &lt;label for="subtask">Subtask&lt;/label>
+                    &lt;div class="add-subtask">
+                        &lt;div class="input-wrapper">
+                            &lt;input class="input" id="subtask" type="text" placeholder="Add new subtask" autocomplete="off" oninput="showButtons()"
+                                onkeydown="if(event.key === 'Enter'){ event.preventDefault(); safeSubtask(); }">
+                            &lt;div class="subtask-buttons input-img d-none" id="subtaskButtons">
+                                &lt;img class="input-img subtask-icon pointer" src="assets/icons/close.svg" alt="x" onclick="clearSubtask()">
+                                &lt;span>|&lt;/span>
+                                &lt;img class="input-img subtask-icon pointer" src="assets/icons/check_black.svg" alt="Add subtask" onclick="safeSubtask()">
+                            &lt;/div>
+
+                        &lt;/div>
+                        &lt;div class="subtask-area" id="subtaskArea">
+
+                        &lt;/div>
+                    &lt;/div>
+
+                &lt;/div>
+            &lt;/div>
+
+
+            &lt;div class="submit-form">
+                &lt;span class="required-hint">&lt;span class="required">*&lt;/span>This field is required&lt;/span>
+                &lt;div class="button-area">
+                    &lt;button type="reset" class="btn btn-secondary btn-task">
+                        &lt;span>Clear&lt;/span>
+                        &lt;img class="btn-img" src="assets/icons/close.svg" alt="x symbole for close">
+                    &lt;/button>
+                    &lt;button class="btn btn-primary btn-task" type="submit">
+                        &lt;span>Create Task&lt;/span>
+                        &lt;img class="btn-img" src="assets/icons/check.svg" alt=" symbole for submit">
+                    &lt;/button>
+                &lt;/div>
+            &lt;/div>
+        &lt;/form>
+    &lt;/main>
+    `;
 }
-
-/**
- * Finds the urgent task whose due date lies closest to today. Tasks with any
- * other priority are ignored.
- *
- * @returns {?Object} The most urgent task, or null if no task has priority "urgent".
- */
-function getMostUrgentTask() {
-    // Holds the most urgent task once one is found.
-    let mostUrgentTask = null;
-    // Walk through every task in the array.
-    for (let i = 0; i &lt; tasks.length; i++) {
-        let task = tasks[i];
-        // Only consider tasks with priority "urgent".
-        if (task.priority === "urgent") {
-            // If no urgent task has been found yet,
-            // this one is stored as the first candidate.
-            if (mostUrgentTask === null) {
-                mostUrgentTask = task;
-            }
-            // Otherwise compare the due dates.
-            else if (new Date(task.dueDate) &lt; new Date(mostUrgentTask.dueDate)) {
-                mostUrgentTask = task;
-            }
-        }
-    }
-    // Return the most urgent task.
-    return mostUrgentTask;
-}
-
-
-/**
- * Reads the name of the logged in user out of localStorage.
- *
- * @returns {?string} The name of the user, or null if nobody is logged in.
- */
-function getLoggedInUserName() {
-    let userData = localStorage.getItem("user");
-    if (!userData) return null;
-    let user = JSON.parse(userData);
-    return user.name;
-}
-
-
-/**
- * Goes one step back in the browser history. Bound to the back arrow.
- *
- * @returns {void}
- */
-function histarrow() {
-    window.history.back();
-}
-
-// new Date().toLocaleTimeString() , new Date().toTimeString()
-/**
- * Builds the greeting that matches the current time of day.
- *
- * @returns {string} "Good morning!" before 12, "Good afternoon!" before 18, otherwise "Good evening!".
- */
-function getCurrentTime() {
-    let now = new Date();
-    let thehours = now.getHours();     // hours (0-23)
-    let theminutes = now.getMinutes();   // minutes (0-59)
-    let thesconds = now.getSeconds();
-    console.log(`Aktuelle Uhrzeit: ${thehours}:${theminutes}:${thesconds}`);
-    if (0 &lt;= thehours &amp;&amp; thehours &lt; 12) {
-        return "Good morning!";
-    }
-    else if (12 &lt;= thehours &amp;&amp; thehours &lt; 18) {
-        return "Good afternoon!";
-    }
-    else {
-        return "Good evening!";
-    }
-}
-
-/**
- * Writes the time of day greeting into the greeting element of the page.
- *
- * @returns {void}
- */
-function startGreeting() {
-    let greeting = getCurrentTime();
-    console.log(`Greeting: ${greeting}`);
-    document.getElementById("greetingtag").textContent = greeting;
-}</code></pre>
+</code></pre>
         </article>
     </section>
 
