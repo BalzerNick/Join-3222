@@ -29,6 +29,12 @@ p {
   padding: 24px 40px;
 }
 
+@media (max-width: 550px) {
+  .login-header {
+    display: none;
+  }
+}
+
 .login-header-text {
   font-size: var(--fs-base);
 }
@@ -50,6 +56,7 @@ p {
   width: 100px;
 }
 
+
 .login-form {
   display: flex;
   flex-direction: column;
@@ -58,19 +65,35 @@ p {
   padding: 40px 60px;
   border-radius: 30px;
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
-  width: min(90vw, 420px);
+  width: min(90vw, 410px);
 }
 
 
-@media (max-width: 500px) {
+@media (max-width: 550px) {
   .login-form {
-    width: min(90vw, 300px);
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    padding: 40px 30px;
+    width: min(90vw, 350px);
   }
 }
 
 @media (max-width: 430px) {
   .login-form {
-    width: min(90vw, 250px);
+    width: min(90vw, 320px);
+  }
+}
+
+@media (max-width: 400px) {
+  .login-form {
+    width: min(90vw, 290px);
+  }
+}
+
+@media (max-width: 350px) {
+  .login-form {
+    width: min(90vw, 240px);
   }
 }
 
@@ -78,6 +101,25 @@ p {
   text-align: center;
   color: #000000;
 }
+
+@media (max-width: 550px) {
+ .login-form h1 {
+  font-size: 47px;
+  }
+}
+
+@media (max-width: 430px) {
+ .login-form h1 {
+  font-size: 40px;
+  }
+}
+
+@media (max-width: 400px) {
+ .login-form h1 {
+  font-size: 35px;
+  }
+}
+
 
 .login-form h1::after {
   content: "";
@@ -93,6 +135,53 @@ p {
   gap: 16px;
   justify-content: center;
 }
+
+@media (max-width: 550px) {
+  .login-buttons {
+    flex-direction: column;
+    width: 180px;
+    justify-content: center;
+  }
+}
+
+.login-container-mobile {
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  padding: 0;
+  display: none;
+  height: 30px;
+}
+
+@media (max-width: 550px) {
+  .login-container-mobile {
+    display: flex;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 490px) {
+  .login-container-mobile {
+    width: 60%;
+  }
+}
+
+@media (max-width: 490px) {
+  .login-container-mobile {
+    width: 60%;
+  }
+}
+
+
+@media (max-width: 410px) {
+  .login-container-mobile {
+    width: 80%;
+  }
+}
+
 
 .privacy-check {
   display: flex;

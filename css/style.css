@@ -68,11 +68,32 @@ h3 {
   border-color: var(--color-accent);
 }
 
+/* Icon im Eingabefeld: Wrapper wird zum Bezugsrahmen, Icon liegt absolut
+   ueber dem rechten Rand des Inputs. */
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper .input {
+  padding-right: 48px;
+}
+
+.input-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  pointer-events: none;
+}
+
 /*Marcus 24.07.2026*/
 .help-heading {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; 
   align-items: center;
+  position: relative;
+  width: 100%;
 }
 
 
@@ -99,13 +120,28 @@ h3 {
 }
 
 
-@media (max-width: 1700px) {
+@media (max-width: 1750px) {
   .back-arrow {
     margin-top: 12px;
-    margin-right: 0;
+    margin-right: clamp(0px, 95.31vw - 1460.38px, 190px);
+    /* margin-right: 200px; */
   }
-}
+}   
+/* 
+@media (max-width: 1750px) {
+  .back-arrow {
+    margin-top: 12px;
+    margin-right: 190px;
+  }
+}   */
 
+@media (max-width: 1555px) {
+  .back-arrow {
+    margin-top: 12px;
+    margin-right: 10px;
+  }
+}  
+ 
 /* Footer mit Rechts-Links, seitenuebergreifend */
 .footer {
   display: flex;
@@ -121,12 +157,24 @@ h3 {
   font-size: var(--fs-sm);
 }
 
+.footer-link-index {
+  /* color: var(--color-primary); */
+  color: #686868;
+  text-decoration: none;
+  font-size: var(--fs-sm);
+}
+
 .footer-link:hover {
   color: color-mix(in srgb, var(--btn-secondary-text, var(--color-primary)) 60%, var(--color-accent) 40%);
 }
 
+.footer-link-index:hover {
+  color: color-mix(in srgb, var(--btn-secondary-text, var(--color-primary)) 60%, var(--color-accent) 40%);
+}
+
+
 .back-arrow:hover {
-  color: var(--color-accent);
+  scale: 1.2;
 }
 
 /* Inhaltsbreite fuer grosse Monitore (Summary, Board, Contacts).
@@ -190,8 +238,6 @@ li {
   font-size: var(--fs-lg);
   margin-bottom: 16px;
 }
-
-
 
 .step-heading {
   display: flex;
