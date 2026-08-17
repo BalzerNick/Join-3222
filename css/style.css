@@ -314,4 +314,8 @@ h1 {
   margin: 0;
 }
 
+a {
+  all: unset;
+  cursor: pointer;
+}
 
