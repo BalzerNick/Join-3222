@@ -112,8 +112,7 @@
 
 
 <div class="description">
-    Adds the text of the subtask input to the working copy and clears the
-input. An empty input is ignored.
+    Adds the text of the subtask input to the working copy and clears theinput. An empty input is ignored.
 </div>
 
 
@@ -366,6 +365,112 @@ input. An empty input is ignored.
     
 
     
+    <h4 class="name" id="applySelectedContactsState"><span class="type-signature"></span>applySelectedContactsState<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Ticks the checkboxes of contacts that are already part of the currentselection. Needed because the dropdown is rebuilt from freshly loadedcontact objects on every open, so their checkboxes always start unchecked.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line106">line 106</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="bindEditSubtaskInput"><span class="type-signature"></span>bindEditSubtaskInput<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
     
 
@@ -374,8 +479,7 @@ input. An empty input is ignored.
 
 
 <div class="description">
-    Makes the Enter key in the subtask input add a subtask instead of
-submitting the whole form.
+    Makes the Enter key in the subtask input add a subtask instead ofsubmitting the whole form.
 </div>
 
 
@@ -481,8 +585,7 @@ submitting the whole form.
 
 
 <div class="description">
-    Builds the list markup and inserts a letter separator whenever the first
-letter of the name changes.
+    Builds the list markup and inserts a letter separator whenever the firstletter of the name changes.
 </div>
 
 
@@ -797,8 +900,7 @@ letter of the name changes.
 
 
 <div class="description">
-    Builds the contact dropdown of the edit form, ticking everyone who is
-already assigned.
+    Builds the contact dropdown of the edit form, ticking everyone who isalready assigned.
 </div>
 
 
@@ -908,8 +1010,7 @@ already assigned.
 
 
 <div class="description">
-    Builds the pool of contacts available for assignment from the contacts
-cached by the board.
+    Builds the pool of contacts available for assignment from the contactscached by the board.
 </div>
 
 
@@ -1129,8 +1230,7 @@ cached by the board.
 
 
 <div class="description">
-    Prepares everything the card template needs: badge, description, priority
-icon, avatars and subtask progress.
+    Prepares everything the card template needs: badge, description, priorityicon, avatars and subtask progress.
 </div>
 
 
@@ -1289,8 +1389,7 @@ icon, avatars and subtask progress.
 
 
 <div class="description">
-    Writes the category picked from the dropdown into the category field and
-closes the dropdown.
+    Writes the category picked from the dropdown into the category field andcloses the dropdown.
 </div>
 
 
@@ -1383,7 +1482,7 @@ closes the dropdown.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line162">line 162</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line179">line 179</a>
     </li></ul></dd>
     
 
@@ -1445,8 +1544,7 @@ closes the dropdown.
 
 
 <div class="description">
-    Removes the outside-click handler of the contact dropdown, so it does not
-outlive the closed modal.
+    Removes the outside-click handler of the contact dropdown, so it does notoutlive the closed modal.
 </div>
 
 
@@ -1596,7 +1694,7 @@ outlive the closed modal.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line370">line 370</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line387">line 387</a>
     </li></ul></dd>
     
 
@@ -1764,8 +1862,7 @@ outlive the closed modal.
 
 
 <div class="description">
-    Closes the Add-Task dialog and empties it. When called from the backdrop,
-a click that started inside the dialog is ignored.
+    Closes the Add-Task dialog and empties it. When called from the backdrop,a click that started inside the dialog is ignored.
 </div>
 
 
@@ -1976,7 +2073,7 @@ a click that started inside the dialog is ignored.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line37">line 37</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line38">line 38</a>
     </li></ul></dd>
     
 
@@ -2038,8 +2135,7 @@ a click that started inside the dialog is ignored.
 
 
 <div class="description">
-    Returns from the detail view back to the contact list and clears the card
-highlight. Bound to the back arrow that is only visible on mobile.
+    Returns from the detail view back to the contact list and clears the cardhighlight. Bound to the back arrow that is only visible on mobile.
 </div>
 
 
@@ -2145,8 +2241,7 @@ highlight. Bound to the back arrow that is only visible on mobile.
 
 
 <div class="description">
-    Closes the mobile menu when the click happened next to it. Bound to the
-body onclick attribute.
+    Closes the mobile menu when the click happened next to it. Bound to thebody onclick attribute.
 </div>
 
 
@@ -2301,9 +2396,7 @@ body onclick attribute.
 
 
 <div class="description">
-    Closes the detail modal, drops the edit state and releases the page scroll.
-When called from the backdrop, a click that started inside the modal is
-ignored.
+    Closes the detail modal, drops the edit state and releases the page scroll.When called from the backdrop, a click that started inside the modal isignored.
 </div>
 
 
@@ -2470,8 +2563,7 @@ ignored.
 
 
 <div class="description">
-    Closes the user menu when the click happened outside of it. Bound to the
-document, so a click anywhere on the page dismisses the menu.
+    Closes the user menu when the click happened outside of it. Bound to thedocument, so a click anywhere on the page dismisses the menu.
 </div>
 
 
@@ -2626,8 +2718,7 @@ document, so a click anywhere on the page dismisses the menu.
 
 
 <div class="description">
-    Applies the edited text of a subtask and leaves edit mode. An empty input
-keeps the previous text.
+    Applies the edited text of a subtask and leaves edit mode. An empty inputkeeps the previous text.
 </div>
 
 
@@ -2720,7 +2811,7 @@ keeps the previous text.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line353">line 353</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line370">line 370</a>
     </li></ul></dd>
     
 
@@ -3100,8 +3191,7 @@ keeps the previous text.
 
 
 <div class="description">
-    Handler of the create button in the add popup. Saves the contact and
-refreshes the list. Does nothing if name or email are empty.
+    Handler of the create button in the add popup. Saves the contact andrefreshes the list. Does nothing if name or email are empty.
 </div>
 
 
@@ -3207,8 +3297,7 @@ refreshes the list. Does nothing if name or email are empty.
 
 
 <div class="description">
-    Deletes a contact from the database, empties the detail view and refreshes
-the list.
+    Deletes a contact from the database, empties the detail view and refreshesthe list.
 </div>
 
 
@@ -3456,7 +3545,7 @@ the list.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line318">line 318</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line335">line 335</a>
     </li></ul></dd>
     
 
@@ -3518,8 +3607,7 @@ the list.
 
 
 <div class="description">
-    Deletes a task. The card disappears from the board immediately; if the
-delete fails, the previous board state is restored and an alert is shown.
+    Deletes a task. The card disappears from the board immediately; if thedelete fails, the previous board state is restored and an alert is shown.
 </div>
 
 
@@ -3858,8 +3946,7 @@ delete fails, the previous board state is restored and an alert is shown.
 
 
 <div class="description">
-    Removes a subtask from the working copy. The change reaches the database
-only when the form is saved.
+    Removes a subtask from the working copy. The change reaches the databaseonly when the form is saved.
 </div>
 
 
@@ -4014,8 +4101,7 @@ only when the form is saved.
 
 
 <div class="description">
-    Switches a subtask into inline edit mode and places the cursor at the end
-of the text.
+    Switches a subtask into inline edit mode and places the cursor at the endof the text.
 </div>
 
 
@@ -4108,7 +4194,7 @@ of the text.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line337">line 337</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line354">line 354</a>
     </li></ul></dd>
     
 
@@ -4170,8 +4256,7 @@ of the text.
 
 
 <div class="description">
-    Asks for a new title of a subtask via a browser prompt. Cancelling or
-entering only whitespace keeps the old title.
+    Asks for a new title of a subtask via a browser prompt. Cancelling orentering only whitespace keeps the old title.
 </div>
 
 
@@ -4326,9 +4411,7 @@ entering only whitespace keeps the old title.
 
 
 <div class="description">
-    Switches the detail modal into edit mode. Builds working copies of the
-subtasks and the assigned contacts, so that cancelling leaves the task
-untouched. Does nothing if the id is unknown.
+    Switches the detail modal into edit mode. Builds working copies of thesubtasks and the assigned contacts, so that cancelling leaves the taskuntouched. Does nothing if the id is unknown.
 </div>
 
 
@@ -4752,8 +4835,7 @@ untouched. Does nothing if the id is unknown.
 
 
 <div class="description">
-    Replaces the placeholders of the detail template with the data of one
-contact.
+    Replaces the placeholders of the detail template with the data of onecontact.
 </div>
 
 
@@ -4958,8 +5040,7 @@ contact.
 
 
 <div class="description">
-    Replaces the placeholders of the edit template with the current values of
-the contact.
+    Replaces the placeholders of the edit template with the current values ofthe contact.
 </div>
 
 
@@ -5164,8 +5245,7 @@ the contact.
 
 
 <div class="description">
-    Replaces the placeholders of the card template with the data of one
-contact.
+    Replaces the placeholders of the card template with the data of onecontact.
 </div>
 
 
@@ -5347,8 +5427,7 @@ contact.
 
 
 <div class="description">
-    Applies the board search. Matches against title and description of the
-tasks and redraws all columns.
+    Applies the board search. Matches against title and description of thetasks and redraws all columns.
 </div>
 
 
@@ -5454,8 +5533,7 @@ tasks and redraws all columns.
 
 
 <div class="description">
-    Searches for a user whose email and password both match the entered
-credentials.
+    Searches for a user whose email and password both match the enteredcredentials.
 </div>
 
 
@@ -5637,8 +5715,7 @@ credentials.
 
 
 <div class="description">
-    Builds the complete Add-Task form. Used by the board to fill its Add-Task
-dialog with the same markup the standalone page uses.
+    Builds the complete Add-Task form. Used by the board to fill its Add-Taskdialog with the same markup the standalone page uses.
 </div>
 
 
@@ -5930,9 +6007,7 @@ dialog with the same markup the standalone page uses.
 
 
 <div class="description">
-    Picks a fixed colour from the palette by summing up the character codes of
-the name. The same name always yields the same colour, which keeps avatars
-consistent across all pages.
+    Picks a fixed colour from the palette by summing up the character codes ofthe name. The same name always yields the same colour, which keeps avatarsconsistent across all pages.
 </div>
 
 
@@ -6250,9 +6325,7 @@ consistent across all pages.
 
 
 <div class="description">
-    Resolves an entry of assignedTo into name, initials and avatar colour.
-Handles both the contact ids written by the board and the contact objects
-written by the standalone Add-Task page.
+    Resolves an entry of assignedTo into name, initials and avatar colour.Handles both the contact ids written by the board and the contact objectswritten by the standalone Add-Task page.
 </div>
 
 
@@ -6683,8 +6756,7 @@ written by the standalone Add-Task page.
 
 
 <div class="description">
-    Builds the confirm and cancel icons next to the subtask input. The board
-appends these to the Add-Task dialog at runtime.
+    Builds the confirm and cancel icons next to the subtask input. The boardappends these to the Add-Task dialog at runtime.
 </div>
 
 
@@ -7213,8 +7285,7 @@ appends these to the Add-Task dialog at runtime.
 
 
 <div class="description">
-    Rebuilds the contact dropdown from contactArray. The entry of the logged
-in user is marked with a '(you)' suffix.
+    Rebuilds the contact dropdown from contactArray. The entry of the loggedin user is marked with a '(you)' suffix.
 </div>
 
 
@@ -7258,7 +7329,7 @@ in user is marked with a '(you)' suffix.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line87">line 87</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line88">line 88</a>
     </li></ul></dd>
     
 
@@ -7320,8 +7391,7 @@ in user is marked with a '(you)' suffix.
 
 
 <div class="description">
-    Converts the raw contact data into dropdown entries and stores them in
-contactArray. The previous content of that array is discarded.
+    Converts the raw contact data into dropdown entries and stores them incontactArray. The previous content of that array is discarded.
 </div>
 
 
@@ -7439,6 +7509,24 @@ contactArray. The previous content of that array is discarded.
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;void></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -7632,6 +7720,100 @@ contactArray. The previous content of that array is discarded.
     
 
     
+    <h4 class="name" id="getContactStorage"><span class="type-signature"></span>getContactStorage<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_storage.js.html">scripts/storage.js</a>, <a href="scripts_storage.js.html#line22">line 22</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the contacts saved in sessionStorage
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="getContacts"><span class="type-signature">(async) </span>getContacts<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
     
 
@@ -7640,8 +7822,7 @@ contactArray. The previous content of that array is discarded.
 
 
 <div class="description">
-    Loads all contacts from the database and hands them over to
-getContactElement, which fills the contactArray used by the dropdown.
+    Loads all contacts from the database and hands them over togetContactElement, which fills the contactArray used by the dropdown.
 </div>
 
 
@@ -7857,8 +8038,7 @@ getContactElement, which fills the contactArray used by the dropdown.
 
 
 <div class="description">
-    Builds a single avatar of the assigned contacts in the edit form. The full
-name is shown as a tooltip.
+    Builds a single avatar of the assigned contacts in the edit form. The fullname is shown as a tooltip.
 </div>
 
 
@@ -8017,8 +8197,7 @@ name is shown as a tooltip.
 
 
 <div class="description">
-    Reads the inputs of the edit popup. The initials are derived from the
-entered name.
+    Reads the inputs of the edit popup. The initials are derived from theentered name.
 </div>
 
 
@@ -8822,8 +9001,7 @@ entered name.
 
 
 <div class="description">
-    Builds the initials of a name from its first and its last word, for
-example "Anna Schmidt" becomes "AS".
+    Builds the initials of a name from its first and its last word, forexample "Anna Schmidt" becomes "AS".
 </div>
 
 
@@ -9202,8 +9380,7 @@ example "Anna Schmidt" becomes "AS".
 
 
 <div class="description">
-    Finds the urgent task whose due date lies closest to today. Tasks with any
-other priority are ignored.
+    Finds the urgent task whose due date lies closest to today. Tasks with anyother priority are ignored.
 </div>
 
 
@@ -9541,8 +9718,7 @@ other priority are ignored.
 
 
 <div class="description">
-    Reads the inputs of the add contact popup. The initials are derived from
-the entered name.
+    Reads the inputs of the add contact popup. The initials are derived fromthe entered name.
 </div>
 
 
@@ -9652,8 +9828,7 @@ the entered name.
 
 
 <div class="description">
-    Determines the next free task id by taking the highest existing number and
-adding one.
+    Determines the next free task id by taking the highest existing number andadding one.
 </div>
 
 
@@ -9697,7 +9872,7 @@ adding one.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_api.js.html">scripts/api.js</a>, <a href="scripts_api.js.html#line33">line 33</a>
+        <a href="scripts_board.js.html">scripts/board.js</a>, <a href="scripts_board.js.html#line186">line 186</a>
     </li></ul></dd>
     
 
@@ -9792,8 +9967,7 @@ adding one.
 
 
 <div class="description">
-    Loads all tasks from the database. The caller derives the next task id
-from the number of entries, which is where the function name comes from.
+    Loads all tasks from the database. The caller derives the next task idfrom the number of entries, which is where the function name comes from.
 </div>
 
 
@@ -9837,7 +10011,7 @@ from the number of entries, which is where the function name comes from.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_api.js.html">scripts/api.js</a>, <a href="scripts_api.js.html#line41">line 41</a>
+        <a href="scripts_api.js.html">scripts/api.js</a>, <a href="scripts_api.js.html#line43">line 43</a>
     </li></ul></dd>
     
 
@@ -10403,8 +10577,7 @@ from the number of entries, which is where the function name comes from.
 
 
 <div class="description">
-    Builds the priority icon. The label is part of the icon file name, so it
-must match the capitalisation of the files in assets/icons.
+    Builds the priority icon. The label is part of the icon file name, so itmust match the capitalisation of the files in assets/icons.
 </div>
 
 
@@ -10878,8 +11051,7 @@ must match the capitalisation of the files in assets/icons.
 
 
 <div class="description">
-    Builds a subtask row in edit state, as an input field that also confirms
-on the Enter key.
+    Builds a subtask row in edit state, as an input field that also confirmson the Enter key.
 </div>
 
 
@@ -11220,8 +11392,7 @@ on the Enter key.
 
 
 <div class="description">
-    Collects all form inputs and the current selection state into a task
-object. New tasks always start in the 'todo' column.
+    Collects all form inputs and the current selection state into a taskobject. New tasks always start in the 'todo' column.
 </div>
 
 
@@ -11265,7 +11436,7 @@ object. New tasks always start in the 'todo' column.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line121">line 121</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line138">line 138</a>
     </li></ul></dd>
     
 
@@ -11331,8 +11502,7 @@ object. New tasks always start in the 'todo' column.
 
 
 <div class="description">
-    Builds the description paragraph. The class decides whether it is clamped
-to the card size or shown in full in the detail modal.
+    Builds the description paragraph. The class decides whether it is clampedto the card size or shown in full in the detail modal.
 </div>
 
 
@@ -11864,8 +12034,7 @@ to the card size or shown in full in the detail modal.
 
 
 <div class="description">
-    Builds the header of the detail modal, with the category badge and the
-close button.
+    Builds the header of the detail modal, with the category badge and theclose button.
 </div>
 
 
@@ -13198,8 +13367,7 @@ close button.
 
 
 <div class="description">
-    Builds a single priority button. Both icon variants are kept in data
-attributes, so the button can swap them when it becomes selected.
+    Builds a single priority button. Both icon variants are kept in dataattributes, so the button can swap them when it becomes selected.
 </div>
 
 
@@ -13560,8 +13728,7 @@ attributes, so the button can swap them when it becomes selected.
 
 
 <div class="description">
-    Builds the priority row of the edit form: the three buttons plus the
-hidden field that holds the current value.
+    Builds the priority row of the edit form: the three buttons plus thehidden field that holds the current value.
 </div>
 
 
@@ -13720,8 +13887,7 @@ hidden field that holds the current value.
 
 
 <div class="description">
-    Builds the subtask row of the edit form: input, add button and the empty
-list that renderEditSubtasks fills.
+    Builds the subtask row of the edit form: input, add button and the emptylist that renderEditSubtasks fills.
 </div>
 
 
@@ -14514,8 +14680,7 @@ list that renderEditSubtasks fills.
 
 
 <div class="description">
-    Builds the footer of a task card: avatars on the left, priority icon on
-the right.
+    Builds the footer of a task card: avatars on the left, priority icon onthe right.
 </div>
 
 
@@ -14833,8 +14998,7 @@ the right.
 
 
 <div class="description">
-    Builds one checklist entry of the detail modal. Ticking the checkbox saves
-the new state right away.
+    Builds one checklist entry of the detail modal. Ticking the checkbox savesthe new state right away.
 </div>
 
 
@@ -15424,7 +15588,7 @@ the new state right away.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line381">line 381</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line398">line 398</a>
     </li></ul></dd>
     
 
@@ -15490,8 +15654,7 @@ the new state right away.
 
 
 <div class="description">
-    Handler of the "Guest Log in" button. Starts a guest session without any
-check and jumps straight to the summary page.
+    Handler of the "Guest Log in" button. Starts a guest session without anycheck and jumps straight to the summary page.
 </div>
 
 
@@ -15535,7 +15698,162 @@ check and jumps straight to the summary page.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_login.js.html">scripts/login.js</a>, <a href="scripts_login.js.html#line83">line 83</a>
+        <a href="scripts_login.js.html">scripts/login.js</a>, <a href="scripts_login.js.html#line95">line 95</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="highlight"><span class="type-signature"></span>highlight<span class="signature">(id)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Highlights a column as a drop target. Bound to ondragenter.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Id of the column element.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_board.js.html">scripts/board.js</a>, <a href="scripts_board.js.html#line280">line 280</a>
     </li></ul></dd>
     
 
@@ -15597,8 +15915,7 @@ check and jumps straight to the summary page.
 
 
 <div class="description">
-    Marks the chosen card as active and removes the highlight from all other
-cards.
+    Marks the chosen card as active and removes the highlight from all othercards.
 </div>
 
 
@@ -15859,8 +16176,7 @@ cards.
 
 
 <div class="description">
-    Entry point of the board page, bound to window.onload. Loads the contacts
-and the tasks and renders the columns.
+    Entry point of the board page, bound to window.onload. Loads the contactsand the tasks and renders the columns.
 </div>
 
 
@@ -15966,9 +16282,7 @@ and the tasks and renders the columns.
 
 
 <div class="description">
-    Stores the target column in a hidden form field, creating that field on
-first use. This is how the dialog knows which column the plus button was
-clicked in.
+    Stores the target column in a hidden form field, creating that field onfirst use. This is how the dialog knows which column the plus button wasclicked in.
 </div>
 
 
@@ -16282,8 +16596,7 @@ clicked in.
 
 
 <div class="description">
-    Checks whether the password reaches the required minimum length of 8
-characters.
+    Checks whether the password reaches the required minimum length of 8characters.
 </div>
 
 
@@ -16552,8 +16865,7 @@ characters.
 
 
 <div class="description">
-    Loads all contacts into the module cache. Errors are logged and leave the
-cache empty rather than breaking the board.
+    Loads all contacts into the module cache. Errors are logged and leave thecache empty rather than breaking the board.
 </div>
 
 
@@ -17099,9 +17411,7 @@ cache empty rather than breaking the board.
 
 
 <div class="description">
-    Loads all tasks from the database into the module level tasks array and
-refreshes the metric tiles afterwards. Network and HTTP errors are logged
-and leave the tiles untouched.
+    Loads all tasks from the database into the module level tasks array andrefreshes the metric tiles afterwards. Network and HTTP errors are loggedand leave the tiles untouched.
 </div>
 
 
@@ -17688,9 +17998,7 @@ and leave the tiles untouched.
 
 
 <div class="description">
-    Handler of the "Log in" button. Validates the form, checks the credentials
-against the database and, on success, stores the session and opens the
-summary page. Otherwise an error message is shown.
+    Handler of the "Log in" button. Validates the form, checks the credentialsagainst the database and, on success, stores the session and opens thesummary page. Otherwise an error message is shown.
 </div>
 
 
@@ -17796,8 +18104,7 @@ summary page. Otherwise an error message is shown.
 
 
 <div class="description">
-    Ends the session by removing the user from localStorage and returning to
-the login page.
+    Ends the session by removing the user from localStorage and returning tothe login page.
 </div>
 
 
@@ -17903,8 +18210,7 @@ the login page.
 
 
 <div class="description">
-    Turns the raw task collection into an array, attaching the database key as
-id and normalizing the status of every task.
+    Turns the raw task collection into an array, attaching the database key asid and normalizing the status of every task.
 </div>
 
 
@@ -18075,9 +18381,7 @@ id and normalizing the status of every task.
 
 
 <div class="description">
-    Resolves the assignedTo entries of a task against the contact pool.
-Entries that are no longer in the pool are rebuilt from their name;
-entries without a name are dropped.
+    Resolves the assignedTo entries of a task against the contact pool.Entries that are no longer in the pool are rebuilt from their name;entries without a name are dropped.
 </div>
 
 
@@ -18395,9 +18699,7 @@ entries without a name are dropped.
 
 
 <div class="description">
-    Moves the dragged task into another column and saves the new status.
-The board updates immediately; if the write fails, the previous status is
-restored and the board is drawn again.
+    Moves the dragged task into another column and saves the new status.The board updates immediately; if the write fails, the previous status isrestored and the board is drawn again.
 </div>
 
 
@@ -18552,8 +18854,7 @@ restored and the board is drawn again.
 
 
 <div class="description">
-    Stops the event from bubbling up. Used on elements inside an overlay so
-that a click on them does not trigger the close handler of the overlay.
+    Stops the event from bubbling up. Used on elements inside an overlay sothat a click on them does not trigger the close handler of the overlay.
 </div>
 
 
@@ -18708,8 +19009,7 @@ that a click on them does not trigger the close handler of the overlay.
 
 
 <div class="description">
-    Converts the camelCase status values stored in the database into the
-hyphenated column ids used in the DOM.
+    Converts the camelCase status values stored in the database into thehyphenated column ids used in the DOM.
 </div>
 
 
@@ -18974,8 +19274,7 @@ hyphenated column ids used in the DOM.
 
 
 <div class="description">
-    Opens the Add-Task dialog on the board, resets its state and wires up the
-form so that the new task lands in the given column.
+    Opens the Add-Task dialog on the board, resets its state and wires up theform so that the new task lands in the given column.
 </div>
 
 
@@ -19460,8 +19759,7 @@ form so that the new task lands in the given column.
 
 
 <div class="description">
-    Sends a PATCH request to the database and turns a failed response into an
-error. Shared by all partial writes of this file.
+    Sends a PATCH request to the database and turns a failed response into anerror. Shared by all partial writes of this file.
 </div>
 
 
@@ -19691,8 +19989,7 @@ error. Shared by all partial writes of this file.
 
 
 <div class="description">
-    Saves a task in the database via PUT, overwriting whatever sits at that
-path.
+    Saves a task in the database via PUT, overwriting whatever sits at thatpath.
 </div>
 
 
@@ -19844,7 +20141,7 @@ path.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_api.js.html">scripts/api.js</a>, <a href="scripts_api.js.html#line47">line 47</a>
+        <a href="scripts_api.js.html">scripts/api.js</a>, <a href="scripts_api.js.html#line59">line 59</a>
     </li></ul></dd>
     
 
@@ -19910,8 +20207,7 @@ path.
 
 
 <div class="description">
-    Registers the handler that closes the contact dropdown on a click anywhere
-outside of it. Any previously registered handler is removed first.
+    Registers the handler that closes the contact dropdown on a click anywhereoutside of it. Any previously registered handler is removed first.
 </div>
 
 
@@ -20017,8 +20313,7 @@ outside of it. Any previously registered handler is removed first.
 
 
 <div class="description">
-    Handler of the "Sign up" button. Validates the form, saves the user and
-returns to the login page after a short confirmation.
+    Handler of the "Sign up" button. Validates the form, saves the user andreturns to the login page after a short confirmation.
 </div>
 
 
@@ -20544,8 +20839,7 @@ returns to the login page after a short confirmation.
 
 
 <div class="description">
-    Renders one column with the tasks of that status that also match the
-current search term. Empty columns get a placeholder instead.
+    Renders one column with the tasks of that status that also match thecurrent search term. Empty columns get a placeholder instead.
 </div>
 
 
@@ -20723,8 +21017,7 @@ current search term. Empty columns get a placeholder instead.
 
 
 <div class="description">
-    Entry point of the contacts page, called from the body onload attribute.
-Loads the contacts and both templates and renders the grouped list.
+    Entry point of the contacts page, called from the body onload attribute.Loads the contacts and both templates and renders the grouped list.
 </div>
 
 
@@ -20830,8 +21123,7 @@ Loads the contacts and both templates and renders the grouped list.
 
 
 <div class="description">
-    Redraws the avatar row of the assigned contacts below the assignment
-field.
+    Redraws the avatar row of the assigned contacts below the assignmentfield.
 </div>
 
 
@@ -20969,7 +21261,7 @@ field.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line211">line 211</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line228">line 228</a>
     </li></ul></dd>
     
 
@@ -21137,8 +21429,7 @@ field.
 
 
 <div class="description">
-    Redraws the subtask list. The entry named by editingSubtaskKey is rendered
-as an input field, all others as plain rows.
+    Redraws the subtask list. The entry named by editingSubtaskKey is renderedas an input field, all others as plain rows.
 </div>
 
 
@@ -21182,7 +21473,7 @@ as an input field, all others as plain rows.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line272">line 272</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line289">line 289</a>
     </li></ul></dd>
     
 
@@ -21426,9 +21717,7 @@ as an input field, all others as plain rows.
 
 
 <div class="description">
-    Writes the initials of the logged in user into the avatar in the header.
-Guests get a "G". Does nothing if the element is missing or nobody is
-logged in. Runs once when this file is loaded.
+    Writes the initials of the logged in user into the avatar in the header.Guests get a "G". Does nothing if the element is missing or nobody islogged in. Runs once when this file is loaded.
 </div>
 
 
@@ -21789,7 +22078,7 @@ logged in. Runs once when this file is loaded.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line241">line 241</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line258">line 258</a>
     </li></ul></dd>
     
 
@@ -21851,9 +22140,7 @@ logged in. Runs once when this file is loaded.
 
 
 <div class="description">
-    Clears everything the Add-Task form keeps in global state, so a freshly
-opened dialog never shows leftovers from the last one. Each reset is
-guarded, because tasks.js is not loaded on every page.
+    Clears everything the Add-Task form keeps in global state, so a freshlyopened dialog never shows leftovers from the last one. Each reset isguarded, because tasks.js is not loaded on every page.
 </div>
 
 
@@ -21959,8 +22246,7 @@ guarded, because tasks.js is not loaded on every page.
 
 
 <div class="description">
-    Clears the whole Add-Task form: inputs, selected contacts, subtasks,
-avatars, and the priority back to 'medium'.
+    Clears the whole Add-Task form: inputs, selected contacts, subtasks,avatars, and the priority back to 'medium'.
 </div>
 
 
@@ -22004,7 +22290,7 @@ avatars, and the priority back to 'medium'.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line227">line 227</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line244">line 244</a>
     </li></ul></dd>
     
 
@@ -22066,8 +22352,7 @@ avatars, and the priority back to 'medium'.
 
 
 <div class="description">
-    Adds the text of the subtask input as a new subtask and clears the input.
-An empty input is ignored.
+    Adds the text of the subtask input as a new subtask and clears the input.An empty input is ignored.
 </div>
 
 
@@ -22111,7 +22396,7 @@ An empty input is ignored.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line294">line 294</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line311">line 311</a>
     </li></ul></dd>
     
 
@@ -22506,9 +22791,7 @@ An empty input is ignored.
 
 
 <div class="description">
-    Submit handler of the edit form. Applies the changes to the board right
-away and then saves them. If the write fails, the previous state of the
-task is restored and an alert is shown.
+    Submit handler of the edit form. Applies the changes to the board rightaway and then saves them. If the write fails, the previous state of thetask is restored and an alert is shown.
 </div>
 
 
@@ -22818,8 +23101,7 @@ task is restored and an alert is shown.
 
 
 <div class="description">
-    Filters the contact dropdown by the text typed into the assignment field,
-hiding every entry that does not contain it.
+    Filters the contact dropdown by the text typed into the assignment field,hiding every entry that does not contain it.
 </div>
 
 
@@ -22863,7 +23145,7 @@ hiding every entry that does not contain it.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line49">line 49</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line50">line 50</a>
     </li></ul></dd>
     
 
@@ -22925,8 +23207,7 @@ hiding every entry that does not contain it.
 
 
 <div class="description">
-    Writes the picked contact into the assignment field and closes the
-dropdown.
+    Writes the picked contact into the assignment field and closes thedropdown.
 </div>
 
 
@@ -23019,7 +23300,7 @@ dropdown.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line71">line 71</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line72">line 72</a>
     </li></ul></dd>
     
 
@@ -23081,8 +23362,7 @@ dropdown.
 
 
 <div class="description">
-    Stores the picked priority and highlights the matching button, swapping
-its icon for the selected variant.
+    Stores the picked priority and highlights the matching button, swappingits icon for the selected variant.
 </div>
 
 
@@ -23175,7 +23455,7 @@ its icon for the selected variant.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line142">line 142</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line159">line 159</a>
     </li></ul></dd>
     
 
@@ -23200,6 +23480,24 @@ its icon for the selected variant.
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -23333,24 +23631,6 @@ its icon for the selected variant.
 
 
 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -23878,8 +24158,7 @@ its icon for the selected variant.
 
 
 <div class="description">
-    Writes the user name next to the greeting. Nothing is written for guests,
-where the name is missing.
+    Writes the user name next to the greeting. Nothing is written for guests,where the name is missing.
 </div>
 
 
@@ -24108,8 +24387,7 @@ where the name is missing.
 
 
 <div class="description">
-    Writes a number into a metric tile, if that tile exists on the current
-page.
+    Writes a number into a metric tile, if that tile exists on the currentpage.
 </div>
 
 
@@ -24287,8 +24565,7 @@ page.
 
 
 <div class="description">
-    Wires up the subtask input of the dialog and appends the confirm/cancel
-buttons, which the standalone Add-Task page brings along in its own markup.
+    Wires up the subtask input of the dialog and appends the confirm/cancelbuttons, which the standalone Add-Task page brings along in its own markup.
 </div>
 
 
@@ -24394,8 +24671,7 @@ buttons, which the standalone Add-Task page brings along in its own markup.
 
 
 <div class="description">
-    Wires up the edit form after its markup has been inserted: subtask input,
-priority buttons, subtask list and the outside-click handler of the dropdown.
+    Wires up the edit form after its markup has been inserted: subtask input,priority buttons, subtask list and the outside-click handler of the dropdown.
 </div>
 
 
@@ -24501,8 +24777,7 @@ priority buttons, subtask list and the outside-click handler of the dropdown.
 
 
 <div class="description">
-    Shows a short message in the centre of the board. A running message is
-replaced rather than queued.
+    Shows a short message in the centre of the board. A running message isreplaced rather than queued.
 </div>
 
 
@@ -24712,8 +24987,7 @@ replaced rather than queued.
 
 
 <div class="description">
-    Shows the confirm/cancel buttons next to the subtask input while it holds
-text and hides them again once it is empty.
+    Shows the confirm/cancel buttons next to the subtask input while it holdstext and hides them again once it is empty.
 </div>
 
 
@@ -24757,7 +25031,7 @@ text and hides them again once it is empty.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line252">line 252</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line269">line 269</a>
     </li></ul></dd>
     
 
@@ -24819,8 +25093,7 @@ text and hides them again once it is empty.
 
 
 <div class="description">
-    Shows the detail view of a contact on the right hand side and highlights
-the matching card in the list.
+    Shows the detail view of a contact on the right hand side and highlightsthe matching card in the list.
 </div>
 
 
@@ -25486,8 +25759,7 @@ the matching card in the list.
 
 
 <div class="description">
-    Shows a short message that floats in from the top centre of the page and
-disappears again on its own. Available on every page.
+    Shows a short message that floats in from the top centre of the page anddisappears again on its own. Available on every page.
 </div>
 
 
@@ -25741,7 +26013,7 @@ disappears again on its own. Available on every page.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_login.js.html">scripts/login.js</a>, <a href="scripts_login.js.html#line92">line 92</a>
+        <a href="scripts_login.js.html">scripts/login.js</a>, <a href="scripts_login.js.html#line106">line 106</a>
     </li></ul></dd>
     
 
@@ -25803,8 +26075,7 @@ disappears again on its own. Available on every page.
 
 
 <div class="description">
-    Turns the contact object into an array sorted by name, keeping the
-database key of every contact as an id property.
+    Turns the contact object into an array sorted by name, keeping thedatabase key of every contact as an id property.
 </div>
 
 
@@ -26224,9 +26495,7 @@ database key of every contact as an id property.
 
 
 <div class="description">
-    Submit handler of the Add-Task dialog on the board. Collects the inputs,
-saves the task under the next free id, closes the dialog and reloads the
-board. A missing title or a failed write aborts with an alert.
+    Submit handler of the Add-Task dialog on the board. Collects the inputs,saves the task under the next free id, closes the dialog and reloads theboard. A missing title or a failed write aborts with an alert.
 </div>
 
 
@@ -26381,8 +26650,7 @@ board. A missing title or a failed write aborts with an alert.
 
 
 <div class="description">
-    Submit handler of the Add-Task form. Collects the inputs, saves the task
-under the next free id and resets the form.
+    Submit handler of the Add-Task form. Collects the inputs, saves the taskunder the next free id and resets the form.
 </div>
 
 
@@ -26475,7 +26743,7 @@ under the next free id and resets the form.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line104">line 104</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line121">line 121</a>
     </li></ul></dd>
     
 
@@ -26653,7 +26921,7 @@ under the next free id and resets the form.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line393">line 393</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line410">line 410</a>
     </li></ul></dd>
     
 
@@ -26719,8 +26987,7 @@ under the next free id and resets the form.
 
 
 <div class="description">
-    Adds a contact to the selection or removes it again, then redraws the
-avatar row below the field.
+    Adds a contact to the selection or removes it again, then redraws theavatar row below the field.
 </div>
 
 
@@ -26836,7 +27103,7 @@ avatar row below the field.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line178">line 178</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line195">line 195</a>
     </li></ul></dd>
     
 
@@ -27004,8 +27271,7 @@ avatar row below the field.
 
 
 <div class="description">
-    Flips the checkbox of a contact row and applies the new state. Lets the
-whole row act as a click target, not just the checkbox itself.
+    Flips the checkbox of a contact row and applies the new state. Lets thewhole row act as a click target, not just the checkbox itself.
 </div>
 
 
@@ -27098,7 +27364,7 @@ whole row act as a click target, not just the checkbox itself.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line196">line 196</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line213">line 213</a>
     </li></ul></dd>
     
 
@@ -27160,9 +27426,7 @@ whole row act as a click target, not just the checkbox itself.
 
 
 <div class="description">
-    Opens or closes a dropdown and rotates its arrow. Reloads the contacts
-first, so the assignment list is always up to date. Any other open dropdown
-is closed before this one opens.
+    Opens or closes a dropdown and rotates its arrow. Reloads the contactsfirst, so the assignment list is always up to date. Any other open dropdownis closed before this one opens.
 </div>
 
 
@@ -27278,7 +27542,7 @@ is closed before this one opens.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line17">line 17</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -27340,8 +27604,7 @@ is closed before this one opens.
 
 
 <div class="description">
-    Adds a contact to the selection or removes it again, and updates the row,
-its checkbox and the avatar row accordingly.
+    Adds a contact to the selection or removes it again, and updates the row,its checkbox and the avatar row accordingly.
 </div>
 
 
@@ -27519,8 +27782,7 @@ its checkbox and the avatar row accordingly.
 
 
 <div class="description">
-    Opens or closes the contact dropdown of the edit form. Stops the event so
-the outside-click handler does not close it again straight away.
+    Opens or closes the contact dropdown of the edit form. Stops the event sothe outside-click handler does not close it again straight away.
 </div>
 
 
@@ -27675,8 +27937,7 @@ the outside-click handler does not close it again straight away.
 
 
 <div class="description">
-    Ticks or unticks a subtask in the detail view. The progress bar updates
-immediately; if the write fails, the checkbox is reverted.
+    Ticks or unticks a subtask in the detail view. The progress bar updatesimmediately; if the write fails, the checkbox is reverted.
 </div>
 
 
@@ -27983,9 +28244,7 @@ immediately; if the write fails, the checkbox is reverted.
 
 
 <div class="description">
-    Handler of the save button in the edit popup. Stores the change and
-refreshes both the list and the detail view. Does nothing if name or email
-are empty.
+    Handler of the save button in the edit popup. Stores the change andrefreshes both the list and the detail view. Does nothing if name or emailare empty.
 </div>
 
 
@@ -28140,8 +28399,7 @@ are empty.
 
 
 <div class="description">
-    Highlights the priority button that matches the hidden priority field and
-swaps the icons of all three buttons accordingly.
+    Highlights the priority button that matches the hidden priority field andswaps the icons of all three buttons accordingly.
 </div>
 
 
@@ -28583,9 +28841,7 @@ swaps the icons of all three buttons accordingly.
 
 
 <div class="description">
-    Writes all calculated metrics into the summary tiles: the counts per
-column, the total, the urgent count, the closest urgent due date and the
-name of the logged in user.
+    Writes all calculated metrics into the summary tiles: the counts percolumn, the total, the urgent count, the closest urgent due date and thename of the logged in user.
 </div>
 
 
@@ -29105,9 +29361,7 @@ name of the logged in user.
 
 
 <div class="description">
-    Validates the registration inputs and returns the first problem it finds:
-missing fields, an email without "@", a password shorter than 8
-characters, two passwords that differ, or a missing privacy consent.
+    Validates the registration inputs and returns the first problem it finds:missing fields, an email without "@", a password shorter than 8characters, two passwords that differ, or a missing privacy consent.
 </div>
 
 
@@ -29268,13 +29522,13 @@ characters, two passwords that differ, or a missing privacy consent.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#buildContactsHtml">buildContactsHtml</a></li><li><a href="global.html#chooseCategory">chooseCategory</a></li><li><a href="global.html#clearSubtask">clearSubtask</a></li><li><a href="global.html#closeAddContact">closeAddContact</a></li><li><a href="global.html#closeAllDropdowns">closeAllDropdowns</a></li><li><a href="global.html#confirmEditSubtask">confirmEditSubtask</a></li><li><a href="global.html#countTasksByPriority">countTasksByPriority</a></li><li><a href="global.html#countTasksByStatus">countTasksByStatus</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#fillDetailTemplate">fillDetailTemplate</a></li><li><a href="global.html#fillEditTemplate">fillEditTemplate</a></li><li><a href="global.html#fillTemplate">fillTemplate</a></li><li><a href="global.html#findUser">findUser</a></li><li><a href="global.html#getAvatarColor">getAvatarColor</a></li><li><a href="global.html#getCoWorker">getCoWorker</a></li><li><a href="global.html#getContactElement">getContactElement</a></li><li><a href="global.html#getContacts">getContacts</a></li><li><a href="global.html#getEditContact">getEditContact</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#getLoginInputs">getLoginInputs</a></li><li><a href="global.html#getNewContact">getNewContact</a></li><li><a href="global.html#getNextTaskId">getNextTaskId</a></li><li><a href="global.html#getSignupInputs">getSignupInputs</a></li><li><a href="global.html#getTaskData">getTaskData</a></li><li><a href="global.html#getTaskDetailTemplate">getTaskDetailTemplate</a></li><li><a href="global.html#getTaskEditTemplate">getTaskEditTemplate</a></li><li><a href="global.html#getTaskTemplate">getTaskTemplate</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#highlightContact">highlightContact</a></li><li><a href="global.html#isLoginFilled">isLoginFilled</a></li><li><a href="global.html#loadAddContactTemplate">loadAddContactTemplate</a></li><li><a href="global.html#loadContacts">loadContacts</a></li><li><a href="global.html#loadDetailTemplate">loadDetailTemplate</a></li><li><a href="global.html#loadEditTemplate">loadEditTemplate</a></li><li><a href="global.html#loadLetterTemplate">loadLetterTemplate</a></li><li><a href="global.html#loadTemplate">loadTemplate</a></li><li><a href="global.html#loadUsers">loadUsers</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#noEvent">noEvent</a></li><li><a href="global.html#openAddContact">openAddContact</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#postTask">postTask</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderSubtask">renderSubtask</a></li><li><a href="global.html#resetAssignedContacts">resetAssignedContacts</a></li><li><a href="global.html#resetTask">resetTask</a></li><li><a href="global.html#safeSubtask">safeSubtask</a></li><li><a href="global.html#saveContact">saveContact</a></li><li><a href="global.html#saveEditedContact">saveEditedContact</a></li><li><a href="global.html#saveUser">saveUser</a></li><li><a href="global.html#searchList">searchList</a></li><li><a href="global.html#selectOption">selectOption</a></li><li><a href="global.html#selectPriority">selectPriority</a></li><li><a href="global.html#setStatNumber">setStatNumber</a></li><li><a href="global.html#showButtons">showButtons</a></li><li><a href="global.html#showContactDetail">showContactDetail</a></li><li><a href="global.html#showContacts">showContacts</a></li><li><a href="global.html#showLoginError">showLoginError</a></li><li><a href="global.html#showSignupError">showSignupError</a></li><li><a href="global.html#showToast">showToast</a></li><li><a href="global.html#signUp">signUp</a></li><li><a href="global.html#sortContacts">sortContacts</a></li><li><a href="global.html#submitTaskData">submitTaskData</a></li><li><a href="global.html#testUser">testUser</a></li><li><a href="global.html#toggleContact">toggleContact</a></li><li><a href="global.html#toggleContactRow">toggleContactRow</a></li><li><a href="global.html#toggleDropdown">toggleDropdown</a></li><li><a href="global.html#updateContact">updateContact</a></li><li><a href="global.html#updateSummaryHTML">updateSummaryHTML</a></li><li><a href="global.html#validateSignup">validateSignup</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addEditSubtask">addEditSubtask</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#applySelectedContactsState">applySelectedContactsState</a></li><li><a href="global.html#bindEditSubtaskInput">bindEditSubtaskInput</a></li><li><a href="global.html#buildContactsHtml">buildContactsHtml</a></li><li><a href="global.html#buildEditAssignedAvatarsHTML">buildEditAssignedAvatarsHTML</a></li><li><a href="global.html#buildEditContactListHTML">buildEditContactListHTML</a></li><li><a href="global.html#buildTaskEditContactPool">buildTaskEditContactPool</a></li><li><a href="global.html#buildTaskEditSubtaskMap">buildTaskEditSubtaskMap</a></li><li><a href="global.html#buildTaskTemplateData">buildTaskTemplateData</a></li><li><a href="global.html#chooseCategory">chooseCategory</a></li><li><a href="global.html#cleanupEditDropdownHandler">cleanupEditDropdownHandler</a></li><li><a href="global.html#clearSubtask">clearSubtask</a></li><li><a href="global.html#closeAddContact">closeAddContact</a></li><li><a href="global.html#closeAddTaskDialog">closeAddTaskDialog</a></li><li><a href="global.html#closeAllDropdowns">closeAllDropdowns</a></li><li><a href="global.html#closeContactDetail">closeContactDetail</a></li><li><a href="global.html#closeContactMenu">closeContactMenu</a></li><li><a href="global.html#closeTaskDetail">closeTaskDetail</a></li><li><a href="global.html#closeUserMenu">closeUserMenu</a></li><li><a href="global.html#confirmEditSubtask">confirmEditSubtask</a></li><li><a href="global.html#countTasksByPriority">countTasksByPriority</a></li><li><a href="global.html#countTasksByStatus">countTasksByStatus</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#deleteTaskFromFirebase">deleteTaskFromFirebase</a></li><li><a href="global.html#deleteTaskSubtask">deleteTaskSubtask</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#editTaskSubtask">editTaskSubtask</a></li><li><a href="global.html#enterEditMode">enterEditMode</a></li><li><a href="global.html#extractTaskNumber">extractTaskNumber</a></li><li><a href="global.html#fetchTaskCollection">fetchTaskCollection</a></li><li><a href="global.html#fillDetailTemplate">fillDetailTemplate</a></li><li><a href="global.html#fillEditTemplate">fillEditTemplate</a></li><li><a href="global.html#fillTemplate">fillTemplate</a></li><li><a href="global.html#findTask">findTask</a></li><li><a href="global.html#findUser">findUser</a></li><li><a href="global.html#getAddTaskPage">getAddTaskPage</a></li><li><a href="global.html#getAssignedContactTemplate">getAssignedContactTemplate</a></li><li><a href="global.html#getAvatarColor">getAvatarColor</a></li><li><a href="global.html#getAvatarsHTML">getAvatarsHTML</a></li><li><a href="global.html#getBoardContact">getBoardContact</a></li><li><a href="global.html#getBoardDialogPriority">getBoardDialogPriority</a></li><li><a href="global.html#getBoardEmptyColumnTemplate">getBoardEmptyColumnTemplate</a></li><li><a href="global.html#getBoardSubtaskButtonsTemplate">getBoardSubtaskButtonsTemplate</a></li><li><a href="global.html#getCategoryBadge">getCategoryBadge</a></li><li><a href="global.html#getCategoryBadgeTemplate">getCategoryBadgeTemplate</a></li><li><a href="global.html#getCoWorker">getCoWorker</a></li><li><a href="global.html#getContactElement">getContactElement</a></li><li><a href="global.html#getContactInitial">getContactInitial</a></li><li><a href="global.html#getContactStorage">getContactStorage</a></li><li><a href="global.html#getContacts">getContacts</a></li><li><a href="global.html#getCurrentTime">getCurrentTime</a></li><li><a href="global.html#getEditAssignedAvatarTemplate">getEditAssignedAvatarTemplate</a></li><li><a href="global.html#getEditContact">getEditContact</a></li><li><a href="global.html#getEditContactListItemTemplate">getEditContactListItemTemplate</a></li><li><a href="global.html#getEditSubtaskItemTemplate">getEditSubtaskItemTemplate</a></li><li><a href="global.html#getEmptyAssignedContactsTemplate">getEmptyAssignedContactsTemplate</a></li><li><a href="global.html#getEmptyPriorityTemplate">getEmptyPriorityTemplate</a></li><li><a href="global.html#getEmptySubtasksTemplate">getEmptySubtasksTemplate</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#getLoggedInUserName">getLoggedInUserName</a></li><li><a href="global.html#getLoginInputs">getLoginInputs</a></li><li><a href="global.html#getMostUrgentTask">getMostUrgentTask</a></li><li><a href="global.html#getNameTemplate">getNameTemplate</a></li><li><a href="global.html#getNewContact">getNewContact</a></li><li><a href="global.html#getNextBoardTaskId">getNextBoardTaskId</a></li><li><a href="global.html#getNextTaskId">getNextTaskId</a></li><li><a href="global.html#getPriorityDetail">getPriorityDetail</a></li><li><a href="global.html#getPriorityDetailTemplate">getPriorityDetailTemplate</a></li><li><a href="global.html#getPriorityIcon">getPriorityIcon</a></li><li><a href="global.html#getPriorityIconTemplate">getPriorityIconTemplate</a></li><li><a href="global.html#getSignupInputs">getSignupInputs</a></li><li><a href="global.html#getSubtask">getSubtask</a></li><li><a href="global.html#getSubtaskEdit">getSubtaskEdit</a></li><li><a href="global.html#getTaskCardTopTemplate">getTaskCardTopTemplate</a></li><li><a href="global.html#getTaskData">getTaskData</a></li><li><a href="global.html#getTaskDescriptionTemplate">getTaskDescriptionTemplate</a></li><li><a href="global.html#getTaskDetailActionsTemplate">getTaskDetailActionsTemplate</a></li><li><a href="global.html#getTaskDetailAssignedTemplate">getTaskDetailAssignedTemplate</a></li><li><a href="global.html#getTaskDetailHeaderTemplate">getTaskDetailHeaderTemplate</a></li><li><a href="global.html#getTaskDetailMetaTemplate">getTaskDetailMetaTemplate</a></li><li><a href="global.html#getTaskDetailSubtasksTemplate">getTaskDetailSubtasksTemplate</a></li><li><a href="global.html#getTaskDetailTemplate">getTaskDetailTemplate</a></li><li><a href="global.html#getTaskDueDateTemplate">getTaskDueDateTemplate</a></li><li><a href="global.html#getTaskEditAssignedTemplate">getTaskEditAssignedTemplate</a></li><li><a href="global.html#getTaskEditDateInputTemplate">getTaskEditDateInputTemplate</a></li><li><a href="global.html#getTaskEditFooterTemplate">getTaskEditFooterTemplate</a></li><li><a href="global.html#getTaskEditHeaderTemplate">getTaskEditHeaderTemplate</a></li><li><a href="global.html#getTaskEditPriorityButton">getTaskEditPriorityButton</a></li><li><a href="global.html#getTaskEditPriorityButtonsTemplate">getTaskEditPriorityButtonsTemplate</a></li><li><a href="global.html#getTaskEditPriorityTemplate">getTaskEditPriorityTemplate</a></li><li><a href="global.html#getTaskEditSubtasksTemplate">getTaskEditSubtasksTemplate</a></li><li><a href="global.html#getTaskEditTemplate">getTaskEditTemplate</a></li><li><a href="global.html#getTaskEditTextInputTemplate">getTaskEditTextInputTemplate</a></li><li><a href="global.html#getTaskEditTextareaTemplate">getTaskEditTextareaTemplate</a></li><li><a href="global.html#getTaskFooterTemplate">getTaskFooterTemplate</a></li><li><a href="global.html#getTaskSubtaskHtml">getTaskSubtaskHtml</a></li><li><a href="global.html#getTaskSubtaskItemTemplate">getTaskSubtaskItemTemplate</a></li><li><a href="global.html#getTaskSubtaskProgressTemplate">getTaskSubtaskProgressTemplate</a></li><li><a href="global.html#getTaskTemplate">getTaskTemplate</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#highlightContact">highlightContact</a></li><li><a href="global.html#histarrow">histarrow</a></li><li><a href="global.html#initPage">initPage</a></li><li><a href="global.html#injectBoardTaskStatus">injectBoardTaskStatus</a></li><li><a href="global.html#isLoginFilled">isLoginFilled</a></li><li><a href="global.html#isPasswordLongEnough">isPasswordLongEnough</a></li><li><a href="global.html#loadAddContactTemplate">loadAddContactTemplate</a></li><li><a href="global.html#loadContacts">loadContacts</a></li><li><a href="global.html#loadDetailTemplate">loadDetailTemplate</a></li><li><a href="global.html#loadEditTemplate">loadEditTemplate</a></li><li><a href="global.html#loadLetterTemplate">loadLetterTemplate</a></li><li><a href="global.html#loadSummaryData">loadSummaryData</a></li><li><a href="global.html#loadTasks">loadTasks</a></li><li><a href="global.html#loadTemplate">loadTemplate</a></li><li><a href="global.html#loadUsers">loadUsers</a></li><li><a href="global.html#lockScroll">lockScroll</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#mapLoadedTasks">mapLoadedTasks</a></li><li><a href="global.html#mapTaskEditContacts">mapTaskEditContacts</a></li><li><a href="global.html#mapTaskEditSubtasks">mapTaskEditSubtasks</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#noEvent">noEvent</a></li><li><a href="global.html#normalizeTask">normalizeTask</a></li><li><a href="global.html#openAddContact">openAddContact</a></li><li><a href="global.html#openAddTaskDialog">openAddTaskDialog</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#openTaskDetail">openTaskDetail</a></li><li><a href="global.html#patchBoardResource">patchBoardResource</a></li><li><a href="global.html#postTask">postTask</a></li><li><a href="global.html#registerEditDropdownHandler">registerEditDropdownHandler</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#removeHighlight">removeHighlight</a></li><li><a href="global.html#removeModalOpenFlag">removeModalOpenFlag</a></li><li><a href="global.html#renderAssignedContacts">renderAssignedContacts</a></li><li><a href="global.html#renderColumn">renderColumn</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderEditSubtasks">renderEditSubtasks</a></li><li><a href="global.html#renderSubtask">renderSubtask</a></li><li><a href="global.html#renderSubtasks">renderSubtasks</a></li><li><a href="global.html#renderUserInitials">renderUserInitials</a></li><li><a href="global.html#requireBoardJson">requireBoardJson</a></li><li><a href="global.html#resetAssignedContacts">resetAssignedContacts</a></li><li><a href="global.html#resetBoardAddTaskState">resetBoardAddTaskState</a></li><li><a href="global.html#resetTask">resetTask</a></li><li><a href="global.html#safeSubtask">safeSubtask</a></li><li><a href="global.html#saveContact">saveContact</a></li><li><a href="global.html#saveEditedContact">saveEditedContact</a></li><li><a href="global.html#saveTaskEdits">saveTaskEdits</a></li><li><a href="global.html#saveUser">saveUser</a></li><li><a href="global.html#searchList">searchList</a></li><li><a href="global.html#selectOption">selectOption</a></li><li><a href="global.html#selectPriority">selectPriority</a></li><li><a href="global.html#setContactStorage">setContactStorage</a></li><li><a href="global.html#setDate">setDate</a></li><li><a href="global.html#setEditContactDropdownState">setEditContactDropdownState</a></li><li><a href="global.html#setEditPriority">setEditPriority</a></li><li><a href="global.html#setName">setName</a></li><li><a href="global.html#setStatNumber">setStatNumber</a></li><li><a href="global.html#setupBoardSubtaskControls">setupBoardSubtaskControls</a></li><li><a href="global.html#setupTaskEditForm">setupTaskEditForm</a></li><li><a href="global.html#showBoardToast">showBoardToast</a></li><li><a href="global.html#showButtons">showButtons</a></li><li><a href="global.html#showContactDetail">showContactDetail</a></li><li><a href="global.html#showContacts">showContacts</a></li><li><a href="global.html#showLoginError">showLoginError</a></li><li><a href="global.html#showSignupError">showSignupError</a></li><li><a href="global.html#showToast">showToast</a></li><li><a href="global.html#signUp">signUp</a></li><li><a href="global.html#sortContacts">sortContacts</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#startGreeting">startGreeting</a></li><li><a href="global.html#submitBoardTaskData">submitBoardTaskData</a></li><li><a href="global.html#submitTaskData">submitTaskData</a></li><li><a href="global.html#testUser">testUser</a></li><li><a href="global.html#toggleContact">toggleContact</a></li><li><a href="global.html#toggleContactMenu">toggleContactMenu</a></li><li><a href="global.html#toggleContactRow">toggleContactRow</a></li><li><a href="global.html#toggleDropdown">toggleDropdown</a></li><li><a href="global.html#toggleEditContact">toggleEditContact</a></li><li><a href="global.html#toggleEditContactDropdown">toggleEditContactDropdown</a></li><li><a href="global.html#toggleSubtaskDone">toggleSubtaskDone</a></li><li><a href="global.html#toggleUserMenu">toggleUserMenu</a></li><li><a href="global.html#updateContact">updateContact</a></li><li><a href="global.html#updateEditPriorityButtons">updateEditPriorityButtons</a></li><li><a href="global.html#updateHTML">updateHTML</a></li><li><a href="global.html#updateSubtaskDone">updateSubtaskDone</a></li><li><a href="global.html#updateSummaryHTML">updateSummaryHTML</a></li><li><a href="global.html#updateTaskData">updateTaskData</a></li><li><a href="global.html#updateTaskStatus">updateTaskStatus</a></li><li><a href="global.html#validateSignup">validateSignup</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Tue Aug 11 2026 11:05:21 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Mon Aug 17 2026 20:24:47 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -34,6 +34,18 @@
   --fs-sm: 14px;
 }
 
+/* Scrollbars ueberall unsichtbar machen, Scrollen bleibt aber funktional
+   (gilt fuer die ganze Seite und jeden scrollbaren Container darin, z.B.
+   Dropdown-Listen oder Board-Spalten) */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Edge Legacy/IE */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge Chromium */
+}
+
 body {
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   color: var(--color-text);

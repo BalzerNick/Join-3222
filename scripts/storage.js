@@ -10,6 +10,8 @@
  * @param {*} contacts 
  */
 function setContactStorage(contacts){
+    console.log(JSON.stringify(contacts));
+    
     sessionStorage.setItem("contacts", JSON.stringify(contacts));
 }
 

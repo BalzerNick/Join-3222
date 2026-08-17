@@ -1,4 +1,5 @@
 let names = [];
+let contacts = [];
 let selectedContacts = [];
 let subtasks = {};
 let selectedPriority = "medium";
@@ -15,7 +16,7 @@ let editingSubtaskKey = null;
  * @returns {Promise<void>}
  */
 async function toggleDropdown(ul, arr) {
-    await getContacts();
+    contacts = getContactStorage();
     getCoWorker()
     let list = document.getElementById(ul);
     let arrow = document.getElementById(arr);
@@ -88,9 +89,25 @@ function getCoWorker() {
     let dropbox = document.getElementById("contactList");
     dropbox.innerHTML = "";
     let loggedinUser = getUser();
-    for (let index = 0; index < contactArray.length; index++) {
-        let user = testUser(loggedinUser, contactArray[index]);
-        dropbox.innerHTML += getNameTemplate(user, contactArray[index].Initials, index, contactArray[index].Color);
+    for (let index = 0; index < contacts.length; index++) {
+        let user = testUser(loggedinUser, contacts[index]);
+        dropbox.innerHTML += getNameTemplate(user, contacts[index].Initials, index, contacts[index].Color);
+    }
+    applySelectedContactsState();
+}
+
+/**
+ * Ticks the checkboxes of contacts that are already part of the current
+ * selection. Needed because the dropdown is rebuilt from freshly loaded
+ * contact objects on every open, so their checkboxes always start unchecked.
+ *
+ * @returns {void}
+ */
+function applySelectedContactsState() {
+    for (let index = 0; index < contacts.length; index++) {
+        let isSelected = selectedContacts.some(c => c.Name === contacts[index].Name);
+        let checkbox = document.getElementById(`contactCheckbox${index}`);
+        if (checkbox) checkbox.checked = isSelected;
     }
 }
 
@@ -176,12 +193,12 @@ function chooseCategory(value) {
  * @returns {void}
  */
 function toggleContact(index, checked) {
-    const contact = contactArray[index];
+    const contact = contacts[index];
 
     if (checked) {
         selectedContacts.push(contact);
     } else {
-        selectedContacts = selectedContacts.filter(c => c !== contact);
+        selectedContacts = selectedContacts.filter(c => c.Name !== contact.Name);
     }
     renderContacts();
 }
@@ -213,7 +230,7 @@ function renderContacts(initial, color){
     contact.innerHTML = ""
     let user = getUser();
     for (let index = 0; index < selectedContacts.length; index++) {
-        testUser(user);
+        //testUser(user, contacts[index]);
         contact.innerHTML += getContactInitial(selectedContacts[index].Initials, selectedContacts[index].Color);
     }
 }
@@ -391,6 +408,9 @@ function getUser(){
  * @returns {string} the user name and if its your name its get the (you) tag
  */
 function testUser(loggedinUser, user){
+   
+    console.log(user);
+    
     if(JSON.parse(loggedinUser).name == user.Name){
         return user.Name +" (you)"
     }
