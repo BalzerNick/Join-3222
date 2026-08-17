@@ -103,6 +103,28 @@ p {
   }
 }
 
+.login-form-signup {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background-color: #ffffff;
+  padding: 40px 60px;
+  border-radius: 30px;
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
+  width: min(90vw, 410px);
+}
+
+@media (max-width: 750px) {
+  .login-form-signup {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    padding: 40px 30px;
+    width: min(90vw, 350px);
+  }
+}
+
+
 .login-form h1 {
   text-align: center;
   color: #000000;
