@@ -1044,6 +1044,7 @@ body.modal-open {
         overflow-x: auto;
         overflow-y: hidden;
         position: relative;
+        min-height: 200px;
     }
 
     .drag-area::-webkit-scrollbar {
