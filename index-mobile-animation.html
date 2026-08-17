@@ -15,12 +15,14 @@
         }
 
         /* Intro-Overlay: deckt den Login-Inhalt kurz zu und blendet dann weg */
-        .intro-overlay {
-            position: absolute;
-            inset: 0;
-            background-color: var(--color-primary);
-            z-index: 10;
-            animation: introFade 500ms ease 1s forwards;
+         @media (max-width: 550px) {
+            .intro-overlay {
+                position: absolute;
+                inset: 0;
+                background-color: var(--color-primary);
+                z-index: 10;
+                animation: introFade 500ms ease 1s forwards;
+            }
         }
 
         @keyframes introFade {
@@ -73,17 +75,18 @@
             }
         }
 
-        .login-logo {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 200px;
-            transform: translate(-50%, -50%);
-            animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
-                       logoIntroSize 1.5s ease-in-out 0.3s forwards;
-            z-index: 10;
-        }
-
+         @media (max-width: 550px) {
+            .login-logo {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 200px;
+                transform: translate(-50%, -50%);
+                animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
+                        logoIntroSize 1.5s ease-in-out 0.3s forwards;
+                z-index: 10;
+            }
+         }
         /* Crossfade: weisses Logo blendet aus, farbiges Logo blendet ein,
            waehrend beide gleichzeitig die logoIntro-Bewegung mitmachen. */
         @keyframes fadeOutLogo {
@@ -94,18 +97,24 @@
             to { opacity: 1; }
         }
 
-        .login-logo-white {
-            animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
-                       logoIntroSize 1.5s ease-in-out 0.3s forwards,
-                       fadeOutLogo 1.5s ease-in-out 0.3s forwards;
+        @media (max-width: 550px) {
+            .login-logo-white {
+                animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
+                        logoIntroSize 1.5s ease-in-out 0.3s forwards,
+                        fadeOutLogo 1.5s ease-in-out 0.3s forwards;
+            }
         }
 
-        .login-logo-color {
-            opacity: 0;
-            animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
-                       logoIntroSize 1.5s ease-in-out 0.3s forwards,
-                       fadeInLogo 1.5s ease-in-out 0.3s forwards;
+        @media (max-width: 550px) {
+            .login-logo-color {
+                opacity: 0;
+                animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
+                        logoIntroSize 1.5s ease-in-out 0.3s forwards,
+                        fadeInLogo 1.5s ease-in-out 0.3s forwards;
+            }
         }
+
+
     </style>
 </head>
 <body>
