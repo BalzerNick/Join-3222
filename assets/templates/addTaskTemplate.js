@@ -1,3 +1,12 @@
+/**
+ * Builds one row of the contact dropdown, with avatar, name and checkbox.
+ *
+ * @param {string} name - The display name, possibly with a '(you)' suffix.
+ * @param {string} initials - The initials shown in the avatar.
+ * @param {number} index - Position of the contact in contactArray.
+ * @param {string} color - Background colour of the avatar.
+ * @returns {string} The list row as HTML.
+ */
 function getNameTemplate(name, initials, index, color) {
     return `
         <li class="contact-li" onclick="toggleContactRow(${index})">
@@ -13,6 +22,13 @@ function getNameTemplate(name, initials, index, color) {
     `;
 }
 
+/**
+ * Builds a single avatar badge. Used by the Add-Task form and the board.
+ *
+ * @param {string} initial - The initials to show.
+ * @param {string} color - Background colour of the avatar.
+ * @returns {string} The avatar as HTML.
+ */
 function getContactInitial(initial, color) {
     return `
             <span class="avatar avatar-sm" style="background-color: ${color}">
@@ -21,6 +37,13 @@ function getContactInitial(initial, color) {
     `
 }
 
+/**
+ * Builds a subtask row in its normal state, with edit and delete icons.
+ *
+ * @param {string} key - Key of the subtask, e.g. 'sub1'.
+ * @param {string} subtask - The subtask title.
+ * @returns {string} The row as HTML.
+ */
 function getSubtask(key, subtask){
     return `
         <div class="subtask" id="${key}">
@@ -34,6 +57,14 @@ function getSubtask(key, subtask){
     `
 }
 
+/**
+ * Builds a subtask row in edit state, as an input field that also confirms
+ * on the Enter key.
+ *
+ * @param {string} key - Key of the subtask, e.g. 'sub1'.
+ * @param {string} subtask - The current subtask title.
+ * @returns {string} The row as HTML.
+ */
 function getSubtaskEdit(key, subtask){
     return `
         <div class="subtask subtask-editing" id="${key}">
@@ -47,6 +78,12 @@ function getSubtaskEdit(key, subtask){
     `
 }
 
+/**
+ * Builds the complete Add-Task form. Used by the board to fill its Add-Task
+ * dialog with the same markup the standalone page uses.
+ *
+ * @returns {string} The whole form as HTML.
+ */
 function getAddTaskPage() {
     return `
     <main>

@@ -15,8 +15,9 @@
 
 </head>
 
-<body onload="getCurrentTime(); startGreeting(); renderUserInitials(); loadSummaryData()" onclick="closeUserMenu(event); closeAllDropdowns()">
-    <header>Kanban Project Management Tool
+<body onload="getCurrentTime(); startGreeting(); loadSummaryData()" onclick="closeUserMenu(event); closeAllDropdowns()">
+    <header><span class="header-title">Kanban Project Management Tool</span>
+        <img src="assets/imgs/logoMain.png" alt="Join Logo" class="header-logo-mobile">
         <div class="header-right">
             <a href="help.html" class="help-btn" aria-label="Help">?</a>
             <div class="user-menu" id="userMenu">
@@ -36,7 +37,6 @@
         alt="Join Logo"
         class="menu-logo"
       />
-      <div class="menu">
         <div class="menu-icons">
           <a href="summary_guest.html" class="active"
             ><img
@@ -87,7 +87,6 @@
               /><span class="menu-icons-label">Contacts</span></span
           ></a>
         </div>
-      </div>
       <div class="policies">
         <a href="privacyPolicy.html" class="footer-link">Privacy Policy</a>
         <a href="legalNotice.html" class="footer-link">Legal notice</a>

@@ -6,9 +6,13 @@ let sub = false
 let editingSubtaskKey = null;
 
 /**
- * 
- * @param {*} ul 
- * @param {*} arr 
+ * Opens or closes a dropdown and rotates its arrow. Reloads the contacts
+ * first, so the assignment list is always up to date. Any other open dropdown
+ * is closed before this one opens.
+ *
+ * @param {string} ul - Id of the list element to toggle, e.g. 'contactList'.
+ * @param {string} arr - Id of the arrow icon belonging to that list.
+ * @returns {Promise<void>}
  */
 async function toggleDropdown(ul, arr) {
     await getContacts();
@@ -26,7 +30,9 @@ async function toggleDropdown(ul, arr) {
 }
 
 /**
- * 
+ * Closes the contact and category dropdowns and resets the contact arrow.
+ *
+ * @returns {void}
  */
 function closeAllDropdowns() {
     document.getElementById("contactList")?.classList.add("d-none");
@@ -35,7 +41,10 @@ function closeAllDropdowns() {
 }
 
 /**
- * 
+ * Filters the contact dropdown by the text typed into the assignment field,
+ * hiding every entry that does not contain it.
+ *
+ * @returns {void}
  */
 function searchList() {
     let input = document.getElementById("assignedTo");
@@ -53,8 +62,11 @@ function searchList() {
 }
 
 /**
- * 
- * @param {*} contact 
+ * Writes the picked contact into the assignment field and closes the
+ * dropdown.
+ *
+ * @param {string} contact - The name of the picked contact.
+ * @returns {void}
  */
 function selectOption(contact) {
     let input = document.getElementById("assignedTo");
@@ -67,7 +79,10 @@ function selectOption(contact) {
 }
 
 /**
- * 
+ * Rebuilds the contact dropdown from contactArray. The entry of the logged
+ * in user is marked with a '(you)' suffix.
+ *
+ * @returns {void}
  */
 function getCoWorker() {
     let dropbox = document.getElementById("contactList");
@@ -80,7 +95,11 @@ function getCoWorker() {
 }
 
 /**
+ * Submit handler of the Add-Task form. Collects the inputs, saves the task
+ * under the next free id and resets the form.
  *
+ * @param {Event} event - The submit event; its default action is prevented.
+ * @returns {Promise<void>}
  */
 async function submitTaskData(event) {
     event.preventDefault();
@@ -94,8 +113,10 @@ async function submitTaskData(event) {
 }
 
 /**
- * 
- * @returns the finished task made in this function
+ * Collects all form inputs and the current selection state into a task
+ * object. New tasks always start in the 'todo' column.
+ *
+ * @returns {Object} the finished task made in this function
  */
 function getTaskData() {
     const task = {
@@ -112,8 +133,11 @@ function getTaskData() {
 }
 
 /**
+ * Stores the picked priority and highlights the matching button, swapping
+ * its icon for the selected variant.
  *
- * @param {*} priority
+ * @param {string} priority - The priority to select: 'urgent', 'medium' or 'low'.
+ * @returns {void}
  */
 function selectPriority(priority) {
     selectedPriority = priority;
@@ -129,8 +153,11 @@ function selectPriority(priority) {
 }
 
 /**
+ * Writes the category picked from the dropdown into the category field and
+ * closes the dropdown.
  *
- * @param {*} value This is the choosed category from the Dropbox
+ * @param {string} value This is the choosed category from the Dropbox
+ * @returns {void}
  */
 function chooseCategory(value) {
     let input = document.getElementById("category");
@@ -141,9 +168,12 @@ function chooseCategory(value) {
 }
 
 /**
- * 
- * @param {*} index 
- * @param {*} checked 
+ * Adds a contact to the selection or removes it again, then redraws the
+ * avatar row below the field.
+ *
+ * @param {number} index - Position of the contact in contactArray.
+ * @param {boolean} checked - true adds the contact, false removes it.
+ * @returns {void}
  */
 function toggleContact(index, checked) {
     const contact = contactArray[index];
@@ -157,8 +187,11 @@ function toggleContact(index, checked) {
 }
 
 /**
+ * Flips the checkbox of a contact row and applies the new state. Lets the
+ * whole row act as a click target, not just the checkbox itself.
  *
- * @param {*} index
+ * @param {number} index - Position of the contact in contactArray.
+ * @returns {void}
  */
 function toggleContactRow(index) {
     let checkbox = document.getElementById(`contactCheckbox${index}`);
@@ -168,9 +201,12 @@ function toggleContactRow(index) {
 }
 
 /**
+ * Redraws the avatar row of the assigned contacts below the assignment
+ * field.
  *
- * @param {*} initial
- * @param {*} color
+ * @param {string} [initial] - Not used; the initials are taken from selectedContacts instead.
+ * @param {string} [color] - Not used; the colour is taken from selectedContacts instead.
+ * @returns {void}
  */
 function renderContacts(initial, color){
     let contact = document.getElementById(`assignedContacts`)
@@ -183,7 +219,10 @@ function renderContacts(initial, color){
 }
 
 /**
- * 
+ * Clears the whole Add-Task form: inputs, selected contacts, subtasks,
+ * avatars, and the priority back to 'medium'.
+ *
+ * @returns {void}
  */
 function resetTask(){
     document.getElementById("addTaskForm").reset();
@@ -195,7 +234,9 @@ function resetTask(){
 }
 
 /**
- * 
+ * Empties the avatar row below the assignment field.
+ *
+ * @returns {void}
  */
 function resetAssignedContacts(){
     let contact = document.getElementById(`assignedContacts`)
@@ -203,7 +244,10 @@ function resetAssignedContacts(){
 }
 
 /**
- * 
+ * Shows the confirm/cancel buttons next to the subtask input while it holds
+ * text and hides them again once it is empty.
+ *
+ * @returns {void}
  */
 function showButtons(){
     const input = document.getElementById('subtask');
@@ -220,7 +264,10 @@ function showButtons(){
 }
 
 /**
- * 
+ * Redraws the subtask list. The entry named by editingSubtaskKey is rendered
+ * as an input field, all others as plain rows.
+ *
+ * @returns {void}
  */
 function renderSubtask() {
     const subtaskArea = document.getElementById('subtaskArea');
@@ -239,7 +286,10 @@ function renderSubtask() {
 }
 
 /**
- * 
+ * Adds the text of the subtask input as a new subtask and clears the input.
+ * An empty input is ignored.
+ *
+ * @returns {void}
  */
 function safeSubtask(){
     const input = document.getElementById('subtask').value.trim();
@@ -260,7 +310,10 @@ function safeSubtask(){
 }
 
 /**
+ * Removes a subtask and leaves edit mode if that subtask was being edited.
  *
+ * @param {string} key - Key of the subtask, e.g. 'sub1'.
+ * @returns {void}
  */
 function deleteSubtask(key){
     console.log(key);
@@ -275,7 +328,11 @@ function deleteSubtask(key){
 }
 
 /**
+ * Switches a subtask into inline edit mode and places the cursor at the end
+ * of the text.
  *
+ * @param {string} key - Key of the subtask, e.g. 'sub1'.
+ * @returns {void}
  */
 function editSubtask(key){
     editingSubtaskKey = key;
@@ -287,7 +344,11 @@ function editSubtask(key){
 }
 
 /**
+ * Applies the edited text of a subtask and leaves edit mode. An empty input
+ * keeps the previous text.
  *
+ * @param {string} key - Key of the subtask, e.g. 'sub1'.
+ * @returns {void}
  */
 function confirmEditSubtask(key){
     const input = document.getElementById(`editInput-${key}`);
@@ -302,7 +363,9 @@ function confirmEditSubtask(key){
 }
 
 /**
- * 
+ * Empties the subtask input and hides the confirm/cancel buttons.
+ *
+ * @returns {void}
  */
 function clearSubtask(){
     const input = document.getElementById('subtask');
@@ -311,8 +374,9 @@ function clearSubtask(){
 }
 
 /**
- * 
- * @returns the logged in user from localstorage
+ * Reads the raw session entry of the logged in user from localStorage.
+ *
+ * @returns {?string} the logged in user from localstorage, or null if nobody is logged in.
  */
 function getUser(){
     const user = localStorage.getItem("user");
@@ -320,10 +384,11 @@ function getUser(){
 }
 
 /**
- * 
- * @param {*} loggedinUser 
- * @param {*} user 
- * @returns the user name and if its your name its get the (you) tag
+ * Builds the display name of a contact for the dropdown.
+ *
+ * @param {string} loggedinUser - The session entry as returned by getUser.
+ * @param {Object} user - The contact to label, with a Name property.
+ * @returns {string} the user name and if its your name its get the (you) tag
  */
 function testUser(loggedinUser, user){
     if(JSON.parse(loggedinUser).name == user.Name){
