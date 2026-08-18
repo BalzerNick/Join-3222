@@ -88,7 +88,6 @@ function getAddTaskPage() {
     return `
     <main>
         <h1>Add Task</h1>
-
         <form id="addTaskForm" onsubmit="submitTaskData(event)" onreset="resetTask()">
             <div class="input-form">
                 <div class="input-area">
@@ -135,10 +134,10 @@ function getAddTaskPage() {
                         <div class="input-wrapper">
                             <input class="input pointer" id="assignedTo" type="text"
                                 placeholder="Select contact to assign" autocomplete="off" oninput="searchList()"
-                                onclick="toggleDropdown('contactList', 'contactArrow')">
+                                onclick="toggleDropdown(\`contactList\`, \`contactArrow\`)">
 
                             <span class="input-img pointer arrow" id="contactArrow"
-                                onclick="toggleDropdown('contactList', 'contactArrow')">▼</span>
+                                onclick="toggleDropdown(\`contactList\`, \`contactArrow\`)">▼</span>
                         </div>
 
 
@@ -156,20 +155,19 @@ function getAddTaskPage() {
                         <div class="input-wrapper">
                             <input class="input pointer" id="category" type="text" placeholder="Select task category"
                                 autocomplete="off" oninput="searchList()"
-                                onclick="toggleDropdown('categoryList', 'categoryArrow')" required>
+                                onclick="toggleDropdown(\`categoryList\`, \`categoryArrow\`)" required>
 
                             <span class="input-img pointer arrow" id="categoryArrow"
-                                onclick="toggleDropdown('categoryList', 'categoryArrow')">▼</span>
+                                onclick="toggleDropdown(\`categoryList\`, \`categoryArrow\`)">▼</span>
                         </div>
 
                         <ul class="dropdown-list d-none" id="categoryList">
-                            <li class="contact-li" onclick="chooseCategory('Technical Task')">
+                            <li class="contact-li" onclick="chooseCategory(\`Technical Task\`)">
                                 <span class="category-label">
                                     Technical Task
                                 </span>
                             </li>
-
-                            <li class="contact-li" onclick="chooseCategory('User Story')">
+                            <li class="contact-li" onclick="chooseCategory(\`User Story\`)">
                                 <span class="category-label">
                                     User Story
                                 </span>
@@ -197,7 +195,6 @@ function getAddTaskPage() {
                 </div>
             </div>
 
-
             <div class="submit-form">
                 <span class="required-hint"><span class="required">*</span>This field is required</span>
                 <div class="button-area">
@@ -205,7 +202,7 @@ function getAddTaskPage() {
                         <span>Clear</span>
                         <img class="btn-img" src="assets/icons/close.svg" alt="x symbole for close">
                     </button>
-                    <button class="btn btn-primary btn-task" type="submit">
+                    <button type="submit" class="btn btn-primary btn-task">
                         <span>Create Task</span>
                         <img class="btn-img" src="assets/icons/check.svg" alt=" symbole for submit">
                     </button>

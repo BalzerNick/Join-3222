@@ -147,6 +147,17 @@ form {
     max-width: 900px;
 }
 
+/* Inside the board's Add-Task modal the form has no fixed footer bar of
+   its own (that one is sized for the standalone page's sidebar layout);
+   instead the buttons stick to the bottom of the modal's own scroll box. */
+#add-task-modal .submit-form {
+    position: sticky;
+    bottom: 0;
+    margin-top: 24px;
+    padding-top: 16px;
+    background-color: #ffffff;
+}
+
 .dropdown,
 .add-subtask {
     width: 100%;
