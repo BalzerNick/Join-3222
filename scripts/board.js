@@ -645,6 +645,12 @@ function getCategoryBadge(category, isDetail = false) {
     return getCategoryBadgeTemplate(badgeClass, extraClass, category);
 }
 
+/**
+ * Toggles the visibility of the move menu for a task.
+ *
+ * @param {string} taskId - The ID of the task.
+ * 
+ */
 function toggleMoveMenu(taskId) {
     const menu = document.getElementById(`move-menu-${taskId}`);
 
@@ -657,6 +663,12 @@ function toggleMoveMenu(taskId) {
     menu.classList.toggle('active');
 }
 
+/**
+ * Moves a task to a different category when the user selects an option from the move menu.
+ * 
+ * @param {string} taskId - The ID of the task.
+ * @param {string} category - The category to move the task to.
+ */
 async function moveMobileTask(taskId, category) {
     currentDraggedElement = taskId;
 
