@@ -139,13 +139,7 @@ h3 {
     /* margin-right: 200px; */
   }
 }   
-/* 
-@media (max-width: 1750px) {
-  .back-arrow {
-    margin-top: 12px;
-    margin-right: 190px;
-  }
-}   */
+
 
 @media (max-width: 1555px) {
   .back-arrow {
@@ -205,9 +199,6 @@ li {
 .page {
   max-width: 1440px; /* Marcus am 07.08.2026 */
   margin: 0 auto;
- /*  max-width: 800px;
-  margin: 0; */
-  /* padding: 80px 24px 24px   Marcus 23.07.2026 Padding 100px hinzugefügt*/
   padding: 80px 24px 24px 100px;
   margin-left: 200px;
 }
@@ -326,4 +317,42 @@ h1 {
   margin: 0;
 }
 
+a {
+  all: unset;
+  cursor: pointer;
+}
+.signup-arrow {
+  position: relative;
+  vertical-align: middle;
+  margin-right: 12px;
+  height: 21px;
+  width: 22px;
+  cursor: pointer;
+  transform: translateX(-80px);
+  transition: transform 200ms ease;
+}
 
+.signup-arrow:hover {
+  transform: translateX(-80px) scale(1.2);
+} 
+
+@media (max-width: 550px) {
+  .signup-arrow {
+    transform: translateX(-30px);
+  }
+}
+
+/* 
+.signup-arrow {
+  position: absolute;
+  vertical-align: middle;
+  margin-right: 12px;
+  height: 21px;
+  width: 22px;
+  cursor: pointer;
+  margin-right: 150px;
+}
+
+.signup-arrow:hover {
+  transform: scale(1.2);
+} */
