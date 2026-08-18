@@ -7,7 +7,24 @@
 function getTaskTemplate(data) {
     return `
         <div draggable="true" ondragstart="startDragging('${data.id}')" onclick="openTaskDetail('${data.id}')" class="todo">
-            ${getTaskCardTopTemplate(data.category)}
+            ${getTaskCardTopTemplate(data.category, data.id)}
+
+                <div id="move-menu-${data.id}" class="move-menu" onclick="event.stopPropagation()">
+                    <span>Move to</span>
+                    <button onclick="moveMobileTask('${data.id}', 'todo')">
+                        To-do
+                    </button>
+                    <button onclick="moveMobileTask('${data.id}', 'in-progress')">
+                        In progress
+                    </button>
+                    <button onclick="moveMobileTask('${data.id}', 'await-feedback')">
+                        Await feedback
+                    </button>
+                    <button onclick="moveMobileTask('${data.id}', 'done')">
+                        Done
+                    </button>
+                </div>
+
             <h3 class="task-title">${data.title}</h3>
             ${data.description}
             ${data.subtaskHTML}
@@ -65,10 +82,14 @@ function getTaskEditTemplate(data) {
  * @param {string} category - The category badge as HTML.
  * @returns {string} The top line as HTML.
  */
-function getTaskCardTopTemplate(category) {
+function getTaskCardTopTemplate(category, taskId) {
     return `
         <div class="task-topline">
             <div class="task-topline-left">${category}</div>
+            <button class="move-task-btn"
+            onclick="event.stopPropagation(); toggleMoveMenu('${taskId}')">
+                <img src="assets/imgs/swap_horiz.svg" alt="Move task">
+            </button>
         </div>`;
 }
 

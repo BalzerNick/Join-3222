@@ -644,3 +644,21 @@ function getCategoryBadge(category, isDetail = false) {
     const extraClass = category === 'User Story' ? 'cat-user-story' : (category === 'Technical Task' ? 'cat-technical-task' : '');
     return getCategoryBadgeTemplate(badgeClass, extraClass, category);
 }
+
+function toggleMoveMenu(taskId) {
+    const menu = document.getElementById(`move-menu-${taskId}`);
+
+    document.querySelectorAll('.move-menu').forEach(otherMenu => {
+        if (otherMenu !== menu) {
+            otherMenu.classList.remove('active');
+        }
+    });
+
+    menu.classList.toggle('active');
+}
+
+async function moveMobileTask(taskId, category) {
+    currentDraggedElement = taskId;
+
+    await moveTo(category);
+}
