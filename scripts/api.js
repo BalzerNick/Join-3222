@@ -8,8 +8,9 @@ let contactArray = [];
  */
 async function getContacts() {
     let response = await fetch(BASE_URL + "contacts.json");
-    let toJson = await response.json();
-    await getContactElement(toJson);
+    contactArray = [];
+    contactArray = await response.json();
+    setContactStorage(contactArray);
 }
 
 /**
@@ -22,14 +23,61 @@ async function getContacts() {
 async function getContactElement(result) {
     let contacts = Object.values(result);
     contactArray = [];
+    console.log(result);
+    
     for (const element of contacts) {
         let contact = {
+            Id: element.id,
             Name: element.name,
             Initials: element.initials,
-            Color: getAvatarColor(element.name)
+            Color: getAvatarColor(element.name),
+            Email: element.email,
+            Phone: element.phone
         }
         contactArray.push(contact);
     }
+    setContactStorage(contactArray);
+}
+
+/**
+ * Saves a new contact in the database. POST makes Firebase generate the id.
+ *
+ * @param {Object} contact - The contact record that is stored.
+ * @returns {Promise<void>}
+ */
+async function saveContact(contact) {
+  await fetch(BASE_URL + "contacts.json", {
+    method: "POST",
+    body: JSON.stringify(contact)
+  });
+  await getContacts();
+}
+
+/**
+ * Overwrites an existing contact in the database via PUT.
+ *
+ * @param {string} id - The database key of the contact that is overwritten.
+ * @param {Object} contact - The new contact data that replaces the stored record.
+ * @returns {Promise<void>}
+ */
+async function saveEditedContact(id, contact) {
+  await fetch(BASE_URL + "contacts/" + id + ".json", {
+    method: "PUT",
+    body: JSON.stringify(contact)
+  });
+  await getContacts();
+}
+
+/**
+ * Deletes a contact from the database, empties the detail view and refreshes
+ * the list.
+ *
+ * @param {string} id - The database key of the contact that is deleted.
+ * @returns {Promise<void>}
+ */
+async function deleteContacts(id) {
+  await fetch(BASE_URL + "contacts/" + id + ".json", { method: "DELETE" });
+  await getContacts();
 }
 
 /**

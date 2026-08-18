@@ -16,7 +16,8 @@ window.onload = initPage;
  * @returns {Promise<void>}
  */
 async function initPage() {
-    await loadContacts();
+    //await loadContacts();
+    allContacts = getContactStorage();
     if (typeof getContacts === 'function') await getContacts();
     await loadTasks();
 }
@@ -107,23 +108,6 @@ function normalizeTask(task) {
     if (status === 'inProgress') status = 'in-progress';
     if (status === 'awaitFeedback') status = 'await-feedback';
     return { ...task, status };
-}
-
-/**
- * Loads all contacts into the module cache. Errors are logged and leave the
- * cache empty rather than breaking the board.
- *
- * @returns {Promise<void>}
- */
-async function loadContacts() {
-    try {
-        const response = await fetch(BASE_URL + 'contacts.json');
-        allContacts = response.ok ? await response.json() : {};
-        if (!response.ok) console.error('Failed to load Firebase contacts', response.status, response.statusText);
-    } catch (error) {
-        console.error('Firebase contacts load failed', error);
-        allContacts = {};
-    }
 }
 
 /**

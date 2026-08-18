@@ -8,7 +8,7 @@ let allContacts = {};
  * @returns {Promise<void>}
  */
 async function renderContacts() {
-  allContacts = await loadContacts() || {};
+  allContacts = getContactStorage() || {};
   let card = await loadTemplate();
   let letter = await loadLetterTemplate();
   showContacts(allContacts, card, letter);
@@ -21,6 +21,7 @@ async function renderContacts() {
  */
 async function loadContacts() {
   let response = await fetch(BASE_URL + "contacts.json");
+
   return await response.json();
 }
 
@@ -182,7 +183,7 @@ function fillDetailTemplate(template, id, contact) {
   return template
     .replaceAll("{{id}}", id)
     .replaceAll("{{color}}", getAvatarColor(contact.name))
-    .replaceAll("{{initials}}", getInitials(contact.name))
+    .replaceAll("{{initials}}", contact.initials)
     .replaceAll("{{name}}", contact.name)
     .replaceAll("{{email}}", contact.email)
     .replaceAll("{{phone}}", contact.phone || "");
@@ -248,18 +249,7 @@ function getNewContact() {
   };
 }
 
-/**
- * Saves a new contact in the database. POST makes Firebase generate the id.
- *
- * @param {Object} contact - The contact record that is stored.
- * @returns {Promise<void>}
- */
-async function saveContact(contact) {
-  await fetch(BASE_URL + "contacts.json", {
-    method: "POST",
-    body: JSON.stringify(contact)
-  });
-}
+
 
 /**
  * Handler of the create button in the add popup. Saves the contact and
@@ -314,7 +304,7 @@ function fillEditTemplate(template, id, contact) {
   return template
     .replaceAll("{{id}}", id)
     .replaceAll("{{color}}", getAvatarColor(contact.name))
-    .replaceAll("{{initials}}", getInitials(contact.name))
+    .replaceAll("{{initials}}", contact.initials)
     .replaceAll("{{name}}", contact.name)
     .replaceAll("{{email}}", contact.email)
     .replaceAll("{{phone}}", contact.phone || "");
@@ -333,20 +323,6 @@ function getEditContact() {
     phone: document.getElementById('editContactPhone').value.trim(),
     initials: getInitials(document.getElementById('editContactName').value.trim())
   };
-}
-
-/**
- * Overwrites an existing contact in the database via PUT.
- *
- * @param {string} id - The database key of the contact that is overwritten.
- * @param {Object} contact - The new contact data that replaces the stored record.
- * @returns {Promise<void>}
- */
-async function saveEditedContact(id, contact) {
-  await fetch(BASE_URL + "contacts/" + id + ".json", {
-    method: "PUT",
-    body: JSON.stringify(contact)
-  });
 }
 
 /**
@@ -377,7 +353,7 @@ async function updateContact(id) {
  * @returns {Promise<void>}
  */
 async function deleteContact(id) {
-  await fetch(BASE_URL + "contacts/" + id + ".json", { method: "DELETE" });
+  await deleteContacts(id);
   closeAddContact();
   document.getElementById('contactDetail').innerHTML = "";
   closeContactDetail();

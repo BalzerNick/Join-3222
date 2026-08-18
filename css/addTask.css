@@ -3,7 +3,7 @@ body {
 }
 
 main {
-    padding: 110px 117px;
+    padding: 110px 117px 190px;
     color: var(--color-primary);
     margin-left: 232px;
     margin-top: 0;
@@ -18,6 +18,20 @@ main h1 {
 
 form {
     max-width: 900px;
+}
+
+/* Fixed action bar: same left offset and horizontal padding as main,
+   so its content lines up with the form above regardless of scroll
+   position or how much the form above it grows. */
+#addTaskFooter {
+    position: fixed;
+    left: 232px;
+    right: 0;
+    bottom: 0;
+    padding: 24px 117px;
+    box-sizing: border-box;
+    background-color: var(--color-bg);
+    z-index: 10;
 }
 
 .required {
@@ -130,7 +144,18 @@ form {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 40px;
+    max-width: 900px;
+}
+
+/* Inside the board's Add-Task modal the form has no fixed footer bar of
+   its own (that one is sized for the standalone page's sidebar layout);
+   instead the buttons stick to the bottom of the modal's own scroll box. */
+#add-task-modal .submit-form {
+    position: sticky;
+    bottom: 0;
+    margin-top: 24px;
+    padding-top: 16px;
+    background-color: #ffffff;
 }
 
 .dropdown,
@@ -290,14 +315,11 @@ input {
     width: 280px
 }
 
-.button-area .btn {
-    font-size: var(--fs-md);
-}
-
 .btn-task{
     display: flex;
     flex-direction: row;
     align-items: center;
+    font-size: 16px;
 }
 
 .btn-img,
@@ -416,7 +438,11 @@ input {
 /* Tablet: rechte Formhaelfte wandert unter die linke */
 @media (max-width: 1024px) {
     main {
-        padding: 48px 32px;
+        padding: 48px 32px 190px;
+    }
+
+    #addTaskFooter {
+        padding: 24px 32px;
     }
 
     form {
@@ -439,6 +465,17 @@ input {
     .add-subtask {
         width: 100%;
     }
+
+    .submit-form {
+        max-width: 400px;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 12px;
+    }
+
+    .required-hint {
+        align-self: flex-start;
+    }
 }
 
 /* Mobile: Sidebar ist jetzt unten (navbar.css), Content braucht
@@ -446,14 +483,28 @@ input {
 @media (max-width: 768px) {
     main {
         margin-left: 0;
-        padding: 32px 24px 104px;
+        padding: 32px 24px 220px;
+        overflow: hidden;
+        overflow-y: auto;
+    }
+
+    #addTaskFooter {
+        left: 0;
+        bottom: 80px;
+        padding: 16px 24px;
     }
 }
 
 /* Kleine Screens: letzter Feinschliff fuer Ueberschrift/Buttons */
 @media (max-width: 480px) {
     main {
-        padding: 24px 16px 104px;
+        padding: 24px 16px 220px;
+        overflow: hidden;
+        overflow-y: auto;
+    }
+
+    #addTaskFooter {
+        padding: 16px 16px;
     }
 
     h1 {

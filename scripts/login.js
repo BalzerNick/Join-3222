@@ -79,6 +79,7 @@ async function login() {
   let foundUser = findUser(users, data);
   if (foundUser) {
     localStorage.setItem("user", JSON.stringify({ name: foundUser.name }));
+    await getContacts();
     window.location.href = "summary_guest.html";
   } else {
     showLoginError("User nicht bekannt");
@@ -91,8 +92,9 @@ async function login() {
  *
  * @returns {void}
  */
-function guestLogin() {
+async function guestLogin() {
   localStorage.setItem("user", JSON.stringify({ guest: true }));
+  await getContacts();
   window.location.href = "summary_guest.html";
 }
 
