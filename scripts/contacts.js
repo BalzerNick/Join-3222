@@ -8,9 +8,6 @@ let allContacts = {};
  * @returns {Promise<void>}
  */
 async function renderContacts() {
-  let test = await loadContacts();
-  console.log(test.contact1.id);
-  
   allContacts = getContactStorage() || {};
   let card = await loadTemplate();
   let letter = await loadLetterTemplate();
@@ -57,7 +54,7 @@ async function loadLetterTemplate() {
  */
 function sortContacts(contacts) {
   let list = Object.keys(contacts).map(id => ({ id, ...contacts[id] }));
-  list.sort((a, b) => a.Name.localeCompare(b.Name));
+  list.sort((a, b) => a.name.localeCompare(b.name));
   return list;
 }
 
@@ -74,7 +71,7 @@ function buildContactsHtml(sorted, card, letterTpl) {
   let html = "";
   let currentLetter = "";
   for (let contact of sorted) {
-    let letter = contact.Name[0].toUpperCase();
+    let letter = contact.name[0].toUpperCase();
     if (letter !== currentLetter) {
       currentLetter = letter;
       html += letterTpl.replaceAll("{{letter}}", letter);
@@ -107,11 +104,11 @@ function showContacts(contacts, card, letterTpl) {
  */
 function fillTemplate(template, contact) {
   return template
-    .replaceAll("{{id}}", contact.Id)
-    .replaceAll("{{color}}", contact.Color)
-    .replaceAll("{{initials}}", contact.Initials)
-    .replaceAll("{{name}}", contact.Name)
-    .replaceAll("{{email}}", contact.Email);
+    .replaceAll("{{id}}", contact.id)
+    .replaceAll("{{color}}", getAvatarColor(contact.name))
+    .replaceAll("{{initials}}", contact.initials)
+    .replaceAll("{{name}}", contact.name)
+    .replaceAll("{{email}}", contact.email);
 }
 
 /**
@@ -185,11 +182,11 @@ async function loadDetailTemplate() {
 function fillDetailTemplate(template, id, contact) {
   return template
     .replaceAll("{{id}}", id)
-    .replaceAll("{{color}}", contact.Color)
-    .replaceAll("{{initials}}", contact.Initials)
-    .replaceAll("{{name}}", contact.Name)
-    .replaceAll("{{email}}", contact.Email)
-    .replaceAll("{{phone}}", contact.Phone || "");
+    .replaceAll("{{color}}", getAvatarColor(contact.name))
+    .replaceAll("{{initials}}", contact.initials)
+    .replaceAll("{{name}}", contact.name)
+    .replaceAll("{{email}}", contact.email)
+    .replaceAll("{{phone}}", contact.phone || "");
 }
 
 /**
@@ -306,11 +303,11 @@ async function loadEditTemplate() {
 function fillEditTemplate(template, id, contact) {
   return template
     .replaceAll("{{id}}", id)
-    .replaceAll("{{color}}", contact.Color)
-    .replaceAll("{{initials}}", contact.Initials)
-    .replaceAll("{{name}}", contact.Name)
-    .replaceAll("{{email}}", contact.Email)
-    .replaceAll("{{phone}}", contact.Phone || "");
+    .replaceAll("{{color}}", getAvatarColor(contact.name))
+    .replaceAll("{{initials}}", contact.initials)
+    .replaceAll("{{name}}", contact.name)
+    .replaceAll("{{email}}", contact.email)
+    .replaceAll("{{phone}}", contact.phone || "");
 }
 
 /**
@@ -326,20 +323,6 @@ function getEditContact() {
     phone: document.getElementById('editContactPhone').value.trim(),
     initials: getInitials(document.getElementById('editContactName').value.trim())
   };
-}
-
-/**
- * Overwrites an existing contact in the database via PUT.
- *
- * @param {string} id - The database key of the contact that is overwritten.
- * @param {Object} contact - The new contact data that replaces the stored record.
- * @returns {Promise<void>}
- */
-async function saveEditedContact(id, contact) {
-  await fetch(BASE_URL + "contacts/" + id + ".json", {
-    method: "PUT",
-    body: JSON.stringify(contact)
-  });
 }
 
 /**

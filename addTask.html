@@ -150,29 +150,23 @@
 
                 </div>
             </div>
-
-
-            <!-- Buttons müssen weiter weg von oberer Form, evtl in Footer. -->
-            <div class="submit-form">
-                <span class="required-hint"><span class="required">*</span>This field is required</span>
-                <div class="button-area">
-                    <!-- Bilder einfügen mit x und Hacken -->
-                    <button type="reset" class="btn btn-secondary btn-task">
-                        <span>Clear</span>
-                        <img class="btn-img" src="assets/icons/close.svg" alt="x symbole for close">
-                    </button>
-                    <button class="btn btn-primary btn-task" type="submit">
-                        <span>Create Task</span>
-                        <img class="btn-img" src="assets/icons/check.svg" alt=" symbole for submit">
-                    </button>
-                </div>
-            </div>
-
         </form>
     </main>
 
-    <footer>
-
+    <footer id="addTaskFooter">
+        <div class="submit-form">
+            <span class="required-hint"><span class="required">*</span>This field is required</span>
+            <div class="button-area">
+                <button type="reset" form="addTaskForm" class="btn btn-secondary btn-task">
+                    <span>Clear</span>
+                    <img class="btn-img" src="assets/icons/close.svg" alt="x symbole for close">
+                </button>
+                <button type="submit" form="addTaskForm" class="btn btn-primary btn-task">
+                    <span>Create Task</span>
+                    <img class="btn-img" src="assets/icons/check.svg" alt=" symbole for submit">
+                </button>
+            </div>
+        </div>
     </footer>
 
 

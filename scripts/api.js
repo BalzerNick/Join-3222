@@ -8,10 +8,9 @@ let contactArray = [];
  */
 async function getContacts() {
     let response = await fetch(BASE_URL + "contacts.json");
-    let toJson = await response.json();
-    console.log(toJson[0]);
-    
-    await getContactElement(toJson);
+    contactArray = [];
+    contactArray = await response.json();
+    setContactStorage(contactArray);
 }
 
 /**

@@ -16,7 +16,9 @@ let editingSubtaskKey = null;
  * @returns {Promise<void>}
  */
 async function toggleDropdown(ul, arr) {
-    contacts = getContactStorage();
+    let storedContacts = getContactStorage() || {};
+    contacts = Object.keys(storedContacts).map(id => ({ id, ...storedContacts[id] }));
+
     getCoWorker()
     let list = document.getElementById(ul);
     let arrow = document.getElementById(arr);
@@ -91,7 +93,7 @@ function getCoWorker() {
     let loggedinUser = getUser();
     for (let index = 0; index < contacts.length; index++) {
         let user = testUser(loggedinUser, contacts[index]);
-        dropbox.innerHTML += getNameTemplate(user, contacts[index].Initials, index, contacts[index].Color);
+        dropbox.innerHTML += getNameTemplate(user, contacts[index].initials, index, getAvatarColor(contacts[index].name) );
     }
     applySelectedContactsState();
 }
@@ -105,7 +107,7 @@ function getCoWorker() {
  */
 function applySelectedContactsState() {
     for (let index = 0; index < contacts.length; index++) {
-        let isSelected = selectedContacts.some(c => c.Name === contacts[index].Name);
+        let isSelected = selectedContacts.some(c => c.name === contacts[index].name);
         let checkbox = document.getElementById(`contactCheckbox${index}`);
         if (checkbox) checkbox.checked = isSelected;
     }
@@ -198,7 +200,7 @@ function toggleContact(index, checked) {
     if (checked) {
         selectedContacts.push(contact);
     } else {
-        selectedContacts = selectedContacts.filter(c => c.Name !== contact.Name);
+        selectedContacts = selectedContacts.filter(c => c.name !== contact.name);
     }
     renderContacts();
 }
@@ -231,7 +233,7 @@ function renderContacts(initial, color){
     let user = getUser();
     for (let index = 0; index < selectedContacts.length; index++) {
         //testUser(user, contacts[index]);
-        contact.innerHTML += getContactInitial(selectedContacts[index].Initials, selectedContacts[index].Color);
+        contact.innerHTML += getContactInitial(selectedContacts[index].initials, getAvatarColor(selectedContacts[index].name));
     }
 }
 
@@ -411,11 +413,11 @@ function testUser(loggedinUser, user){
    
     console.log(user);
     
-    if(JSON.parse(loggedinUser).name == user.Name){
-        return user.Name +" (you)"
+    if(JSON.parse(loggedinUser).name == user.name){
+        return user.name +" (you)"
     }
     else{
-        return user.Name
+        return user.name
     }
 }
 
