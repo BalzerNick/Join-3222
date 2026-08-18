@@ -8,7 +8,10 @@ let allContacts = {};
  * @returns {Promise<void>}
  */
 async function renderContacts() {
-  allContacts = await loadContacts() || {};
+  let test = await loadContacts();
+  console.log(test.contact1.id);
+  
+  allContacts = getContactStorage() || {};
   let card = await loadTemplate();
   let letter = await loadLetterTemplate();
   showContacts(allContacts, card, letter);
@@ -21,6 +24,7 @@ async function renderContacts() {
  */
 async function loadContacts() {
   let response = await fetch(BASE_URL + "contacts.json");
+
   return await response.json();
 }
 
@@ -53,7 +57,7 @@ async function loadLetterTemplate() {
  */
 function sortContacts(contacts) {
   let list = Object.keys(contacts).map(id => ({ id, ...contacts[id] }));
-  list.sort((a, b) => a.name.localeCompare(b.name));
+  list.sort((a, b) => a.Name.localeCompare(b.Name));
   return list;
 }
 
@@ -70,7 +74,7 @@ function buildContactsHtml(sorted, card, letterTpl) {
   let html = "";
   let currentLetter = "";
   for (let contact of sorted) {
-    let letter = contact.name[0].toUpperCase();
+    let letter = contact.Name[0].toUpperCase();
     if (letter !== currentLetter) {
       currentLetter = letter;
       html += letterTpl.replaceAll("{{letter}}", letter);
@@ -103,11 +107,11 @@ function showContacts(contacts, card, letterTpl) {
  */
 function fillTemplate(template, contact) {
   return template
-    .replaceAll("{{id}}", contact.id)
-    .replaceAll("{{color}}", getAvatarColor(contact.name))
-    .replaceAll("{{initials}}", contact.initials)
-    .replaceAll("{{name}}", contact.name)
-    .replaceAll("{{email}}", contact.email);
+    .replaceAll("{{id}}", contact.Id)
+    .replaceAll("{{color}}", contact.Color)
+    .replaceAll("{{initials}}", contact.Initials)
+    .replaceAll("{{name}}", contact.Name)
+    .replaceAll("{{email}}", contact.Email);
 }
 
 /**
@@ -181,11 +185,11 @@ async function loadDetailTemplate() {
 function fillDetailTemplate(template, id, contact) {
   return template
     .replaceAll("{{id}}", id)
-    .replaceAll("{{color}}", getAvatarColor(contact.name))
-    .replaceAll("{{initials}}", getInitials(contact.name))
-    .replaceAll("{{name}}", contact.name)
-    .replaceAll("{{email}}", contact.email)
-    .replaceAll("{{phone}}", contact.phone || "");
+    .replaceAll("{{color}}", contact.Color)
+    .replaceAll("{{initials}}", contact.Initials)
+    .replaceAll("{{name}}", contact.Name)
+    .replaceAll("{{email}}", contact.Email)
+    .replaceAll("{{phone}}", contact.Phone || "");
 }
 
 /**
@@ -248,18 +252,7 @@ function getNewContact() {
   };
 }
 
-/**
- * Saves a new contact in the database. POST makes Firebase generate the id.
- *
- * @param {Object} contact - The contact record that is stored.
- * @returns {Promise<void>}
- */
-async function saveContact(contact) {
-  await fetch(BASE_URL + "contacts.json", {
-    method: "POST",
-    body: JSON.stringify(contact)
-  });
-}
+
 
 /**
  * Handler of the create button in the add popup. Saves the contact and
@@ -313,11 +306,11 @@ async function loadEditTemplate() {
 function fillEditTemplate(template, id, contact) {
   return template
     .replaceAll("{{id}}", id)
-    .replaceAll("{{color}}", getAvatarColor(contact.name))
-    .replaceAll("{{initials}}", getInitials(contact.name))
-    .replaceAll("{{name}}", contact.name)
-    .replaceAll("{{email}}", contact.email)
-    .replaceAll("{{phone}}", contact.phone || "");
+    .replaceAll("{{color}}", contact.Color)
+    .replaceAll("{{initials}}", contact.Initials)
+    .replaceAll("{{name}}", contact.Name)
+    .replaceAll("{{email}}", contact.Email)
+    .replaceAll("{{phone}}", contact.Phone || "");
 }
 
 /**
@@ -377,7 +370,7 @@ async function updateContact(id) {
  * @returns {Promise<void>}
  */
 async function deleteContact(id) {
-  await fetch(BASE_URL + "contacts/" + id + ".json", { method: "DELETE" });
+  await deleteContacts(id);
   closeAddContact();
   document.getElementById('contactDetail').innerHTML = "";
   closeContactDetail();

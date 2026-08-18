@@ -16,7 +16,8 @@ window.onload = initPage;
  * @returns {Promise<void>}
  */
 async function initPage() {
-    await loadContacts();
+    //await loadContacts();
+    allContacts = getContactStorage();
     if (typeof getContacts === 'function') await getContacts();
     await loadTasks();
 }
