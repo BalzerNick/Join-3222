@@ -198,7 +198,8 @@
   background-color: #ffffff;
   border-radius: 30px;
   overflow: hidden;
-  width: min(90vw, 900px);
+  /* rechte Haelfte braucht Platz fuer Inputs bis 422px (siehe .modal-form .input) */
+  width: min(90vw, 1010px);
 }
 
 .modal-close {
@@ -218,7 +219,13 @@
   flex-direction: column;
   justify-content: center;
   gap: 12px;
-  min-width: 340px;
+  /* fest statt min-width, sonst wird die linke Spalte durch den
+     Untertitel breiter als geplant und der rechten Seite fehlt
+     der Platz fuer 422px breite Inputs. border-box, damit die
+     48px-Innenabstaende in den 340px enthalten sind. */
+  width: 340px;
+  box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .modal-logo {
@@ -266,6 +273,8 @@
 .modal-form {
   flex: 1;
   min-width: 0;
+  /* Figma: Inputs max. 422px breit, danach nicht weiter wachsen */
+  max-width: 422px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -273,6 +282,9 @@
 
 /* Eingabefelder im Popup tragen ihr Symbol rechts als Hintergrundbild */
 .modal-form .input {
+  /* Figma: 422 x 50px max, schrumpft mit dem Formular auf kleineren Screens */
+  max-width: 422px;
+  height: 50px;
   padding-right: 48px;
   background-repeat: no-repeat;
   background-position: right 16px center;
@@ -413,6 +425,7 @@
   }
 
   .contact-modal-left {
+    width: 100%;
     min-width: 0;
     padding: 32px 24px 40px;
     gap: 8px;
