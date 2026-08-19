@@ -1,123 +1,74 @@
 <!doctype html>
 <html lang="de">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join_Contacts</title>
-    <link rel="icon" type="image/svg+xml" href="assets/icons/Favicon.svg" />
 
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/navbar.css" />
-    <link rel="stylesheet" href="css/buttons.css" />
-    <link rel="stylesheet" href="css/contacts.css" />
-    <link rel="stylesheet" href="css/card.css" />
-    <!-- <link rel="stylesheet" href="css/card-css.css"> -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join_Contacts</title>
+  <link rel="icon" type="image/svg+xml" href="assets/icons/Favicon.svg" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/buttons.css" />
+  <link rel="stylesheet" href="css/contacts.css" />
+  <link rel="stylesheet" href="css/card.css" />
+  <!-- <link rel="stylesheet" href="css/card-css.css"> -->
 
 </head>
 
 <body onload="getCurrentTime(); startGreeting(); loadSummaryData()" onclick="closeUserMenu(event)">
-    <header><span class="header-title">Kanban Project Management Tool</span>
-        <img src="assets/imgs/logoMain.png" alt="Join Logo" class="header-logo-mobile">
-        <div class="header-right">
-            <a href="help.html" class="help-btn" aria-label="Help">?</a>
-            <div class="user-menu" id="userMenu">
-                <span class="user-initials" id="userInitials" onclick="toggleUserMenu()"></span>
-                <div class="user-dropdown">
-                    <a href="legalNotice.html">Legal Notice</a>
-                    <a href="privacyPolicy.html">Privacy Policy</a>
-                    <a onclick="logout()">Log out</a>
-                </div>
-            </div>
+  <header><span class="header-title">Kanban Project Management Tool</span>
+    <img src="assets/imgs/logoMain.png" alt="Join Logo" class="header-logo-mobile">
+    <div class="header-right">
+      <a href="help.html" class="help-btn" aria-label="Help">?</a>
+      <div class="user-menu" id="userMenu">
+        <span class="user-initials" id="userInitials" onclick="toggleUserMenu()"></span>
+        <div class="user-dropdown">
+          <a href="legalNotice.html">Legal Notice</a>
+          <a href="privacyPolicy.html">Privacy Policy</a>
+          <a onclick="logout()">Log out</a>
         </div>
-    </header>
-
-    <div class="menu-line">
-      <img
-        src="assets/imgs/logoMainWhite.png"
-        alt="Join Logo"
-        class="menu-logo"
-      />
-        <div class="menu-icons">
-          <a href="summary_guest.html" class="active"
-            ><img
-              src="assets/imgs/summary.png"
-              class="menu-icons-img menu-icons-img-desktop"
-              alt="Summary"
-            /><span class="menu-icons-mobile"
-              ><img
-                src="assets/icons/navbar/summary_img.svg"
-                class="menu-icons-img-mobile"
-                alt=""
-              /><span class="menu-icons-label">Summary</span></span
-          ></a>
-          <a href="addTask.html"
-            ><img
-              src="assets/imgs/addtask.png"
-              class="menu-icons-img menu-icons-img-desktop"
-              alt="Add Task"
-            /><span class="menu-icons-mobile"
-              ><img
-                src="assets/icons/navbar/addTask_img.svg"
-                class="menu-icons-img-mobile"
-                alt=""
-              /><span class="menu-icons-label">Add Task</span></span
-          ></a>
-          <a href="board.html"
-            ><img
-              src="assets/imgs/board.png"
-              class="menu-icons-img menu-icons-img-desktop"
-              alt="Board"
-            /><span class="menu-icons-mobile"
-              ><img
-                src="assets/icons/navbar/board_img.svg"
-                class="menu-icons-img-mobile"
-                alt=""
-              /><span class="menu-icons-label">Board</span></span
-          ></a>
-          <a href="contacts.html"
-            ><img
-              src="assets/imgs/contacts.png"
-              class="menu-icons-img menu-icons-img-desktop"
-              alt="Contacts"
-            /><span class="menu-icons-mobile"
-              ><img
-                src="assets/icons/navbar/contacts_img.svg"
-                class="menu-icons-img-mobile"
-                alt=""
-              /><span class="menu-icons-label">Contacts</span></span
-          ></a>
-        </div>
-      <div class="policies">
-        <a href="privacyPolicy.html" class="footer-link">Privacy Policy</a>
-        <a href="legalNotice.html" class="footer-link">Legal notice</a>
       </div>
     </div>
+  </header>
 
-    <main class="page-summary">
-      <div class="help-heading-blue-line">
-        <h1>Join 360</h1>
-        <img
-          src="assets/imgs/blue-line.png"
-          alt="Line Icon"
-          class="blue-line"
-        />
-        <span class="key">Key Metrics at a Glance</span>
-      </div>
-      <!-- <br><br> -->
+  <div class="menu-line">
+    <img src="assets/imgs/logoMainWhite.png" alt="Join Logo" class="menu-logo" />
+    <div class="menu-icons">
+      <a href="summary_guest.html" class="active"><img src="assets/imgs/summary.png"
+          class="menu-icons-img menu-icons-img-desktop" alt="Summary" /><span class="menu-icons-mobile"><img
+            src="assets/icons/navbar/summary_img.svg" class="menu-icons-img-mobile" alt="" /><span
+            class="menu-icons-label">Summary</span></span></a>
+      <a href="addTask.html"><img src="assets/imgs/addtask.png" class="menu-icons-img menu-icons-img-desktop"
+          alt="Add Task" /><span class="menu-icons-mobile"><img src="assets/icons/navbar/addTask_img.svg"
+            class="menu-icons-img-mobile" alt="" /><span class="menu-icons-label">Add Task</span></span></a>
+      <a href="board.html"><img src="assets/imgs/board.png" class="menu-icons-img menu-icons-img-desktop"
+          alt="Board" /><span class="menu-icons-mobile"><img src="assets/icons/navbar/board_img.svg"
+            class="menu-icons-img-mobile" alt="" /><span class="menu-icons-label">Board</span></span></a>
+      <a href="contacts.html"><img src="assets/imgs/contacts.png" class="menu-icons-img menu-icons-img-desktop"
+          alt="Contacts" /><span class="menu-icons-mobile"><img src="assets/icons/navbar/contacts_img.svg"
+            class="menu-icons-img-mobile" alt="" /><span class="menu-icons-label">Contacts</span></span></a>
+    </div>
+    <div class="policies">
+      <a href="privacyPolicy.html" class="footer-link">Privacy Policy</a>
+      <a href="legalNotice.html" class="footer-link">Legal notice</a>
+    </div>
+  </div>
+
+  <main class="page-summary">
+    <div class="help-heading-blue-line">
+      <h1>Join 360</h1>
+      <img src="assets/imgs/blue-line.png" alt="Line Icon" class="blue-line" />
+      <span class="key">Key Metrics at a Glance</span>
+    </div>
+    <!-- <br><br> -->
+    <div class="summary-container">
       <div class="summary-1Line">
         <a href="board.html" class="stat-card">
           <div class="stat-number-row">
             <span class="icon-wrap">
-              <img
-                src="assets/icons/in_backlog_edit_dark.png"
-                alt="To-do Icon"
-                class="pencil-icon icon-default"
-              />
-              <img
-                src="assets/icons/in_backlog_edit_white.png"
-                alt="To-do Icon"
-                class="pencil-icon icon-hover"
-              />
+              <img src="assets/icons/in_backlog_edit_dark.png" alt="To-do Icon" class="pencil-icon icon-default" />
+              <img src="assets/icons/in_backlog_edit_white.png" alt="To-do Icon" class="pencil-icon icon-hover" />
             </span>
             <span class="stat-number" id="todoCount">0</span>
           </div>
@@ -127,16 +78,8 @@
         <a href="board.html" class="stat-card">
           <div class="stat-number-row">
             <span class="icon-wrap">
-              <img
-                src="assets/icons/in_backlog_check_dark.png"
-                alt="Done Icon"
-                class="pencil-icon icon-default"
-              />
-              <img
-                src="assets/icons/in_backlog_check_white.png"
-                alt="Done Icon"
-                class="pencil-icon icon-hover"
-              />
+              <img src="assets/icons/in_backlog_check_dark.png" alt="Done Icon" class="pencil-icon icon-default" />
+              <img src="assets/icons/in_backlog_check_white.png" alt="Done Icon" class="pencil-icon icon-hover" />
             </span>
             <span class="stat-number" id="doneCount">0</span>
           </div>
@@ -144,26 +87,28 @@
         </a>
       </div>
 
-        <div class="second-line">
-            <a href="board.html" class="stat-card-wide">
-                    <img src="assets/icons/urgent_arrow.png" alt="To-do Icon" class="red-arrow-circle-icon">
-                    <div class="stat-number-col">
-                        <span class="stat-number" id="urgentCount">0</span>
-                        <span class="stat-label">Urgent</span>
-                    </div>
-                    <img src="assets/imgs/white-line.png" alt="Line" class="white-line">
-                    <div class="date-col">
-                        <span><b class="date-txt" id="uprisingdate">01.01.1999</b></span>
-                        <span class="date-condition">Uprising Date</span>
-                    </div>
-            </a>
-            <div class="greeting-block">
-                <p class="greetings" id="greetingtag"></p>
-                <b><p class="user" id="loginuser"></p></b>
-            </div>
+      <div class="second-line">
+        <a href="board.html" class="stat-card-wide">
+          <img src="assets/icons/urgent_arrow.png" alt="To-do Icon" class="red-arrow-circle-icon">
+          <div class="stat-number-col">
+            <span class="stat-number" id="urgentCount">0</span>
+            <span class="stat-label">Urgent</span>
+          </div>
+          <img src="assets/imgs/white-line.png" alt="Line" class="white-line">
+          <div class="date-col">
+            <span><b class="date-txt" id="uprisingdate">01.01.1999</b></span>
+            <span class="date-condition">Uprising Date</span>
+          </div>
+        </a>
+        <div class="greeting-block">
+          <p class="greetings" id="greetingtag"></p>
+          <b>
+            <p class="user" id="loginuser"></p>
+          </b>
         </div>
+      </div>
 
-   
+
 
       <div class="summary-1Line">
         <a href="board.html" class="stat-card-small">
@@ -181,12 +126,14 @@
           <p class="third-line-txt">Awaiting Feedback</p>
         </a>
       </div>
-    </main>
-    <footer></footer>
+    </div>
+  </main>
+  <footer></footer>
 
-    <div id="toast" class="toast"></div>
-    <script src="firebase-config.js"></script>
-    <script src="script.js"></script>
-    <script src="./scripts/summary.js"></script>
+  <div id="toast" class="toast"></div>
+  <script src="firebase-config.js"></script>
+  <script src="script.js"></script>
+  <script src="./scripts/summary.js"></script>
 </body>
+
 </html>
