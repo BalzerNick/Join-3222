@@ -144,26 +144,6 @@ p {
 }
 
 
-.signup-form {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  background-color: #ffffff;
-  padding: 40px 60px;
-  border-radius: 30px;
-  box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
-  width: min(90vw, 410px);
-}
-
-.signup-form h1::after {
-  content: "";
-  display: block;
-  width: 150px;
-  height: 3px;
-  margin: 8px auto 0;
-  background-color: var(--color-accent);
-}
-
 
 
 .login-buttons {
@@ -221,6 +201,11 @@ p {
   font-size: var(--fs-sm);
 }
 
+/* Link in der Checkbox-Zeile in Akzentblau, wie im Design */
+.privacy-check a {
+  color: var(--color-accent);
+}
+
 .error-message {
   color: var(--color-error);
   font-size: var(--fs-sm);
@@ -228,56 +213,85 @@ p {
   text-align: center;
 }
 
+/* ============================================================
+   Sign-up-Seite - responsiv ohne feste Pixelbreiten.
+   Karte, Schrift und Abstaende skalieren per clamp() mit,
+   die Eingabefelder fuellen immer die volle Kartenbreite.
+   ============================================================ */
 
-
-
-@media (max-width: 550px) {
-  .signup-form {
-    display: flex;
-    /* justify-content: center; */
-    align-items: center;
-    padding: 40px 30px;
-    width: min(90vw, 350px);
-  }
+.signup-form {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: clamp(16px, 4vw, 24px);
+  background-color: #ffffff;
+  padding: clamp(24px, 6vw, 40px) clamp(16px, 7vw, 60px);
+  border-radius: 30px;
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
+  width: min(90vw, 410px);
 }
 
-@media (max-width: 430px) {
-  .signup-form {
-    width: min(90vw, 320px);
-  }
+/* Ueberschrift mit Zurueck-Pfeil: Titel bleibt mittig, Pfeil klebt links */
+.signup-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
 }
 
-@media (max-width: 400px) {
-  .signup-form {
-    width: min(90vw, 290px);
-  }
-}
-
-@media (max-width: 350px) {
-  .signup-form {
-    width: min(90vw, 240px);
-  }
+.signup-back {
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: center;
+  /* gleicht die Hoehe der blauen Linie unter der Ueberschrift aus (8px Abstand
+     + 3px Linie), damit der Pfeil auf Hoehe des Textes sitzt */
+  margin-bottom: 11px;
 }
 
 .signup-form h1 {
   text-align: center;
   color: #000000;
+  font-size: clamp(32px, 11vw, var(--fs-xxl));
+  line-height: 1.1;
 }
 
+.signup-form h1::after {
+  content: "";
+  display: block;
+  width: min(150px, 80%);
+  height: 3px;
+  margin: 8px auto 0;
+  background-color: var(--color-accent);
+}
+
+/* Checkbox-Zeile darf auf schmalen Displays umbrechen */
+.signup-form .privacy-check {
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+/* Button-Zeile fuellt die Karte, der Button bleibt darin zentriert */
+.signup-form .login-buttons {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Auf Mobil gleiche Buttonbreite wie auf der Login-Seite */
 @media (max-width: 550px) {
- .signup-form h1 {
-  font-size: 47px;
+  .signup-form .login-buttons .btn {
+    width: min(180px, 100%);
   }
 }
 
-@media (max-width: 430px) {
- .signup-form h1 {
-  font-size: 40px;
-  }
-}
-
-@media (max-width: 400px) {
- .signup-form h1 {
-  font-size: 35px;
+/* Platz fuer das absolut positionierte Logo schaffen, ohne den
+   Footer aus dem Bild zu schieben */
+@media (max-width: 750px) {
+  .login-main-signup {
+    margin-top: 0;
+    padding: 110px 0 24px;
   }
 }

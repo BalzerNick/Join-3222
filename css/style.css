@@ -322,37 +322,13 @@ a {
   cursor: pointer;
 }
 .signup-arrow {
-  position: relative;
-  vertical-align: middle;
-  margin-right: 12px;
+  display: block;
   height: 21px;
   width: 22px;
   cursor: pointer;
-  transform: translateX(-80px);
   transition: transform 200ms ease;
 }
 
 .signup-arrow:hover {
-  transform: translateX(-80px) scale(1.2);
-} 
-
-@media (max-width: 550px) {
-  .signup-arrow {
-    transform: translateX(-30px);
-  }
-}
-
-/* 
-.signup-arrow {
-  position: absolute;
-  vertical-align: middle;
-  margin-right: 12px;
-  height: 21px;
-  width: 22px;
-  cursor: pointer;
-  margin-right: 150px;
-}
-
-.signup-arrow:hover {
   transform: scale(1.2);
-} */
+}
