@@ -2,6 +2,29 @@
 let allContacts = {};
 
 /**
+ * The fields of the add contact popup with their validation rules. Both popups
+ * check the same three things, they only differ in the ids of their inputs.
+ *
+ * @type {Array<{id: string, validate: function}>}
+ */
+const NEW_CONTACT_FIELDS = [
+  { id: 'newContactName', validate: validateName },
+  { id: 'newContactEmail', validate: validateEmail },
+  { id: 'newContactPhone', validate: validatePhone }
+];
+
+/**
+ * The fields of the edit contact popup with their validation rules.
+ *
+ * @type {Array<{id: string, validate: function}>}
+ */
+const EDIT_CONTACT_FIELDS = [
+  { id: 'editContactName', validate: validateName },
+  { id: 'editContactEmail', validate: validateEmail },
+  { id: 'editContactPhone', validate: validatePhone }
+];
+
+/**
  * Entry point of the contacts page, called from the body onload attribute.
  * Loads the contacts and both templates and renders the grouped list.
  *
@@ -211,6 +234,7 @@ async function openAddContact() {
   let overlay = document.getElementById('addContactOverlay');
   overlay.innerHTML = await loadAddContactTemplate();
   overlay.classList.remove('d-none');
+  bindFormValidation(NEW_CONTACT_FIELDS);
   lockScroll(true);
 }
 
@@ -241,27 +265,27 @@ function closeAddContact() {
  * @returns {Object} The new contact with name, email, phone and initials.
  */
 function getNewContact() {
+  let name = getFieldValue('newContactName');
   return {
-    name: document.getElementById('newContactName').value.trim(),
-    email: document.getElementById('newContactEmail').value.trim(),
-    phone: document.getElementById('newContactPhone').value.trim(),
-    initials: getInitials(document.getElementById('newContactName').value.trim())
+    name: name,
+    email: getFieldValue('newContactEmail'),
+    phone: getFieldValue('newContactPhone'),
+    initials: getInitials(name)
   };
 }
 
 
 
 /**
- * Handler of the create button in the add popup. Saves the contact and
- * refreshes the list. Does nothing if name or email are empty.
+ * Handler of the create button in the add popup. Validates the form, saves the
+ * contact and refreshes the list. Invalid fields keep the popup open and show
+ * their message.
  *
  * @returns {Promise<void>}
  */
 async function createContact() {
+  if (!checkForm(NEW_CONTACT_FIELDS)) return;
   let contact = getNewContact();
-  if (!contact.name || !contact.email) {
-    return;
-  }
   await saveContact(contact);
   closeAddContact();
   renderContacts();
@@ -278,6 +302,7 @@ async function openEditContact(id) {
   let overlay = document.getElementById('addContactOverlay');
   overlay.innerHTML = fillEditTemplate(await loadEditTemplate(), id, allContacts[id]);
   overlay.classList.remove('d-none');
+  bindFormValidation(EDIT_CONTACT_FIELDS);
   lockScroll(true);
 }
 
@@ -317,27 +342,26 @@ function fillEditTemplate(template, id, contact) {
  * @returns {Object} The changed contact data with name, email, phone and initials.
  */
 function getEditContact() {
+  let name = getFieldValue('editContactName');
   return {
-    name: document.getElementById('editContactName').value.trim(),
-    email: document.getElementById('editContactEmail').value.trim(),
-    phone: document.getElementById('editContactPhone').value.trim(),
-    initials: getInitials(document.getElementById('editContactName').value.trim())
+    name: name,
+    email: getFieldValue('editContactEmail'),
+    phone: getFieldValue('editContactPhone'),
+    initials: getInitials(name)
   };
 }
 
 /**
- * Handler of the save button in the edit popup. Stores the change and
- * refreshes both the list and the detail view. Does nothing if name or email
- * are empty.
+ * Handler of the save button in the edit popup. Validates the form, stores the
+ * change and refreshes both the list and the detail view. Invalid fields keep
+ * the popup open and show their message.
  *
  * @param {string} id - The database key of the contact that is updated.
  * @returns {Promise<void>}
  */
 async function updateContact(id) {
+  if (!checkForm(EDIT_CONTACT_FIELDS)) return;
   let contact = getEditContact();
-  if (!contact.name || !contact.email) {
-    return;
-  }
   await saveEditedContact(id, contact);
   closeAddContact();
   await renderContacts();
