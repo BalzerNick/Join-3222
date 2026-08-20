@@ -70,74 +70,38 @@ p {
   }
 }
 
-.login-form {
+/* ============================================================
+   Karte fuer Login und Sign-up - ein gemeinsames, responsives
+   Grundgeruest. Breite, Innenabstand und Schriftgroesse skalieren
+   per clamp() mit, statt ueber feste Breakpoint-Stufen zu springen.
+   ============================================================ */
+.login-form,
+.signup-form {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  align-items: stretch;
+  gap: clamp(16px, 4vw, 24px);
   background-color: #ffffff;
-  padding: 40px 60px;
+  padding: clamp(24px, 6vw, 40px) clamp(16px, 7vw, 60px);
   border-radius: 30px;
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
   width: min(90vw, 410px);
 }
 
-
-@media (max-width: 550px) {
-  .login-form {
-    display: flex;
-    /* justify-content: center; */
-    align-items: center;
-    padding: 40px 30px;
-    width: min(90vw, 350px);
-  }
-}
-
-@media (max-width: 430px) {
-  .login-form {
-    width: min(90vw, 320px);
-  }
-}
-
-@media (max-width: 400px) {
-  .login-form {
-    width: min(90vw, 290px);
-  }
-}
-
-@media (max-width: 350px) {
-  .login-form {
-    width: min(90vw, 240px);
-  }
-}
-
-.login-form h1 {
+.login-form h1,
+.signup-form h1 {
   text-align: center;
   color: #000000;
+  font-size: clamp(32px, 11vw, var(--fs-xxl));
+  line-height: 1.1;
 }
 
-@media (max-width: 550px) {
- .login-form h1 {
-  font-size: 47px;
-  }
-}
-
-@media (max-width: 430px) {
- .login-form h1 {
-  font-size: 40px;
-  }
-}
-
-@media (max-width: 400px) {
- .login-form h1 {
-  font-size: 35px;
-  }
-}
-
-
-.login-form h1::after {
+.login-form h1::after,
+.signup-form h1::after {
   content: "";
   display: block;
-  width: 150px;
+  width: min(150px, 80%);
   height: 3px;
   margin: 8px auto 0;
   background-color: var(--color-accent);
@@ -146,49 +110,39 @@ p {
 
 
 
+/* Buttonzeile: Reihe auf Desktop, Spalte auf Mobil - immer zentriert */
 .login-buttons {
   display: flex;
   gap: 16px;
   justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 @media (max-width: 550px) {
   .login-buttons {
     flex-direction: column;
-    width: 180px;
-    justify-content: center;
+  }
+
+  .login-buttons .btn {
+    width: min(180px, 100%);
   }
 }
 
+/* "Not a Join user?" - ersetzt unter 550px den ausgeblendeten Header.
+   Liegt im normalen Fluss unter der Karte, damit sie sich auf niedrigen
+   Displays nicht mit der Karte ueberlappt. */
 .login-container-mobile {
-  justify-content: flex-end;
-  align-items: center;
-  gap: 16px;
-  padding: 0;
   display: none;
-  height: 30px;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
 }
 
 @media (max-width: 550px) {
   .login-container-mobile {
     display: flex;
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-}
-
-@media (max-width: 490px) {
-  .login-container-mobile {
-    width: 60%;
-  }
-}
-
-
-@media (max-width: 410px) {
-  .login-container-mobile {
-    width: 80%;
+    flex-wrap: wrap;
   }
 }
 
@@ -214,23 +168,9 @@ p {
 }
 
 /* ============================================================
-   Sign-up-Seite - responsiv ohne feste Pixelbreiten.
-   Karte, Schrift und Abstaende skalieren per clamp() mit,
-   die Eingabefelder fuellen immer die volle Kartenbreite.
+   Sign-up-Seite - nur noch das, was sie von der Login-Karte
+   unterscheidet (Ueberschrift mit Pfeil, Checkbox-Zeile).
    ============================================================ */
-
-.signup-form {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: clamp(16px, 4vw, 24px);
-  background-color: #ffffff;
-  padding: clamp(24px, 6vw, 40px) clamp(16px, 7vw, 60px);
-  border-radius: 30px;
-  box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
-  width: min(90vw, 410px);
-}
 
 /* Ueberschrift mit Zurueck-Pfeil: Titel bleibt mittig, Pfeil klebt links */
 .signup-head {
@@ -251,40 +191,10 @@ p {
   margin-bottom: 11px;
 }
 
-.signup-form h1 {
-  text-align: center;
-  color: #000000;
-  font-size: clamp(32px, 11vw, var(--fs-xxl));
-  line-height: 1.1;
-}
-
-.signup-form h1::after {
-  content: "";
-  display: block;
-  width: min(150px, 80%);
-  height: 3px;
-  margin: 8px auto 0;
-  background-color: var(--color-accent);
-}
-
 /* Checkbox-Zeile darf auf schmalen Displays umbrechen */
 .signup-form .privacy-check {
   flex-wrap: wrap;
   text-align: center;
-}
-
-/* Button-Zeile fuellt die Karte, der Button bleibt darin zentriert */
-.signup-form .login-buttons {
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Auf Mobil gleiche Buttonbreite wie auf der Login-Seite */
-@media (max-width: 550px) {
-  .signup-form .login-buttons .btn {
-    width: min(180px, 100%);
-  }
 }
 
 /* Platz fuer das absolut positionierte Logo schaffen, ohne den
