@@ -131,6 +131,11 @@ async function submitTaskData(event) {
     resetTask();
 }
 
+function getTaskStatusFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('status') || 'todo';
+}
+
 /**
  * Collects all form inputs and the current selection state into a task
  * object. New tasks always start in the 'todo' column.
@@ -144,7 +149,7 @@ function getTaskData() {
         dueDate: document.getElementById("taskDeadline").value,
         priority: selectedPriority,
         category: document.getElementById("category").value,
-        status: "todo",
+        status: getTaskStatusFromUrl(),
         assignedTo: selectedContacts,
         subtasks: subtasks
     }

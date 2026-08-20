@@ -306,6 +306,21 @@ function openAddTaskDialog(status = 'todo') {
 }
 
 /**
+ * opens the Add-Task dialog on the board, or navigates to the standalone
+ * 
+ * @param {string} status - The column the new task belongs to.
+ * @returns {void}
+ */
+function openAddTask(status = 'todo') {
+    if (window.innerWidth <= 768) {
+        window.location.href = `addTask.html?status=${status}`;
+        return;
+    }
+
+    openAddTaskDialog(status);
+}
+
+/**
  * Clears everything the Add-Task form keeps in global state, so a freshly
  * opened dialog never shows leftovers from the last one. Each reset is
  * guarded, because tasks.js is not loaded on every page.
