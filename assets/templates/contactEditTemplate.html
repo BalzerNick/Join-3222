@@ -10,9 +10,18 @@
   <div class="contact-modal-right">
     <div class="avatar avatar-xl" style="background-color: {{color}}">{{initials}}</div>
     <form class="modal-form" novalidate>
-      <input class="input" type="text" id="editContactName" value="{{name}}">
-      <input class="input" type="email" id="editContactEmail" value="{{email}}">
-      <input class="input" type="tel" id="editContactPhone" value="{{phone}}">
+      <div class="input-field">
+        <input class="input" type="text" id="editContactName" value="{{name}}" autocomplete="name">
+        <span id="editContactNameError" class="field-error"></span>
+      </div>
+      <div class="input-field">
+        <input class="input" type="email" id="editContactEmail" value="{{email}}" autocomplete="email">
+        <span id="editContactEmailError" class="field-error"></span>
+      </div>
+      <div class="input-field">
+        <input class="input" type="tel" id="editContactPhone" value="{{phone}}" inputmode="tel" autocomplete="tel">
+        <span id="editContactPhoneError" class="field-error"></span>
+      </div>
       <div class="add-contact-buttons">
         <button class="btn btn-secondary" type="button" onclick="deleteContact('{{id}}')">Delete</button>
         <button class="btn btn-primary" type="button" onclick="updateContact('{{id}}')">Save<img src="assets/icons/check.svg" alt="" class="btn-check"></button>

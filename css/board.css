@@ -1023,6 +1023,62 @@ body.modal-open {
     height: 20px;
 }
 
+.move-menu {
+    position: absolute;
+    top: 45px;
+    right: 10px;
+    display: none;
+    flex-direction: column;
+    width: 150px;
+    padding: 12px;
+    background-color: #2a3647;
+    border-radius: 16px;
+    z-index: 100;
+    color: white;
+    gap: 10px;
+}
+
+.move-menu.active {
+    display: flex;
+}
+
+.move-task-btn {
+    display: none;
+    opacity: 1;
+    border-radius: 6px;
+    border-width: 1.5px;
+    padding-top: 2px;
+    padding-right: 3px;
+    padding-bottom: 2px;
+    padding-left: 3px;
+    gap: 4px;
+    border: 1.5px solid #2A3647;
+}
+
+.move-task-btn:hover {
+    background-color: #f1f5f9;
+}
+
+.move-task-btn img {
+    width: 18px;
+    height: 18px;
+}
+
+.move-menu span {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.move-menu button {
+    border-radius: 10px;
+    padding: 3px;
+}
+
+.move-menu button:hover {
+    background-color: var(--color-accent);
+}
+
 @media (max-width: 1430px) {
     .drag-container {
         display: flex;
@@ -1112,5 +1168,9 @@ body.modal-open {
         padding-left: 24px;
         padding-right: 24px;
         padding-bottom: 100px
+    }
+
+    .move-task-btn {
+        display: flex;
     }
 }

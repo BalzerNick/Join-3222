@@ -1,51 +1,77 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join_Sign_up</title>
+    <title>Sign up | Join</title>
     <link rel="icon" type="image/svg+xml" href="assets/icons/Favicon.svg">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/login.css">
-</head>                    
+</head>
 <body>
     <div class="page-frame">
     <a href="index.html"><img src="assets/imgs/logoMain.png" alt="Join Logo" class="login-logo"></a>
 
-    <main class="login-main">
-        <form class="signup-form" novalidate>
-            <div>
-            
-            <h1><a href="index-mobile-animation.html"><img src="assets/imgs/arrow.png" alt="Arrow Icon" class="signup-arrow"></a>Sign up</h1>
+    <main class="login-main login-main-signup">
+        <form class="signup-form" novalidate onsubmit="registerUser(); return false;">
+            <div class="signup-head">
+                <a href="index-mobile-animation.html" class="signup-back">
+                    <img src="assets/imgs/arrow.png" alt="Back" class="signup-arrow">
+                </a>
+                <h1>Sign up</h1>
             </div>
 
-            <div class="input-wrapper">
-                <input class="input" type="text" id="signupName" placeholder="Name">
-                <img src="assets/icons/person.png" alt="" class="input-icon">
-            </div>
-            <div class="input-wrapper">
-                <input class="input" type="email" id="signupEmail" placeholder="Email">
-                <img src="assets/icons/email.png" alt="" class="input-icon">
-            </div>
-            <div class="input-wrapper">
-                <input class="input" type="password" id="signupPassword" placeholder="Password">
-                <img src="assets/icons/lock.png" alt="" class="input-icon">
-            </div>
-            <div class="input-wrapper">
-                <input class="input" type="password" id="signupConfirm" placeholder="Confirm Password">
-                <img src="assets/icons/lock.png" alt="" class="input-icon">
+            <div class="input-field">
+                <div class="input-wrapper">
+                    <input class="input" type="text" id="signupName" placeholder="Name" autocomplete="name">
+                    <img src="assets/icons/person.png" alt="" class="input-icon">
+                </div>
+                <span id="signupNameError" class="field-error"></span>
             </div>
 
-            <label class="privacy-check">
-                <input type="checkbox" id="acceptPrivacy">
-                I accept the <a href="privacyPolicy.html">Privacy Policy</a>
-            </label>
+            <div class="input-field">
+                <div class="input-wrapper">
+                    <input class="input" type="email" id="signupEmail" placeholder="Email" autocomplete="email">
+                    <img src="assets/icons/email.png" alt="" class="input-icon">
+                </div>
+                <span id="signupEmailError" class="field-error"></span>
+            </div>
+
+            <div class="input-field">
+                <div class="input-wrapper">
+                    <input class="input" type="password" id="signupPassword" placeholder="Password" autocomplete="new-password">
+                    <button type="button" class="input-icon-btn" id="signupPasswordToggle" aria-label="Show password"
+                            onclick="togglePassword('signupPassword')" disabled>
+                        <img src="assets/icons/lock.png" alt="" id="signupPasswordIcon">
+                    </button>
+                </div>
+                <span id="signupPasswordError" class="field-error"></span>
+            </div>
+
+            <div class="input-field">
+                <div class="input-wrapper">
+                    <input class="input" type="password" id="signupConfirm" placeholder="Confirm Password" autocomplete="new-password">
+                    <button type="button" class="input-icon-btn" id="signupConfirmToggle" aria-label="Show password"
+                            onclick="togglePassword('signupConfirm')" disabled>
+                        <img src="assets/icons/lock.png" alt="" id="signupConfirmIcon">
+                    </button>
+                </div>
+                <span id="signupConfirmError" class="field-error"></span>
+            </div>
+
+            <div class="input-field">
+                <label class="privacy-check">
+                    <input type="checkbox" id="acceptPrivacy">
+                    I accept the <a href="privacyPolicy.html">Privacy Policy</a>
+                </label>
+                <span id="acceptPrivacyError" class="field-error field-error-center"></span>
+            </div>
 
             <span id="signupError" class="error-message"></span>
 
             <div class="login-buttons">
-                <button class="btn btn-primary" type="button" onclick="registerUser()">Sign up</button>
+                <button class="btn btn-primary" type="submit">Sign up</button>
             </div>
         </form>
     </main>
@@ -62,6 +88,7 @@
     <script src="firebase-config.js"></script>
     <script src="script.js"></script>
     <script src="scripts/storage.js"></script>
+    <script src="scripts/validation.js"></script>
     <script src="scripts/signUp.js"></script>
 </body>
 </html>

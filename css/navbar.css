@@ -136,15 +136,15 @@ header {
 .user-dropdown {
   position: absolute;
   right: 0;
-  top: 100%;
+  top: 140%;
   min-width: 150px;
   display: none;
   flex-direction: column;
   padding: 8px;
-  border-top: 10px solid transparent;
+  border-top: 10px solid var(--color-primary);
   background-color: var(--color-primary);
   background-clip: padding-box;
-  border-radius: 12px 0 12px 12px;
+  border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
   z-index: 30;
 }

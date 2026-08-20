@@ -134,14 +134,17 @@
         <form class="login-form" novalidate>
             <h1>Log in</h1>
             <div class="input-wrapper">
-                <input class="input" type="email" id="loginEmail" placeholder="Email">
+                <input class="input" type="email" id="loginEmail" placeholder="Email" autocomplete="email">
                 <img src="assets/icons/email.png" alt="" class="input-icon">
             </div>
             <div class="input-wrapper">
-            <input class="input" type="password" id="loginPassword" placeholder="Password">
-            <img src="assets/icons/lock.png" alt="" class="input-icon">
-            <span id="loginError" class="error-message"></span>
+                <input class="input" type="password" id="loginPassword" placeholder="Password" autocomplete="current-password">
+                <button type="button" class="input-icon-btn" id="loginPasswordToggle" aria-label="Show password"
+                        onclick="togglePassword('loginPassword')" disabled>
+                    <img src="assets/icons/lock.png" alt="" id="loginPasswordIcon">
+                </button>
             </div>
+            <span id="loginError" class="error-message"></span>
             <div class="login-buttons">
                 <button class="btn btn-primary" type="button" onclick="login()">Log in</button>
                 <button class="btn btn-secondary" type="button" onclick="guestLogin()">Guest Log in</button>
@@ -162,6 +165,7 @@
 
     <script src="firebase-config.js"></script>
     <script src="script.js"></script>
+    <script src="scripts/validation.js"></script>
     <script src="scripts/login.js"></script>
 </body>
 </html>

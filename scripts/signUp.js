@@ -1,21 +1,64 @@
 /**
+ * All fields of the registration form in form order, each with the rule that
+ * validates it. The password re-checks the confirmation, so that changing it
+ * afterwards does not leave a stale "passwords match" state behind.
+ *
+ * @type {Array<{id: string, validate: function, revalidate?: Array<string>}>}
+ */
+const SIGNUP_FIELDS = [
+  { id: 'signupName', validate: validateName },
+  { id: 'signupEmail', validate: validateEmail },
+  { id: 'signupPassword', validate: validatePassword, revalidate: ['signupConfirm'] },
+  { id: 'signupConfirm', validate: validateConfirm },
+  { id: 'acceptPrivacy', validate: validatePrivacy }
+];
+
+
+/**
+ * Checks the repeated password against the first one.
+ *
+ * @param {string} value - The trimmed confirmation.
+ * @param {Object<string, string>} values - All values of the form, keyed by field id.
+ * @returns {string} The error text, or an empty string if both passwords match.
+ */
+function validateConfirm(value, values) {
+  if (!value) return "Please confirm your password.";
+  if (value !== values.signupPassword) return "Your passwords don't match.";
+  return "";
+}
+
+
+/**
+ * Checks whether the privacy policy has been accepted.
+ *
+ * @param {boolean} value - The checked state of the checkbox.
+ * @returns {string} The error text, or an empty string if the box is ticked.
+ */
+function validatePrivacy(value) {
+  if (!value) return "Please accept the Privacy Policy.";
+  return "";
+}
+
+
+/**
  * Reads all values out of the registration form and trims the text fields.
  *
  * @returns {{name: string, email: string, password: string, confirm: string, accept: boolean}} The inputs of the registration form.
  */
 function getSignupInputs() {
   return {
-    name: document.getElementById('signupName').value.trim(),
-    email: document.getElementById('signupEmail').value.trim(),
-    password: document.getElementById('signupPassword').value.trim(),
-    confirm: document.getElementById('signupConfirm').value.trim(),
-    accept: document.getElementById('acceptPrivacy').checked
+    name: getFieldValue('signupName'),
+    email: getFieldValue('signupEmail'),
+    password: getFieldValue('signupPassword'),
+    confirm: getFieldValue('signupConfirm'),
+    accept: getFieldValue('acceptPrivacy')
   };
 }
 
 
 /**
- * Shows an error message inside the registration form.
+ * Shows a general error message below the form, for problems that belong to
+ * no single field.
  *
  * @param {string} message - The error text to display. Pass an empty string to hide the message.
  * @returns {void}
@@ -26,32 +69,14 @@ function showSignupError(message) {
 
 
 /**
- * Checks whether the password reaches the required minimum length of 8
- * characters.
+ * Sets the registration form up once the page is loaded.
  *
- * @param {string} password - The password entered in the form.
- * @returns {boolean} True if the password is long enough.
+ * @returns {void}
  */
-function isPasswordLongEnough(password) {
-  return password.length >= 8;
-}
-
-
-/**
- * Validates the registration inputs and returns the first problem it finds:
- * missing fields, an email without "@", a password shorter than 8
- * characters, two passwords that differ, or a missing privacy consent.
- *
- * @param {{name: string, email: string, password: string, confirm: string, accept: boolean}} data - The inputs to validate.
- * @returns {string} The error text, or an empty string if everything is valid.
- */
-function validateSignup(data) {
-  if (!data.name || !data.email || !data.password) return "Bitte alle Felder ausfuellen.";
-  if (!data.email.includes("@")) return "Bitte eine gueltige E-Mail eingeben.";
-  if (!isPasswordLongEnough(data.password)) return "Passwort muss mindestens 8 Zeichen lang sein.";
-  if (data.password !== data.confirm) return "Passwoerter stimmen nicht ueberein.";
-  if (!data.accept) return "Bitte die Datenschutzerklaerung akzeptieren.";
-  return "";
+function initSignupForm() {
+  bindFormValidation(SIGNUP_FIELDS);
+  updatePasswordIcon('signupPassword');
+  updatePasswordIcon('signupConfirm');
 }
 
 
@@ -76,13 +101,18 @@ async function saveUser(user) {
  * @returns {Promise<void>}
  */
 async function registerUser() {
+  showSignupError("");
+  if (!checkForm(SIGNUP_FIELDS)) return;
   let data = getSignupInputs();
-  let error = validateSignup(data);
-  if (error) {
-    showSignupError(error);
+  try {
+    await saveUser({ name: data.name, email: data.email, password: data.password });
+  } catch (error) {
+    showSignupError("Sign up failed. Please try again.");
     return;
   }
-  await saveUser({ name: data.name, email: data.email, password: data.password });
   showToast("You signed up successfully");
   setTimeout(() => window.location.href = "index.html", 1500);
 }
+
+
+document.addEventListener('DOMContentLoaded', initSignupForm);

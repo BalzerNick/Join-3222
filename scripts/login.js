@@ -4,9 +4,21 @@
  * @returns {{email: string, password: string}} The trimmed inputs of the login form.
  */
 function getLoginInputs() {
-  let email = document.getElementById('loginEmail').value.trim();
-  let password = document.getElementById('loginPassword').value.trim();
+  let email = getFieldValue('loginEmail');
+  let password = getFieldValue('loginPassword');
   return { email: email, password: password };
+}
+
+
+/**
+ * Sets the login form up once the page is loaded: the eye icon of the
+ * password field starts out as a lock.
+ *
+ * @returns {void}
+ */
+function initLoginForm() {
+  updatePasswordIcon('loginPassword');
+  document.getElementById('loginPassword').addEventListener('input', () => updatePasswordIcon('loginPassword'));
 }
 
 
@@ -72,7 +84,7 @@ function findUser(users, data) {
 async function login() {
   let data = getLoginInputs();
   if (!isLoginFilled(data)) {
-    showLoginError("Bitte E-Mail und Passwort eingeben.");
+    showLoginError("Please enter your email and password.");
     return;
   }
   let users = await loadUsers();
@@ -82,7 +94,7 @@ async function login() {
     await getContacts();
     window.location.href = "summary_guest.html";
   } else {
-    showLoginError("User nicht bekannt");
+    showLoginError("Check your email and password. Please try again.");
   }
 }
 
@@ -106,3 +118,6 @@ async function guestLogin() {
 function signUp() {
   window.location.href = "signUp.html";
 }
+
+
+document.addEventListener('DOMContentLoaded', initLoginForm);
