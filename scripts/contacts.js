@@ -28,16 +28,31 @@ const EDIT_CONTACT_FIELDS = [
  * Entry point of the contacts page, called from the body onload attribute.
  * Loads the contacts and both templates and renders the grouped list.
  *
+ * The contacts normally come from the sessionStorage, where getContacts()
+ * puts them once at the start of the session. If that cache is empty, for
+ * example because the page was opened directly by its url or in a new tab,
+ * they are fetched from the database first. Same safety net as in board.js.
+ *
  * @returns {Promise<void>}
  */
 async function renderContacts() {
+  if (!getContactStorage()) await getContacts();
   allContacts = getContactStorage() || {};
-  let card = await loadTemplate();
-  let letter = await loadLetterTemplate();
+  let card = await loadHtmlTemplate("assets/templates/contactsTemplate.html");
+  let letter = await loadHtmlTemplate("assets/templates/contactLetterTemplate.html");
   showContacts(allContacts, card, letter);
 }
 
 /**
+ * TOTER CODE (markiert am 2026-08-20, Denis) - wird nirgends aufgerufen.
+ * Ersetzt durch getContacts() in scripts/api.js, das zusaetzlich
+ * setContactStorage() aufruft und die Kontakte im sessionStorage ablegt.
+ * Einzige verbliebene Fundstelle: auskommentiert in scripts/board.js.
+ * Bleibt vorerst stehen, falls sie noch jemand braucht - bitte vor dem
+ * Loeschen kurz Bescheid geben.
+ *
+ * @deprecated Stattdessen getContacts() aus scripts/api.js verwenden.
+ *
  * Loads all contacts from the Firebase database.
  *
  * @returns {Promise<?Object>} All contacts keyed by their id, or null if the database holds none.
@@ -49,22 +64,14 @@ async function loadContacts() {
 }
 
 /**
- * Loads the contact card template from the templates folder.
+ * Loads an HTML template from the templates folder. Used by the contact list
+ * and by every popup of the contacts page.
  *
- * @returns {Promise<string>} The card template as HTML text, still containing its placeholders.
+ * @param {string} path - Path of the template file relative to the project root.
+ * @returns {Promise<string>} The template as HTML text, still containing its placeholders.
  */
-async function loadTemplate() {
-  let response = await fetch("assets/templates/contactsTemplate.html");
-  return await response.text();
-}
-
-/**
- * Loads the template for the letter separators of the contact list.
- *
- * @returns {Promise<string>} The letter template as HTML text, still containing its placeholder.
- */
-async function loadLetterTemplate() {
-  let response = await fetch("assets/templates/contactLetterTemplate.html");
+async function loadHtmlTemplate(path) {
+  let response = await fetch(path);
   return await response.text();
 }
 
@@ -142,7 +149,7 @@ function fillTemplate(template, contact) {
  * @returns {Promise<void>}
  */
 async function showContactDetail(id) {
-  let template = await loadDetailTemplate();
+  let template = await loadHtmlTemplate("assets/templates/contactDetailTemplate.html");
   let detail = document.getElementById('contactDetail');
   detail.innerHTML = fillDetailTemplate(template, id, allContacts[id]);
   highlightContact(id);
@@ -184,16 +191,6 @@ function closeContactMenu(event) {
 }
 
 /**
- * Loads the template of the contact detail view.
- *
- * @returns {Promise<string>} The detail template as HTML text, still containing its placeholders.
- */
-async function loadDetailTemplate() {
-  let response = await fetch("assets/templates/contactDetailTemplate.html");
-  return await response.text();
-}
-
-/**
  * Replaces the placeholders of the detail template with the data of one
  * contact.
  *
@@ -232,20 +229,10 @@ function highlightContact(id) {
  */
 async function openAddContact() {
   let overlay = document.getElementById('addContactOverlay');
-  overlay.innerHTML = await loadAddContactTemplate();
+  overlay.innerHTML = await loadHtmlTemplate("assets/templates/addContactTemplate.html");
   overlay.classList.remove('d-none');
   bindFormValidation(NEW_CONTACT_FIELDS);
   lockScroll(true);
-}
-
-/**
- * Loads the template of the add contact popup.
- *
- * @returns {Promise<string>} The popup template as HTML text.
- */
-async function loadAddContactTemplate() {
-  let response = await fetch("assets/templates/addContactTemplate.html");
-  return await response.text();
 }
 
 /**
@@ -300,20 +287,11 @@ async function createContact() {
  */
 async function openEditContact(id) {
   let overlay = document.getElementById('addContactOverlay');
-  overlay.innerHTML = fillEditTemplate(await loadEditTemplate(), id, allContacts[id]);
+  let editTpl = await loadHtmlTemplate("assets/templates/contactEditTemplate.html");
+  overlay.innerHTML = fillEditTemplate(editTpl, id, allContacts[id]);
   overlay.classList.remove('d-none');
   bindFormValidation(EDIT_CONTACT_FIELDS);
   lockScroll(true);
-}
-
-/**
- * Loads the template of the edit contact popup.
- *
- * @returns {Promise<string>} The edit template as HTML text, still containing its placeholders.
- */
-async function loadEditTemplate() {
-  let response = await fetch("assets/templates/contactEditTemplate.html");
-  return await response.text();
 }
 
 /**
