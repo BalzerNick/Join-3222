@@ -31,7 +31,7 @@ async function loadContacts() {
  * @returns {Promise<string>} The card template as HTML text, still containing its placeholders.
  */
 async function loadTemplate() {
-  let response = await fetch("assets/templates/contactsTemplate.html");
+  let response = await fetch("./assets/templates/contactsTemplate.html");
   return await response.text();
 }
 
@@ -41,7 +41,7 @@ async function loadTemplate() {
  * @returns {Promise<string>} The letter template as HTML text, still containing its placeholder.
  */
 async function loadLetterTemplate() {
-  let response = await fetch("assets/templates/contactLetterTemplate.html");
+  let response = await fetch("./assets/templates/contactLetterTemplate.html");
   return await response.text();
 }
 
@@ -166,7 +166,7 @@ function closeContactMenu(event) {
  * @returns {Promise<string>} The detail template as HTML text, still containing its placeholders.
  */
 async function loadDetailTemplate() {
-  let response = await fetch("assets/templates/contactDetailTemplate.html");
+  let response = await fetch("./assets/templates/contactDetailTemplate.html");
   return await response.text();
 }
 
@@ -220,7 +220,7 @@ async function openAddContact() {
  * @returns {Promise<string>} The popup template as HTML text.
  */
 async function loadAddContactTemplate() {
-  let response = await fetch("assets/templates/addContactTemplate.html");
+  let response = await fetch("./assets/templates/addContactTemplate.html");
   return await response.text();
 }
 
@@ -287,7 +287,7 @@ async function openEditContact(id) {
  * @returns {Promise<string>} The edit template as HTML text, still containing its placeholders.
  */
 async function loadEditTemplate() {
-  let response = await fetch("assets/templates/contactEditTemplate.html");
+  let response = await fetch("./assets/templates/contactEditTemplate.html");
   return await response.text();
 }
 
