@@ -112,15 +112,17 @@ h3 {
 .help-heading-blue-line {
   display: flex;
   align-items: center;
+  margin-bottom: 56px;
   }
 
 /*Marcus 24.07.2026*/
 
 .blue-line {
-  margin-left: 20px;
-  margin-right: 20px;
-  height: 40px;
-}  
+  width: 3px;
+  height: 60px;
+  margin: 7px 30px;
+  background-color: #29abe2;
+}
 
 /*Marcus 23.07.2026*/
 .back-arrow {
