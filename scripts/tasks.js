@@ -5,6 +5,7 @@ let subtasks = {};
 let selectedPriority = "medium";
 let sub = false
 let editingSubtaskKey = null;
+const MAX_VISIBLE_CONTACTS = 5;
 
 /**
  * Opens or closes a dropdown and rotates its arrow. Reloads the contacts
@@ -25,7 +26,6 @@ async function toggleDropdown(ul, arr) {
     let wasOpen = !list.classList.contains("d-none");
 
     closeAllDropdowns();
-
     if (!wasOpen) {
         list.classList.remove("d-none");
         arrow.classList.add("open");
@@ -221,7 +221,9 @@ function toggleContactRow(index) {
 
 /**
  * Redraws the avatar row of the assigned contacts below the assignment
- * field.
+ * field. Avatars overlap slightly; once more than MAX_VISIBLE_CONTACTS are
+ * selected, the row shows only the first slots and a '+N' badge for the
+ * rest instead of running off the right edge.
  *
  * @param {string} [initial] - Not used; the initials are taken from selectedContacts instead.
  * @param {string} [color] - Not used; the colour is taken from selectedContacts instead.
@@ -230,10 +232,15 @@ function toggleContactRow(index) {
 function renderContacts(initial, color){
     let contact = document.getElementById(`assignedContacts`)
     contact.innerHTML = ""
-    let user = getUser();
-    for (let index = 0; index < selectedContacts.length; index++) {
-        //testUser(user, contacts[index]);
+    const total = selectedContacts.length;
+    const overflow = total > MAX_VISIBLE_CONTACTS;
+    const visibleCount = overflow ? MAX_VISIBLE_CONTACTS - 1 : total;
+
+    for (let index = 0; index < visibleCount; index++) {
         contact.innerHTML += getContactInitial(selectedContacts[index].initials, getAvatarColor(selectedContacts[index].name));
+    }
+    if (overflow) {
+        contact.innerHTML += getContactInitial(`+${total - visibleCount}`, '', 'avatar-more');
     }
 }
 
@@ -410,9 +417,6 @@ function getUser(){
  * @returns {string} the user name and if its your name its get the (you) tag
  */
 function testUser(loggedinUser, user){
-   
-    console.log(user);
-    
     if(JSON.parse(loggedinUser).name == user.name){
         return user.name +" (you)"
     }

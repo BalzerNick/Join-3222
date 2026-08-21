@@ -27,11 +27,12 @@ function getNameTemplate(name, initials, index, color) {
  *
  * @param {string} initial - The initials to show.
  * @param {string} color - Background colour of the avatar.
+ * @param {string} [extraClass] - Additional CSS class, e.g. for the '+N' overflow badge.
  * @returns {string} The avatar as HTML.
  */
-function getContactInitial(initial, color) {
+function getContactInitial(initial, color, extraClass = '') {
     return `
-            <span class="avatar avatar-sm" style="background-color: ${color}">
+            <span class="avatar avatar-sm ${extraClass}" style="background-color: ${color}">
                 ${initial}
             </span>
     `

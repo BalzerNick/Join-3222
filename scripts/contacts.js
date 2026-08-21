@@ -160,7 +160,7 @@ async function showContactDetail(id) {
  * Returns from the detail view back to the contact list and clears the card
  * highlight. Bound to the back arrow that is only visible on mobile.
  *
- * @returns {void}
+ * cla@returns {void}
  */
 function closeContactDetail() {
   document.querySelector('.contacts-main').classList.remove('detail-open');

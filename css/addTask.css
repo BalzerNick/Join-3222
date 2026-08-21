@@ -147,6 +147,13 @@ form {
     max-width: 900px;
 }
 
+/* On the standalone page, the required-hint has a twin under the
+   subtask list (.required-hint-subtask) that only shows up once the
+   footer's own copy is hidden there, see the 1024px query below. */
+.required-hint-subtask {
+    display: none;
+}
+
 /* Inside the board's Add-Task modal the form has no fixed footer bar of
    its own (that one is sized for the standalone page's sidebar layout);
    instead the buttons stick to the bottom of the modal's own scroll box. */
@@ -201,15 +208,19 @@ input {
 
 .dropdown-list {
     position: absolute;
-    top: calc(100% + 1px);
+    top: calc(100% - 11px);
     width: 100%;
     box-sizing: border-box;
     padding: 8px;
+    padding-top: 16px;
     margin: 0;
     list-style: none;
     background: #ffffff;
     border: 1px solid var(--color-border);
+    border-top: none;
     border-radius: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     z-index: 5;
     max-height: 300px;
@@ -332,7 +343,23 @@ input {
 .assigned-contacts{
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    align-items: center;
+    gap: 0;
+}
+
+.assigned-contacts .avatar-sm{
+    margin: 0;
+    border: 2px solid #ffffff;
+}
+
+.assigned-contacts .avatar-sm + .avatar-sm{
+    margin-left: -10px;
+}
+
+.assigned-contacts .avatar-more{
+    background-color: var(--color-border);
+    color: var(--color-primary);
+    font-weight: 700;
 }
 
 .subtask-area{
@@ -340,6 +367,11 @@ input {
     display: flex;
     flex-direction: column;
     margin-top: 8px;
+    max-height: 112px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    background-color: var(--color-bg);
 }
 
 .subtask{
@@ -355,7 +387,7 @@ input {
 }
 
 .subtask:hover{
-    background-color: var(--color-bg);
+    background-color: #ffffff;
 }
 
 .subtask-text {
@@ -475,6 +507,14 @@ input {
 
     .required-hint {
         align-self: flex-start;
+    }
+
+    .required-hint-footer {
+        display: none;
+    }
+
+    .required-hint-subtask {
+        display: block;
     }
 }
 
