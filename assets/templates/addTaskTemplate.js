@@ -137,8 +137,9 @@ function getAddTaskPage() {
                                 placeholder="Select contact to assign" autocomplete="off" oninput="searchList()"
                                 onclick="toggleDropdown(\`contactList\`, \`contactArrow\`)">
 
-                            <span class="input-img pointer arrow" id="contactArrow"
-                                onclick="toggleDropdown(\`contactList\`, \`contactArrow\`)">▼</span>
+                            <img class="input-img pointer arrow" id="contactArrow"
+                                src="assets/icons/arrow_drop_down_down.svg" alt="Toggle dropdown"
+                                onclick="toggleDropdown(\`contactList\`, \`contactArrow\`)">
                         </div>
 
 
@@ -158,8 +159,9 @@ function getAddTaskPage() {
                                 autocomplete="off" oninput="searchList()"
                                 onclick="toggleDropdown(\`categoryList\`, \`categoryArrow\`)" required>
 
-                            <span class="input-img pointer arrow" id="categoryArrow"
-                                onclick="toggleDropdown(\`categoryList\`, \`categoryArrow\`)">▼</span>
+                            <img class="input-img pointer arrow" id="categoryArrow"
+                                src="assets/icons/arrow_drop_down_down.svg" alt="Toggle dropdown"
+                                onclick="toggleDropdown(\`categoryList\`, \`categoryArrow\`)">
                         </div>
 
                         <ul class="dropdown-list d-none" id="categoryList">

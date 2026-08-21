@@ -80,6 +80,36 @@ form {
 #addTaskForm .dropdown .input {
     position: relative;
     z-index: 6;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    transition: border-width 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+#addTaskForm .dropdown .input::placeholder {
+    color: var(--color-primary);
+    opacity: 1;
+}
+
+#addTaskForm #assignedTo {
+    border-width: 2px 1px 1px 2px;
+}
+
+#addTaskForm #category {
+    border-width: 1px 1px 2px 2px;
+}
+
+#addTaskForm #assignedTo:hover,
+#addTaskForm #assignedTo:focus,
+#addTaskForm #category:hover,
+#addTaskForm #category:focus {
+    border-width: 1px;
+    border-color: var(--color-border);
+}
+
+#addTaskForm .dropdown .input:hover::placeholder,
+#addTaskForm .dropdown .input:focus::placeholder {
+    color: revert;
+    opacity: revert;
 }
 
 #addTaskForm .dropdown .input-img {
@@ -204,20 +234,26 @@ input {
 .arrow {
     top: 50%;
     transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    object-fit: contain;
 }
 
 .arrow {
-    transition: 0.3s;
+    transition: background-color 0.2s;
+}
+
+.arrow:hover {
+    background-color: rgba(41, 171, 226, 0.15);
 }
 
 .pointer,
 .dropdown-list li,
 .contact-checkbox {
     cursor: pointer;
-}
-
-.arrow.open {
-    transform: translateY(-50%) rotate(180deg);
 }
 
 .dropdown-list {

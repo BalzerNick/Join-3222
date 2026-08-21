@@ -6,6 +6,8 @@ let selectedPriority = "medium";
 let sub = false
 let editingSubtaskKey = null;
 const MAX_VISIBLE_CONTACTS = 5;
+const ARROW_ICON_CLOSED = "assets/icons/arrow_drop_down_down.svg";
+const ARROW_ICON_OPEN = "assets/icons/arrow_drop_down_up.svg";
 
 /**
  * Opens or closes a dropdown and rotates its arrow. Reloads the contacts
@@ -29,18 +31,33 @@ async function toggleDropdown(ul, arr) {
     if (!wasOpen) {
         list.classList.remove("d-none");
         arrow.classList.add("open");
+        arrow.src = ARROW_ICON_OPEN;
     }
 }
 
 /**
- * Closes the contact and category dropdowns and resets the contact arrow.
+ * Closes the contact and category dropdowns and resets their arrows.
  *
  * @returns {void}
  */
 function closeAllDropdowns() {
     document.getElementById("contactList")?.classList.add("d-none");
-    document.getElementById("contactArrow")?.classList.remove("open");
     document.getElementById("categoryList")?.classList.add("d-none");
+    resetArrowIcon("contactArrow");
+    resetArrowIcon("categoryArrow");
+}
+
+/**
+ * Resets a dropdown arrow icon back to its closed state.
+ *
+ * @param {string} id - Id of the arrow icon element.
+ * @returns {void}
+ */
+function resetArrowIcon(id) {
+    let arrow = document.getElementById(id);
+    if (!arrow) return;
+    arrow.classList.remove("open");
+    arrow.src = ARROW_ICON_CLOSED;
 }
 
 /**
