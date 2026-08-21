@@ -280,6 +280,13 @@ li {
   margin-left: 200px;
 }
 
+@media (max-width: 768px) {
+  .page {
+    margin-left: 0px;
+    padding: 80px 24px 24px 24px;
+  }
+}
+
 /* .page h1 {
   margin-bottom: 16px;
 } */
@@ -422,9 +429,13 @@ li {
   font-size: 40px;
 }
 
-.help-headline {
-  font-size: 61px;
+@media (max-width: 765px) {
+  .help-headline {
+    font-size: 50px;
+  }
 }
+
+
 
 h1 {
   font-size: var(--fs-xxl);

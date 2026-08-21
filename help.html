@@ -14,6 +14,14 @@
             font-size: 20px;
             line-height: 1.2;            
         }
+
+        @media (max-width: 768px) {
+            p {
+                font-size: 16px;
+                line-height: 1.2;            
+            }
+        }
+        
     </style>
 </head>
 <body onload="loadSummaryData()" onclick="closeUserMenu(event)">
@@ -21,14 +29,14 @@
         <span class="header-title">Kanban Project Management Tool</span>
         <img src="assets/imgs/logoMain.png" alt="Join Logo" class="header-logo-mobile">
         <div class="header-right">
-        <div class="user-menu" id="userMenu">
-          <span class="user-initials" id="userInitials" onclick="toggleUserMenu()"></span>
-          <div class="user-dropdown">
-            <a href="legalNotice.html">Legal Notice</a>
-            <a href="privacyPolicy.html">Privacy Policy</a>
-            <a onclick="logout()">Log out</a>
-          </div>
-        </div>
+            <div class="user-menu" id="userMenu">
+                <span class="user-initials" id="userInitials" onclick="toggleUserMenu()"></span>
+                <div class="user-dropdown">
+                    <a href="legalNotice.html">Legal Notice</a>
+                    <a href="privacyPolicy.html">Privacy Policy</a>
+                    <a onclick="logout()">Log out</a>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -91,7 +99,7 @@
                will permanently remove it from<br> the board. Please exercise caution when deleting cards, as this
                action is irreversible. Remember that using Join effectively<br> requires consistent updates from you
                and your team to ensure the board reflects the current state of your project.
-               Have more<br> questions about Join? Feel free to contact us at <b>mustermail@musterdomain.com</b>.
+               Have more<br> questions about Join? Feel free to contact us at <b style="overflow-wrap: anywhere;">mustermail@musterdomain.com</b>.
                We're here to help you!
             </p><br>
 
