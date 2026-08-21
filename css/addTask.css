@@ -46,6 +46,7 @@ form {
 
 .input-area {
     flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -72,11 +73,35 @@ form {
     box-sizing: border-box;
     border: 1px solid var(--color-border);
     border-radius: 10px;
-    font-size: var(--fs-md);
+    font-size: var(--fs-base);
     font-family: inherit;
     color: var(--color-primary);
     z-index: 1;
     padding: 12px 16px;
+}
+
+/* Assigned-to/Category inputs overlap their own dropdown-list by a
+   few pixels at the top (see .dropdown-list's top offset) so the two
+   corners blend together; the input needs to be the one drawn on top
+   there, with its own arrow icon staying above the input. Scoped to
+   .dropdown so this never competes with a *different* dropdown's
+   list (e.g. Category's input popping above Assigned-to's open
+   contact list). */
+#addTaskForm .dropdown .input {
+    position: relative;
+    z-index: 6;
+}
+
+#addTaskForm .dropdown .input-img {
+    z-index: 7;
+}
+
+/* While a dropdown is open, its whole box needs to sit above
+   whatever comes after it in the page (e.g. Assigned-to's contact
+   list overlapping the Category field below it), not just above its
+   own list. */
+#addTaskForm .dropdown:has(.dropdown-list:not(.d-none)) {
+    z-index: 10;
 }
 
 #addTaskForm .input:focus {
@@ -91,8 +116,8 @@ form {
 
 .priority-buttons {
     display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
+    flex-wrap: nowrap;
+    gap: 8px;
 }
 
 .btn-priority-urgent,
@@ -102,17 +127,26 @@ form {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 4px;
+    flex: 1 1 0;
     box-sizing: border-box;
     border: 1px solid #d1d1d1;
     border-radius: 10px;
     background-color: #ffffff;
     color: var(--color-primary);
-    font-size: var(--fs-md);
+    font-size: var(--fs-sm);
     font-family: inherit;
-    padding: 12px 16px;
-    min-width: 100px;
+    padding: 8px 6px;
+    min-width: 0;
     white-space: nowrap;
+}
+
+.btn-priority-urgent .medium,
+.btn-priority-medium .medium,
+.btn-priority-low .medium {
+    width: 12px;
+    height: 12px;
+    margin-left: 0;
 }
 
 .btn-priority-urgent:hover,
@@ -224,7 +258,7 @@ input {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     z-index: 5;
     max-height: 300px;
-    font-size: var(--fs-md);
+    font-size: var(--fs-base);
 }
 
 .dropdown-scroll {
@@ -428,7 +462,7 @@ input {
     border-bottom: 1px solid var(--color-accent);
     border-radius: 0;
     padding: 4px 4px 8px;
-    font-size: var(--fs-md);
+    font-size: var(--fs-base);
     font-family: inherit;
     color: var(--color-primary);
     background: transparent;
@@ -467,6 +501,16 @@ input {
    Responsive
    ============================================================ */
 
+/* Ab hier wird die Zwei-Spalten-Zeile fuer die Prio-Buttons zu schmal,
+   damit der Text bei fixer Groesse noch reinpasst. */
+@media (max-width: 1100px) {
+    .btn-priority-urgent,
+    .btn-priority-medium,
+    .btn-priority-low {
+        font-size: 12px;
+    }
+}
+
 /* Tablet: rechte Formhaelfte wandert unter die linke */
 @media (max-width: 1024px) {
     main {
@@ -487,19 +531,19 @@ input {
     }
 
     .divider {
-        width: 100%;
-        height: 1px;
-        align-self: auto;
+        display: none;
     }
 
     #addTaskForm .input,
     .dropdown,
-    .add-subtask {
+    .add-subtask,
+    .priority-buttons {
         width: 100%;
+        max-width: 440px;
     }
 
     .submit-form {
-        max-width: 400px;
+        max-width: 440px;
         flex-direction: column;
         align-items: flex-end;
         gap: 12px;
@@ -552,28 +596,25 @@ input {
         margin-bottom: 20px;
     }
 
-    .priority-buttons {
-        flex-wrap: wrap;
-    }
-
-    .btn-priority-urgent,
-    .btn-priority-medium,
-    .btn-priority-low {
-        flex: 1 1 100px;
-        min-width: 0;
-    }
-
     .submit-form {
         flex-direction: column;
-        align-items: stretch;
+        align-items: flex-end;
         gap: 16px;
     }
 
     .button-area {
-        width: 100%;
+        justify-content: flex-start;
+        gap: 12px;
+        width: auto;
     }
 
     .button-area .btn {
-        flex: 1;
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    .button-area button[type="reset"] .btn-img {
+        width: 10px;
+        height: 10px;
     }
 }

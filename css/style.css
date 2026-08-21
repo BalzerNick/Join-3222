@@ -319,6 +319,48 @@ li {
   margin-bottom: 16px;
 }
 
+/* ============================================================
+   Responsive (Legal / Privacy): gleiche Breakpoints wie addTask.css.
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .page {
+    padding: 48px 32px 24px 48px;
+  }
+}
+
+/* Sidebar wandert hier nach unten (navbar.css), .page braucht daher
+   keinen linken Rand mehr, aber unten Platz fuer die Navbar. Das
+   .footer darunter bekommt denselben Platz, damit es nicht unter
+   der fixen Navbar verschwindet. */
+@media (max-width: 768px) {
+  .page {
+    margin-left: 0;
+    padding: 32px 24px 24px;
+  }
+
+  /* .footer ist seitenuebergreifend (auch auf Seiten ohne die fixe
+     Mobile-Navbar aus navbar.css), daher hier nur der Fall Seite-mit-
+     .page-Container davor (Legal/Privacy/Help). */
+  .page ~ .footer {
+    margin-bottom: 96px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 24px 16px 24px;
+  }
+
+  .page h1 {
+    font-size: var(--fs-lg);
+  }
+
+  .page h2 {
+    font-size: var(--fs-md);
+  }
+}
+
 .step-heading {
   display: flex;
   align-items: baseline;
