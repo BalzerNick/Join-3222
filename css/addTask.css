@@ -136,9 +136,7 @@ form {
     gap: 8px;
 }
 
-.btn-priority-urgent,
-.btn-priority-medium,
-.btn-priority-low {
+.priority-buttons button {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -152,28 +150,23 @@ form {
     color: var(--color-primary);
     font-size: var(--fs-sm);
     font-family: inherit;
+    font-weight: normal;
     padding: 8px 6px;
     min-width: 0;
     white-space: nowrap;
 }
 
-.btn-priority-urgent .medium,
-.btn-priority-medium .medium,
-.btn-priority-low .medium {
+.priority-buttons button .medium {
     width: 12px;
     height: 12px;
     margin-left: 0;
 }
 
-.btn-priority-urgent:hover,
-.btn-priority-medium:hover,
-.btn-priority-low:hover {
+.priority-buttons button:hover {
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }
 
-.btn-priority-urgent.selected,
-.btn-priority-medium.selected,
-.btn-priority-low.selected {
+.priority-buttons button.selected {
     color: #ffffff;
     border-color: transparent;
 }
@@ -240,9 +233,6 @@ input {
     box-sizing: border-box;
     border-radius: 50%;
     object-fit: contain;
-}
-
-.arrow {
     transition: background-color 0.2s;
 }
 
@@ -514,9 +504,7 @@ input {
 }
 
 @media (max-width: 1100px) {
-    .btn-priority-urgent,
-    .btn-priority-medium,
-    .btn-priority-low {
+    .priority-buttons button {
         font-size: 12px;
     }
 }

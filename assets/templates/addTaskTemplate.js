@@ -195,11 +195,13 @@ function getAddTaskPage() {
                         </div>
                     </div>
 
+                    <span class="required-hint required-hint-subtask"><span class="required">*</span>This field is required</span>
+
                 </div>
             </div>
 
             <div class="submit-form">
-                <span class="required-hint"><span class="required">*</span>This field is required</span>
+                <span class="required-hint required-hint-footer"><span class="required">*</span>This field is required</span>
                 <div class="button-area">
                     <button type="reset" class="btn btn-secondary btn-task">
                         <span>Clear</span>
