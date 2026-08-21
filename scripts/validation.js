@@ -15,14 +15,20 @@
 /** Accepted email format: something@something.tld, no spaces. */
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 
-/** Accepted name format: letters, separated by single spaces, hyphens or apostrophes. */
-const NAME_PATTERN = /^[a-zA-ZÄÖÜäöüß]+(?:[ '-][a-zA-ZÄÖÜäöüß]+)*$/;
+/** Accepted name format: letters, separated by single spaces, hyphens or
+    apostrophes. \p{L} covers the letters of every language, so accented names
+    like María, François or Łukasz are accepted as well. */
+const NAME_PATTERN = /^\p{L}+(?:[ '-]\p{L}+)*$/u;
 
 /** Accepted phone format: digits, spaces and the separators + - ( ) /. */
 const PHONE_PATTERN = /^\+?[0-9 ()\/-]+$/;
 
 /** A phone number has to hold at least this many digits. */
 const PHONE_MIN_DIGITS = 6;
+
+/** A name may be this long. The longest realistic full names reach about 38
+    characters, 50 leaves room and still keeps the layout intact. */
+const NAME_MAX_LENGTH = 50;
 
 /** A password has to be at least this long. */
 const PASSWORD_MIN_LENGTH = 8;
@@ -180,8 +186,9 @@ function bindFormValidation(fields) {
 
 
 /**
- * Checks a name: it has to be filled in and may only consist of letters,
- * spaces, hyphens and apostrophes.
+ * Checks a name: it has to be filled in, may be at most NAME_MAX_LENGTH
+ * characters long and may only consist of letters, spaces, hyphens and
+ * apostrophes.
  *
  * @param {string} value - The trimmed name.
  * @returns {string} The error text, or an empty string if the name is valid.
@@ -189,6 +196,7 @@ function bindFormValidation(fields) {
 function validateName(value) {
   if (!value) return "Please enter a name.";
   if (value.length < 2) return "The name must be at least 2 characters long.";
+  if (value.length > NAME_MAX_LENGTH) return `The name may be at most ${NAME_MAX_LENGTH} characters long.`;
   if (!NAME_PATTERN.test(value)) return "The name may only contain letters.";
   return "";
 }

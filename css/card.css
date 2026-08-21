@@ -11,7 +11,9 @@
   margin-right: 20px;
 }
 
-.stat-card:hover, .stat-card-small:hover, .stat-card-wide:hover {
+.stat-card:hover,
+.stat-card-small:hover,
+.stat-card-wide:hover {
   background-color: var(--color-primary);
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
   color: #ffffff;
@@ -141,10 +143,10 @@
 
 /*Marcus 23.07.2026*/
 .summary-1Line {
-  display: flex;  
+  display: flex;
   align-items: center;
   margin-bottom: 16px;
-  padding: 8px; 
+  padding: 8px;
 }
 
 /*Marcus 24.07.2026*/
@@ -155,7 +157,7 @@
   margin-right: 15px;
   height: 60px;
   margin-top: -20px;
-}  
+}
 
 
 .date-txt {
@@ -174,11 +176,11 @@
 }
 
 .second-line {
-  display: flex;  
+  display: flex;
   flex-direction: row;
   align-items: center;
   margin-bottom: 16px;
-  padding: 8px; 
+  padding: 8px;
 }
 
 
@@ -195,9 +197,111 @@
   font-size: var(--fs-md);
 }
 
+.key {
+  font-size: 27px;
+}
+
 /* Nur in Marcus' card.css vorhanden, fehlt auf main */
 .page-summary {
   max-width: 1440px;
   margin: 0;
   padding: 110px 24px 24px 350px;
+}
+
+@media (max-width: 1140px) {
+  .greeting-block {
+    display: none;
+  }
+
+  .stat-card-wide {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 845px) {
+  .page-summary {
+    padding-left: 284px;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-summary {
+    padding: 20px;
+  }
+
+  .summary-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .greeting-block {
+    display: none;
+  }
+
+  .second-line {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .stat-card-wide {
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+    padding-left: 0;
+    justify-content: center;
+  }
+
+  .summary-1Line {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .stat-card {
+    margin: 0;
+  }
+
+  .stat-card-small {
+    margin: 0;
+  }
+
+  .help-heading-blue-line {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 5px;
+  }
+
+  .help-heading-blue-line h1 {
+    order: 1;
+    margin: 0;
+  }
+
+  .help-heading-blue-line .key {
+    order: 2;
+    margin-top: 8px;
+    font-size: var(--fs-md);
+  }
+
+  .help-heading-blue-line .blue-line {
+    order: 3;
+    transform: rotate(90deg);
+    margin: 0 0 0 30px;
+  }
+}
+
+@media (max-width: 415px) {
+
+  .stat-card {
+    width: 155px;
+  }
+
+  .stat-card-small {
+    width: 100%;
+  }
+
+  .page-summary {
+    padding: 5px;
+  }
 }

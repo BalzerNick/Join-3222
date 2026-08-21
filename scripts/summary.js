@@ -57,8 +57,8 @@ function updateSummaryHTML() {
     setStatNumber("doneCount", countTasksByStatus("done"));
     setStatNumber("urgentCount", countTasksByPriority("urgent"));
     setStatNumber("boardCount", tasks.length);
-    setStatNumber("inProgressCount", countTasksByStatus("inProgress"));
-    setStatNumber("awaitFeedbackCount", countTasksByStatus("awaitFeedback"));
+    setStatNumber("inProgressCount", countTasksByStatus("in-progress"));
+    setStatNumber("awaitFeedbackCount", countTasksByStatus("await-feedback"));
     setDate("uprisingdate", getMostUrgentTask()?.dueDate);
     setName("loginuser", "greetingtag", getLoggedInUserName());
 }

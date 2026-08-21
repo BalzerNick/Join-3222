@@ -1173,4 +1173,8 @@ body.modal-open {
     .move-task-btn {
         display: flex;
     }
+
+    .task-detail-card {
+        width: 100%;
+    }
 }
