@@ -44,24 +44,23 @@ function closeAllDropdowns() {
 }
 
 /**
- * Filters the contact dropdown by the text typed into the assignment field,
- * hiding every entry that does not contain it.
+ * Filters the contact dropdown by the text typed into the assignment field.
+ * Only kicks in from 2 characters onward and matches by first or last name
+ * (each matched from its start), showing every contact below that length.
  *
  * @returns {void}
  */
 function searchList() {
     let input = document.getElementById("assignedTo");
-    let filter = input.value.toLowerCase();
-    let items = document.querySelectorAll("contactList li");
+    let filter = input.value.trim().toLowerCase();
+    let items = document.querySelectorAll("#contactList li");
 
-    for (let index = 0; index < items.length; index++) {
-        let text = items[index].textContent.toLowerCase();
-        if (text.includes(filter)) {
-            items[index].style.display = "block";
-        } else {
-            items[index].style.display = "none"; 
-        }
-    }
+    items.forEach(item => {
+        let nameEl = item.querySelector(".contact-name");
+        let nameParts = (nameEl?.textContent || "").replace(" (you)", "").toLowerCase().split(" ");
+        let matches = filter.length < 2 || nameParts.some(part => part.startsWith(filter));
+        item.style.display = matches ? "flex" : "none";
+    });
 }
 
 /**
@@ -229,12 +228,9 @@ function toggleContactRow(index) {
  * field. Avatars overlap slightly; once more than MAX_VISIBLE_CONTACTS are
  * selected, the row shows only the first slots and a '+N' badge for the
  * rest instead of running off the right edge.
- *
- * @param {string} [initial] - Not used; the initials are taken from selectedContacts instead.
- * @param {string} [color] - Not used; the colour is taken from selectedContacts instead.
  * @returns {void}
  */
-function renderContacts(initial, color){
+function renderContacts(){
     let contact = document.getElementById(`assignedContacts`)
     contact.innerHTML = ""
     const total = selectedContacts.length;

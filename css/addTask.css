@@ -20,9 +20,6 @@ form {
     max-width: 900px;
 }
 
-/* Fixed action bar: same left offset and horizontal padding as main,
-   so its content lines up with the form above regardless of scroll
-   position or how much the form above it grows. */
 #addTaskFooter {
     position: fixed;
     left: 232px;
@@ -80,13 +77,6 @@ form {
     padding: 12px 16px;
 }
 
-/* Assigned-to/Category inputs overlap their own dropdown-list by a
-   few pixels at the top (see .dropdown-list's top offset) so the two
-   corners blend together; the input needs to be the one drawn on top
-   there, with its own arrow icon staying above the input. Scoped to
-   .dropdown so this never competes with a *different* dropdown's
-   list (e.g. Category's input popping above Assigned-to's open
-   contact list). */
 #addTaskForm .dropdown .input {
     position: relative;
     z-index: 6;
@@ -96,10 +86,6 @@ form {
     z-index: 7;
 }
 
-/* While a dropdown is open, its whole box needs to sit above
-   whatever comes after it in the page (e.g. Assigned-to's contact
-   list overlapping the Category field below it), not just above its
-   own list. */
 #addTaskForm .dropdown:has(.dropdown-list:not(.d-none)) {
     z-index: 10;
 }
@@ -181,16 +167,10 @@ form {
     max-width: 900px;
 }
 
-/* On the standalone page, the required-hint has a twin under the
-   subtask list (.required-hint-subtask) that only shows up once the
-   footer's own copy is hidden there, see the 1024px query below. */
 .required-hint-subtask {
     display: none;
 }
 
-/* Inside the board's Add-Task modal the form has no fixed footer bar of
-   its own (that one is sized for the standalone page's sidebar layout);
-   instead the buttons stick to the bottom of the modal's own scroll box. */
 #add-task-modal .submit-form {
     position: sticky;
     bottom: 0;
@@ -497,12 +477,6 @@ input {
     cursor: pointer;
 }
 
-/* ============================================================
-   Responsive
-   ============================================================ */
-
-/* Ab hier wird die Zwei-Spalten-Zeile fuer die Prio-Buttons zu schmal,
-   damit der Text bei fixer Groesse noch reinpasst. */
 @media (max-width: 1100px) {
     .btn-priority-urgent,
     .btn-priority-medium,
@@ -511,7 +485,6 @@ input {
     }
 }
 
-/* Tablet: rechte Formhaelfte wandert unter die linke */
 @media (max-width: 1024px) {
     main {
         padding: 48px 32px 190px;
@@ -562,8 +535,6 @@ input {
     }
 }
 
-/* Mobile: Sidebar ist jetzt unten (navbar.css), Content braucht
-   dafuer keinen linken Rand mehr, aber unten Platz fuer die Navbar */
 @media (max-width: 768px) {
     main {
         margin-left: 0;
@@ -579,7 +550,6 @@ input {
     }
 }
 
-/* Kleine Screens: letzter Feinschliff fuer Ueberschrift/Buttons */
 @media (max-width: 480px) {
     main {
         padding: 24px 16px 220px;
