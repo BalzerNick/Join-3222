@@ -25,3 +25,17 @@
 .legal-notice ul {
   padding-left: 20px;
 }
+
+/* .legal-notice h2 is as specific as style.css's ".page h2" mobile
+   override and loads after it, so it needs its own copy here to
+   actually shrink at the same 480px breakpoint as privacyPolicy.html. */
+@media (max-width: 480px) {
+  .legal-notice {
+    margin: 24px auto;
+    padding: 16px;
+  }
+
+  .legal-notice h2 {
+    font-size: var(--fs-md);
+  }
+}

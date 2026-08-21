@@ -160,7 +160,7 @@ async function showContactDetail(id) {
  * Returns from the detail view back to the contact list and clears the card
  * highlight. Bound to the back arrow that is only visible on mobile.
  *
- * @returns {void}
+ * cla@returns {void}
  */
 function closeContactDetail() {
   document.querySelector('.contacts-main').classList.remove('detail-open');
@@ -204,9 +204,24 @@ function fillDetailTemplate(template, id, contact) {
     .replaceAll("{{id}}", id)
     .replaceAll("{{color}}", getAvatarColor(contact.name))
     .replaceAll("{{initials}}", contact.initials)
+    .replaceAll("{{nameSize}}", getNameSizeClass(contact.name))
     .replaceAll("{{name}}", contact.name)
     .replaceAll("{{email}}", contact.email)
     .replaceAll("{{phone}}", contact.phone || "");
+}
+
+/**
+ * Returns the CSS modifier class that keeps a long contact name readable in
+ * the detail view. Long names are rendered one or two steps smaller so they
+ * wrap into fewer lines instead of filling the whole card.
+ *
+ * @param {string} name - The full name of the contact.
+ * @returns {string} "" for short names, otherwise a detail-name-* class.
+ */
+function getNameSizeClass(name) {
+  if (name.length > 32) return "detail-name-xs";
+  if (name.length > 20) return "detail-name-sm";
+  return "";
 }
 
 /**

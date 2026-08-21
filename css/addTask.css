@@ -20,9 +20,6 @@ form {
     max-width: 900px;
 }
 
-/* Fixed action bar: same left offset and horizontal padding as main,
-   so its content lines up with the form above regardless of scroll
-   position or how much the form above it grows. */
 #addTaskFooter {
     position: fixed;
     left: 232px;
@@ -46,6 +43,7 @@ form {
 
 .input-area {
     flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -72,11 +70,54 @@ form {
     box-sizing: border-box;
     border: 1px solid var(--color-border);
     border-radius: 10px;
-    font-size: var(--fs-md);
+    font-size: var(--fs-base);
     font-family: inherit;
     color: var(--color-primary);
     z-index: 1;
     padding: 12px 16px;
+}
+
+#addTaskForm .dropdown .input {
+    position: relative;
+    z-index: 6;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    transition: border-width 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+#addTaskForm .dropdown .input::placeholder {
+    color: var(--color-primary);
+    opacity: 1;
+}
+
+#addTaskForm #assignedTo {
+    border-width: 2px 1px 1px 2px;
+}
+
+#addTaskForm #category {
+    border-width: 1px 1px 2px 2px;
+}
+
+#addTaskForm #assignedTo:hover,
+#addTaskForm #assignedTo:focus,
+#addTaskForm #category:hover,
+#addTaskForm #category:focus {
+    border-width: 1px;
+    border-color: var(--color-border);
+}
+
+#addTaskForm .dropdown .input:hover::placeholder,
+#addTaskForm .dropdown .input:focus::placeholder {
+    color: revert;
+    opacity: revert;
+}
+
+#addTaskForm .dropdown .input-img {
+    z-index: 7;
+}
+
+#addTaskForm .dropdown:has(.dropdown-list:not(.d-none)) {
+    z-index: 10;
 }
 
 #addTaskForm .input:focus {
@@ -91,39 +132,41 @@ form {
 
 .priority-buttons {
     display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
+    flex-wrap: nowrap;
+    gap: 8px;
 }
 
-.btn-priority-urgent,
-.btn-priority-medium,
-.btn-priority-low {
+.priority-buttons button {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 4px;
+    flex: 1 1 0;
     box-sizing: border-box;
     border: 1px solid #d1d1d1;
     border-radius: 10px;
     background-color: #ffffff;
     color: var(--color-primary);
-    font-size: var(--fs-md);
+    font-size: var(--fs-sm);
     font-family: inherit;
-    padding: 12px 16px;
-    min-width: 100px;
+    font-weight: normal;
+    padding: 8px 6px;
+    min-width: 0;
     white-space: nowrap;
 }
 
-.btn-priority-urgent:hover,
-.btn-priority-medium:hover,
-.btn-priority-low:hover {
+.priority-buttons button .medium {
+    width: 12px;
+    height: 12px;
+    margin-left: 0;
+}
+
+.priority-buttons button:hover {
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }
 
-.btn-priority-urgent.selected,
-.btn-priority-medium.selected,
-.btn-priority-low.selected {
+.priority-buttons button.selected {
     color: #ffffff;
     border-color: transparent;
 }
@@ -147,9 +190,10 @@ form {
     max-width: 900px;
 }
 
-/* Inside the board's Add-Task modal the form has no fixed footer bar of
-   its own (that one is sized for the standalone page's sidebar layout);
-   instead the buttons stick to the bottom of the modal's own scroll box. */
+.required-hint-subtask {
+    display: none;
+}
+
 #add-task-modal .submit-form {
     position: sticky;
     bottom: 0;
@@ -183,10 +227,17 @@ input {
 .arrow {
     top: 50%;
     transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    object-fit: contain;
+    transition: background-color 0.2s;
 }
 
-.arrow {
-    transition: 0.3s;
+.arrow:hover {
+    background-color: rgba(41, 171, 226, 0.15);
 }
 
 .pointer,
@@ -195,25 +246,25 @@ input {
     cursor: pointer;
 }
 
-.arrow.open {
-    transform: translateY(-50%) rotate(180deg);
-}
-
 .dropdown-list {
     position: absolute;
-    top: calc(100% + 1px);
+    top: calc(100% - 11px);
     width: 100%;
     box-sizing: border-box;
     padding: 8px;
+    padding-top: 16px;
     margin: 0;
     list-style: none;
     background: #ffffff;
     border: 1px solid var(--color-border);
+    border-top: none;
     border-radius: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     z-index: 5;
     max-height: 300px;
-    font-size: var(--fs-md);
+    font-size: var(--fs-base);
 }
 
 .dropdown-scroll {
@@ -332,7 +383,23 @@ input {
 .assigned-contacts{
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    align-items: center;
+    gap: 0;
+}
+
+.assigned-contacts .avatar-sm{
+    margin: 0;
+    border: 2px solid #ffffff;
+}
+
+.assigned-contacts .avatar-sm + .avatar-sm{
+    margin-left: -10px;
+}
+
+.assigned-contacts .avatar-more{
+    background-color: var(--color-border);
+    color: var(--color-primary);
+    font-weight: 700;
 }
 
 .subtask-area{
@@ -340,6 +407,11 @@ input {
     display: flex;
     flex-direction: column;
     margin-top: 8px;
+    max-height: 112px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    background-color: var(--color-bg);
 }
 
 .subtask{
@@ -355,7 +427,7 @@ input {
 }
 
 .subtask:hover{
-    background-color: var(--color-bg);
+    background-color: #ffffff;
 }
 
 .subtask-text {
@@ -396,7 +468,7 @@ input {
     border-bottom: 1px solid var(--color-accent);
     border-radius: 0;
     padding: 4px 4px 8px;
-    font-size: var(--fs-md);
+    font-size: var(--fs-base);
     font-family: inherit;
     color: var(--color-primary);
     background: transparent;
@@ -431,11 +503,12 @@ input {
     cursor: pointer;
 }
 
-/* ============================================================
-   Responsive
-   ============================================================ */
+@media (max-width: 1100px) {
+    .priority-buttons button {
+        font-size: 12px;
+    }
+}
 
-/* Tablet: rechte Formhaelfte wandert unter die linke */
 @media (max-width: 1024px) {
     main {
         padding: 48px 32px 190px;
@@ -455,19 +528,19 @@ input {
     }
 
     .divider {
-        width: 100%;
-        height: 1px;
-        align-self: auto;
+        display: none;
     }
 
     #addTaskForm .input,
     .dropdown,
-    .add-subtask {
+    .add-subtask,
+    .priority-buttons {
         width: 100%;
+        max-width: 440px;
     }
 
     .submit-form {
-        max-width: 400px;
+        max-width: 440px;
         flex-direction: column;
         align-items: flex-end;
         gap: 12px;
@@ -476,10 +549,16 @@ input {
     .required-hint {
         align-self: flex-start;
     }
+
+    .required-hint-footer {
+        display: none;
+    }
+
+    .required-hint-subtask {
+        display: block;
+    }
 }
 
-/* Mobile: Sidebar ist jetzt unten (navbar.css), Content braucht
-   dafuer keinen linken Rand mehr, aber unten Platz fuer die Navbar */
 @media (max-width: 768px) {
     main {
         margin-left: 0;
@@ -495,7 +574,6 @@ input {
     }
 }
 
-/* Kleine Screens: letzter Feinschliff fuer Ueberschrift/Buttons */
 @media (max-width: 480px) {
     main {
         padding: 24px 16px 220px;
@@ -512,28 +590,25 @@ input {
         margin-bottom: 20px;
     }
 
-    .priority-buttons {
-        flex-wrap: wrap;
-    }
-
-    .btn-priority-urgent,
-    .btn-priority-medium,
-    .btn-priority-low {
-        flex: 1 1 100px;
-        min-width: 0;
-    }
-
     .submit-form {
         flex-direction: column;
-        align-items: stretch;
+        align-items: flex-end;
         gap: 16px;
     }
 
     .button-area {
-        width: 100%;
+        justify-content: flex-start;
+        gap: 12px;
+        width: auto;
     }
 
     .button-area .btn {
-        flex: 1;
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    .button-area button[type="reset"] .btn-img {
+        width: 10px;
+        height: 10px;
     }
 }

@@ -110,6 +110,9 @@
   min-width: 0;
 }
 
+/* Liste: Name und E-Mail bleiben einzeilig und werden mit "..." gekuerzt.
+   So behalten alle Karten die gleiche Hoehe und die Liste scrollt ruhig.
+   Der vollstaendige Text steht im title-Attribut (Tooltip). */
 .contact-name,
 .contact-email {
   overflow: hidden;
@@ -133,11 +136,36 @@
   align-items: center;
   gap: 48px;
   margin-bottom: 24px;
+  /* verhindert, dass ein langer Name die Karte breiter macht als die Spalte */
+  min-width: 0;
 }
 
+/* Textspalte neben dem Avatar: min-width: 0 erlaubt das Schrumpfen,
+   sonst waechst die Spalte auf die Breite des laengsten Wortes. */
+.detail-head-text {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Detail: der Name wird nicht gekuerzt, sondern umgebrochen - er ist die
+   Ueberschrift der Ansicht und soll vollstaendig lesbar bleiben.
+   break-word bricht zuerst an Leerzeichen und nur dann innerhalb eines
+   Wortes, wenn dieses eine Zeile allein nicht mehr passt. */
 .detail-name {
   font-size: var(--fs-xl);
   margin-bottom: 8px;
+  overflow-wrap: break-word;
+  line-height: 1.15;
+}
+
+/* Laengenabhaengige Stufen (Klasse kommt aus getNameSizeClass): je laenger
+   der Name, desto kleiner die Schrift - so bleiben es ein bis zwei Zeilen. */
+.detail-name-sm {
+  font-size: var(--fs-lg);
+}
+
+.detail-name-xs {
+  font-size: var(--fs-md);
 }
 
 .detail-actions {
@@ -174,6 +202,9 @@
 .detail-line {
   font-size: var(--fs-base);
   margin-bottom: 16px;
+  /* E-Mail-Adressen haben keine Leerzeichen, deshalb hier anywhere:
+     sie duerfen notfalls mitten im Wort umbrechen statt herauszulaufen. */
+  overflow-wrap: anywhere;
 }
 
 .detail-line a {
@@ -411,6 +442,18 @@
     font-size: var(--fs-lg);
   }
 
+  .detail-name-sm,
+  .detail-name-xs {
+    font-size: var(--fs-md);
+  }
+
+  /* schmalere Spalte: Avatar kleiner, damit dem Namen mehr Breite bleibt */
+  .detail-head .avatar-lg {
+    width: 64px;
+    height: 64px;
+    font-size: var(--fs-lg);
+  }
+
   /* Popup: dunkler Kopf oben, Formular darunter, Avatar auf der Kante.
      Nebeneinander passen die beiden Haelften hier nicht mehr. */
   .contact-modal {
@@ -549,5 +592,11 @@
 
   .detail-action {
     font-size: var(--fs-base);
+  }
+
+  /* wenig Platz: Avatar und Name ruecken enger zusammen. Die Schriftgroessen
+     kommen bereits aus der 1100px-Stufe. */
+  .detail-head {
+    gap: 16px;
   }
 }

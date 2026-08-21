@@ -27,11 +27,12 @@ function getNameTemplate(name, initials, index, color) {
  *
  * @param {string} initial - The initials to show.
  * @param {string} color - Background colour of the avatar.
+ * @param {string} [extraClass] - Additional CSS class, e.g. for the '+N' overflow badge.
  * @returns {string} The avatar as HTML.
  */
-function getContactInitial(initial, color) {
+function getContactInitial(initial, color, extraClass = '') {
     return `
-            <span class="avatar avatar-sm" style="background-color: ${color}">
+            <span class="avatar avatar-sm ${extraClass}" style="background-color: ${color}">
                 ${initial}
             </span>
     `
@@ -136,8 +137,9 @@ function getAddTaskPage() {
                                 placeholder="Select contact to assign" autocomplete="off" oninput="searchList()"
                                 onclick="toggleDropdown(\`contactList\`, \`contactArrow\`)">
 
-                            <span class="input-img pointer arrow" id="contactArrow"
-                                onclick="toggleDropdown(\`contactList\`, \`contactArrow\`)">▼</span>
+                            <img class="input-img pointer arrow" id="contactArrow"
+                                src="assets/icons/arrow_drop_down_down.svg" alt="Toggle dropdown"
+                                onclick="toggleDropdown(\`contactList\`, \`contactArrow\`)">
                         </div>
 
 
@@ -157,8 +159,9 @@ function getAddTaskPage() {
                                 autocomplete="off" oninput="searchList()"
                                 onclick="toggleDropdown(\`categoryList\`, \`categoryArrow\`)" required>
 
-                            <span class="input-img pointer arrow" id="categoryArrow"
-                                onclick="toggleDropdown(\`categoryList\`, \`categoryArrow\`)">▼</span>
+                            <img class="input-img pointer arrow" id="categoryArrow"
+                                src="assets/icons/arrow_drop_down_down.svg" alt="Toggle dropdown"
+                                onclick="toggleDropdown(\`categoryList\`, \`categoryArrow\`)">
                         </div>
 
                         <ul class="dropdown-list d-none" id="categoryList">
@@ -192,11 +195,13 @@ function getAddTaskPage() {
                         </div>
                     </div>
 
+                    <span class="required-hint required-hint-subtask"><span class="required">*</span>This field is required</span>
+
                 </div>
             </div>
 
             <div class="submit-form">
-                <span class="required-hint"><span class="required">*</span>This field is required</span>
+                <span class="required-hint required-hint-footer"><span class="required">*</span>This field is required</span>
                 <div class="button-area">
                     <button type="reset" class="btn btn-secondary btn-task">
                         <span>Clear</span>

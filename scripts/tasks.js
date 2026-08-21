@@ -5,6 +5,9 @@ let subtasks = {};
 let selectedPriority = "medium";
 let sub = false
 let editingSubtaskKey = null;
+const MAX_VISIBLE_CONTACTS = 5;
+const ARROW_ICON_CLOSED = "assets/icons/arrow_drop_down_down.svg";
+const ARROW_ICON_OPEN = "assets/icons/arrow_drop_down_up.svg";
 
 /**
  * Opens or closes a dropdown and rotates its arrow. Reloads the contacts
@@ -25,43 +28,56 @@ async function toggleDropdown(ul, arr) {
     let wasOpen = !list.classList.contains("d-none");
 
     closeAllDropdowns();
-
     if (!wasOpen) {
         list.classList.remove("d-none");
         arrow.classList.add("open");
+        arrow.src = ARROW_ICON_OPEN;
     }
 }
 
 /**
- * Closes the contact and category dropdowns and resets the contact arrow.
+ * Closes the contact and category dropdowns and resets their arrows.
  *
  * @returns {void}
  */
 function closeAllDropdowns() {
     document.getElementById("contactList")?.classList.add("d-none");
-    document.getElementById("contactArrow")?.classList.remove("open");
     document.getElementById("categoryList")?.classList.add("d-none");
+    resetArrowIcon("contactArrow");
+    resetArrowIcon("categoryArrow");
 }
 
 /**
- * Filters the contact dropdown by the text typed into the assignment field,
- * hiding every entry that does not contain it.
+ * Resets a dropdown arrow icon back to its closed state.
+ *
+ * @param {string} id - Id of the arrow icon element.
+ * @returns {void}
+ */
+function resetArrowIcon(id) {
+    let arrow = document.getElementById(id);
+    if (!arrow) return;
+    arrow.classList.remove("open");
+    arrow.src = ARROW_ICON_CLOSED;
+}
+
+/**
+ * Filters the contact dropdown by the text typed into the assignment field.
+ * Only kicks in from 2 characters onward and matches by first or last name
+ * (each matched from its start), showing every contact below that length.
  *
  * @returns {void}
  */
 function searchList() {
     let input = document.getElementById("assignedTo");
-    let filter = input.value.toLowerCase();
-    let items = document.querySelectorAll("contactList li");
+    let filter = input.value.trim().toLowerCase();
+    let items = document.querySelectorAll("#contactList li");
 
-    for (let index = 0; index < items.length; index++) {
-        let text = items[index].textContent.toLowerCase();
-        if (text.includes(filter)) {
-            items[index].style.display = "block";
-        } else {
-            items[index].style.display = "none"; 
-        }
-    }
+    items.forEach(item => {
+        let nameEl = item.querySelector(".contact-name");
+        let nameParts = (nameEl?.textContent || "").replace(" (you)", "").toLowerCase().split(" ");
+        let matches = filter.length < 2 || nameParts.some(part => part.startsWith(filter));
+        item.style.display = matches ? "flex" : "none";
+    });
 }
 
 /**
@@ -226,19 +242,23 @@ function toggleContactRow(index) {
 
 /**
  * Redraws the avatar row of the assigned contacts below the assignment
- * field.
- *
- * @param {string} [initial] - Not used; the initials are taken from selectedContacts instead.
- * @param {string} [color] - Not used; the colour is taken from selectedContacts instead.
+ * field. Avatars overlap slightly; once more than MAX_VISIBLE_CONTACTS are
+ * selected, the row shows only the first slots and a '+N' badge for the
+ * rest instead of running off the right edge.
  * @returns {void}
  */
-function renderContacts(initial, color){
+function renderContacts(){
     let contact = document.getElementById(`assignedContacts`)
     contact.innerHTML = ""
-    let user = getUser();
-    for (let index = 0; index < selectedContacts.length; index++) {
-        //testUser(user, contacts[index]);
+    const total = selectedContacts.length;
+    const overflow = total > MAX_VISIBLE_CONTACTS;
+    const visibleCount = overflow ? MAX_VISIBLE_CONTACTS - 1 : total;
+
+    for (let index = 0; index < visibleCount; index++) {
         contact.innerHTML += getContactInitial(selectedContacts[index].initials, getAvatarColor(selectedContacts[index].name));
+    }
+    if (overflow) {
+        contact.innerHTML += getContactInitial(`+${total - visibleCount}`, '', 'avatar-more');
     }
 }
 
@@ -415,9 +435,6 @@ function getUser(){
  * @returns {string} the user name and if its your name its get the (you) tag
  */
 function testUser(loggedinUser, user){
-   
-    console.log(user);
-    
     if(JSON.parse(loggedinUser).name == user.name){
         return user.name +" (you)"
     }
