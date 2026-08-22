@@ -15,7 +15,23 @@
         }
 
         /* Intro-Overlay: deckt den Login-Inhalt kurz zu und blendet dann weg */
-         @media (max-width: 550px) {
+        
+        @media (min-width: 769px) {
+            .intro-overlay {
+                position: absolute;
+                inset: 0;
+                z-index: 10;
+                background-color: #F6F7F8;
+                background-image: url('assets/imgs/logoMain.png');
+                background-size: 15%;
+                background-repeat: no-repeat;
+                background-position: center;
+                animation: introFade 500ms ease 1s forwards;
+            }
+        }
+
+
+         @media (max-width: 768px) {
             .intro-overlay {
                 position: absolute;
                 inset: 0;
@@ -55,16 +71,16 @@
             }
         }
 
-        @keyframes logoIntroSize {
+         @keyframes logoIntroSize {
             from {
                 width: 200px;
             }
             to {
                 width: 100px;
             }
-        }
+        } 
 
-        @media (max-width: 550px) {
+        @media (max-width: 768px) {
             @keyframes logoIntroSize {
                 from {
                     width: 120px;
@@ -75,15 +91,21 @@
             }
         }
 
-         @media (max-width: 550px) {
+       /*ease-in-out → startet langsam, wird in der Mitte am schnellsten, 
+       wird zum Ende hin wieder langsam. Wirkt dadurch weich/organisch statt abrupt */
+
+        /*forwards → nach Ende der Animation bleibt der letzte Keyframe-Zustand (das to {})
+         erhalten, statt zurückzuspringen. */
+
+         @media (max-width: 768px) {
             .login-logo {
                 position: absolute;
                 top: 50%;
                 left: 50%;
                 width: 200px;
                 transform: translate(-50%, -50%);
-                animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
-                        logoIntroSize 1.5s ease-in-out 0.3s forwards;
+                 animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
+                            logoIntroSize 1.5s ease-in-out 0.3s forwards; 
                 z-index: 10;
             }
          }
@@ -97,7 +119,7 @@
             to { opacity: 1; }
         }
 
-        @media (max-width: 550px) {
+        @media (max-width: 768px) {
             .login-logo-white {
                 animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
                         logoIntroSize 1.5s ease-in-out 0.3s forwards,
@@ -105,7 +127,7 @@
             }
         }
 
-        @media (max-width: 550px) {
+        @media (max-width: 768px) {
             .login-logo-color {
                 opacity: 0;
                 animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
