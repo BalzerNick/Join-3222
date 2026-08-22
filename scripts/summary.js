@@ -61,6 +61,8 @@ function updateSummaryHTML() {
     setStatNumber("awaitFeedbackCount", countTasksByStatus("await-feedback"));
     setDate("uprisingdate", getMostUrgentTask()?.dueDate);
     setName("loginuser", "greetingtag", getLoggedInUserName());
+
+    showMobileGreeting();
 }
 
 /**
@@ -193,4 +195,18 @@ function startGreeting() {
     let greeting = getCurrentTime();
     console.log(`Greeting: ${greeting}`);
     document.getElementById("greetingtag").textContent = greeting;
+}
+
+function showMobileGreeting() {
+    if (window.innerWidth > 768) return;
+
+    const greetingBlock = document.querySelector(".greeting-block");
+
+    if (!greetingBlock) return;
+
+    greetingBlock.classList.add("mobile-greeting");
+
+    setTimeout(() => {
+        greetingBlock.classList.remove("mobile-greeting");
+    }, 1800);
 }
