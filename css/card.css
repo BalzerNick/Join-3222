@@ -227,6 +227,7 @@
 @media (max-width: 768px) {
   .page-summary {
     padding: 20px;
+    margin-bottom: 100px;
   }
 
   .summary-container {
@@ -238,6 +239,34 @@
 
   .greeting-block {
     display: none;
+  }
+
+  .greeting-block.mobile-greeting {
+    position: fixed;
+    top: 80px;
+    bottom: 70px;
+    left: 0;
+    right: 0;
+
+    z-index: 1000;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #f6f7f8;
+  }
+
+  .greeting-block.mobile-greeting .greetings {
+    font-size: 26px;
+    margin: 0;
+  }
+
+  .greeting-block.mobile-greeting .user {
+    font-size: 34px;
+    margin: 0;
+    color: #164e63;
   }
 
   .second-line {
@@ -291,33 +320,32 @@
   }
 
   /* greeting mobile animation */
-      .greeting-block {
-        display: none;
-    }
+  .greeting-block {
+    display: none;
+  }
 
-    .greeting-block.mobile-greeting {
-        position: fixed;
-        inset: 0;
-        z-index: 1000;
+  .greeting-block.mobile-greeting {
+    position: fixed;
+    z-index: 1000;
 
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-        background-color: #f6f7f8;
-    }
+    background-color: #f6f7f8;
+  }
 
-    .greeting-block.mobile-greeting .greetings {
-        font-size: 26px;
-        margin: 0;
-    }
+  .greeting-block.mobile-greeting .greetings {
+    font-size: 26px;
+    margin: 0;
+  }
 
-    .greeting-block.mobile-greeting .user {
-        font-size: 34px;
-        margin: 0;
-        color: #164e63;
-    }
+  .greeting-block.mobile-greeting .user {
+    font-size: 34px;
+    margin: 0;
+    color: #164e63;
+  }
 }
 
 @media (max-width: 415px) {

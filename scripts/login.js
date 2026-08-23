@@ -91,6 +91,7 @@ async function login() {
   let foundUser = findUser(users, data);
   if (foundUser) {
     localStorage.setItem("user", JSON.stringify({ name: foundUser.name }));
+    sessionStorage.setItem("showGreeting", "true");
     await getContacts();
     window.location.href = "summary_guest.html";
   } else {
@@ -106,6 +107,7 @@ async function login() {
  */
 async function guestLogin() {
   localStorage.setItem("user", JSON.stringify({ guest: true }));
+  sessionStorage.setItem("showGreeting", "true");
   await getContacts();
   window.location.href = "summary_guest.html";
 }

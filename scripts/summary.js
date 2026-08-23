@@ -61,8 +61,6 @@ function updateSummaryHTML() {
     setStatNumber("awaitFeedbackCount", countTasksByStatus("await-feedback"));
     setDate("uprisingdate", getMostUrgentTask()?.dueDate);
     setName("loginuser", "greetingtag", getLoggedInUserName());
-
-    showMobileGreeting();
 }
 
 /**
@@ -197,14 +195,16 @@ function startGreeting() {
     document.getElementById("greetingtag").textContent = greeting;
 }
 
-function showMobileGreeting() {
+function checkMobileGreeting() {
     if (window.innerWidth > 768) return;
+
+    if (sessionStorage.getItem("showGreeting") !== "true") return;
 
     const greetingBlock = document.querySelector(".greeting-block");
 
-    if (!greetingBlock) return;
-
     greetingBlock.classList.add("mobile-greeting");
+
+    sessionStorage.removeItem("showGreeting");
 
     setTimeout(() => {
         greetingBlock.classList.remove("mobile-greeting");
