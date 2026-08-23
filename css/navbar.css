@@ -5,6 +5,9 @@
    ============================================================ */
 
 header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   padding-left: 300px;
@@ -13,6 +16,7 @@ header {
   background-color: #ffffff;
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
   font-size: var(--fs-md);
+  z-index: 5;
 }
 
 /* Logo im Header ersetzt mobil den Titel-Text */
@@ -29,6 +33,7 @@ header {
   background-color: var(--color-primary);
   display: flex;
   flex-direction: column;
+  z-index: 10;
 }
 
 .menu-logo {
