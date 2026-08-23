@@ -1079,6 +1079,12 @@ body.modal-open {
     background-color: var(--color-accent);
 }
 
+.task-title,
+.task-description {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
 @media (max-width: 1430px) {
     .drag-container {
         display: flex;
