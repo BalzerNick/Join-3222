@@ -353,6 +353,11 @@ function editTaskSubtask(subtaskId) {
     button.onclick = () => saveEditedSubtask(subtaskId);
 }
 
+/**
+ * Saves the edited subtask title.
+ *
+ * @param {string} subtaskId - Key of the subtask.
+ */
 function saveEditedSubtask(subtaskId) {
     const item = document.querySelector(`[data-subtask-id="${subtaskId}"]`);
     const title = item.querySelector('.edit-subtask-title');
