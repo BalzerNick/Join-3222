@@ -13,6 +13,8 @@ Thumbs.db
 # Logs
 *.log
 
+index-mobile-animation.html
+
 # Nur fuer mich - nicht committen
 Doku.md
 Join Checkliste.pdf
@@ -24,3 +26,5 @@ test/
 .claude/
 
 out/
+
+oldfiles/
