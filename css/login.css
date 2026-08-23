@@ -5,6 +5,141 @@
    ============================================================ */
 
 /* Zentrierter Rahmen, begrenzt den Inhalt auf max. 1440px */
+.login-main {
+        position: relative;
+    }
+
+    /* Intro-Overlay: deckt den Login-Inhalt kurz zu und blendet dann weg */
+    
+    @media (min-width: 769px) {
+        .intro-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            background-color: #F6F7F8;
+            background-image: url('../assets/imgs/logoMain.png');
+            background-size: 15%;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: introFade 500ms ease 1s forwards;
+        }
+    }
+
+
+    @media (max-width: 768px) {
+        .intro-overlay {
+            position: absolute;
+            inset: 0;
+            background-color: var(--color-primary);
+            z-index: 10;
+            animation: introFade 500ms ease 1s forwards;
+        }
+    }
+
+    @keyframes introFade {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+    }
+
+
+    /* Logo-Intro: startet gross in der Bildschirmmitte, fliegt dann zur
+        echten Header-Position (top:24px; left:40px).
+        Position und Groesse sind bewusst getrennte Keyframes, damit die
+        Groesse unten per Media-Query fuer Mobile ueberschrieben werden
+        kann, ohne die Positions-Animation duplizieren zu muessen. */
+    @keyframes logoIntroPosition {
+        from {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        to {
+            top: 24px;
+            left: 40px;
+            transform: translate(0, 0);
+        }
+    }
+
+      @keyframes logoIntroSize {
+        from {
+            width: 200px;
+        }
+        to {
+            width: 100px;
+        }
+    } 
+
+    @media (max-width: 768px) {
+        @keyframes logoIntroSize {
+            from {
+                width: 120px;
+            }
+            to {
+                width: 60px;
+            }
+        }
+    }
+
+    /*ease-in-out → startet langsam, wird in der Mitte am schnellsten, 
+    wird zum Ende hin wieder langsam. Wirkt dadurch weich/organisch statt abrupt */
+
+    /*forwards → nach Ende der Animation bleibt der letzte Keyframe-Zustand (das to {})
+      erhalten, statt zurückzuspringen. */
+
+    .login-logo {
+        position: absolute;
+        top: 24px;
+        left: 40px;
+        width: 100px;
+      }
+
+    @media (max-width: 768px) {
+        .login-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            transform: translate(-50%, -50%);
+            animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
+                        logoIntroSize 1.5s ease-in-out 0.3s forwards; 
+            z-index: 10;
+        }
+      }
+    /* Crossfade: weisses Logo blendet aus, farbiges Logo blendet ein,
+        waehrend beide gleichzeitig die logoIntro-Bewegung mitmachen. */
+    @keyframes fadeOutLogo {
+        to { opacity: 0; }
+    }
+
+    @keyframes fadeInLogo {
+        to { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+        .login-logo-white {
+            animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
+                    logoIntroSize 1.5s ease-in-out 0.3s forwards,
+                    fadeOutLogo 1.5s ease-in-out 0.3s forwards;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .login-logo-color {
+            opacity: 0;
+            animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
+                    logoIntroSize 1.5s ease-in-out 0.3s forwards,
+                    fadeInLogo 1.5s ease-in-out 0.3s forwards;
+        }
+    }
+
+
+
 
 p {
   margin: 0;
@@ -56,19 +191,14 @@ p {
 }
 
 
-.login-logo {
-  position: absolute;
-  top: 24px;
-  left: 40px;
-  width: 100px;
-}
 
 
-@media (max-width: 850px) {
+
+/* @media (max-width: 850px) {
   .login-logo {
     width: 60px;
   }
-}
+}  */
 
 /* ============================================================
    Karte fuer Login und Sign-up - ein gemeinsames, responsives
