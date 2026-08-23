@@ -342,12 +342,28 @@ function deleteTaskSubtask(subtaskId) {
  * @returns {void}
  */
 function editTaskSubtask(subtaskId) {
+    const item = document.querySelector(`[data-subtask-id="${subtaskId}"]`);
+    const title = item.querySelector('.edit-subtask-title');
+    const button = item.querySelector('.edit-subtask-actions img');
+
+    title.contentEditable = true;
+    title.focus();
+
+    button.src = 'assets/icons/check_black.svg';
+    button.onclick = () => saveEditedSubtask(subtaskId);
+}
+
+function saveEditedSubtask(subtaskId) {
+    const item = document.querySelector(`[data-subtask-id="${subtaskId}"]`);
+    const title = item.querySelector('.edit-subtask-title');
     const subtask = taskEditSubtasks.find(item => item.id === subtaskId);
-    if (!subtask) return;
-    const newTitle = prompt('Edit subtask', subtask.title);
-    if (newTitle === null) return;
-    subtask.title = newTitle.trim() || subtask.title;
-    renderEditSubtasks();
+    const button = item.querySelector('.edit-subtask-actions img');
+
+    subtask.title = title.textContent.trim();
+    title.contentEditable = false;
+
+    button.src = 'assets/icons/edit.svg';
+    button.onclick = () => editTaskSubtask(subtaskId);
 }
 
 /**

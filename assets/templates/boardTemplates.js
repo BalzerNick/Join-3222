@@ -569,10 +569,10 @@ function getEditSubtaskItemTemplate(subtask) {
     return `
         <li class="edit-subtask-li" data-subtask-id="${subtask.id}">
             <span class="edit-subtask-title">${subtask.title}</span>
-            <div class="edit-subtask-actions">
+            <span class="edit-subtask-actions">
                 <img class="subtask-icon pointer" src="assets/icons/edit.svg" alt="edit" onclick="editTaskSubtask('${subtask.id}')">
                 <span class="subtask-divider">|</span>
                 <img class="subtask-icon pointer" src="assets/icons/delete.svg" alt="delete" onclick="deleteTaskSubtask('${subtask.id}')">
-            </div>
+            </span>
         </li>`;
 }

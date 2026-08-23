@@ -435,7 +435,6 @@ body.modal-open {
 }
 
 #task-detail-modal .modal-content {
-    width: auto;
     max-height: none;
     height: auto;
     border-radius: 0;
@@ -969,10 +968,22 @@ body.modal-open {
     background: #f1f5f9;
 }
 
+.edit-subtask-li::before {
+    content: "•";
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.edit-subtask-title {
+    flex: 1;
+    margin-right: 9px;
+}
+
 .edit-subtask-actions {
     display: flex;
     align-items: center;
     gap: 6px;
+    margin-left: auto;
     opacity: 0;
     transition: opacity 120ms ease;
 }
@@ -1080,7 +1091,10 @@ body.modal-open {
 }
 
 .task-title,
-.task-description {
+.task-description,
+.detail-title,
+.task-detail-description,
+.edit-subtask-title {
     overflow-wrap: anywhere;
     word-break: break-word;
 }
@@ -1182,5 +1196,9 @@ body.modal-open {
 
     .task-detail-card {
         width: 100%;
+    }
+
+        .modal-body {
+        padding: 0;
     }
 }
