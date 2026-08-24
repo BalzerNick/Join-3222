@@ -196,7 +196,7 @@ function startGreeting() {
 }
 
 function checkMobileGreeting() {
-    if (window.innerWidth > 768) return;
+    if (window.innerWidth > 1140) return;
 
     if (sessionStorage.getItem("showGreeting") !== "true") return;
 
