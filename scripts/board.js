@@ -7,15 +7,13 @@ let taskEditSelectedContacts = [];
 let taskEditContactPool = [];
 let currentDraggedElement = null;
 
-window.onload = initPage;
-
 /**
- * Entry point of the board page, bound to window.onload. Loads the contacts
- * and the tasks and renders the columns.
+ * Entry point of the board page. Loads the contacts and the tasks and
+ * renders the columns.
  *
  * @returns {Promise<void>}
  */
-async function initPage() {
+async function initBoard() {
     //await loadContacts();
     allContacts = getContactStorage();
     if (typeof getContacts === 'function') await getContacts();
@@ -673,3 +671,6 @@ async function moveMobileTask(taskId, category) {
 
     await moveTo(category);
 }
+
+
+document.addEventListener('DOMContentLoaded', initBoard);

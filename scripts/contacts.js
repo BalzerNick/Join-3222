@@ -25,8 +25,8 @@ const EDIT_CONTACT_FIELDS = [
 ];
 
 /**
- * Entry point of the contacts page, called from the body onload attribute.
  * Loads the contacts and both templates and renders the grouped list.
+ * Called by initContacts() and after every change to a contact.
  *
  * The contacts normally come from the sessionStorage, where getContacts()
  * puts them once at the start of the session. If that cache is empty, for
@@ -378,3 +378,15 @@ async function deleteContact(id) {
   showToast("Contact deleted");
 }
 
+
+
+/**
+ * Entry point of the contacts page. Draws the contact list.
+ *
+ * @returns {void}
+ */
+function initContacts() {
+  renderContacts();
+}
+
+document.addEventListener('DOMContentLoaded', initContacts);

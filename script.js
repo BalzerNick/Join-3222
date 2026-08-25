@@ -130,3 +130,13 @@ function closeUserMenu(event) {
 function noEvent(event){
     event.stopPropagation();
 }
+
+/**
+ * Goes one step back in the browser history. Bound to the back arrow of the
+ * help page.
+ *
+ * @returns {void}
+ */
+function histarrow() {
+  window.history.back();
+}
