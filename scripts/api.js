@@ -112,3 +112,101 @@ async function postTask(path ="", data = {}){
     });
     return responseToJson = await response.json
 }
+
+/**
+ * Sends a PATCH request to the database and turns a failed response into an
+ * error. Shared by all partial writes of this file.
+ *
+ * @param {string} path - Path below the database root, including the .json suffix.
+ * @param {Object} payload - The fields to write.
+ * @param {string} message - Prefix of the error message.
+ * @returns {Promise<void>}
+ * @throws {Error} If the response status is not ok.
+ */
+async function patchBoardResource(path, payload, message) {
+    const response = await fetch(BASE_URL + path, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    });
+    if (!response.ok) throw new Error(`${message}: ${response.status} ${response.statusText}`);
+}
+
+/**
+ * Reads a resource from the database and insists on a successful response.
+ *
+ * @param {string} path - Path below the database root, including the .json suffix.
+ * @param {string} message - Prefix of the error message.
+ * @returns {Promise<*>} The parsed response body.
+ * @throws {Error} If the response status is not ok.
+ */
+async function requireBoardJson(path, message) {
+    const response = await fetch(BASE_URL + path);
+    if (!response.ok) throw new Error(`${message}: ${response.status} ${response.statusText}`);
+    return await response.json();
+}
+
+/**
+ * Saves the checkbox state of a single subtask.
+ *
+ * @param {string} taskId - Database key of the task.
+ * @param {string} subtaskId - Key of the subtask, e.g. 'sub1'.
+ * @param {boolean} done - The new state.
+ * @returns {Promise<void>}
+ * @throws {Error} If the database rejects the write.
+ */
+async function updateSubtaskDone(taskId, subtaskId, done) {
+    await patchBoardResource(`tasks/${taskId}/subtasks/${subtaskId}.json`, { done }, 'Firebase subtask update failed');
+}
+
+/**
+ * Saves the new column of a task.
+ *
+ * @param {string} taskId - Database key of the task.
+ * @param {string} status - The new status.
+ * @returns {Promise<void>}
+ * @throws {Error} If the database rejects the write.
+ */
+async function updateTaskStatus(taskId, status) {
+    await patchBoardResource(`tasks/${taskId}.json`, { status }, 'Firebase status update failed');
+}
+
+/**
+ * Fetches the raw task collection. Errors are logged and reported as null.
+ *
+ * @returns {Promise<?Object>} The tasks keyed by id, or null on failure.
+ */
+async function fetchTaskCollection() {
+    try {
+        const response = await fetch(BASE_URL + 'tasks.json');
+        if (response.ok) return await response.json();
+        console.error('Failed to load Firebase task data', response.status, response.statusText);
+    } catch (error) {
+        console.error('Firebase task load failed', error);
+    }
+    return null;
+}
+
+/**
+ * Writes changed fields of a task back to the database.
+ *
+ * @param {string} taskId - Database key of the task.
+ * @param {Object} updates - The fields to overwrite.
+ * @returns {Promise<void>}
+ * @throws {Error} If the database rejects the write.
+ */
+async function updateTaskData(taskId, updates) {
+    await patchBoardResource(`tasks/${taskId}.json`, updates, 'Firebase task update failed');
+}
+
+/**
+ * Deletes a task from the database.
+ *
+ * @param {string} taskId - Database key of the task.
+ * @returns {Promise<void>}
+ * @throws {Error} If the database rejects the delete.
+ */
+async function deleteTaskFromFirebase(taskId) {
+    const response = await fetch(BASE_URL + `tasks/${taskId}.json`, { method: 'DELETE' });
+    if (!response.ok) throw new Error(`Firebase task delete failed: ${response.status} ${response.statusText}`);
+}

@@ -119,22 +119,6 @@ async function loadTasks() {
 }
 
 /**
- * Fetches the raw task collection. Errors are logged and reported as null.
- *
- * @returns {Promise<?Object>} The tasks keyed by id, or null on failure.
- */
-async function fetchTaskCollection() {
-    try {
-        const response = await fetch(BASE_URL + 'tasks.json');
-        if (response.ok) return await response.json();
-        console.error('Failed to load Firebase task data', response.status, response.statusText);
-    } catch (error) {
-        console.error('Firebase task load failed', error);
-    }
-    return null;
-}
-
-/**
  * Turns the raw task collection into an array, attaching the database key as
  * id and normalizing the status of every task.
  *
@@ -144,18 +128,6 @@ async function fetchTaskCollection() {
 function mapLoadedTasks(tasksData) {
     if (!tasksData || typeof tasksData !== 'object') return [];
     return Object.entries(tasksData).map(([id, task]) => ({ id, ...normalizeTask(task) }));
-}
-
-/**
- * Saves the new column of a task.
- *
- * @param {string} taskId - Database key of the task.
- * @param {string} status - The new status.
- * @returns {Promise<void>}
- * @throws {Error} If the database rejects the write.
- */
-async function updateTaskStatus(taskId, status) {
-    await patchBoardResource(`tasks/${taskId}.json`, { status }, 'Firebase status update failed');
 }
 
 /**
@@ -181,76 +153,6 @@ async function getNextBoardTaskId() {
 function extractTaskNumber(key) {
     const match = key.match(/^task(\d+)$/);
     return match ? Number(match[1]) : 0;
-}
-
-/**
- * Writes changed fields of a task back to the database.
- *
- * @param {string} taskId - Database key of the task.
- * @param {Object} updates - The fields to overwrite.
- * @returns {Promise<void>}
- * @throws {Error} If the database rejects the write.
- */
-async function updateTaskData(taskId, updates) {
-    await patchBoardResource(`tasks/${taskId}.json`, updates, 'Firebase task update failed');
-}
-
-/**
- * Deletes a task from the database.
- *
- * @param {string} taskId - Database key of the task.
- * @returns {Promise<void>}
- * @throws {Error} If the database rejects the delete.
- */
-async function deleteTaskFromFirebase(taskId) {
-    const response = await fetch(BASE_URL + `tasks/${taskId}.json`, { method: 'DELETE' });
-    if (!response.ok) throw new Error(`Firebase task delete failed: ${response.status} ${response.statusText}`);
-}
-
-/**
- * Saves the checkbox state of a single subtask.
- *
- * @param {string} taskId - Database key of the task.
- * @param {string} subtaskId - Key of the subtask, e.g. 'sub1'.
- * @param {boolean} done - The new state.
- * @returns {Promise<void>}
- * @throws {Error} If the database rejects the write.
- */
-async function updateSubtaskDone(taskId, subtaskId, done) {
-    await patchBoardResource(`tasks/${taskId}/subtasks/${subtaskId}.json`, { done }, 'Firebase subtask update failed');
-}
-
-/**
- * Sends a PATCH request to the database and turns a failed response into an
- * error. Shared by all partial writes of this file.
- *
- * @param {string} path - Path below the database root, including the .json suffix.
- * @param {Object} payload - The fields to write.
- * @param {string} message - Prefix of the error message.
- * @returns {Promise<void>}
- * @throws {Error} If the response status is not ok.
- */
-async function patchBoardResource(path, payload, message) {
-    const response = await fetch(BASE_URL + path, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-    });
-    if (!response.ok) throw new Error(`${message}: ${response.status} ${response.statusText}`);
-}
-
-/**
- * Reads a resource from the database and insists on a successful response.
- *
- * @param {string} path - Path below the database root, including the .json suffix.
- * @param {string} message - Prefix of the error message.
- * @returns {Promise<*>} The parsed response body.
- * @throws {Error} If the response status is not ok.
- */
-async function requireBoardJson(path, message) {
-    const response = await fetch(BASE_URL + path);
-    if (!response.ok) throw new Error(`${message}: ${response.status} ${response.statusText}`);
-    return await response.json();
 }
 
 /**
@@ -319,69 +221,38 @@ function openAddTask(status = 'todo') {
 }
 
 /**
- * Clears everything the Add-Task form keeps in global state, so a freshly
- * opened dialog never shows leftovers from the last one. Each reset is
- * guarded, because tasks.js is not loaded on every page.
+ * Saves a new board task under the next available task id.
  *
- * @returns {void}
+ * @param {Object} task - The task data to save.
+ * @returns {Promise<void>}
  */
-function resetBoardAddTaskState() {
-    if (typeof selectedContacts !== 'undefined') selectedContacts = [];
-    if (typeof subtasks !== 'undefined') subtasks = {};
-    if (typeof sub !== 'undefined') sub = false;
-    if (typeof editingSubtaskKey !== 'undefined') editingSubtaskKey = null;
-    if (typeof selectedPriority !== 'undefined') selectedPriority = 'medium';
-    const subtaskInput = document.getElementById('subtask');
-    if (subtaskInput) subtaskInput.value = '';
-    const subtaskArea = document.getElementById('subtaskArea');
-    if (subtaskArea) subtaskArea.innerHTML = '';
-    const assignedContacts = document.getElementById('assignedContacts');
-    if (assignedContacts) assignedContacts.innerHTML = '';
-    const subtaskButtons = document.getElementById('subtaskButtons');
-    if (subtaskButtons) subtaskButtons.classList.add('d-none');
+async function saveBoardTask(task) {
+    const nextID = await getNextBoardTaskId();
+    await postTask(`tasks/${nextID}`, task);
 }
 
 /**
- * Stores the target column in a hidden form field, creating that field on
- * first use. This is how the dialog knows which column the plus button was
- * clicked in.
+ * Collects the task data from the Add-Task dialog.
  *
- * @param {string} status - The column the new task belongs to.
- * @returns {void}
+ * @returns {Object|null} The task data or null when the title is missing.
  */
-function injectBoardTaskStatus(status) {
-    const form = document.getElementById('addTaskForm');
-    if (!form) return;
-    let statusInput = document.getElementById('taskStatus');
-    if (!statusInput) {
-        statusInput = document.createElement('input');
-        statusInput.type = 'hidden';
-        statusInput.id = 'taskStatus';
-        statusInput.name = 'taskStatus';
-        form.appendChild(statusInput);
+function getBoardTaskFormData() {
+    const title = document.getElementById('taskName')?.value.trim();
+    if (!title) {
+        alert('Please enter a title.');
+        return null;
     }
-    statusInput.value = status;
-}
 
-/**
- * Wires up the subtask input of the dialog and appends the confirm/cancel
- * buttons, which the standalone Add-Task page brings along in its own markup.
- *
- * @returns {void}
- */
-function setupBoardSubtaskControls() {
-    const subtaskInput = document.getElementById('subtask');
-    if (!subtaskInput) return;
-    const subtaskArea = document.querySelector('.subtask-area');
-    if (subtaskArea && !subtaskArea.id) subtaskArea.id = 'subtaskArea';
-    subtaskInput.oninput = () => { if (typeof showButtons === 'function') showButtons(); };
-    const wrapper = subtaskInput.parentElement;
-    if (!wrapper || document.getElementById('subtaskButtons')) return;
-    const buttons = document.createElement('div');
-    buttons.className = 'subtask-buttons input-img d-none';
-    buttons.id = 'subtaskButtons';
-    buttons.innerHTML = getBoardSubtaskButtonsTemplate();
-    wrapper.appendChild(buttons);
+    return {
+        title,
+        description: document.getElementById('taskDescription')?.value.trim() || '',
+        dueDate: document.getElementById('taskDeadline')?.value || '',
+        priority: getBoardDialogPriority(),
+        category: document.getElementById('category')?.value || '',
+        status: document.getElementById('taskStatus')?.value || 'todo',
+        assignedTo: typeof selectedContacts !== 'undefined' ? selectedContacts : [],
+        subtasks: typeof subtasks !== 'undefined' ? subtasks : {}
+    };
 }
 
 /**
@@ -394,76 +265,13 @@ function setupBoardSubtaskControls() {
  */
 async function submitBoardTaskData(event) {
     event.preventDefault();
-    const title = document.getElementById('taskName')?.value.trim();
-    if (!title) return alert('Please enter a title.');
-    const task = {
-        title,
-        description: document.getElementById('taskDescription')?.value.trim() || '',
-        dueDate: document.getElementById('taskDeadline')?.value || '',
-        priority: getBoardDialogPriority(),
-        category: document.getElementById('category')?.value || '',
-        status: document.getElementById('taskStatus')?.value || 'todo',
-        assignedTo: typeof selectedContacts !== 'undefined' ? selectedContacts : [],
-        subtasks: typeof subtasks !== 'undefined' ? subtasks : {}
-    };
-    try {
-        const nextID = await getNextBoardTaskId();
-        const response = await fetch(BASE_URL + `tasks/${nextID}.json`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(task)
-        });
-        if (!response.ok) throw new Error(`Task create failed: ${response.status} ${response.statusText}`);
-    } catch (error) {
-        console.error('Board task creation failed', error);
-        alert('Failed to create task. Please try again.');
-        return;
-    }
-    if (typeof resetTask === 'function') {
-        try {
-            resetTask();
-        } catch (resetError) {
-            console.warn('Board resetTask failed', resetError);
-        }
-    }
+    const task = getBoardTaskFormData();
+    if (!task) return;
+    await saveBoardTask(task);
+    resetBoardTaskForm();
     closeAddTaskDialog();
     await loadTasks();
     showBoardToast('Task added to Board', 2000);
-}
-
-/**
- * Reads the selected priority from the dialog buttons.
- *
- * @returns {string} The selected priority, 'medium' if none is marked.
- */
-function getBoardDialogPriority() {
-    const urgent = document.getElementById('btnUrgent');
-    const medium = document.getElementById('btnMedium');
-    const low = document.getElementById('btnLow');
-    if (urgent?.classList.contains('selected')) return 'urgent';
-    if (low?.classList.contains('selected')) return 'low';
-    if (medium?.classList.contains('selected')) return 'medium';
-    return 'medium';
-}
-
-/**
- * Shows a short message in the centre of the board. A running message is
- * replaced rather than queued.
- *
- * @param {string} message - The text to display.
- * @param {number} [duration=2000] - How long the message stays visible, in milliseconds.
- * @returns {void}
- */
-function showBoardToast(message, duration = 2000) {
-    const toast = document.getElementById('center-toast');
-    if (!toast) return;
-    toast.textContent = message;
-    toast.classList.add('center-toast-visible');
-    if (toast._timeout) clearTimeout(toast._timeout);
-    toast._timeout = setTimeout(() => {
-        toast.classList.remove('center-toast-visible');
-        toast._timeout = null;
-    }, duration);
 }
 
 /**
@@ -490,38 +298,6 @@ function removeModalOpenFlag() {
 }
 
 /**
- * Prepares everything the card template needs: badge, description, priority
- * icon, avatars and subtask progress.
- *
- * @param {Object} task - The task to render.
- * @returns {Object} The render data for getTaskTemplate.
- */
-function buildTaskTemplateData(task) {
-    return {
-        id: task.id,
-        title: task.title || '',
-        category: getCategoryBadge(task.category),
-        description: task.description ? getTaskDescriptionTemplate(task.description) : '',
-        priority: task.priority ? getPriorityIcon(task.priority) : '',
-        avatarsHTML: getAvatarsHTML(task.assignedTo),
-        subtaskHTML: getTaskSubtaskHtml(task.subtasks)
-    };
-}
-
-/**
- * Builds the subtask progress bar of a card.
- *
- * @param {Object} subtasks - The subtasks of the task, keyed by id.
- * @returns {string} The progress bar as HTML, or '' if the task has no subtasks.
- */
-function getTaskSubtaskHtml(subtasks) {
-    const total = subtasks ? Object.keys(subtasks).length : 0;
-    if (total === 0) return '';
-    const done = Object.values(subtasks).filter(subtask => subtask.done).length;
-    return getTaskSubtaskProgressTemplate({ done, total, percent: Math.round((done / total) * 100) });
-}
-
-/**
  * Opens the detail modal of a task. Does nothing if the id is unknown.
  *
  * @param {string} id - Database key of the task.
@@ -542,104 +318,6 @@ function openTaskDetail(id) {
     });
     document.getElementById('task-detail-modal').classList.remove('hidden');
     document.body.classList.add('modal-open');
-}
-
-/**
- * Builds the list of assigned contacts for the detail modal.
- *
- * @param {Array<string>} ids - The assigned contact ids.
- * @returns {string} The contact rows as HTML, or a placeholder if nobody is assigned.
- */
-function renderAssignedContacts(ids) {
-    if (!Array.isArray(ids) || ids.length === 0) return getEmptyAssignedContactsTemplate();
-    return ids.map(item => {
-        const contact = getBoardContact(item);
-        return getAssignedContactTemplate(getContactInitial(contact.initials, contact.color), contact.name);
-    }).join('');
-}
-
-/**
- * Builds the subtask checklist for the detail modal.
- *
- * @param {string} taskId - Database key of the task.
- * @param {Object} subtasks - The subtasks of the task, keyed by id.
- * @returns {string} The checklist as HTML, or a placeholder if there are no subtasks.
- */
-function renderSubtasks(taskId, subtasks) {
-    if (!subtasks || typeof subtasks !== 'object' || Object.keys(subtasks).length === 0) return getEmptySubtasksTemplate();
-    return Object.entries(subtasks).map(([subtaskId, subtask]) =>
-        getTaskSubtaskItemTemplate(taskId, subtaskId, subtask.done, subtask.title)
-    ).join('');
-}
-
-/**
- * Builds the small priority icon shown on a card.
- *
- * @param {string} priority - The priority of the task.
- * @returns {string} The icon as HTML, or '' if no priority is set.
- */
-function getPriorityIcon(priority) {
-    if (!priority) return '';
-    const normalized = String(priority).toLowerCase();
-    const label = normalized.charAt(0).toUpperCase() + normalized.slice(1);
-    return getPriorityIconTemplate(label, normalized);
-}
-
-/**
- * Builds the priority row with label and icon for the detail modal.
- *
- * @param {string} priority - The priority of the task.
- * @returns {string} The row as HTML, or a placeholder if no priority is set.
- */
-function getPriorityDetail(priority) {
-    if (!priority) return getEmptyPriorityTemplate();
-    const normalized = String(priority).toLowerCase();
-    const labels = { urgent: 'Urgent', medium: 'Medium', low: 'Low' };
-    const label = labels[normalized] || normalized.charAt(0).toUpperCase() + normalized.slice(1);
-    return getPriorityDetailTemplate(label, getPriorityIcon(priority));
-}
-
-/**
- * Builds the avatar row of a card. At most three avatars are shown.
- *
- * @param {Array<string>} ids - The assigned contact ids.
- * @returns {string} The avatars as HTML, or '' if nobody is assigned.
- */
-function getAvatarsHTML(ids) {
-    if (!Array.isArray(ids) || ids.length === 0) return '';
-    return ids.slice(0, 3).map(item => {
-        const contact = getBoardContact(item);
-        return getContactInitial(contact.initials, contact.color);
-    }).join('');
-}
-
-/**
- * Resolves an entry of assignedTo into name, initials and avatar colour.
- * Handles both the contact ids written by the board and the contact objects
- * written by the standalone Add-Task page.
- *
- * @param {string|Object} item - A contact id, or a contact object.
- * @returns {{name: string, initials: string, color: string}} The data needed to draw the avatar.
- */
-function getBoardContact(item) {
-    const name = typeof item === 'string'
-        ? (allContacts[item]?.name || item)
-        : (item && typeof item === 'object' ? item.name || item.Name || item.Initials || JSON.stringify(item) : String(item));
-    return { name, initials: getInitials(name), color: getAvatarColor(name) };
-}
-
-/**
- * Builds the category badge of a task, in the card or the detail variant.
- *
- * @param {string} category - The category, 'User Story' or 'Technical Task'.
- * @param {boolean} [isDetail=false] - true for the larger badge of the detail modal.
- * @returns {string} The badge as HTML, or '' if no category is set.
- */
-function getCategoryBadge(category, isDetail = false) {
-    if (!category) return '';
-    const badgeClass = isDetail ? 'detail-category-badge' : 'task-badge';
-    const extraClass = category === 'User Story' ? 'cat-user-story' : (category === 'Technical Task' ? 'cat-technical-task' : '');
-    return getCategoryBadgeTemplate(badgeClass, extraClass, category);
 }
 
 /**
