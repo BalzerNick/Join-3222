@@ -17,7 +17,9 @@ main h1 {
 }
 
 form {
-    max-width: 900px;
+    /* 440 (Spalte) + 48 (Gap) + 1 (Divider) + 48 (Gap) + 440 = 977, damit
+       die Eingabefelder ihre 440px aus dem Figma erreichen. */
+    max-width: 977px;
 }
 
 #addTaskFooter {
@@ -148,10 +150,14 @@ form {
     border-radius: 10px;
     background-color: #ffffff;
     color: var(--color-primary);
-    font-size: var(--fs-sm);
+    font-size: var(--fs-base);
     font-family: inherit;
     font-weight: normal;
-    padding: 8px 6px;
+    /* Figma: 56px hoch, Text 16px. Hoehe fest, damit die drei Buttons
+       unabhaengig von Icon- und Textgroesse gleich hoch bleiben. */
+    height: 56px;
+    padding: 0 6px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
     min-width: 0;
     white-space: nowrap;
 }
@@ -187,7 +193,7 @@ form {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 900px;
+    max-width: 977px;
 }
 
 .required-hint-subtask {
@@ -205,7 +211,7 @@ form {
 .dropdown,
 .add-subtask {
     width: 100%;
-    max-width: 400px;
+    max-width: 440px;
     position: relative;
 }
 
