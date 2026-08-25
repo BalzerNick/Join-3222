@@ -44,7 +44,7 @@ const PASSWORD_MIN_LENGTH = 8;
 function getFieldValue(id) {
   let field = document.getElementById(id);
   if (field.type === 'checkbox') return field.checked;
-  return field.value.trim();
+  return cleanSpaces(field.value, allowsInnerSpaces(field)).trim();
 }
 
 
@@ -117,7 +117,7 @@ function checkForm(fields) {
  */
 function handleFieldBlur(field, fields) {
   let element = document.getElementById(field.id);
-  element.value = element.value.trim();
+  element.value = cleanSpaces(element.value, allowsInnerSpaces(element)).trim();
   updatePasswordIcon(field.id);
   checkField(field.id, fields);
 }
