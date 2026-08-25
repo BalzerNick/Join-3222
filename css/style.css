@@ -16,6 +16,7 @@
 /* Farben zentral. TODO: mit euren Figma-Werten abgleichen. */
 :root {
   --color-primary: #2a3647;   /* dunkles Blau */
+  --transition-fast: 100ms;
   --color-accent: #29abe2;    /* helles Blau  */
   --color-bg: #f6f7f8;
   --color-border: #d1d1d1;
@@ -308,7 +309,7 @@ li {
   padding: 16px 24px;
   border-radius: 20px;
   z-index: 20;
-  transition: transform 200ms ease;
+  transition: transform var(--transition-fast) ease;
 }
 
 .toast-visible {
@@ -462,7 +463,7 @@ a {
   height: 21px;
   width: 22px;
   cursor: pointer;
-  transition: transform 200ms ease;
+  transition: transform var(--transition-fast) ease;
 }
 
 .signup-arrow:hover {

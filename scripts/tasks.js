@@ -160,8 +160,8 @@ function getTaskStatusFromUrl() {
  */
 function getTaskData() {
     const task = {
-        title: document.getElementById("taskName").value,
-        description: document.getElementById("taskDescription").value,
+        title: cleanSpaces(document.getElementById("taskName").value).trim(),
+        description: cleanSpaces(document.getElementById("taskDescription").value).trim(),
         dueDate: document.getElementById("taskDeadline").value,
         priority: selectedPriority,
         category: document.getElementById("category").value,

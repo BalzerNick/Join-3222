@@ -152,15 +152,6 @@ function getLoggedInUserName() {
 }
 
 
-/**
- * Goes one step back in the browser history. Bound to the back arrow.
- *
- * @returns {void}
- */
-function histarrow() {
-    window.history.back();
-}
-
 // new Date().toLocaleTimeString() , new Date().toTimeString()
 /**
  * Builds the greeting that matches the current time of day.
@@ -210,3 +201,18 @@ function checkMobileGreeting() {
         greetingBlock.classList.remove("mobile-greeting");
     }, 1800);
 }
+
+
+/**
+ * Entry point of the summary page. Fills the greeting and loads the task
+ * numbers for the metric tiles.
+ *
+ * @returns {void}
+ */
+function initSummary() {
+    startGreeting();
+    checkMobileGreeting();
+    loadSummaryData();
+}
+
+document.addEventListener('DOMContentLoaded', initSummary);

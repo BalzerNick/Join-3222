@@ -134,7 +134,7 @@ function getAddTaskPage() {
                     <div class="dropdown" onclick="noEvent(event)">
                         <div class="input-wrapper">
                             <input class="input pointer" id="assignedTo" type="text"
-                                placeholder="Select contact to assign" autocomplete="off" oninput="searchList()"
+                                placeholder="Select contacts to assign" autocomplete="off" oninput="searchList()"
                                 onclick="toggleDropdown(\`contactList\`, \`contactArrow\`)">
 
                             <img class="input-img pointer arrow" id="contactArrow"
@@ -178,7 +178,7 @@ function getAddTaskPage() {
                         </ul>
                     </div>
 
-                    <label for="subtask">Subtask</label>
+                    <label for="subtask">Subtasks</label>
                     <div class="add-subtask">
                         <div class="input-wrapper">
                             <input class="input" id="subtask" type="text" placeholder="Add new subtask" autocomplete="off" oninput="showButtons()"

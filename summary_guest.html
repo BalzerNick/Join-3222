@@ -16,7 +16,7 @@
 
 </head>
 
-<body onload="getCurrentTime(); startGreeting(); checkMobileGreeting(); loadSummaryData()" onclick="closeUserMenu(event)">
+<body onclick="closeUserMenu(event)">
   <header><span class="header-title">Kanban Project Management Tool</span>
     <img src="assets/imgs/logoMain.png" alt="Join Logo" class="header-logo-mobile">
     <div class="header-right">
@@ -136,6 +136,7 @@
   <div id="toast" class="toast"></div>
   <script src="firebase-config.js"></script>
   <script src="script.js"></script>
+  <script src="scripts/spaceGuard.js"></script>
   <script src="./scripts/summary.js"></script>
 </body>
 

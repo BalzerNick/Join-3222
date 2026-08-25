@@ -17,7 +17,9 @@ main h1 {
 }
 
 form {
-    max-width: 900px;
+    /* 440 (Spalte) + 48 (Gap) + 1 (Divider) + 48 (Gap) + 440 = 977, damit
+       die Eingabefelder ihre 440px aus dem Figma erreichen. */
+    max-width: 977px;
 }
 
 #addTaskFooter {
@@ -82,7 +84,7 @@ form {
     z-index: 6;
     border-color: var(--color-primary);
     color: var(--color-primary);
-    transition: border-width 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    transition: border-width var(--transition-fast) ease, border-color var(--transition-fast) ease, color var(--transition-fast) ease;
 }
 
 #addTaskForm .dropdown .input::placeholder {
@@ -148,10 +150,14 @@ form {
     border-radius: 10px;
     background-color: #ffffff;
     color: var(--color-primary);
-    font-size: var(--fs-sm);
+    font-size: var(--fs-base);
     font-family: inherit;
     font-weight: normal;
-    padding: 8px 6px;
+    /* Figma: 56px hoch, Text 16px. Hoehe fest, damit die drei Buttons
+       unabhaengig von Icon- und Textgroesse gleich hoch bleiben. */
+    height: 56px;
+    padding: 0 6px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
     min-width: 0;
     white-space: nowrap;
 }
@@ -187,7 +193,7 @@ form {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 900px;
+    max-width: 977px;
 }
 
 .required-hint-subtask {
@@ -205,7 +211,7 @@ form {
 .dropdown,
 .add-subtask {
     width: 100%;
-    max-width: 400px;
+    max-width: 440px;
     position: relative;
 }
 
@@ -233,7 +239,7 @@ input {
     box-sizing: border-box;
     border-radius: 50%;
     object-fit: contain;
-    transition: background-color 0.2s;
+    transition: background-color var(--transition-fast);
 }
 
 .arrow:hover {
@@ -319,7 +325,7 @@ input {
     border-radius: 4px;
     position: relative;
     flex-shrink: 0;
-    transition: box-shadow 100ms ease;
+    transition: box-shadow var(--transition-fast) ease;
 }
 
 .contact-checkbox:hover {
@@ -445,7 +451,7 @@ input {
     gap: 8px;
     flex-shrink: 0;
     opacity: 0;
-    transition: opacity 150ms ease;
+    transition: opacity var(--transition-fast) ease;
 }
 
 .subtask:hover .subtask-actions {

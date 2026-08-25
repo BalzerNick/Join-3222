@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/contacts.css">
 </head>
-<body onload="renderContacts()" onclick="closeUserMenu(event); closeContactMenu(event)">
+<body onclick="closeUserMenu(event); closeContactMenu(event)">
     <header>
         <span class="header-title">Kanban Project Management Tool</span>
         <img src="assets/imgs/logoMain.png" alt="Join Logo" class="header-logo-mobile">
@@ -67,6 +67,7 @@
 
     <script src="firebase-config.js"></script>
     <script src="script.js"></script>
+    <script src="scripts/spaceGuard.js"></script>
     <script src="./scripts/api.js"></script>
     <script src="./scripts/storage.js"></script>
     <script src="scripts/validation.js"></script>
