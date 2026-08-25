@@ -82,7 +82,7 @@ form {
     z-index: 6;
     border-color: var(--color-primary);
     color: var(--color-primary);
-    transition: border-width 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    transition: border-width var(--transition-fast) ease, border-color var(--transition-fast) ease, color var(--transition-fast) ease;
 }
 
 #addTaskForm .dropdown .input::placeholder {
@@ -233,7 +233,7 @@ input {
     box-sizing: border-box;
     border-radius: 50%;
     object-fit: contain;
-    transition: background-color 0.2s;
+    transition: background-color var(--transition-fast);
 }
 
 .arrow:hover {
@@ -319,7 +319,7 @@ input {
     border-radius: 4px;
     position: relative;
     flex-shrink: 0;
-    transition: box-shadow 100ms ease;
+    transition: box-shadow var(--transition-fast) ease;
 }
 
 .contact-checkbox:hover {
@@ -445,7 +445,7 @@ input {
     gap: 8px;
     flex-shrink: 0;
     opacity: 0;
-    transition: opacity 150ms ease;
+    transition: opacity var(--transition-fast) ease;
 }
 
 .subtask:hover .subtask-actions {
