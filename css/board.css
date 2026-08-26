@@ -758,11 +758,39 @@ body.modal-open {
     padding: 32px;
 }
 
-#add-task-modal main {
-    width: fit-content;
-    margin: 0 auto;
-    padding: 48px 0;
+#add-task-modal .modal-body {
+    width: 100%;
     box-sizing: border-box;
+}
+
+#add-task-modal main {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 48px;
+    box-sizing: border-box;
+}
+
+#add-task-modal main form {
+    width: 100%;
+    max-width: 977px;
+}
+
+#add-task-modal .input-form {
+    flex-direction: row;
+    gap: 48px;
+}
+
+#add-task-modal .divider {
+    display: block;
+}
+
+#add-task-modal .submit-form {
+    max-width: 977px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
 }
 
 .modal-close.task-detail-close:hover {
