@@ -267,6 +267,37 @@ input[type="checkbox"].input-error {
   scale: 1.2;
 }
 
+/* ============================================================
+   Zurueck-Pfeil auf Privacy Policy und Legal Notice. Laut Figma
+   nur in der Mobilansicht, rechts auf Hoehe der Ueberschrift.
+   .help-heading/.back-arrow passen dafuer nicht, die tragen
+   Desktop-Margins von bis zu 215px.
+   ============================================================ */
+.page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.page-back-arrow {
+  display: none;
+  flex-shrink: 0;
+  width: 22px;
+  height: 21px;
+  cursor: pointer;
+}
+
+.page-back-arrow:hover {
+  scale: 1.2;
+}
+
+@media (max-width: 768px) {
+  .page-back-arrow {
+    display: block;
+  }
+}
+
 /* Inhaltsbreite fuer grosse Monitore (Summary, Board, Contacts).
    Content linksbuendig auf max. 1440px begrenzen (laut Checkliste). */
 .content {
@@ -280,10 +311,13 @@ li {
 }
 
 /* Einfacher Textseiten-Container (Legal / Privacy) - linksbuendig */
+/* padding-top ist der Abstand zwischen Header und Ueberschrift.
+   Figma gibt dafuer auf Help, Privacy Policy und Legal Notice
+   einheitlich 71px an (Abstand im Content-Frame). */
 .page {
   max-width: 1440px; /* Marcus am 07.08.2026 */
   margin: 0 auto;
-  padding: 80px 24px 24px 100px;
+  padding: 71px 24px 24px 100px;
   margin-left: 200px;
 }
 

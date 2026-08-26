@@ -85,10 +85,65 @@ header {
 .policies {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 4px;
   margin-top: auto;
-  margin-left: 30px;
   margin-bottom: 20px;
+}
+
+/* Die beiden Links sitzen im selben 232px-Raster wie die Menuepunkte
+   darueber: Text ab 60px, das deckt sich mit dem Icon in summary.png
+   & Co. (beginnt bei 58,5px). Vorher zog margin-left: 30px sie nach
+   links aus der Flucht. Der Link der offenen Seite bekommt denselben
+   aktiven Hintergrund wie ".menu-icons a.active". */
+.policies .footer-link {
+  padding: 8px 60px;
+}
+
+.policies .footer-link.active {
+  background-color: #091931;
+}
+
+/* ============================================================
+   Ausgeloggter Zustand (Privacy Policy / Legal Notice, wenn man
+   sie vor dem Login aufruft). Statt der vier Menuepunkte steht
+   laut Figma nur "Log In" in der Navbar, und der rechte Teil des
+   Headers (Hilfe-Button + Avatar) faellt weg.
+   Die Klasse setzt scripts/authNav.js, noch bevor der Body
+   gerendert wird - sonst blitzt das falsche Menue kurz auf.
+   ============================================================ */
+/* Selektor bewusst mit ".menu-icons a", sonst gewinnt dessen
+   "display: flex" und der Eintrag steht auch eingeloggt da. */
+.menu-icons a.nav-login {
+  display: none;
+  gap: 8px;
+  height: 46px;
+  padding: 8px 56px;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.nav-login-icon {
+  width: 26px;
+  height: 26px;
+}
+
+.nav-login-label {
+  color: #e7e7e7;
+  font-size: var(--fs-base);
+  line-height: 120%;
+  white-space: nowrap;
+}
+
+html.logged-out .menu-icons a:not(.nav-login) {
+  display: none;
+}
+
+html.logged-out .menu-icons a.nav-login {
+  display: flex;
+}
+
+html.logged-out .header-right {
+  display: none;
 }
 
 .help-btn {
@@ -260,6 +315,54 @@ header {
   .menu-icons a.active .menu-icons-label {
     color: #ffffff;
   }
+
+  /* Ausgeloggt teilen sich "Log In" und die beiden Policy-Links die
+     untere Leiste, deshalb darf .menu-icons hier nicht mehr die volle
+     Breite beanspruchen. */
+  html.logged-out .menu-line {
+    gap: 15px;
+  }
+
+  html.logged-out .menu-icons {
+    width: auto;
+    padding: 0;
+  }
+
+  html.logged-out .policies {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    margin: 0;
+  }
+
+  /* In der unteren Leiste ist kein Platz fuer das 60px-Raster der
+     Sidebar, hier wird der aktive Link zu einem kompakten Chip. */
+  .policies .footer-link {
+    padding: 8px 12px;
+    border-radius: 8px;
+  }
+
+  /* Mobil steht das Icon ueber dem Label, wie bei den anderen
+     Menuepunkten. Masse muessen hier mit gesetzt werden, weil der
+     Desktop-Block oben denselben Selektor nutzt. */
+  .menu-icons a.nav-login {
+    flex-direction: column;
+    gap: 4px;
+    height: 76px;
+    padding: 0;
+    border-radius: 16px;
+  }
+
+  .nav-login-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .nav-login-label {
+    color: #cdcdcd;
+    font-size: 10px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -274,6 +377,15 @@ header {
   }
 
   .menu-icons-label {
+    font-size: 9px;
+  }
+
+  .nav-login-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .nav-login-label {
     font-size: 9px;
   }
 }
