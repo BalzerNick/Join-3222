@@ -108,10 +108,20 @@ function getCategoryBadge(category, isDetail = false) {
  */
 function getAvatarsHTML(ids) {
     if (!Array.isArray(ids) || ids.length === 0) return '';
-    return ids.slice(0, 3).map(item => {
-        const contact = getBoardContact(item);
-        return getContactInitial(contact.initials, contact.color);
-    }).join('');
+const total = ids.length;
+const overflow = total > MAX_VISIBLE_CONTACTS;
+const visibleCount = overflow ? MAX_VISIBLE_CONTACTS - 1 : total;
+
+const avatars = ids.slice(0, visibleCount).map(item => {
+    const contact = getBoardContact(item);
+    return getContactInitial(contact.initials, contact.color);
+}).join('');
+
+const more = overflow
+    ? getContactInitial(`+${total - visibleCount}`, '', 'avatar-more')
+    : '';
+
+return avatars + more;
 }
 
 /**

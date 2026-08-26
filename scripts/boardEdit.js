@@ -182,11 +182,20 @@ function buildEditContactListHTML() {
  * @returns {string} The avatars as HTML.
  */
 function buildEditAssignedAvatarsHTML() {
-    return taskEditSelectedContacts.map(contact => getEditAssignedAvatarTemplate({
-        ...contact,
-        Name: contact.Name,
-        Initials: contact.Initials
-    })).join('');
+    const total = taskEditSelectedContacts.length;
+    const overflow = total > MAX_VISIBLE_CONTACTS;
+    const visibleCount = overflow ? MAX_VISIBLE_CONTACTS - 1 : total;
+
+    const avatars = taskEditSelectedContacts
+        .slice(0, visibleCount)
+        .map(contact => getContactInitial(contact.Initials, contact.Color))
+        .join('');
+
+    const more = overflow
+        ? getContactInitial(`+${total - visibleCount}`, '', 'avatar-more')
+        : '';
+
+    return avatars + more;
 }
 
 /**

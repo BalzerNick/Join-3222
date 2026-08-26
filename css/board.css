@@ -1091,6 +1091,12 @@ body.modal-open {
     background-color: var(--color-accent);
 }
 
+.avatar-more {
+    background-color: var(--color-border);
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
 .task-title,
 .task-description,
 .detail-title,
