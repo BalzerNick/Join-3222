@@ -795,6 +795,7 @@ body.modal-open {
 
 .modal-close.task-detail-close:hover {
     background: #e2e8f0;
+    border-radius: 50%;
 }
 
 .navbar {
