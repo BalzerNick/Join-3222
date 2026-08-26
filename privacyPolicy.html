@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/buttons.css">
+    <script src="scripts/authNav.js"></script>
 </head>
 <body onclick="closeUserMenu(event)">
     <header>
@@ -33,14 +34,18 @@
             <a href="addTask.html"><img src="assets/imgs/addtask.png" class="menu-icons-img menu-icons-img-desktop" alt="Add Task"><span class="menu-icons-mobile"><img src="assets/icons/navbar/addTask_img.svg" class="menu-icons-img-mobile" alt=""><span class="menu-icons-label">Add Task</span></span></a>
             <a href="board.html"><img src="assets/imgs/board.png" class="menu-icons-img menu-icons-img-desktop" alt="Board"><span class="menu-icons-mobile"><img src="assets/icons/navbar/board_img.svg" class="menu-icons-img-mobile" alt=""><span class="menu-icons-label">Board</span></span></a>
             <a href="contacts.html"><img src="assets/imgs/contacts.png" class="menu-icons-img menu-icons-img-desktop" alt="Contacts"><span class="menu-icons-mobile"><img src="assets/icons/navbar/contacts_img.svg" class="menu-icons-img-mobile" alt=""><span class="menu-icons-label">Contacts</span></span></a>
+            <a href="index.html" class="nav-login"><img src="assets/icons/navbar/login_img.svg" class="nav-login-icon" alt=""><span class="nav-login-label">Log In</span></a>
         </div>
         <div class="policies">
-            <a href="privacyPolicy.html" class="footer-link">Privacy Policy</a>
-            <a href="legalNotice.html" class="footer-link">Legal notice</a>
+            <a href="privacyPolicy.html" class="footer-link active">Privacy Policy</a>
+            <a href="legalNotice.html" class="footer-link">Legal Notice</a>
         </div>
     </div>
     <main class="page">
-        <h1>Privacy Policy</h1><br>
+        <div class="page-heading">
+            <h1>Privacy Policy</h1>
+            <img src="assets/imgs/arrow.png" onclick="goBackOrLogin()" alt="Back" class="page-back-arrow">
+        </div><br>
         <h2>1. General Information</h2>
         <p>Protecting your personal data is important to us. We treat your personal data confidentially and 
            in accordance with applicable data protection laws and this Privacy Policy. You can generally use 
@@ -121,7 +126,7 @@
 
     <footer class="footer">
         <a href="privacyPolicy.html" class="footer-link">Privacy Policy</a>
-        <a href="legalNotice.html" class="footer-link">Legal notice</a>
+        <a href="legalNotice.html" class="footer-link">Legal Notice</a>
     </footer>
     <script src="script.js"></script>
     <script src="scripts/spaceGuard.js"></script>
