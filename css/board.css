@@ -441,6 +441,7 @@ body.modal-open {
     background: transparent;
     box-shadow: none;
     overflow: visible;
+    width: auto;
 }
 
 .task-detail-card {
@@ -1193,6 +1194,15 @@ body.modal-open {
 
     .move-task-btn {
         display: flex;
+    }
+
+    #task-detail-modal {
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    #task-detail-modal .modal-content {
+        width: 100%;
     }
 
     .task-detail-card {
