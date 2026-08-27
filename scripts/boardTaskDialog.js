@@ -80,17 +80,25 @@ function getBoardDialogPriority() {
 }
 
 /**
- * Shows a short message in the centre of the board. A running message is
- * replaced rather than queued.
+ * Shows a short message in the centre of the board, optionally followed by an
+ * icon. A running message is replaced rather than queued.
  *
  * @param {string} message - The text to display.
  * @param {number} [duration=2000] - How long the message stays visible, in milliseconds.
+ * @param {string} [icon] - Path of an icon to show after the text.
  * @returns {void}
  */
-function showBoardToast(message, duration = 2000) {
+function showBoardToast(message, duration = 2000, icon) {
     const toast = document.getElementById('center-toast');
     if (!toast) return;
     toast.textContent = message;
+    if (icon) {
+        const iconImg = document.createElement('img');
+        iconImg.src = icon;
+        iconImg.alt = '';
+        iconImg.className = 'toast-icon';
+        toast.appendChild(iconImg);
+    }
     toast.classList.add('center-toast-visible');
     if (toast._timeout) clearTimeout(toast._timeout);
     toast._timeout = setTimeout(() => {

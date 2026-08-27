@@ -267,7 +267,7 @@ async function submitBoardTaskData(event) {
     resetBoardTaskForm();
     closeAddTaskDialog();
     await loadTasks();
-    showBoardToast('Task added to Board', 2000);
+    showBoardToast('Task added to Board', 2000, 'assets/icons/navbar/board_img.svg');
 }
 
 /**

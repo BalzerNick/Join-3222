@@ -116,7 +116,8 @@ function applySelectedContactsState() {
 
 /**
  * Submit handler of the Add-Task form. Collects the inputs, saves the task
- * under the next free id and resets the form.
+ * under the next free id, resets the form and switches to the board once the
+ * toast has been shown.
  *
  * @param {Event} event - The submit event; its default action is prevented.
  * @returns {Promise<void>}
@@ -128,8 +129,9 @@ async function submitTaskData(event) {
     let tasks = await getNextTaskId();
     let nextId = Object.keys(tasks).length + 1;
     postTask(`/tasks/${nextId}`, task);
-    showToast("Task created", duration = 2000)
+    showToast("Task added to Board", 2000, 'assets/icons/navbar/board_img.svg')
     resetTask();
+    setTimeout(() => window.location.href = "board.html", 2000);
 }
 
 function getTaskStatusFromUrl() {

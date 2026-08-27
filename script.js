@@ -4,11 +4,19 @@
  *
  * @param {string} message - The text that is displayed inside the toast.
  * @param {number} [duration=2000] - How long the message stays visible, in milliseconds.
+ * @param {string} [icon] - Path of an icon to show after the text.
  * @returns {void}
  */
-function showToast(message, duration = 2000) {
+function showToast(message, duration = 2000, icon) {
   let toast = document.getElementById('toast');
   toast.textContent = message;
+  if (icon) {
+    let iconImg = document.createElement('img');
+    iconImg.src = icon;
+    iconImg.alt = '';
+    iconImg.className = 'toast-icon';
+    toast.appendChild(iconImg);
+  }
   toast.classList.add('toast-visible');
   setTimeout(() => toast.classList.remove('toast-visible'), duration);
 }
