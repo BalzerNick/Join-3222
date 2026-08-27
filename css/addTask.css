@@ -127,6 +127,16 @@ form {
     border-color: var(--color-accent);
 }
 
+/* Reuses the shared .input-error class from validation.js / style.css - just
+   needs enough specificity here to win against the rules above. */
+#addTaskForm .input.input-error,
+#addTaskForm .input.input-error:focus,
+#addTaskForm .dropdown .input.input-error,
+#addTaskForm #category.input-error:hover,
+#addTaskForm #category.input-error:focus {
+    border-color: var(--color-error);
+}
+
 #addTaskForm textarea.input {
     resize: vertical;
     min-height: 120px;
@@ -310,7 +320,11 @@ input {
 
 .contact-name {
     flex: 1;
+    min-width: 0;
     margin-left: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .contact-checkbox {
@@ -437,7 +451,11 @@ input {
 }
 
 .subtask-text {
-    overflow-wrap: anywhere;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .subtask-text::before {

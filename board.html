@@ -101,7 +101,7 @@
         </main>
         
         <div id="add-task-modal" class="modal-overlay hidden" onclick="closeAddTaskDialog(event)">
-            <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-content" onclick="event.stopPropagation(); closeAllDropdowns()">
                 <div class="modal-header">
                     <button class="modal-close" onclick="closeAddTaskDialog()">&times;</button>
                 </div>
@@ -119,6 +119,7 @@
     <script src="firebase-config.js"></script>
     <script src="scripts/api.js"></script>
     <script src="script.js"></script>
+    <script src="scripts/variables.js"></script>
     <script src="scripts/spaceGuard.js"></script>
     <script src="assets/templates/addTaskTemplate.js"></script>
     <script src="assets/templates/boardTemplates.js"></script>
@@ -129,5 +130,7 @@
     <script src="scripts/board.js"></script>
     <script src="scripts/boardEdit.js"></script>
     <script src="scripts/tasks.js"></script>
+    <script src="scripts/validationAddTask.js"></script>
+    <script src="scripts/validation.js"></script>
 </body>
 </html>

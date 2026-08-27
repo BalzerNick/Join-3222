@@ -140,3 +140,29 @@ function noEvent(event){
 function histarrow() {
   window.history.back();
 }
+
+/**
+ * Reads the raw session entry of the logged in user from localStorage.
+ *
+ * @returns {?string} the logged in user from localstorage, or null if nobody is logged in.
+ */
+function getUser(){
+    const user = localStorage.getItem("user");
+    return user;
+}
+
+/**
+ * Builds the display name of a contact for the dropdown.
+ *
+ * @param {string} loggedinUser - The session entry as returned by getUser.
+ * @param {Object} user - The contact to label, with a Name property.
+ * @returns {string} the user name and if its your name its get the (you) tag
+ */
+function testUser(loggedinUser, user){
+    if(JSON.parse(loggedinUser).name == user.name){
+        return user.name +" (you)"
+    }
+    else{
+        return user.name
+    }
+}

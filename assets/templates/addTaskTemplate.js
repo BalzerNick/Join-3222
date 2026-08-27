@@ -89,11 +89,12 @@ function getAddTaskPage() {
     return `
     <main>
         <h1>Add Task</h1>
-        <form id="addTaskForm" onsubmit="submitTaskData(event)" onreset="resetTask()">
+        <form id="addTaskForm" novalidate onsubmit="submitTaskData(event)" onreset="resetTask()">
             <div class="input-form">
                 <div class="input-area">
                     <label for="taskName">Title<span class="required">*</span></label>
                     <input class="input" type="text" id="taskName" name="taskName" required placeholder="Enter a title">
+                    <span id="taskNameError" class="field-error"></span>
 
                     <label for="taskDescription">Description</label>
                     <textarea class="input" id="taskDescription" name="taskDescription"
@@ -101,6 +102,7 @@ function getAddTaskPage() {
 
                     <label for="taskDeadline">Due date<span class="required">*</span></label>
                     <input class="input" type="date" id="taskDeadline" name="taskDeadline" required>
+                    <span id="taskDeadlineError" class="field-error"></span>
                 </div>
 
                 <div class="divider"></div>
@@ -177,6 +179,7 @@ function getAddTaskPage() {
                             </li>
                         </ul>
                     </div>
+                    <span id="categoryError" class="field-error"></span>
 
                     <label for="subtask">Subtasks</label>
                     <div class="add-subtask">

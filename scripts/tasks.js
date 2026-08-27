@@ -1,14 +1,3 @@
-let names = [];
-let contacts = [];
-let selectedContacts = [];
-let subtasks = {};
-let selectedPriority = "medium";
-let sub = false
-let editingSubtaskKey = null;
-const MAX_VISIBLE_CONTACTS = 5;
-const ARROW_ICON_CLOSED = "assets/icons/arrow_drop_down_down.svg";
-const ARROW_ICON_OPEN = "assets/icons/arrow_drop_down_up.svg";
-
 /**
  * Opens or closes a dropdown and rotates its arrow. Reloads the contacts
  * first, so the assignment list is always up to date. Any other open dropdown
@@ -21,12 +10,10 @@ const ARROW_ICON_OPEN = "assets/icons/arrow_drop_down_up.svg";
 async function toggleDropdown(ul, arr) {
     let storedContacts = getContactStorage() || {};
     contacts = Object.keys(storedContacts).map(id => ({ id, ...storedContacts[id] }));
-
     getCoWorker()
     let list = document.getElementById(ul);
     let arrow = document.getElementById(arr);
     let wasOpen = !list.classList.contains("d-none");
-
     closeAllDropdowns();
     if (!wasOpen) {
         list.classList.remove("d-none");
@@ -71,7 +58,6 @@ function searchList() {
     let input = document.getElementById("assignedTo");
     let filter = input.value.trim().toLowerCase();
     let items = document.querySelectorAll("#contactList li");
-
     items.forEach(item => {
         let nameEl = item.querySelector(".contact-name");
         let nameParts = (nameEl?.textContent || "").replace(" (you)", "").toLowerCase().split(" ");
@@ -91,7 +77,6 @@ function selectOption(contact) {
     let input = document.getElementById("assignedTo");
     let list = document.getElementById("dropdownList");
     let arrow = document.getElementById("arrow");
-
     input.value = contact;
     list.classList.remove("show");
     arrow.classList.remove("open");
@@ -138,10 +123,10 @@ function applySelectedContactsState() {
  */
 async function submitTaskData(event) {
     event.preventDefault();
+    if (!checkForm(ADD_TASK_FIELDS)) return;
     let task = getTaskData();
     let tasks = await getNextTaskId();
-    let nextId = Object.keys(tasks).length + 1
-
+    let nextId = Object.keys(tasks).length + 1;
     postTask(`/tasks/${nextId}`, task);
     showToast("Task created", duration = 2000)
     resetTask();
@@ -182,7 +167,6 @@ function getTaskData() {
 function selectPriority(priority) {
     selectedPriority = priority;
     let buttons = document.querySelectorAll("#btnUrgent, #btnMedium, #btnLow");
-
     for (const button of buttons) {
         let isSelected = button.id.toLowerCase() === `btn${priority}`;
         let img = button.querySelector("img");
@@ -203,7 +187,7 @@ function chooseCategory(value) {
     let input = document.getElementById("category");
     input.value = " ";
     input.value = value;
-
+    checkField('category', ADD_TASK_FIELDS);
     toggleDropdown(`categoryList`, `categoryArrow`);
 }
 
@@ -217,7 +201,6 @@ function chooseCategory(value) {
  */
 function toggleContact(index, checked) {
     const contact = contacts[index];
-
     if (checked) {
         selectedContacts.push(contact);
     } else {
@@ -235,7 +218,6 @@ function toggleContact(index, checked) {
  */
 function toggleContactRow(index) {
     let checkbox = document.getElementById(`contactCheckbox${index}`);
-
     checkbox.checked = !checkbox.checked;
     toggleContact(index, checkbox.checked);
 }
@@ -275,6 +257,7 @@ function resetTask(){
     renderSubtask()
     resetAssignedContacts();
     selectPriority("medium")
+    ADD_TASK_FIELDS.forEach(field => showFieldError(field.id, ""));
 }
 
 /**
@@ -317,7 +300,6 @@ function renderSubtask() {
     const subtaskArea = document.getElementById('subtaskArea');
     subtaskArea.innerHTML = "";
     const keys = Object.keys(subtasks);
-
     for (let i = 0; i < keys.length; i++) {
         const key = keys[i];
 
@@ -337,18 +319,15 @@ function renderSubtask() {
  */
 function safeSubtask(){
     const input = document.getElementById('subtask').value.trim();
-
     if (input.length === 0) {
         return;
     }
 
     let id = Object.keys(subtasks).length + 1;
-
     subtasks[`sub${id}`] = {
         "title": input,
         "done": false
     };
-
     clearSubtask()
     renderSubtask();
 }
@@ -360,8 +339,6 @@ function safeSubtask(){
  * @returns {void}
  */
 function deleteSubtask(key){
-    console.log(key);
-
     delete subtasks[key]
 
     if (editingSubtaskKey === key) {
@@ -416,31 +393,3 @@ function clearSubtask(){
     input.value = "";
     showButtons();
 }
-
-/**
- * Reads the raw session entry of the logged in user from localStorage.
- *
- * @returns {?string} the logged in user from localstorage, or null if nobody is logged in.
- */
-function getUser(){
-    const user = localStorage.getItem("user");
-    return user;
-}
-
-/**
- * Builds the display name of a contact for the dropdown.
- *
- * @param {string} loggedinUser - The session entry as returned by getUser.
- * @param {Object} user - The contact to label, with a Name property.
- * @returns {string} the user name and if its your name its get the (you) tag
- */
-function testUser(loggedinUser, user){
-    if(JSON.parse(loggedinUser).name == user.name){
-        return user.name +" (you)"
-    }
-    else{
-        return user.name
-    }
-}
-
-

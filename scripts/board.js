@@ -196,6 +196,7 @@ function findTask() {
 function openAddTaskDialog(status = 'todo') {
     const modal = document.getElementById('add-task-modal');
     document.getElementById('modal-body').innerHTML = getAddTaskPage();
+    initAddTaskForm();
     resetBoardAddTaskState();
     injectBoardTaskStatus(status);
     const form = document.getElementById('addTaskForm');
@@ -232,23 +233,18 @@ async function saveBoardTask(task) {
 }
 
 /**
- * Collects the task data from the Add-Task dialog.
+ * Collects the task data from the Add-Task dialog. Only called once
+ * checkForm(ADD_TASK_FIELDS) has confirmed the required fields are filled in.
  *
- * @returns {Object|null} The task data or null when the title is missing.
+ * @returns {Object} The task data.
  */
 function getBoardTaskFormData() {
-    const title = document.getElementById('taskName')?.value.trim();
-    if (!title) {
-        alert('Please enter a title.');
-        return null;
-    }
-
     return {
-        title,
+        title: document.getElementById('taskName').value.trim(),
         description: document.getElementById('taskDescription')?.value.trim() || '',
-        dueDate: document.getElementById('taskDeadline')?.value || '',
+        dueDate: document.getElementById('taskDeadline').value,
         priority: getBoardDialogPriority(),
-        category: document.getElementById('category')?.value || '',
+        category: document.getElementById('category').value,
         status: document.getElementById('taskStatus')?.value || 'todo',
         assignedTo: typeof selectedContacts !== 'undefined' ? selectedContacts : [],
         subtasks: typeof subtasks !== 'undefined' ? subtasks : {}
@@ -256,17 +252,17 @@ function getBoardTaskFormData() {
 }
 
 /**
- * Submit handler of the Add-Task dialog on the board. Collects the inputs,
- * saves the task under the next free id, closes the dialog and reloads the
- * board. A missing title or a failed write aborts with an alert.
+ * Submit handler of the Add-Task dialog on the board. Validates the same
+ * required fields as the standalone Add-Task page, saves the task under the
+ * next free id, closes the dialog and reloads the board.
  *
  * @param {Event} event - The submit event; its default action is prevented.
  * @returns {Promise<void>}
  */
 async function submitBoardTaskData(event) {
     event.preventDefault();
+    if (!checkForm(ADD_TASK_FIELDS)) return;
     const task = getBoardTaskFormData();
-    if (!task) return;
     await saveBoardTask(task);
     resetBoardTaskForm();
     closeAddTaskDialog();

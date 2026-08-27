@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -45,11 +45,12 @@
     </div>
     <main>
         <h1>Add Task</h1>
-        <form id="addTaskForm" onsubmit="submitTaskData(event)" onreset="resetTask()">
+        <form id="addTaskForm" novalidate onsubmit="submitTaskData(event)" onreset="resetTask()">
             <div class="input-form">
                 <div class="input-area">
                     <label for="taskName">Title<span class="required">*</span></label>
                     <input class="input" type="text" id="taskName" name="taskName" required placeholder="Enter a title">
+                    <span id="taskNameError" class="field-error"></span>
 
                     <label for="taskDescription">Description</label>
                     <textarea class="input" id="taskDescription" name="taskDescription"
@@ -57,6 +58,7 @@
 
                     <label for="taskDeadline">Due date<span class="required">*</span></label>
                     <input class="input" type="date" id="taskDeadline" name="taskDeadline" required>
+                    <span id="taskDeadlineError" class="field-error"></span>
                 </div>
 
                 <div class="divider"></div>
@@ -133,6 +135,7 @@
                             </li>
                         </ul>
                     </div>
+                    <span id="categoryError" class="field-error"></span>
 
                     <label for="subtask">Subtasks</label>
                     <div class="add-subtask">
@@ -177,13 +180,15 @@
 
     <div id="toast" class="toast"></div>
     <script src="firebase-config.js"></script>
+    <script src="scripts/variables.js"></script>
     <script src="scripts/storage.js"></script>
     <script src="scripts/api.js"></script>
     <script src="assets/templates/addTaskTemplate.js"></script>
     <script src="scripts/tasks.js"></script>
     <script src="script.js"></script>
     <script src="scripts/spaceGuard.js"></script>
-
+    <script src="scripts/validation.js"></script>
+    <script src="scripts/validationAddTask.js"></script>
 </body>
 
 </html>
