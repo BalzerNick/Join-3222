@@ -1,6 +1,6 @@
 .legal-notice {
   max-width: 900px;
-  margin: 40px auto;
+  margin: 40px 0;
   padding: 20px;
   font-family: Arial, sans-serif;
   color: #111;
@@ -37,5 +37,20 @@
 
   .legal-notice h2 {
     font-size: var(--fs-md);
+  }
+}
+
+
+.page-legalnotice {
+  max-width: 1440px; /* Marcus am 07.08.2026 */
+  margin-left: 230px;
+  padding: 80px 24px 24px 50px;
+}
+
+
+@media (max-width: 768px) {
+  .page-legalnotice {
+    margin-left: 0px;
+    padding: 80px 24px 24px 24px;
   }
 }
