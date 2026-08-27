@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/login.css">
+    <!-- merkt sich beim Klick auf die Rechtstexte, dass es von hier aus war -->
+    <script src="scripts/authNav.js"></script>
 </head>
 <body>
     <div class="page-frame">
@@ -63,7 +65,7 @@
             <div class="input-field">
                 <label class="privacy-check">
                     <input type="checkbox" id="acceptPrivacy">
-                    I accept the <a href="privacyPolicy.html">Privacy Policy</a>
+                    I accept the <a href="privacyPolicy.html" onclick="rememberLegalOrigin()">Privacy Policy</a>
                 </label>
                 <span id="acceptPrivacyError" class="field-error field-error-center"></span>
             </div>
@@ -77,8 +79,8 @@
     </main>
 
     <footer class="footer">
-        <a href="privacyPolicy.html" class="footer-link-index">Privacy Policy</a>
-        <a href="legalNotice.html" class="footer-link-index">Legal Notice</a>
+        <a href="privacyPolicy.html" class="footer-link-index" onclick="rememberLegalOrigin()">Privacy Policy</a>
+        <a href="legalNotice.html" class="footer-link-index" onclick="rememberLegalOrigin()">Legal Notice</a>
     </footer>
     </div>
 
