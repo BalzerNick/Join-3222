@@ -23,7 +23,6 @@ async function getContacts() {
 async function getContactElement(result) {
     let contacts = Object.values(result);
     contactArray = [];
-    console.log(result);
     
     for (const element of contacts) {
         let contact = {
