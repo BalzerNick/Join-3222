@@ -27,8 +27,8 @@
         <form class="login-form" novalidate>
             <h1>Log in</h1>
 
-            <input class="input" type="email" id="loginEmail" placeholder="Email" autocomplete="email">
-            <div class="input-wrapper">            
+            <div class="input-wrapper">
+                <input class="input" type="email" id="loginEmail" placeholder="Email" autocomplete="email">
                 <img src="assets/icons/email.png" alt="" class="input-icon">
             </div>
 
@@ -56,11 +56,12 @@
     </main>
 
         <footer class="footer">
-            <a href="privacyPolicy.html" class="footer-link-index">Privacy Policy</a>
-            <a href="legalNotice.html" class="footer-link-index">Legal Notice</a>
+            <a href="privacyPolicy.html" class="footer-link-index" onclick="rememberLegalOrigin()">Privacy Policy</a>
+            <a href="legalNotice.html" class="footer-link-index" onclick="rememberLegalOrigin()">Legal Notice</a>
         </footer>
     </div>
 
+    <script src="scripts/authNav.js"></script>
     <script src="firebase-config.js"></script>
     <script src="script.js"></script>
     <script src="scripts/spaceGuard.js"></script>
