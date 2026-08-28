@@ -45,13 +45,18 @@ function isLoginFilled(data) {
 
 
 /**
- * Loads all registered users from the Firebase database.
+ * Loads the registered users and turns a failed request into null, so that a
+ * broken connection can be told apart from wrong credentials. The request
+ * itself is done by loadUsers() in scripts/api.js.
  *
- * @returns {Promise<?Object>} All users keyed by their id, or null if the database holds none.
+ * @returns {Promise<?Object>} All users keyed by their id, or null if the request failed.
  */
-async function loadUsers() {
-  let response = await fetch(BASE_URL + "users.json");
-  return await response.json();
+async function tryLoadUsers() {
+  try {
+    return await loadUsers();
+  } catch (error) {
+    return null;
+  }
 }
 
 
@@ -87,16 +92,32 @@ async function login() {
     showLoginError("Please enter your email and password.");
     return;
   }
-  let users = await loadUsers();
-  let foundUser = findUser(users, data);
-  if (foundUser) {
-    localStorage.setItem("user", JSON.stringify({ name: foundUser.name }));
-    sessionStorage.setItem("showGreeting", "true");
-    await getContacts();
-    window.location.href = "summary_guest.html";
-  } else {
-    showLoginError("Check your email and password. Please try again.");
+  let users = await tryLoadUsers();
+  if (!users) {
+    showLoginError("Login failed. Please check your connection and try again.");
+    return;
   }
+  let foundUser = findUser(users, data);
+  if (!foundUser) {
+    showLoginError("Check your email and password. Please try again.");
+    return;
+  }
+  await startUserSession(foundUser);
+}
+
+
+/**
+ * Stores the session of the user who just logged in, loads the contacts of
+ * that session and opens the summary page.
+ *
+ * @param {Object} foundUser - The user whose email and password matched.
+ * @returns {Promise<void>}
+ */
+async function startUserSession(foundUser) {
+  localStorage.setItem("user", JSON.stringify({ name: foundUser.name }));
+  sessionStorage.setItem("showGreeting", "true");
+  await getContacts();
+  window.location.href = "summary_guest.html";
 }
 
 /**

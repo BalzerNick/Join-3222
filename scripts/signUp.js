@@ -81,20 +81,6 @@ function initSignupForm() {
 
 
 /**
- * Saves a new user in the database. POST makes Firebase generate the id.
- *
- * @param {{name: string, email: string, password: string}} user - The user record that is stored.
- * @returns {Promise<void>}
- */
-async function saveUser(user) {
-  await fetch(BASE_URL + "users.json", {
-    method: "POST",
-    body: JSON.stringify(user)
-  });
-}
-
-
-/**
  * Handler of the "Sign up" button. Validates the form, saves the user and
  * returns to the login page after a short confirmation.
  *

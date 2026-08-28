@@ -21,24 +21,69 @@ Weitere Ordner und Dateien:
 - `scripts/` – eine JS-Datei je Seite (`login.js`, `signUp.js`, `board.js` …)
 - `script.js` – gemeinsame, seitenuebergreifende Datei (u.a. Firebase-Verbindungstest)
 - `assets/` – `imgs/`, `fonts/` (Inter lokal via `@font-face`), `templates/`
-- `firebase-config.js` – enthaelt `BASE_URL`, per `.gitignore` aus dem Repo
-- `database-import.json` – Startdaten fuer den Import in die Datenbank
+- `firebase-config.js` – enthaelt die `BASE_URL` der Realtime Database
 
 ## Setup
 
-1. In der Firebase Console ein Projekt und eine Realtime Database anlegen.
-2. `firebase-config.js` im Projekt-Root anlegen und die eigene `BASE_URL`
-   eintragen (Datei ist per `.gitignore` ausgeschlossen, kommt nicht ins Repo).
-3. `database-import.json` in der Realtime Database importieren
-   (Console → Realtime Database → Menue → JSON importieren).
-4. `index.html` im Browser oeffnen.
+### 1. Firebase Realtime Database anlegen
+
+1. Auf <https://console.firebase.google.com> ein Projekt anlegen. Google
+   Analytics wird nicht gebraucht und kann abgewaehlt werden.
+2. In der linken Leiste **Build → Realtime Database → Datenbank erstellen**.
+3. Als Standort **europe-west1** waehlen. Der Standort steht spaeter in der URL
+   und laesst sich nachtraeglich nicht mehr aendern.
+4. Beim Sicherheitsmodus **Im Testmodus starten** waehlen. Lesen und Schreiben
+   sind damit ohne Anmeldung erlaubt, und genau das setzt diese App voraus: sie
+   spricht die Datenbank direkt per REST an und kennt kein Firebase-Login.
+
+Die Testmodus-Regeln laufen nach 30 Tagen ab, danach antwortet die Datenbank
+nur noch mit "Permission denied". In der Konsole unter **Realtime Database →
+Regeln** ersetzt man sie dann durch:
+
+```json
+{
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
+```
+
+Damit kann jeder lesen und schreiben, der die URL kennt. Fuer dieses
+Lernprojekt ist das so gewollt – echte oder persoenliche Daten gehoeren
+deshalb nicht in die Datenbank.
+
+### 2. BASE_URL eintragen
+
+Oben in der Realtime Database steht die URL der Datenbank, sie endet auf
+`.firebasedatabase.app`. Diese URL kommt in `firebase-config.js` im
+Projekt-Root:
+
+```js
+const BASE_URL = "https://DEIN-PROJEKT-default-rtdb.europe-west1.firebasedatabase.app/";
+```
+
+Der abschliessende Schraegstrich gehoert dazu, weil die App ihre Pfade direkt
+an die `BASE_URL` anhaengt.
+
+### 3. Starten
+
+Das Projekt ueber einen lokalen Server oeffnen (z.B. Live Server in VS Code),
+nicht per Doppelklick: `fetch` auf die Vorlagen in `assets/templates/`
+funktioniert unter `file://` nicht.
+
+Die Datenbank ist am Anfang leer, Startdaten muessen nicht importiert werden.
+Firebase legt die drei Bereiche `tasks`, `contacts` und `users` selbst an,
+sobald der erste Eintrag geschrieben wird: Account ueber `signUp.html`
+registrieren, Kontakte ueber `contacts.html` anlegen, Tasks ueber
+`addTask.html`.
 
 ## Login und Registrierung
 
 - **Login** (`index.html`): prueft E-Mail und Passwort gegen die `users` in der
-  Datenbank. Bei Treffer Weiterleitung auf `board.html`, sonst Fehlermeldung
-  "User nicht bekannt".
-- **Gast-Login**: springt ohne Pruefung direkt auf `board.html`, damit alle
+  Datenbank. Bei Treffer Weiterleitung auf `summary_guest.html`, sonst
+  Fehlermeldung "User nicht bekannt".
+- **Gast-Login**: springt ohne Pruefung direkt auf `summary_guest.html`, damit alle
   Funktionen getestet werden koennen.
 - **Registrierung** (`signUp.html`): validiert die Eingaben (Felder ausgefuellt,
   gueltige E-Mail, Passwoerter gleich, Datenschutz akzeptiert) und legt den
@@ -107,6 +152,44 @@ So nutzt du den Toast auf einer beliebigen Seite:
 3. Aufrufen, z.B. `showToast("Contact successfully created")` oder mit eigener
    Dauer `showToast("Task deleted", 3000)` (Standard: 2000 ms).
 
+## Datenbankzugriff (REST)
+
+Die App nutzt kein Firebase-SDK, sondern spricht die Realtime Database per
+`fetch` ueber deren REST-Schnittstelle an. Jede Adresse folgt demselben
+Muster:
+
+```
+BASE_URL + <Pfad im JSON-Baum> + ".json"
+```
+
+Das angehaengte `.json` ist Pflicht, sonst liefert Firebase keine Daten. Der
+Pfad ist derselbe wie im JSON-Baum: `contacts` fuer alle Kontakte,
+`contacts/contact1` fuer einen einzelnen.
+
+| Methode | Bedeutung | Beispiel |
+| --- | --- | --- |
+| `GET` | liest den Teilbaum | `fetch(BASE_URL + "contacts.json")` |
+| `POST` | legt neu an, Firebase erzeugt den Schluessel | `fetch(BASE_URL + "contacts.json", { method: "POST", body })` |
+| `PUT` | ueberschreibt den Eintrag komplett | `fetch(BASE_URL + "contacts/" + id + ".json", { method: "PUT", body })` |
+| `PATCH` | aendert nur die mitgeschickten Felder | `fetch(BASE_URL + "tasks/" + id + ".json", { method: "PATCH", body })` |
+| `DELETE` | loescht den Eintrag | `fetch(BASE_URL + "contacts/" + id + ".json", { method: "DELETE" })` |
+
+Zwei Eigenheiten, die im Code immer wieder auftauchen:
+
+- Ein `GET` auf eine Sammlung liefert **kein Array**, sondern ein Objekt mit den
+  IDs als Schluessel. Deshalb steht dahinter meist `Object.keys(...)` oder
+  `Object.values(...)`, um daraus eine Liste zu machen.
+- Ein Pfad, den es nicht gibt, ist kein Fehler: Firebase antwortet mit Status
+  200 und dem Wert `null`. Eine leere Datenbank liefert also `null`, keinen 404.
+
+Genutzte Pfade sind `contacts`, `contacts/<id>`, `tasks`, `tasks/<id>`,
+`tasks/<id>/subtasks/<subId>` und `users`.
+
+Sammelstelle fuer diese Aufrufe ist `scripts/api.js`; die Seitenskripte rufen
+nur deren Funktionen auf. Zwei Stellen greifen aktuell noch direkt auf
+`BASE_URL` zu und gehoeren noch nach `api.js` verschoben:
+`contacts.js` in `loadContacts()` und `summary.js` in `loadSummaryData()`.
+
 ## Datenbankstruktur (Firebase Realtime Database)
 
 Die Datenbank ist ein einziger JSON-Baum mit drei Top-Level-Bereichen.
@@ -123,7 +206,15 @@ damit sich beim Loeschen keine Indizes verschieben.
       "priority": "medium",
       "category": "Technical Task",
       "status": "todo",
-      "assignedTo": ["contact1"],
+      "assignedTo": [
+        {
+          "id": "contact1",
+          "name": "Anna Schmidt",
+          "email": "anna.schmidt@example.com",
+          "phone": "+49 151 1234567",
+          "initials": "AS"
+        }
+      ],
       "subtasks": {
         "sub1": { "title": "HTML-Grundgeruest anlegen", "done": false }
       }
@@ -133,7 +224,8 @@ damit sich beim Loeschen keine Indizes verschieben.
     "contact1": {
       "name": "Anna Schmidt",
       "email": "anna.schmidt@example.com",
-      "phone": "+49 151 1234567"
+      "phone": "+49 151 1234567",
+      "initials": "AS"
     }
   },
   "users": {
@@ -155,8 +247,10 @@ Eine Board-Karte. Wichtige Keys:
 - `dueDate` – Faelligkeitsdatum im Format `YYYY-MM-DD`.
 - `priority` – `urgent`, `medium` oder `low`.
 - `category` – `Technical Task` oder `User Story`.
-- `status` – Spalte auf dem Board: `todo`, `inProgress`, `awaitFeedback`, `done`.
-- `assignedTo` – Liste von Kontakt-IDs, die dem Task zugewiesen sind.
+- `status` – Spalte auf dem Board: `todo`, `in-progress`, `await-feedback`,
+  `done`. Die aeltere Schreibweise `inProgress` / `awaitFeedback` wird beim
+  Laden in `board.js` noch auf die Bindestrich-Form umgeschrieben.
+- `assignedTo` – Liste der zugewiesenen Kontakte, siehe unten.
 - `subtasks` – Objekt aus Unteraufgaben, je mit `title` und `done` (true/false).
 
 ### contacts
@@ -166,6 +260,7 @@ Eine Person, die einem Task zugewiesen werden kann. Wichtige Keys:
 - `name` – vollstaendiger Name.
 - `email` – E-Mail-Adresse.
 - `phone` – Telefonnummer.
+- `initials` – Initialen fuer den Avatar.
 
 ### users
 
@@ -178,7 +273,15 @@ Ein Login-Account. Wichtige Keys:
 
 ### Zusammenhang tasks und contacts
 
-`assignedTo` in einem Task speichert nur die IDs der Kontakte (z.B. `contact1`),
-nicht deren Namen. Die Anzeige (Name, Initialen) wird beim Rendern ueber die
-ID aus `contacts` nachgeschlagen. So muss ein Kontakt nur an einer Stelle
-geaendert werden.
+`assignedTo` speichert den **vollstaendigen Kontakt als Objekt**, inklusive
+`id`, `name` und `initials`. Das Board kann eine Karte damit zeichnen, ohne
+vorher `contacts` nachzuschlagen.
+
+Der Preis dafuer: die Daten liegen doppelt. Wird ein Kontakt in `contacts`
+umbenannt, stehen in den Tasks weiterhin die alten Namen. Wer das aufraeumen
+will, muesste beim Speichern eines Kontakts auch die Tasks mitziehen.
+
+Aus einer aelteren Fassung kann `assignedTo` auch nur die Kontakt-ID als
+String enthalten (`["contact1"]`). `getBoardContact()` in
+`assets/templates/boardTaskTemplates.js` faengt beide Formen ab und schlaegt
+den String-Fall ueber `contacts` nach.
