@@ -211,6 +211,53 @@
   color: var(--color-accent);
 }
 
+/* Popup faehrt beim Oeffnen von rechts ein (Figma-Prototyp: Move in, rechts),
+   der abgedunkelte Hintergrund blendet dabei ein. Das Template wird bei jedem
+   Oeffnen neu in #addContactOverlay geschrieben und das Overlay von display:none
+   auf flex geschaltet, deshalb laufen beide Animationen ohne JS jedes Mal neu. */
+@keyframes overlayFadeIn {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  to {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+}
+
+@keyframes contactModalSlideIn {
+  from {
+    /* 50vw + halbe Modalbreite: die linke Kante steht exakt am rechten
+       Bildschirmrand, das Popup ist also unabhaengig von seiner Breite
+       komplett ausserhalb des Sichtfensters. */
+    transform: translateX(calc(50vw + 50%));
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes overlayFadeOut {
+  from {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  to {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
+@keyframes contactModalSlideOut {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(50vw + 50%));
+  }
+}
+
 /* Popup / Overlay zum Anlegen und Bearbeiten */
 .overlay {
   position: fixed;
@@ -220,6 +267,7 @@
   align-items: center;
   justify-content: center;
   z-index: 10;
+  animation: overlayFadeIn 300ms ease-out;
 }
 
 /* Zweigeteiltes Popup: links dunkel mit Logo/Titel, rechts weiss mit Formular */
@@ -231,6 +279,31 @@
   overflow: hidden;
   /* rechte Haelfte braucht Platz fuer Inputs bis 422px (siehe .modal-form .input) */
   width: min(90vw, 1010px);
+  animation: contactModalSlideIn 300ms ease-out;
+}
+
+/* Beim Schliessen faehrt das Popup denselben Weg zurueck nach rechts.
+   closeAddContact() setzt die Klasse und blendet das Overlay erst nach dem
+   animationend-Event aus. Muss nach .overlay stehen, gleiche Spezifitaet. */
+.overlay-closing {
+  animation: overlayFadeOut 300ms ease-in;
+}
+
+.overlay-closing .contact-modal {
+  animation: contactModalSlideOut 300ms ease-in;
+}
+
+/* Nutzer, die reduzierte Bewegung eingestellt haben, bekommen das Popup ohne
+   sichtbaren Flug. Die Animation darf hier nicht auf none stehen: ohne
+   animationend-Event wuerde closeAddContact() das Popup nie ausblenden. */
+@media (prefers-reduced-motion: reduce) {
+
+  .overlay,
+  .contact-modal,
+  .overlay-closing,
+  .overlay-closing .contact-modal {
+    animation-duration: 1ms;
+  }
 }
 
 .modal-close {

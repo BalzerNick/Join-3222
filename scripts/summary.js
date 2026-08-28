@@ -163,7 +163,6 @@ function getCurrentTime() {
     let thehours = now.getHours();     // hours (0-23)
     let theminutes = now.getMinutes();   // minutes (0-59)
     let thesconds = now.getSeconds();
-    console.log(`Aktuelle Uhrzeit: ${thehours}:${theminutes}:${thesconds}`);
     if (0 <= thehours && thehours < 12) {
         return "Good morning!";
     }
@@ -182,7 +181,6 @@ function getCurrentTime() {
  */
 function startGreeting() {
     let greeting = getCurrentTime();
-    console.log(`Greeting: ${greeting}`);
     document.getElementById("greetingtag").textContent = greeting;
 }
 

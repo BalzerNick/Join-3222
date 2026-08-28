@@ -2,6 +2,15 @@
 let allContacts = {};
 
 /**
+ * Remembers whether the running mouse gesture started on the dim background.
+ * Without it a text selection that is dragged out of an input and released
+ * next to the popup would count as a click on the background.
+ *
+ * @type {boolean}
+ */
+let backdropPressed = false;
+
+/**
  * The fields of the add contact popup with their validation rules. Both popups
  * check the same three things, they only differ in the ids of their inputs.
  *
@@ -245,19 +254,64 @@ function highlightContact(id) {
 async function openAddContact() {
   let overlay = document.getElementById('addContactOverlay');
   overlay.innerHTML = await loadHtmlTemplate("assets/templates/addContactTemplate.html");
-  overlay.classList.remove('d-none');
+  overlay.classList.remove('overlay-closing', 'd-none');
   bindFormValidation(NEW_CONTACT_FIELDS);
   lockScroll(true);
 }
 
 /**
- * Closes the add and edit popup and releases the page scroll again.
+ * Starts closing the add and edit popup. The popup flies out to the right
+ * first, hiding and scroll release happen in finishAddContactClose().
  *
  * @returns {void}
  */
 function closeAddContact() {
-  document.getElementById('addContactOverlay').classList.add('d-none');
+  let overlay = document.getElementById('addContactOverlay');
+  if (overlay.classList.contains('d-none')) return;
+  if (overlay.classList.contains('overlay-closing')) return;
+  overlay.classList.add('overlay-closing');
+  overlay.addEventListener('animationend', finishAddContactClose);
+}
+
+/**
+ * Hides the popup once its closing animation has finished and gives the page
+ * its scrolling back.
+ *
+ * @param {AnimationEvent} event - The animationend event of the overlay.
+ * @returns {void}
+ */
+function finishAddContactClose(event) {
+  let overlay = event.currentTarget;
+  if (event.target !== overlay) return;
+  overlay.removeEventListener('animationend', finishAddContactClose);
+  if (!overlay.classList.contains('overlay-closing')) return;
+  overlay.classList.remove('overlay-closing');
+  overlay.classList.add('d-none');
   lockScroll(false);
+}
+
+/**
+ * Notes whether a mouse press landed on the dim background and not inside the
+ * popup itself.
+ *
+ * @param {MouseEvent} event - The mousedown event of the overlay.
+ * @returns {void}
+ */
+function pressAddContactBackdrop(event) {
+  backdropPressed = event.target === event.currentTarget;
+}
+
+/**
+ * Closes the popup when the click happened next to it, on the dim background.
+ * Presses that started inside the popup are ignored.
+ *
+ * @param {MouseEvent} event - The click event of the overlay.
+ * @returns {void}
+ */
+function clickAddContactBackdrop(event) {
+  if (!backdropPressed) return;
+  if (event.target !== event.currentTarget) return;
+  closeAddContact();
 }
 
 /**
@@ -304,7 +358,7 @@ async function openEditContact(id) {
   let overlay = document.getElementById('addContactOverlay');
   let editTpl = await loadHtmlTemplate("assets/templates/contactEditTemplate.html");
   overlay.innerHTML = fillEditTemplate(editTpl, id, allContacts[id]);
-  overlay.classList.remove('d-none');
+  overlay.classList.remove('overlay-closing', 'd-none');
   bindFormValidation(EDIT_CONTACT_FIELDS);
   lockScroll(true);
 }

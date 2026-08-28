@@ -59,8 +59,10 @@
         </div>
     </main>
 
-    <!-- Overlay fuer das Add-Contact-Popup, per JS befuellt -->
-    <div id="addContactOverlay" class="overlay d-none"></div>
+    <!-- Overlay fuer das Add-Contact-Popup, per JS befuellt.
+         Ein Klick auf den abgedunkelten Rand schliesst das Popup. -->
+    <div id="addContactOverlay" class="overlay d-none" onmousedown="pressAddContactBackdrop(event)"
+        onclick="clickAddContactBackdrop(event)"></div>
 
     <!-- Toast: seitenuebergreifend, Text setzt showToast() -->
     <div id="toast" class="toast"></div>
