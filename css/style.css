@@ -510,3 +510,55 @@ a {
 .signup-arrow:hover {
   transform: scale(1.2);
 }
+
+/* ============================================================
+   Landscape-Sperre (rotateGuard.js haengt den Layer ein)
+
+   Im Querformat bleibt auf einem Handy zu wenig Hoehe fuer Board,
+   Add-Task und Kontakte uebrig. Statt jede Seite dafuer eigens zu
+   bauen, legt sich hier ein Hinweis darueber.
+
+   Die drei Bedingungen zusammen treffen genau ein gedrehtes Handy:
+   max-height grenzt Tablets ab (Querformat ab ca. 768px Hoehe) und
+   pointer: coarse grenzt Monitore ab, die ja ebenfalls im Querformat
+   stehen und bei kleinem Fenster sonst mitgefangen wuerden.
+   ============================================================ */
+.rotate-hint {
+  display: none;
+}
+
+@media (orientation: landscape) and (max-height: 500px) and (pointer: coarse) {
+  body {
+    overflow: hidden;
+  }
+
+  .rotate-hint {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    text-align: center;
+  }
+
+  .rotate-hint img {
+    width: 64px;
+    height: 64px;
+  }
+
+  .rotate-hint p {
+    margin: 0;
+    font-size: var(--fs-md);
+    font-weight: 700;
+  }
+
+  .rotate-hint span {
+    font-size: var(--fs-sm);
+  }
+}
