@@ -74,7 +74,7 @@ h3 {
 
 .input {
   border: unset;
-  border: 1px solid var(--color-border);
+  box-shadow: 0 0 0 1px var(--color-border);
   border-radius: var(--radius);
   padding: 12px 20px;
   font-size: var(--fs-base);
@@ -84,7 +84,7 @@ h3 {
 
 .input:focus {
   outline: none;
-  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent);
 }
 
 /* Icon im Eingabefeld: Wrapper wird zum Bezugsrahmen, Icon liegt absolut
@@ -138,7 +138,7 @@ h3 {
 /* Ungueltiges Feld bleibt auch im Fokus rot */
 .input.input-error,
 .input.input-error:focus {
-  border-color: var(--color-error);
+  box-shadow: 0 0 0 1px var(--color-error);
 }
 
 input[type="checkbox"].input-error {
