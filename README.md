@@ -54,18 +54,18 @@ Damit kann jeder lesen und schreiben, der die URL kennt. Fuer dieses
 Lernprojekt ist das so gewollt – echte oder persoenliche Daten gehoeren
 deshalb nicht in die Datenbank.
 
-### 2. BASE_URL eintragen
+### 2. baseUrl eintragen
 
 Oben in der Realtime Database steht die URL der Datenbank, sie endet auf
 `.firebasedatabase.app`. Diese URL kommt in `firebase-config.js` im
 Projekt-Root:
 
 ```js
-const BASE_URL = "https://DEIN-PROJEKT-default-rtdb.europe-west1.firebasedatabase.app/";
+const baseUrl = "https://DEIN-PROJEKT-default-rtdb.europe-west1.firebasedatabase.app/";
 ```
 
 Der abschliessende Schraegstrich gehoert dazu, weil die App ihre Pfade direkt
-an die `BASE_URL` anhaengt.
+an die `baseUrl` anhaengt.
 
 ### 3. Starten
 
@@ -160,7 +160,7 @@ Die App nutzt kein Firebase-SDK, sondern spricht die Realtime Database per
 Muster:
 
 ```
-BASE_URL + <Pfad im JSON-Baum> + ".json"
+baseUrl + <Pfad im JSON-Baum> + ".json"
 ```
 
 Das angehaengte `.json` ist Pflicht, sonst liefert Firebase keine Daten. Der
@@ -169,11 +169,11 @@ Pfad ist derselbe wie im JSON-Baum: `contacts` fuer alle Kontakte,
 
 | Methode | Bedeutung | Beispiel |
 | --- | --- | --- |
-| `GET` | liest den Teilbaum | `fetch(BASE_URL + "contacts.json")` |
-| `POST` | legt neu an, Firebase erzeugt den Schluessel | `fetch(BASE_URL + "contacts.json", { method: "POST", body })` |
-| `PUT` | ueberschreibt den Eintrag komplett | `fetch(BASE_URL + "contacts/" + id + ".json", { method: "PUT", body })` |
-| `PATCH` | aendert nur die mitgeschickten Felder | `fetch(BASE_URL + "tasks/" + id + ".json", { method: "PATCH", body })` |
-| `DELETE` | loescht den Eintrag | `fetch(BASE_URL + "contacts/" + id + ".json", { method: "DELETE" })` |
+| `GET` | liest den Teilbaum | `fetch(baseUrl + "contacts.json")` |
+| `POST` | legt neu an, Firebase erzeugt den Schluessel | `fetch(baseUrl + "contacts.json", { method: "POST", body })` |
+| `PUT` | ueberschreibt den Eintrag komplett | `fetch(baseUrl + "contacts/" + id + ".json", { method: "PUT", body })` |
+| `PATCH` | aendert nur die mitgeschickten Felder | `fetch(baseUrl + "tasks/" + id + ".json", { method: "PATCH", body })` |
+| `DELETE` | loescht den Eintrag | `fetch(baseUrl + "contacts/" + id + ".json", { method: "DELETE" })` |
 
 Zwei Eigenheiten, die im Code immer wieder auftauchen:
 
@@ -187,9 +187,7 @@ Genutzte Pfade sind `contacts`, `contacts/<id>`, `tasks`, `tasks/<id>`,
 `tasks/<id>/subtasks/<subId>` und `users`.
 
 Sammelstelle fuer diese Aufrufe ist `scripts/api.js`; die Seitenskripte rufen
-nur deren Funktionen auf. Zwei Stellen greifen aktuell noch direkt auf
-`BASE_URL` zu und gehoeren noch nach `api.js` verschoben:
-`contacts.js` in `loadContacts()` und `summary.js` in `loadSummaryData()`.
+nur deren Funktionen auf.
 
 ## Datenbankstruktur (Firebase Realtime Database)
 

@@ -41,26 +41,6 @@ async function renderContacts() {
 }
 
 /**
- * TOTER CODE (markiert am 2026-08-20, Denis) - wird nirgends aufgerufen.
- * Ersetzt durch getContacts() in scripts/api.js, das zusaetzlich
- * setContactStorage() aufruft und die Kontakte im sessionStorage ablegt.
- * Einzige verbliebene Fundstelle: auskommentiert in scripts/board.js.
- * Bleibt vorerst stehen, falls sie noch jemand braucht - bitte vor dem
- * Loeschen kurz Bescheid geben.
- *
- * @deprecated Stattdessen getContacts() aus scripts/api.js verwenden.
- *
- * Loads all contacts from the Firebase database.
- *
- * @returns {Promise<?Object>} All contacts keyed by their id, or null if the database holds none.
- */
-async function loadContacts() {
-  let response = await fetch(baseUrl + "contacts.json");
-
-  return await response.json();
-}
-
-/**
  * Loads an HTML template from the templates folder. Used by the contact list
  * and by every popup of the contacts page.
  *

@@ -111,20 +111,23 @@ async function postTask(path ="", data = {}){
 }
 
 /**
- * Sends a PATCH request to the database and turns a failed response into an
- * error. Shared by all partial writes of this file.
+ * Overwrites a single value at a database path and turns a failed response
+ * into an error. Shared by all partial writes of this file.
+ *
+ * PUT on a leaf path only replaces that path, so this gives the same partial
+ * update as PATCH would - without PATCH, whose CORS preflight Firebase's
+ * Realtime Database does not answer reliably from the browser.
  *
  * @param {string} path - Path below the database root, including the .json suffix.
- * @param {Object} payload - The fields to write.
+ * @param {*} value - The value written at that path.
  * @param {string} message - Prefix of the error message.
  * @returns {Promise<void>}
  * @throws {Error} If the response status is not ok.
  */
-async function patchBoardResource(path, payload, message) {
+async function putBoardResource(path, value, message) {
     const response = await fetch(baseUrl + path, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        method: 'PUT',
+        body: JSON.stringify(value)
     });
     if (!response.ok) throw new Error(`${message}: ${response.status} ${response.statusText}`);
 }
@@ -153,7 +156,7 @@ async function requireBoardJson(path, message) {
  * @throws {Error} If the database rejects the write.
  */
 async function updateSubtaskDone(taskId, subtaskId, done) {
-    await patchBoardResource(`tasks/${taskId}/subtasks/${subtaskId}.json`, { done }, 'Firebase subtask update failed');
+    await putBoardResource(`tasks/${taskId}/subtasks/${subtaskId}/done.json`, done, 'Firebase subtask update failed');
 }
 
 /**
@@ -165,7 +168,7 @@ async function updateSubtaskDone(taskId, subtaskId, done) {
  * @throws {Error} If the database rejects the write.
  */
 async function updateTaskStatus(taskId, status) {
-    await patchBoardResource(`tasks/${taskId}.json`, { status }, 'Firebase status update failed');
+    await putBoardResource(`tasks/${taskId}/status.json`, status, 'Firebase status update failed');
 }
 
 /**
@@ -193,7 +196,9 @@ async function fetchTaskCollection() {
  * @throws {Error} If the database rejects the write.
  */
 async function updateTaskData(taskId, updates) {
-    await patchBoardResource(`tasks/${taskId}.json`, updates, 'Firebase task update failed');
+    await Promise.all(Object.entries(updates).map(([field, value]) =>
+        putBoardResource(`tasks/${taskId}/${field}.json`, value, 'Firebase task update failed')
+    ));
 }
 
 /**
@@ -209,13 +214,33 @@ async function deleteTaskFromFirebase(taskId) {
 }
 
 /**
+ * Loads all tasks for the summary page's metric tiles.
+ *
+ * @returns {Promise<?Array<Object>>} All tasks as an array, or null if the request failed.
+ */
+async function getTasks() {
+    try {
+        const response = await fetch(baseUrl + "tasks.json");
+        if (!response.ok) {
+            console.error("Failed to load task data", response.status, response.statusText);
+            return null;
+        }
+        const data = await response.json();
+        return data ? Object.values(data) : [];
+    } catch (error) {
+        console.error("Firebase load failed", error);
+        return null;
+    }
+}
+
+/**
  * Loads all registered users from the database.
  *
  * @returns {Promise<Object>} All users keyed by their id, empty if the database holds none.
  * @throws {Error} If the request fails or the response status is not ok.
  */
 async function loadUsers() {
-  return await requireJson("users.json", "Firebase load users failed") || {};
+  return await requireBoardJson("users.json", "Firebase load users failed") || {};
 }
 
 /**

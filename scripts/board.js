@@ -5,7 +5,6 @@
  * @returns {Promise<void>}
  */
 async function initBoard() {
-    //await loadContacts();
     allContacts = getContactStorage();
     if (typeof getContacts === 'function') await getContacts();
     await loadTasks();
@@ -129,7 +128,7 @@ function mapLoadedTasks(tasksData) {
  * @throws {Error} If the tasks cannot be loaded.
  */
 async function getNextBoardTaskId() {
-    const tasks = await requireJson('tasks.json', 'Firebase load tasks failed');
+    const tasks = await requireBoardJson('tasks.json', 'Firebase load tasks failed');
     if (!tasks || typeof tasks !== 'object') return 'task1';
     const ids = Object.keys(tasks).map(extractTaskNumber).filter(num => num > 0);
     return 'task' + (ids.length === 0 ? 1 : Math.max(...ids) + 1);
