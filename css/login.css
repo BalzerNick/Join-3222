@@ -92,12 +92,28 @@
     /*forwards → nach Ende der Animation bleibt der letzte Keyframe-Zustand (das to {})
       erhalten, statt zurückzuspringen. */
 
-    .login-logo {
+      .login-logo-normal {
         position: absolute;
         top: 24px;
         left: 40px;
         width: 100px;
       }
+      
+      .login-logo {
+        position: absolute;
+        top: 24px;
+        left: 40px;
+        width: 100px;
+      }
+
+    @media (max-width: 768px) {
+        .login-logo-normal {
+            position: absolute;
+            top: 24px;
+            left: 40px;
+            width: 80px;
+          }  
+    }
 
     @media (max-width: 768px) {
         .login-logo {
@@ -107,7 +123,7 @@
             width: 200px;
             transform: translate(-50%, -50%);
             animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
-                        logoIntroSize 1.5s ease-in-out 0.3s forwards; 
+                       logoIntroSize 1.5s ease-in-out 0.3s forwards; 
             z-index: 10;
         }
       }

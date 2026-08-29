@@ -21,10 +21,40 @@ function applyAuthState() {
 }
 
 /**
+ * Key under which the page is remembered that led to the Privacy Policy or the
+ * Legal Notice.
+ */
+const LEGAL_ORIGIN_KEY = "legalOrigin";
+
+/**
+ * Remembers the current page right before a link to the Privacy Policy or the
+ * Legal Notice is followed. Sits on those links of the login and the sign up
+ * page, both of which are visited while logged out.
+ *
+ * @returns {void}
+ */
+function rememberLegalOrigin() {
+  let page = window.location.pathname.split("/").pop();
+  if (page) sessionStorage.setItem(LEGAL_ORIGIN_KEY, page);
+}
+
+/**
+ * Reads the remembered page and drops it right away, so that a later visit
+ * cannot be sent back to a page the user came from much earlier.
+ *
+ * @returns {?string} The remembered page, or null if nothing was stored.
+ */
+function takeLegalOrigin() {
+  let page = sessionStorage.getItem(LEGAL_ORIGIN_KEY);
+  sessionStorage.removeItem(LEGAL_ORIGIN_KEY);
+  return page;
+}
+
+/**
  * Handler of the back arrow on the Privacy Policy and Legal Notice pages.
- * Someone who is not logged in reached these pages from the login page, so
- * that is where the arrow leads. Everybody else returns to whatever they
- * were looking at before.
+ * Someone who is logged in returns to whatever they were looking at before.
+ * Everybody else goes back to the page that led here, which is the sign up
+ * form or the login page, and to the login page if nothing was remembered.
  *
  * @returns {void}
  */
@@ -33,7 +63,7 @@ function goBackOrLogin() {
     window.history.back();
     return;
   }
-  window.location.href = "index.html";
+  window.location.href = takeLegalOrigin() || "index.html";
 }
 
 applyAuthState();

@@ -191,14 +191,18 @@ html.logged-out .header-right {
   padding-right: 16px;
 }
 
+/* static, damit nicht der Initialen-Kreis den Anker bildet, sondern der
+   header darueber (position: sticky zaehlt hier als Anker). Nur so sitzt das
+   Menue auf der Unterkante des Headers und nicht mittig darauf. */
 .user-menu {
-  position: relative;
+  position: static;
 }
 
 .user-dropdown {
   position: absolute;
-  right: 0;
-  top: 140%;
+  right: 20px;
+  /* Unterkante des Headers, unabhaengig von dessen Hoehe: kein Ueberlappen. */
+  top: 100%;
   min-width: 150px;
   display: none;
   flex-direction: column;
@@ -206,7 +210,9 @@ html.logged-out .header-right {
   border-top: 10px solid var(--color-primary);
   background-color: var(--color-primary);
   background-clip: padding-box;
-  border-radius: 12px;
+  /* Figma: oben links / unten rechts / unten links 20px, oben rechts eckig,
+     weil das Menue dort am Header anliegt. */
+  border-radius: 20px 0 20px 20px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
   z-index: 30;
 }

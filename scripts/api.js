@@ -21,7 +21,6 @@ async function getContacts() {
 async function getContactElement(result) {
     let contacts = Object.values(result);
     contactArray = [];
-    console.log(result);
     
     for (const element of contacts) {
         let contact = {
@@ -207,4 +206,29 @@ async function updateTaskData(taskId, updates) {
 async function deleteTaskFromFirebase(taskId) {
     const response = await fetch(baseUrl + `tasks/${taskId}.json`, { method: 'DELETE' });
     if (!response.ok) throw new Error(`Firebase task delete failed: ${response.status} ${response.statusText}`);
+}
+
+/**
+ * Loads all registered users from the database.
+ *
+ * @returns {Promise<Object>} All users keyed by their id, empty if the database holds none.
+ * @throws {Error} If the request fails or the response status is not ok.
+ */
+async function loadUsers() {
+  return await requireJson("users.json", "Firebase load users failed") || {};
+}
+
+/**
+ * Saves a new user in the database. POST makes Firebase generate the id.
+ *
+ * @param {{name: string, email: string, password: string}} user - The user record that is stored.
+ * @returns {Promise<void>}
+ * @throws {Error} If the request fails or the database rejects the write.
+ */
+async function saveUser(user) {
+  const response = await fetch(BASE_URL + "users.json", {
+    method: "POST",
+    body: JSON.stringify(user)
+  });
+  if (!response.ok) throw new Error(`Firebase save user failed: ${response.status} ${response.statusText}`);
 }
