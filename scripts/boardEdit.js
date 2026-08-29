@@ -147,8 +147,6 @@ async function deleteTask(taskId) {
     }
 }
 
-let editDropdownCloseHandler = null;
-
 /**
  * Builds the pool of contacts available for assignment from the contacts
  * cached by the board.
@@ -183,8 +181,8 @@ function buildEditContactListHTML() {
  */
 function buildEditAssignedAvatarsHTML() {
     const total = taskEditSelectedContacts.length;
-    const overflow = total > MAX_VISIBLE_CONTACTS;
-    const visibleCount = overflow ? MAX_VISIBLE_CONTACTS - 1 : total;
+    const overflow = total > maxVisibleContacts;
+    const visibleCount = overflow ? maxVisibleContacts - 1 : total;
 
     const avatars = taskEditSelectedContacts
         .slice(0, visibleCount)

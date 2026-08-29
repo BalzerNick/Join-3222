@@ -17,8 +17,6 @@ main h1 {
 }
 
 form {
-    /* 440 (Spalte) + 48 (Gap) + 1 (Divider) + 48 (Gap) + 440 = 977, damit
-       die Eingabefelder ihre 440px aus dem Figma erreichen. */
     max-width: 977px;
 }
 
@@ -127,8 +125,6 @@ form {
     border-color: var(--color-accent);
 }
 
-/* Reuses the shared .input-error class from validation.js / style.css - just
-   needs enough specificity here to win against the rules above. */
 #addTaskForm .input.input-error,
 #addTaskForm .input.input-error:focus,
 #addTaskForm .dropdown .input.input-error,
@@ -163,8 +159,6 @@ form {
     font-size: var(--fs-base);
     font-family: inherit;
     font-weight: normal;
-    /* Figma: 56px hoch, Text 16px. Hoehe fest, damit die drei Buttons
-       unabhaengig von Icon- und Textgroesse gleich hoch bleiben. */
     height: 56px;
     padding: 0 6px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
@@ -525,114 +519,4 @@ input {
 
 .subtask-buttons .input-img:hover {
     cursor: pointer;
-}
-
-@media (max-width: 1100px) {
-    .priority-buttons button {
-        font-size: 12px;
-    }
-}
-
-@media (max-width: 1024px) {
-    main {
-        padding: 48px 32px 190px;
-    }
-
-    #addTaskFooter {
-        padding: 24px 32px;
-    }
-
-    form {
-        max-width: 100%;
-    }
-
-    .input-form {
-        flex-direction: column;
-        gap: 32px;
-    }
-
-    .divider {
-        display: none;
-    }
-
-    #addTaskForm .input,
-    .dropdown,
-    .add-subtask,
-    .priority-buttons {
-        width: 100%;
-        max-width: 440px;
-    }
-
-    .submit-form {
-        max-width: 440px;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 12px;
-    }
-
-    .required-hint {
-        align-self: flex-start;
-    }
-
-    .required-hint-footer {
-        display: none;
-    }
-
-    .required-hint-subtask {
-        display: block;
-    }
-}
-
-@media (max-width: 768px) {
-    main {
-        margin-left: 0;
-        padding: 32px 24px 220px;
-        overflow: hidden;
-        overflow-y: auto;
-    }
-
-    #addTaskFooter {
-        left: 0;
-        bottom: 80px;
-        padding: 16px 24px;
-    }
-}
-
-@media (max-width: 480px) {
-    main {
-        padding: 24px 16px 220px;
-        overflow: hidden;
-        overflow-y: auto;
-    }
-
-    #addTaskFooter {
-        padding: 16px 16px;
-    }
-
-    h1 {
-        font-size: var(--fs-lg);
-        margin-bottom: 20px;
-    }
-
-    .submit-form {
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 16px;
-    }
-
-    .button-area {
-        justify-content: flex-start;
-        gap: 12px;
-        width: auto;
-    }
-
-    .button-area .btn {
-        padding: 10px 16px;
-        font-size: 14px;
-    }
-
-    .button-area button[type="reset"] .btn-img {
-        width: 10px;
-        height: 10px;
-    }
 }

@@ -1,5 +1,3 @@
-let tasks = [];
-
 /**
  * Loads all tasks from the database into the module level tasks array and
  * refreshes the metric tiles afterwards. Network and HTTP errors are logged
@@ -8,18 +6,9 @@ let tasks = [];
  * @returns {Promise<void>}
  */
 async function loadSummaryData() {
-    try {
-        const response = await fetch(BASE_URL + "tasks.json");
-        if (!response.ok) {
-            console.error("Failed to load task data", response.status, response.statusText);
-            return;
-        }
-        const data = await response.json();
-        tasks = data ? Object.values(data) : [];
-    } catch (error) {
-        console.error("Firebase load failed", error);
-        return;
-    }
+    const result = await getTasks();
+    if (result === null) return;
+    tasks = result;
     updateSummaryHTML();
 }
 

@@ -5,7 +5,7 @@
  *
  * @type {Array<{id: string, validate: function, revalidate?: Array<string>}>}
  */
-const SIGNUP_FIELDS = [
+const signupFields = [
   { id: 'signupName', validate: validateName },
   { id: 'signupEmail', validate: validateEmail },
   { id: 'signupPassword', validate: validatePassword, revalidate: ['signupConfirm'] },
@@ -74,7 +74,7 @@ function showSignupError(message) {
  * @returns {void}
  */
 function initSignupForm() {
-  bindFormValidation(SIGNUP_FIELDS);
+  bindFormValidation(signupFields);
   updatePasswordIcon('signupPassword');
   updatePasswordIcon('signupConfirm');
 }
@@ -88,7 +88,7 @@ function initSignupForm() {
  */
 async function registerUser() {
   showSignupError("");
-  if (!checkForm(SIGNUP_FIELDS)) return;
+  if (!checkForm(signupFields)) return;
   let data = getSignupInputs();
   try {
     await saveUser({ name: data.name, email: data.email, password: data.password });

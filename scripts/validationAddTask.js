@@ -5,7 +5,7 @@
  *
  * @type {Array<{id: string, validate: function}>}
  */
-const ADD_TASK_FIELDS = [
+const addTaskFields = [
   { id: 'taskName', validate: validateTaskTitle },
   { id: 'taskDeadline', validate: validateDueDate },
   { id: 'category', validate: validateCategory }
@@ -70,7 +70,7 @@ function validateCategory(value) {
  */
 function initAddTaskForm() {
   if (!document.getElementById('addTaskForm')) return;
-  bindFormValidation(ADD_TASK_FIELDS);
+  bindFormValidation(addTaskFields);
   document.getElementById('taskDeadline').min = getTodayIsoDate();
 }
 

@@ -18,7 +18,7 @@ async function toggleDropdown(ul, arr) {
     if (!wasOpen) {
         list.classList.remove("d-none");
         arrow.classList.add("open");
-        arrow.src = ARROW_ICON_OPEN;
+        arrow.src = arrowIconOpen;
     }
 }
 
@@ -44,7 +44,7 @@ function resetArrowIcon(id) {
     let arrow = document.getElementById(id);
     if (!arrow) return;
     arrow.classList.remove("open");
-    arrow.src = ARROW_ICON_CLOSED;
+    arrow.src = arrowIconClosed;
 }
 
 /**
@@ -124,7 +124,7 @@ function applySelectedContactsState() {
  */
 async function submitTaskData(event) {
     event.preventDefault();
-    if (!checkForm(ADD_TASK_FIELDS)) return;
+    if (!checkForm(addTaskFields)) return;
     let task = getTaskData();
     let tasks = await getNextTaskId();
     let nextId = Object.keys(tasks).length + 1;
@@ -189,7 +189,7 @@ function chooseCategory(value) {
     let input = document.getElementById("category");
     input.value = " ";
     input.value = value;
-    checkField('category', ADD_TASK_FIELDS);
+    checkField('category', addTaskFields);
     toggleDropdown(`categoryList`, `categoryArrow`);
 }
 
@@ -226,7 +226,7 @@ function toggleContactRow(index) {
 
 /**
  * Redraws the avatar row of the assigned contacts below the assignment
- * field. Avatars overlap slightly; once more than MAX_VISIBLE_CONTACTS are
+ * field. Avatars overlap slightly; once more than maxVisibleContacts are
  * selected, the row shows only the first slots and a '+N' badge for the
  * rest instead of running off the right edge.
  * @returns {void}
@@ -235,8 +235,8 @@ function renderContacts(){
     let contact = document.getElementById(`assignedContacts`)
     contact.innerHTML = ""
     const total = selectedContacts.length;
-    const overflow = total > MAX_VISIBLE_CONTACTS;
-    const visibleCount = overflow ? MAX_VISIBLE_CONTACTS - 1 : total;
+    const overflow = total > maxVisibleContacts;
+    const visibleCount = overflow ? maxVisibleContacts - 1 : total;
 
     for (let index = 0; index < visibleCount; index++) {
         contact.innerHTML += getContactInitial(selectedContacts[index].initials, getAvatarColor(selectedContacts[index].name));
@@ -259,7 +259,7 @@ function resetTask(){
     renderSubtask()
     resetAssignedContacts();
     selectPriority("medium")
-    ADD_TASK_FIELDS.forEach(field => showFieldError(field.id, ""));
+    addTaskFields.forEach(field => showFieldError(field.id, ""));
 }
 
 /**

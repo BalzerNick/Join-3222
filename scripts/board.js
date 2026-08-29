@@ -1,12 +1,3 @@
-let todos = [];
-let allContacts = {};
-let searchTerm = "";
-let editingTaskId = null;
-let taskEditSubtasks = [];
-let taskEditSelectedContacts = [];
-let taskEditContactPool = [];
-let currentDraggedElement = null;
-
 /**
  * Entry point of the board page. Loads the contacts and the tasks and
  * renders the columns.
@@ -14,7 +5,6 @@ let currentDraggedElement = null;
  * @returns {Promise<void>}
  */
 async function initBoard() {
-    //await loadContacts();
     allContacts = getContactStorage();
     if (typeof getContacts === 'function') await getContacts();
     await loadTasks();
@@ -138,7 +128,7 @@ function mapLoadedTasks(tasksData) {
  * @throws {Error} If the tasks cannot be loaded.
  */
 async function getNextBoardTaskId() {
-    const tasks = await requireJson('tasks.json', 'Firebase load tasks failed');
+    const tasks = await requireBoardJson('tasks.json', 'Firebase load tasks failed');
     if (!tasks || typeof tasks !== 'object') return 'task1';
     const ids = Object.keys(tasks).map(extractTaskNumber).filter(num => num > 0);
     return 'task' + (ids.length === 0 ? 1 : Math.max(...ids) + 1);
@@ -234,7 +224,7 @@ async function saveBoardTask(task) {
 
 /**
  * Collects the task data from the Add-Task dialog. Only called once
- * checkForm(ADD_TASK_FIELDS) has confirmed the required fields are filled in.
+ * checkForm(addTaskFields) has confirmed the required fields are filled in.
  *
  * @returns {Object} The task data.
  */
@@ -261,7 +251,7 @@ function getBoardTaskFormData() {
  */
 async function submitBoardTaskData(event) {
     event.preventDefault();
-    if (!checkForm(ADD_TASK_FIELDS)) return;
+    if (!checkForm(addTaskFields)) return;
     const task = getBoardTaskFormData();
     await saveBoardTask(task);
     resetBoardTaskForm();
