@@ -17,13 +17,6 @@
    ============================================================ */
 
 
-/** Field types the space guard watches. Date, checkbox and the like are left alone. */
-const SPACE_GUARD_TYPES = ['text', 'search', 'email', 'password', 'tel', 'url'];
-
-/** Field types that must not hold a single space anywhere. */
-const NO_SPACE_TYPES = ['email', 'password'];
-
-
 /**
  * Tells whether an element is a text field the space guard applies to.
  *
@@ -33,7 +26,7 @@ const NO_SPACE_TYPES = ['email', 'password'];
 function isSpaceGuarded(element) {
   if (!element || !element.tagName) return false;
   if (element.tagName === 'TEXTAREA') return true;
-  return element.tagName === 'INPUT' && SPACE_GUARD_TYPES.includes(element.type);
+  return element.tagName === 'INPUT' && spaceGuardTypes.includes(element.type);
 }
 
 
@@ -45,7 +38,7 @@ function isSpaceGuarded(element) {
  * @returns {boolean} True if single spaces inside the value are allowed.
  */
 function allowsInnerSpaces(field) {
-  return !NO_SPACE_TYPES.includes(field.type);
+  return !noSpaceTypes.includes(field.type);
 }
 
 

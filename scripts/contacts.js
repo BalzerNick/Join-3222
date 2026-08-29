@@ -1,13 +1,10 @@
-// Cache of the loaded contacts (used by the detail and edit views).
-let allContacts = {};
-
 /**
  * The fields of the add contact popup with their validation rules. Both popups
  * check the same three things, they only differ in the ids of their inputs.
  *
  * @type {Array<{id: string, validate: function}>}
  */
-const NEW_CONTACT_FIELDS = [
+const newContactFields = [
   { id: 'newContactName', validate: validateName },
   { id: 'newContactEmail', validate: validateEmail },
   { id: 'newContactPhone', validate: validatePhone }
@@ -18,7 +15,7 @@ const NEW_CONTACT_FIELDS = [
  *
  * @type {Array<{id: string, validate: function}>}
  */
-const EDIT_CONTACT_FIELDS = [
+const editContactFields = [
   { id: 'editContactName', validate: validateName },
   { id: 'editContactEmail', validate: validateEmail },
   { id: 'editContactPhone', validate: validatePhone }
@@ -58,7 +55,7 @@ async function renderContacts() {
  * @returns {Promise<?Object>} All contacts keyed by their id, or null if the database holds none.
  */
 async function loadContacts() {
-  let response = await fetch(BASE_URL + "contacts.json");
+  let response = await fetch(baseUrl + "contacts.json");
 
   return await response.json();
 }
@@ -246,7 +243,7 @@ async function openAddContact() {
   let overlay = document.getElementById('addContactOverlay');
   overlay.innerHTML = await loadHtmlTemplate("assets/templates/addContactTemplate.html");
   overlay.classList.remove('d-none');
-  bindFormValidation(NEW_CONTACT_FIELDS);
+  bindFormValidation(newContactFields);
   lockScroll(true);
 }
 
@@ -286,7 +283,7 @@ function getNewContact() {
  * @returns {Promise<void>}
  */
 async function createContact() {
-  if (!checkForm(NEW_CONTACT_FIELDS)) return;
+  if (!checkForm(newContactFields)) return;
   let contact = getNewContact();
   await saveContact(contact);
   closeAddContact();
@@ -305,7 +302,7 @@ async function openEditContact(id) {
   let editTpl = await loadHtmlTemplate("assets/templates/contactEditTemplate.html");
   overlay.innerHTML = fillEditTemplate(editTpl, id, allContacts[id]);
   overlay.classList.remove('d-none');
-  bindFormValidation(EDIT_CONTACT_FIELDS);
+  bindFormValidation(editContactFields);
   lockScroll(true);
 }
 
@@ -353,7 +350,7 @@ function getEditContact() {
  * @returns {Promise<void>}
  */
 async function updateContact(id) {
-  if (!checkForm(EDIT_CONTACT_FIELDS)) return;
+  if (!checkForm(editContactFields)) return;
   let contact = getEditContact();
   await saveEditedContact(id, contact);
   closeAddContact();

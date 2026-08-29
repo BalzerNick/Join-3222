@@ -109,8 +109,8 @@ function getCategoryBadge(category, isDetail = false) {
 function getAvatarsHTML(ids) {
     if (!Array.isArray(ids) || ids.length === 0) return '';
 const total = ids.length;
-const overflow = total > MAX_VISIBLE_CONTACTS;
-const visibleCount = overflow ? MAX_VISIBLE_CONTACTS - 1 : total;
+const overflow = total > maxVisibleContacts;
+const visibleCount = overflow ? maxVisibleContacts - 1 : total;
 
 const avatars = ids.slice(0, visibleCount).map(item => {
     const contact = getBoardContact(item);

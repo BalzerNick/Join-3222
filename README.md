@@ -21,13 +21,13 @@ Weitere Ordner und Dateien:
 - `scripts/` – eine JS-Datei je Seite (`login.js`, `signUp.js`, `board.js` …)
 - `script.js` – gemeinsame, seitenuebergreifende Datei (u.a. Firebase-Verbindungstest)
 - `assets/` – `imgs/`, `fonts/` (Inter lokal via `@font-face`), `templates/`
-- `firebase-config.js` – enthaelt `BASE_URL`, per `.gitignore` aus dem Repo
+- `firebase-config.js` – enthaelt `baseUrl`, per `.gitignore` aus dem Repo
 - `database-import.json` – Startdaten fuer den Import in die Datenbank
 
 ## Setup
 
 1. In der Firebase Console ein Projekt und eine Realtime Database anlegen.
-2. `firebase-config.js` im Projekt-Root anlegen und die eigene `BASE_URL`
+2. `firebase-config.js` im Projekt-Root anlegen und die eigene `baseUrl`
    eintragen (Datei ist per `.gitignore` ausgeschlossen, kommt nicht ins Repo).
 3. `database-import.json` in der Realtime Database importieren
    (Console → Realtime Database → Menue → JSON importieren).
@@ -86,7 +86,7 @@ kein Scriptcode in Templates" eingehalten.
 
 Muster (Beispiel Contacts):
 
-1. Daten laden: `fetch(BASE_URL + "contacts.json")`.
+1. Daten laden: `fetch(baseUrl + "contacts.json")`.
 2. Vorlage laden: `fetch("assets/templates/contactsTemplate.html")` als Text.
 3. Platzhalter fuellen: `{{name}}`, `{{email}}` usw. per `replaceAll` ersetzen.
 4. In den Container schreiben: das gefuellte HTML in `#contactList` einfuegen.

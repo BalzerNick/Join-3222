@@ -50,7 +50,7 @@ function isLoginFilled(data) {
  * @returns {Promise<?Object>} All users keyed by their id, or null if the database holds none.
  */
 async function loadUsers() {
-  let response = await fetch(BASE_URL + "users.json");
+  let response = await fetch(baseUrl + "users.json");
   return await response.json();
 }
 

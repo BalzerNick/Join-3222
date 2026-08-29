@@ -46,27 +46,20 @@ function getInitials(name) {
   return (first + last).toUpperCase();
 }
 
-// Colour palette for the avatars (picked deterministically per name).
-const AVATAR_COLORS = [
-  "#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8",
-  "#1FD7C1", "#FF745E", "#FFA35E", "#FC71FF", "#FFC701",
-  "#0038FF", "#C3FF2B", "#FFE62B", "#FF4646", "#FFBB2B"
-];
-
 /**
  * Picks a fixed colour from the palette by summing up the character codes of
  * the name. The same name always yields the same colour, which keeps avatars
  * consistent across all pages.
  *
  * @param {string} name - The name of the contact the avatar belongs to.
- * @returns {string} A hex colour value from AVATAR_COLORS, for example "#FF7A00".
+ * @returns {string} A hex colour value from avatarColors, for example "#FF7A00".
  */
 function getAvatarColor(name) {
   let sum = 0;
   for (let char of name) {
     sum += char.charCodeAt(0);
   }
-  return AVATAR_COLORS[sum % AVATAR_COLORS.length];
+  return avatarColors[sum % avatarColors.length];
 }
 
 /**

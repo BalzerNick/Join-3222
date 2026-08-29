@@ -1,5 +1,3 @@
-let contactArray = [];
-
 /**
  * Loads all contacts from the database and hands them over to
  * getContactElement, which fills the contactArray used by the dropdown.
@@ -7,7 +5,7 @@ let contactArray = [];
  * @returns {Promise<void>}
  */
 async function getContacts() {
-    let response = await fetch(BASE_URL + "contacts.json");
+    let response = await fetch(baseUrl + "contacts.json");
     contactArray = [];
     contactArray = await response.json();
     setContactStorage(contactArray);
@@ -46,7 +44,7 @@ async function getContactElement(result) {
  * @returns {Promise<void>}
  */
 async function saveContact(contact) {
-  await fetch(BASE_URL + "contacts.json", {
+  await fetch(baseUrl + "contacts.json", {
     method: "POST",
     body: JSON.stringify(contact)
   });
@@ -61,7 +59,7 @@ async function saveContact(contact) {
  * @returns {Promise<void>}
  */
 async function saveEditedContact(id, contact) {
-  await fetch(BASE_URL + "contacts/" + id + ".json", {
+  await fetch(baseUrl + "contacts/" + id + ".json", {
     method: "PUT",
     body: JSON.stringify(contact)
   });
@@ -76,7 +74,7 @@ async function saveEditedContact(id, contact) {
  * @returns {Promise<void>}
  */
 async function deleteContacts(id) {
-  await fetch(BASE_URL + "contacts/" + id + ".json", { method: "DELETE" });
+  await fetch(baseUrl + "contacts/" + id + ".json", { method: "DELETE" });
   await getContacts();
 }
 
@@ -87,7 +85,7 @@ async function deleteContacts(id) {
  * @returns {Promise<Object>} All tasks in JSON format from the database, keyed by task id.
  */
 async function getNextTaskId() {
-    let response = await fetch(BASE_URL + "/tasks.json");
+    let response = await fetch(baseUrl + "/tasks.json");
     let tasks = await response.json();
 
     return tasks
@@ -103,7 +101,7 @@ async function getNextTaskId() {
  * @returns {Promise<Object>} The database's response regarding the task to be saved.
  */
 async function postTask(path ="", data = {}){
-    let response = await fetch(BASE_URL + path + ".json", {
+    let response = await fetch(baseUrl + path + ".json", {
         method: "PUT",
         header: {
             "Content-Type": "application/json",
@@ -124,7 +122,7 @@ async function postTask(path ="", data = {}){
  * @throws {Error} If the response status is not ok.
  */
 async function patchBoardResource(path, payload, message) {
-    const response = await fetch(BASE_URL + path, {
+    const response = await fetch(baseUrl + path, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -141,7 +139,7 @@ async function patchBoardResource(path, payload, message) {
  * @throws {Error} If the response status is not ok.
  */
 async function requireBoardJson(path, message) {
-    const response = await fetch(BASE_URL + path);
+    const response = await fetch(baseUrl + path);
     if (!response.ok) throw new Error(`${message}: ${response.status} ${response.statusText}`);
     return await response.json();
 }
@@ -178,7 +176,7 @@ async function updateTaskStatus(taskId, status) {
  */
 async function fetchTaskCollection() {
     try {
-        const response = await fetch(BASE_URL + 'tasks.json');
+        const response = await fetch(baseUrl + 'tasks.json');
         if (response.ok) return await response.json();
         console.error('Failed to load Firebase task data', response.status, response.statusText);
     } catch (error) {
@@ -207,6 +205,6 @@ async function updateTaskData(taskId, updates) {
  * @throws {Error} If the database rejects the delete.
  */
 async function deleteTaskFromFirebase(taskId) {
-    const response = await fetch(BASE_URL + `tasks/${taskId}.json`, { method: 'DELETE' });
+    const response = await fetch(baseUrl + `tasks/${taskId}.json`, { method: 'DELETE' });
     if (!response.ok) throw new Error(`Firebase task delete failed: ${response.status} ${response.statusText}`);
 }

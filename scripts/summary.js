@@ -1,5 +1,3 @@
-let tasks = [];
-
 /**
  * Loads all tasks from the database into the module level tasks array and
  * refreshes the metric tiles afterwards. Network and HTTP errors are logged
@@ -9,7 +7,7 @@ let tasks = [];
  */
 async function loadSummaryData() {
     try {
-        const response = await fetch(BASE_URL + "tasks.json");
+        const response = await fetch(baseUrl + "tasks.json");
         if (!response.ok) {
             console.error("Failed to load task data", response.status, response.statusText);
             return;
