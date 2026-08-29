@@ -11,10 +11,6 @@
    ============================================================ */
 
 
-/** Id of the hint layer, so that it is never inserted twice. */
-const ROTATE_HINT_ID = 'rotateHint';
-
-
 /**
  * Builds the markup of the hint layer.
  *
@@ -22,7 +18,7 @@ const ROTATE_HINT_ID = 'rotateHint';
  */
 function getRotateHintTemplate() {
   return `
-    <div id="${ROTATE_HINT_ID}" class="rotate-hint">
+    <div id="${rotateHintId}" class="rotate-hint">
       <img src="assets/icons/rotateDevice.svg" alt="">
       <p>Please rotate your device</p>
       <span>Join is built for portrait mode on phones.</span>
@@ -37,7 +33,7 @@ function getRotateHintTemplate() {
  * @returns {void}
  */
 function insertRotateHint() {
-  if (document.getElementById(ROTATE_HINT_ID)) return;
+  if (document.getElementById(rotateHintId)) return;
   document.body.insertAdjacentHTML('beforeend', getRotateHintTemplate());
 }
 

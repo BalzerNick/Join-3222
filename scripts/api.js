@@ -226,7 +226,7 @@ async function loadUsers() {
  * @throws {Error} If the request fails or the database rejects the write.
  */
 async function saveUser(user) {
-  const response = await fetch(BASE_URL + "users.json", {
+  const response = await fetch(baseUrl + "users.json", {
     method: "POST",
     body: JSON.stringify(user)
   });

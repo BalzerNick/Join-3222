@@ -1,15 +1,3 @@
-// Cache of the loaded contacts (used by the detail and edit views).
-let allContacts = {};
-
-/**
- * Remembers whether the running mouse gesture started on the dim background.
- * Without it a text selection that is dragged out of an input and released
- * next to the popup would count as a click on the background.
- *
- * @type {boolean}
- */
-let backdropPressed = false;
-
 /**
  * The fields of the add contact popup with their validation rules. Both popups
  * check the same three things, they only differ in the ids of their inputs.

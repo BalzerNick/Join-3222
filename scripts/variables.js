@@ -20,6 +20,7 @@ const arrowIconOpen = "assets/icons/arrow_drop_down_up.svg";
 // --- Contacts cache (shared by board and contacts pages) ---
 let allContacts = {};
 let contactArray = [];
+let backdropPressed = false;
 
 // --- Board ---
 let todos = [];
@@ -70,3 +71,11 @@ const nameMaxLength = 50;
 
 /** A password has to be at least this long. */
 const passwordMinLength = 8;
+
+// --- Rotate guard ---
+/** Id of the hint layer, so that it is never inserted twice. */
+const rotateHintId = 'rotateHint';
+
+// --- Auth nav ---
+/** Key under which the page is remembered that led to the Privacy Policy or the Legal Notice. */
+const legalOriginKey = "legalOrigin";

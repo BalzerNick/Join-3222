@@ -21,12 +21,6 @@ function applyAuthState() {
 }
 
 /**
- * Key under which the page is remembered that led to the Privacy Policy or the
- * Legal Notice.
- */
-const LEGAL_ORIGIN_KEY = "legalOrigin";
-
-/**
  * Remembers the current page right before a link to the Privacy Policy or the
  * Legal Notice is followed. Sits on those links of the login and the sign up
  * page, both of which are visited while logged out.
@@ -35,7 +29,7 @@ const LEGAL_ORIGIN_KEY = "legalOrigin";
  */
 function rememberLegalOrigin() {
   let page = window.location.pathname.split("/").pop();
-  if (page) sessionStorage.setItem(LEGAL_ORIGIN_KEY, page);
+  if (page) sessionStorage.setItem(legalOriginKey, page);
 }
 
 /**
@@ -45,8 +39,8 @@ function rememberLegalOrigin() {
  * @returns {?string} The remembered page, or null if nothing was stored.
  */
 function takeLegalOrigin() {
-  let page = sessionStorage.getItem(LEGAL_ORIGIN_KEY);
-  sessionStorage.removeItem(LEGAL_ORIGIN_KEY);
+  let page = sessionStorage.getItem(legalOriginKey);
+  sessionStorage.removeItem(legalOriginKey);
   return page;
 }
 
