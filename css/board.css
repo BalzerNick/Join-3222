@@ -115,6 +115,10 @@ h2 {
     color: #475569;
     font-size: var(--fs-base);
     line-height: 1.6;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 
 /* Footer area inside task card */
