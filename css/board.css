@@ -298,11 +298,6 @@ h2 {
     flex-direction: column;
 }
 
-/* ===== KLAERUNG / ENTFERNEN BEIM MERGE (Denis) =====
-   Globales html,body-Override (Segoe UI + #eef4fb) ueberschreibt style.css
-   (Inter + var(--color-bg)). -> Nach Klaerung ENTFERNEN, Board soll style.css laden. ===== */
-
-
 .app-shell {
     display: flex;
     min-height: calc(100vh - 70px);
@@ -503,10 +498,6 @@ body.modal-open {
     color: #1d4ed8;
 }
 
-.detail-block {
-    align-items: center;
-}
-
 .priority-detail-text {
     font-size: 20px;
     font-weight: 400;
@@ -548,6 +539,7 @@ body.modal-open {
 
 .detail-block {
     display: flex;
+    align-items: center;
     gap: 12px;
 }
 
@@ -634,10 +626,7 @@ body.modal-open {
 }
 
 .subtask-item {
-    padding-top: 6px;
-    padding-right: 16px;
-    padding-bottom: 6px;
-    padding-left: 16px;
+    padding: 6px 16px;
     margin: 0;
 }
 
@@ -1173,13 +1162,11 @@ body.modal-open {
     }
 
     .drag-area {
-        display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         gap: 16px;
         overflow-x: scroll;
         overflow-y: hidden;
-        position: relative;
         min-height: 200px;
         padding: 24px 24px 24px 0;
         scrollbar-width: auto;
@@ -1248,10 +1235,6 @@ body.modal-open {
 }
 
 @media (max-width: 950px) {
-    .drag-container {
-        grid-template-columns: 1fr;
-    }
-
     .drag-area {
         min-height: auto;
     }
