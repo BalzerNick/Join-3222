@@ -45,8 +45,19 @@ function renderColumn(columnId, columnName) {
  * @param {string} id - Database key of the dragged task.
  * @returns {void}
  */
-function startDragging(id) {
+function startDragging(id, event) {
     currentDraggedElement = id;
+     event.currentTarget.classList.add('dragging');
+}
+
+/**
+ * Removes the dragging class when the task is released.
+ *
+ * @param {HTMLElement} element - The dragged task card.
+ * @returns {void}
+ */
+function endDragging(event) {
+    event.currentTarget.classList.remove('dragging');
 }
 
 /**
