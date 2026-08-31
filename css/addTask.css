@@ -441,6 +441,10 @@ input {
     background-color: var(--color-bg);
 }
 
+#add-task-modal .subtask-area {
+    background-color: #FFFFFF;
+}
+
 .subtask{
     width: 100%;
     box-sizing: border-box;
