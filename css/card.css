@@ -276,6 +276,13 @@
     justify-content: center;
     align-items: center;
     background-color: #f6f7f8;
+
+    animation: greeting-fade-in 0.3s ease;
+    transition: opacity 0.5s ease;
+  }
+
+  .greeting-block.mobile-greeting.greeting-hide {
+    opacity: 0;
   }
 
   .greeting-block.mobile-greeting .greetings {
@@ -291,6 +298,15 @@
 
   .stat-card-wide {
     margin-right: 0;
+  }
+}
+
+@keyframes greeting-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 

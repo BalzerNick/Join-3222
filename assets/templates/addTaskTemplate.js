@@ -101,7 +101,7 @@ function getAddTaskPage() {
                         placeholder="Enter a Description"></textarea>
 
                     <label for="taskDeadline">Due date<span class="required">*</span></label>
-                    <input class="input" type="date" id="taskDeadline" name="taskDeadline" required>
+                    <input class="input" type="date" id="taskDeadline" name="taskDeadline" required onclick="this.showPicker?.()">
                     <span id="taskDeadlineError" class="field-error"></span>
                 </div>
 

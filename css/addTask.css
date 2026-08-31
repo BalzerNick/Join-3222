@@ -70,11 +70,16 @@ form {
     box-sizing: border-box;
     border: 1px solid var(--color-border);
     border-radius: 10px;
+    cursor: pointer;
     font-size: var(--fs-base);
     font-family: inherit;
     color: var(--color-primary);
     z-index: 1;
     padding: 12px 16px;
+}
+
+#addTaskForm #taskDeadline::-webkit-calendar-picker-indicator {
+    cursor: pointer;
 }
 
 #addTaskForm .dropdown .input {
@@ -104,6 +109,13 @@ form {
 #addTaskForm #category:focus {
     border-width: 1px;
     border-color: var(--color-border);
+}
+
+#addTaskForm #subtask:hover,
+#addTaskForm #taskName:hover,
+#addTaskForm #taskDescription:hover,
+#addTaskForm #taskDeadline:hover {
+    border-color: transparent;
 }
 
 #addTaskForm .dropdown .input:hover::placeholder,
@@ -137,6 +149,7 @@ form {
     resize: vertical;
     min-height: 120px;
 }
+
 
 .priority-buttons {
     display: flex;
@@ -428,6 +441,10 @@ input {
     background-color: var(--color-bg);
 }
 
+#add-task-modal .subtask-area {
+    background-color: #FFFFFF;
+}
+
 .subtask{
     width: 100%;
     box-sizing: border-box;
@@ -438,10 +455,11 @@ input {
     gap: 8px;
     padding: 8px 12px;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .subtask:hover{
-    background-color: #ffffff;
+    background-color: #E6E6E6;
 }
 
 .subtask-text {
@@ -468,6 +486,14 @@ input {
 
 .subtask:hover .subtask-actions {
     opacity: 1;
+}
+
+.subtask-actions .subtask-icon {
+    transition: transform var(--transition-fast) ease;
+}
+
+.subtask-actions .subtask-icon:hover {
+    transform: scale(1.2);
 }
 
 .subtask-divider {
@@ -515,8 +541,12 @@ input {
   right: auto;
   top: auto;
   transform: none;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background-color var(--transition-fast);
 }
 
 .subtask-buttons .input-img:hover {
     cursor: pointer;
+    background-color: rgba(41, 171, 226, 0.15);
 }

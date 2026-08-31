@@ -185,7 +185,10 @@ function checkMobileGreeting() {
     sessionStorage.removeItem("showGreeting");
 
     setTimeout(() => {
-        greetingBlock.classList.remove("mobile-greeting");
+        greetingBlock.classList.add("greeting-hide");
+        setTimeout(() => {
+            greetingBlock.classList.remove("mobile-greeting", "greeting-hide");
+        }, 500);
     }, 1800);
 }
 
