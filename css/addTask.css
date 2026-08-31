@@ -111,6 +111,13 @@ form {
     border-color: var(--color-border);
 }
 
+#addTaskForm #subtask:hover,
+#addTaskForm #taskName:hover,
+#addTaskForm #taskDescription:hover,
+#addTaskForm #taskDeadline:hover {
+    border-color: transparent;
+}
+
 #addTaskForm .dropdown .input:hover::placeholder,
 #addTaskForm .dropdown .input:focus::placeholder {
     color: revert;
@@ -444,10 +451,11 @@ input {
     gap: 8px;
     padding: 8px 12px;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .subtask:hover{
-    background-color: #ffffff;
+    background-color: #E6E6E6;
 }
 
 .subtask-text {
@@ -474,6 +482,14 @@ input {
 
 .subtask:hover .subtask-actions {
     opacity: 1;
+}
+
+.subtask-actions .subtask-icon {
+    transition: transform var(--transition-fast) ease;
+}
+
+.subtask-actions .subtask-icon:hover {
+    transform: scale(1.2);
 }
 
 .subtask-divider {
@@ -521,8 +537,12 @@ input {
   right: auto;
   top: auto;
   transform: none;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background-color var(--transition-fast);
 }
 
 .subtask-buttons .input-img:hover {
     cursor: pointer;
+    background-color: rgba(41, 171, 226, 0.15);
 }
