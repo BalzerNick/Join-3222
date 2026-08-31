@@ -206,32 +206,15 @@ input[type="checkbox"].input-error {
   background-color: #29abe2;
 }
 
-/*Marcus 23.07.2026*/
+/* Sitzt ohne eigene Margins buendig am rechten Content-Rand:
+   .help-heading (space-between) spannt die 1016px aus .page-legal auf,
+   wie die Headline-Zeile im Figma-Frame "Help". */
 .back-arrow {
-  margin-top: 25px;
-  margin-right: 215px;
   height: 21px;
   width: 22px;
   cursor: pointer;
 }
 
-
-@media (max-width: 1750px) {
-  .back-arrow {
-    margin-top: 12px;
-    margin-right: clamp(0px, 95.31vw - 1460.38px, 190px);
-    /* margin-right: 200px; */
-  }
-}   
-
-
-@media (max-width: 1555px) {
-  .back-arrow {
-    margin-top: 12px;
-    margin-right: 10px;
-  }
-}  
- 
 /* Footer mit Rechts-Links, seitenuebergreifend */
 .footer {
   display: flex;
@@ -328,6 +311,22 @@ li {
   }
 }
 
+/* Help-Seite. Laut Figma-Frame "Help": Sidebar (ContentLeft) 232px,
+   rechts davon 1208px Content-Bereich mit 96px Seitenrand, dadurch
+   1016px Inhaltsbreite; 71px Abstand zwischen Header und Ueberschrift. */
+.page-legal {
+  margin-left: 232px;
+  max-width: 1016px;
+  padding: 71px 96px 24px;
+}
+
+@media (max-width: 768px) {
+  .page-legal {
+    margin-left: 0;
+    padding: 32px 24px 24px;
+  }
+}
+
 /* .page h1 {
   margin-bottom: 16px;
 } */
@@ -397,7 +396,8 @@ li {
   /* .footer ist seitenuebergreifend (auch auf Seiten ohne die fixe
      Mobile-Navbar aus navbar.css), daher hier nur der Fall Seite-mit-
      .page-Container davor (Legal/Privacy/Help). */
-  .page ~ .footer {
+  .page ~ .footer,
+  .page-legal ~ .footer {
     margin-bottom: 96px;
   }
 }
@@ -475,6 +475,13 @@ li {
   width: 120px;
   height: 120px;
   font-size: 40px;
+}
+
+/* Laut Figma-Frame "Help": Inter Bold 61px, Zeilenhoehe 120%, #000000 */
+.help-headline {
+  font-size: 61px;
+  line-height: 1.2;
+  color: #000000;
 }
 
 @media (max-width: 765px) {
