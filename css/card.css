@@ -270,6 +270,7 @@
     bottom: 0;
     left: 232px;
     right: 0;
+    margin: 0;
 
     z-index: 1000;
 
@@ -279,6 +280,13 @@
     align-items: center;
 
     background-color: #f6f7f8;
+
+    animation: greeting-fade-in 0.3s ease;
+    transition: opacity 0.5s ease;
+  }
+
+  .greeting-block.mobile-greeting.greeting-hide {
+    opacity: 0;
   }
 
   .greeting-block.mobile-greeting .greetings {
@@ -294,6 +302,15 @@
 
   .stat-card-wide {
     margin-right: 0;
+  }
+}
+
+@keyframes greeting-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -343,11 +360,6 @@
   .page-summary {
     padding: 20px;
     margin-bottom: 100px;
-  }
-
-  .greeting-block.mobile-greeting {
-    bottom: 80px;
-    left: 0;
   }
 
   .summary-main-container {
@@ -420,7 +432,12 @@
 
   .greeting-block.mobile-greeting {
     position: fixed;
-    z-index: 1000;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    z-index: 2000;
 
     display: flex;
     flex-direction: column;
