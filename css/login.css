@@ -115,6 +115,15 @@
           }  
     }
 
+    @media (max-width: 600px) {
+        .login-logo-normal {
+            position: absolute;
+            top: 24px;
+            left: 40px;
+            width: 70px;
+          }  
+    }
+
     @media (max-width: 768px) {
         .login-logo {
             position: absolute;
