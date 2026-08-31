@@ -70,11 +70,16 @@ form {
     box-sizing: border-box;
     border: 1px solid var(--color-border);
     border-radius: 10px;
+    cursor: pointer;
     font-size: var(--fs-base);
     font-family: inherit;
     color: var(--color-primary);
     z-index: 1;
     padding: 12px 16px;
+}
+
+#addTaskForm #taskDeadline::-webkit-calendar-picker-indicator {
+    cursor: pointer;
 }
 
 #addTaskForm .dropdown .input {
@@ -137,6 +142,7 @@ form {
     resize: vertical;
     min-height: 120px;
 }
+
 
 .priority-buttons {
     display: flex;
