@@ -266,18 +266,15 @@
 
   .greeting-block.mobile-greeting {
     position: fixed;
-    top: 80px;
+    top: 96px;
     bottom: 0;
     left: 232px;
     right: 0;
-
     z-index: 1000;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     background-color: #f6f7f8;
   }
 
@@ -348,6 +345,7 @@
   .greeting-block.mobile-greeting {
     bottom: 80px;
     left: 0;
+    margin: 0;
   }
 
   .summary-main-container {
@@ -418,17 +416,25 @@
     display: none;
   }
 
-  .greeting-block.mobile-greeting {
-    position: fixed;
-    z-index: 1000;
+.greeting-block.mobile-greeting {
+  position: fixed;
+  z-index: 1000;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  top: 96px;
+  left: 0;
+  right: 0;
+  bottom: 80px;
 
-    background-color: #f6f7f8;
-  }
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #f6f7f8;
+}
 
   .greeting-block.mobile-greeting .greetings {
     font-size: 26px;

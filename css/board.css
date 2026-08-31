@@ -1165,7 +1165,7 @@ body.modal-open {
         flex-direction: row;
         flex-wrap: nowrap;
         gap: 16px;
-        overflow-x: scroll;
+        overflow-x: hidden;
         overflow-y: hidden;
         min-height: 200px;
         padding: 24px 24px 24px 0;
@@ -1241,6 +1241,7 @@ body.modal-open {
 }
 
 @media (max-width: 768px) {
+
     .board-mask {
         padding-left: 24px;
         padding-right: 24px;
