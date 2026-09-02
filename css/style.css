@@ -290,7 +290,7 @@ li {
    Figma gibt dafuer auf Help, Privacy Policy und Legal Notice
    einheitlich 71px an (Abstand im Content-Frame). */
 .page {
-  max-width: 1440px; /* Marcus am 07.08.2026 */
+  max-width: 1040px; /* Marcus am 07.08.2026 */
   margin: 0 auto;
   padding: 71px 24px 24px 100px;
   margin-left: 200px;
