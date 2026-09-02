@@ -504,7 +504,7 @@ h1 {
 }
 
 .user {
-  font-size: var(--fs-xl);
+  font-size: 64px;
   margin: 0;
 }
 
@@ -578,6 +578,10 @@ a {
 
 @media (max-width: 768px) {
   .h1size {
+    font-size: 47px;
+  }
+
+  h1 {
     font-size: 47px;
   }
 }
