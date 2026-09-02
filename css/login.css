@@ -251,6 +251,14 @@ p {
   }
 }
 
+@media (max-height: 640px) {
+  .login-form,
+  .signup-form {
+    width: min(90vw, 350px);
+    gap: clamp(10px, 3vh, 20px);
+    padding: clamp(12px, 4vh, 20px) clamp(16px, 7vw, 24px);
+  }
+}
 
 
 
