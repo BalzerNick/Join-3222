@@ -51,16 +51,8 @@ body {
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   color: var(--color-text);
   background-color: var(--color-bg);
-  margin: 0 auto; /*Marcus 24.07.2026 wegn Abstand des headers nach rechts */
+  margin: 0 auto; 
 }
-
-/* main {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 24px;
-} */
-
-/* Eingabefelder - seitenuebergreifend gleich */
 
 h3 {
   font-size: 20px;
