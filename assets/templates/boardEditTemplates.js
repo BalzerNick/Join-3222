@@ -46,7 +46,7 @@ function getTaskEditHeaderTemplate() {
 function getTaskEditTextInputTemplate(label, id, value, type, required = false) {
     return `
         <div class="form-row">
-            <label for="${id}">${label}</label>
+            <label for="${id}" class="edit-form-label">${label}</label>
             <input id="${id}" class="input task-edit-input" type="${type}" value="${value}" ${required ? 'required' : ''}>
         </div>`;
 }
@@ -62,7 +62,7 @@ function getTaskEditTextInputTemplate(label, id, value, type, required = false) 
 function getTaskEditTextareaTemplate(label, id, value) {
     return `
         <div class="form-row">
-            <label for="${id}">${label}</label>
+            <label for="${id}" class="edit-form-label">${label}</label>
             <textarea id="${id}" class="input task-edit-textarea">${value}</textarea>
         </div>`;
 }
@@ -76,7 +76,7 @@ function getTaskEditTextareaTemplate(label, id, value) {
 function getTaskEditDateInputTemplate(value) {
     return `
         <div class="form-row">
-            <label for="editTaskDeadline">Due date</label>
+            <label for="editTaskDeadline" class="edit-form-label">Due date</label>
             <div class="edit-date-wrapper">
                 <input id="editTaskDeadline" class="input task-edit-input" type="date" value="${value}">
             </div>
@@ -93,7 +93,7 @@ function getTaskEditDateInputTemplate(value) {
 function getTaskEditPriorityTemplate(priority) {
     return `
         <div class="form-row">
-            <label>Priority</label>
+            <label class="edit-priority-label">Priority</label>
             <div class="priority-buttons edit-priority-buttons">${getTaskEditPriorityButtonsTemplate()}</div>
             <input type="hidden" id="editTaskPriority" value="${priority}">
         </div>`;
@@ -138,7 +138,7 @@ function getTaskEditPriorityButton(label, value, id, icon, selectedIcon) {
 function getTaskEditAssignedTemplate(data) {
     return `
         <div class="form-row">
-            <label>Assigned to</label>
+            <label class="edit-form-label">Assigned to</label>
             <div class="edit-contact-dropdown" onclick="noEvent(event)">
                 <div class="edit-contact-input-row" onclick="toggleEditContactDropdown(event)">
                     <span class="edit-contact-placeholder">Select contacts to assign</span>
@@ -159,7 +159,7 @@ function getTaskEditAssignedTemplate(data) {
 function getTaskEditSubtasksTemplate() {
     return `
         <div class="form-row">
-            <label>Subtasks</label>
+            <label class="edit-form-label">Subtasks</label>
             <div class="edit-subtask-entry">
                 <input id="editSubtaskInput" class="input task-edit-input" type="text" placeholder="Add new subtask">
                 <button type="button" class="edit-subtask-add-btn" onclick="addEditSubtask()">+</button>

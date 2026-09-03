@@ -39,7 +39,7 @@ button {
     transform: translateX(6px);
 }
 
-h2 {
+.column-title {
     font-weight: 700;
     font-size: var(--fs-md);
 }
@@ -71,9 +71,9 @@ h2 {
     align-items: center;
     gap: 6px;
     padding: 6px 12px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 700;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 400;
     letter-spacing: 0.01em;
     background-color: #edf2ff;
     color: #3730a3;
@@ -95,8 +95,8 @@ h2 {
 
 /* Priority icons used in tasks (no border, transparent background) */
 .priority-icon {
-    width: 18px;
-    height: 18px;
+    width: 32px;
+    height: 32px;
     object-fit: contain;
     background: transparent;
     border: none;
@@ -105,7 +105,8 @@ h2 {
 
 .task-title {
     margin: 0;
-    font-size: var(--fs-md);
+    font-size: var(--fs-base);
+    font-weight: bold;
     line-height: 1.2;
     color: #111827;
 }
@@ -180,8 +181,8 @@ h2 {
 
 .subtask-count {
     color: #0f172a;
-    font-weight: 700;
-    font-size: 13px;
+    font-weight: 400;
+    font-size: var(--fs-base);
     white-space: nowrap;
 }
 
@@ -249,6 +250,10 @@ h2 {
     text-align: center;
     border-radius: 10px;
     transition: transform 100ms ease-in-out, box-shadow 100ms ease-in-out;
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .add-task-button:hover {
@@ -261,7 +266,7 @@ h2 {
     transform: translateX(4px);
 }
 
-.board-mask h1 {
+.board-title {
     font-weight: 700;
     font-style: Bold;
     font-size: 61px;
@@ -485,10 +490,9 @@ body.modal-open {
 .detail-category-badge {
     display: inline-flex;
     align-items: center;
-    padding: 10px 16px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 700;
+    padding: 4px 24px;
+    border-radius: 8px;
+    font-size: 23px;
     background-color: #ecfdf5;
     color: #166534;
 }
@@ -520,14 +524,13 @@ body.modal-open {
 
 .detail-title {
     margin: 0;
-    font-size: 40px;
-    line-height: 1.05;
+    font-size: 61px;
+    line-height: 120%;
 }
 
 .task-detail-description {
     margin: 0;
-    font-size: 16px;
-    color: #475569;
+    font-size: var(--fs-md);
     line-height: 1.7;
 }
 
@@ -547,7 +550,7 @@ body.modal-open {
     display: inline-block;
     min-width: 92px;
     margin: 0;
-    color: #2A3647;
+    color: var(--color-primary);
     font-size: 20px;
     font-weight: 400;
     line-height: 1.2;
@@ -555,7 +558,6 @@ body.modal-open {
 
 .detail-value {
     display: inline-block;
-    color: #0f172a;
     font-size: 20px;
     font-weight: 400;
     line-height: 1.2;
@@ -586,7 +588,7 @@ body.modal-open {
 .assigned-name {
     display: block;
     font-size: 19px;
-    color: #0f172a;
+    font-family: sans-serif;
 }
 
 .subtask-list {
@@ -599,11 +601,6 @@ body.modal-open {
 .task-edit-form {
     display: grid;
     gap: 20px;
-}
-
-.task-edit-input,
-.task-edit-textarea {
-    color: #0f172a;
 }
 
 .task-edit-textarea {
@@ -634,9 +631,9 @@ body.modal-open {
     display: flex;
     align-items: center;
     gap: 12px;
-    font-size: 15px;
-    color: #334155;
+    font-size: 16px;
     width: 100%;
+    color: #000000
 }
 
 .subtask-item input[type="checkbox"] {
@@ -707,9 +704,7 @@ body.modal-open {
 
 .btn-delete:hover,
 .btn-edit:hover {
-    color: #29abe2;
-    border-color: #29abe2;
-    background-color: #f8fcff;
+font-weight: bold;
 }
 
 @keyframes slideInFromRight {
@@ -829,10 +824,16 @@ body.modal-open {
     gap: 8px;
 }
 
-.task-edit-form label {
+.edit-form-label {
     font-size: 20px;
     font-weight: 400;
     color: var(--color-text);
+}
+
+.edit-priority-label {
+    font-size: 19px;
+    font-weight: 700;
+    color: #2A3647;
 }
 
 .edit-date-wrapper input[type="date"] {
@@ -986,7 +987,7 @@ body.modal-open {
 /* Subtask bullet list */
 .edit-subtask-list-ul {
     list-style: disc;
-    padding-left: 20px;
+    padding-left: 0px;
     margin: 8px 0 0;
     display: flex;
     flex-direction: column;
@@ -999,8 +1000,8 @@ body.modal-open {
     justify-content: space-between;
     padding: 4px 8px 4px 0;
     border-radius: 8px;
-    font-size: 15px;
-    color: #0f172a;
+    font-size: 16px;
+    color: #000000;
 }
 
 .edit-subtask-li:hover {
@@ -1056,8 +1057,8 @@ body.modal-open {
     background-color: #2a3647;
     color: #ffffff;
     border-radius: 12px;
-    font-size: 18px;
-    font-weight: 400;
+    font-size: 21px;
+    font-weight: 700;
     cursor: pointer;
     transition: background 150ms ease, box-shadow 150ms ease;
     border: none;
@@ -1230,7 +1231,6 @@ body.modal-open {
 
     .add-task-button::after {
         content: "+";
-        font-size: 24px;
     }
 }
 
@@ -1245,7 +1245,13 @@ body.modal-open {
     .board-mask {
         padding-left: 24px;
         padding-right: 24px;
-        padding-bottom: 100px
+        padding-bottom: 100px;
+        padding-top: 48px;
+    }
+
+    .board-title {
+        font-size: 47px;
+        margin: unset;
     }
 
     .move-task-btn {
@@ -1272,4 +1278,55 @@ body.modal-open {
     main {
         margin-left: 0 !important;
     }
+
+    .column-title {
+        font-size: 27px;
+    }
+
+    .mobile-font-size-16 {
+        font-size: 16px;
+    }
+
+    .detail-category-badge {
+        font-size: 16px;
+    }
+
+    .detail-title {
+        font-size: 36px;
+    }
+
+    .task-detail-description {
+        font-size: 16px;
+        color: #000000;
+    }
+
+      .detail-label {
+    font-size: 16px;
+    font-weight: 700;
+    color: #42526E;
+  }
+
+  .detail-value {
+    font-size: 16px;
+    color: #000000;
+  }
+
+  .priority-detail-text {
+    font-size: 16px;
+  }
+
+  .detail-section h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #42526E;
+  }
+
+  .edit-form-label {
+    font-size: 16px;;
+  }
+    
+  .edit-priority-label {
+    font-size: 16px;
+    font-weight: 400;
+  }
 }

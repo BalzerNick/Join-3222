@@ -314,7 +314,7 @@ html.logged-out .header-right {
 
   .menu-icons-label {
     color: #cdcdcd;
-    font-size: 10px;
+    font-size: 16px;
     white-space: nowrap;
   }
 
@@ -383,7 +383,7 @@ html.logged-out .header-right {
   }
 
   .menu-icons-label {
-    font-size: 9px;
+    font-size: 16px;
   }
 
   .nav-login-icon {

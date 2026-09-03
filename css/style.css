@@ -80,6 +80,7 @@ h3 {
   font-size: var(--fs-md);
   width: 100%;
   box-sizing: border-box;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
 }
 
 .input:focus {
@@ -227,7 +228,7 @@ input[type="checkbox"].input-error {
   /* color: var(--color-primary); */
   color: #FFFFFF;
   text-decoration: none;
-  font-size: var(--fs-sm);
+  font-size: var(--fs-base);
 }
 
 .footer-link-index {
@@ -583,5 +584,9 @@ a {
 
   h1 {
     font-size: 47px;
+  }
+
+  .input {
+    font-size: 16px;
   }
 }
