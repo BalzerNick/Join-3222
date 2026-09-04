@@ -63,7 +63,7 @@ header {
   cursor: pointer;
 }
 
-.menu-icons a:hover{
+.menu-icons a:hover {
   background-color: rgba(12, 46, 98);
 }
 
@@ -158,7 +158,7 @@ html.logged-out .header-right {
   justify-content: center;
   text-decoration: none;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .help-btn:hover {
@@ -168,9 +168,9 @@ html.logged-out .header-right {
 .user-initials {
   cursor: pointer;
   display: inline-block;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
   border-radius: 50%;
   border: 2px solid var(--color-primary);
   /* background-color: var(); */
@@ -182,7 +182,7 @@ html.logged-out .header-right {
 
 .user-initials:hover {
   background-color: #0C2E621F;
-} 
+}
 
 
 .header-right {
@@ -252,6 +252,12 @@ html.logged-out .header-right {
   .header-logo-mobile {
     display: block;
     height: 40px;
+  }
+
+  .user-initials {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
   }
 
   .menu-line {
@@ -378,8 +384,8 @@ html.logged-out .header-right {
   }
 
   .menu-icons-img-mobile {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
   }
 
   .menu-icons-label {

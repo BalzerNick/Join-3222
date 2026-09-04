@@ -18,7 +18,7 @@
             z-index: 10;
             background-color: #F6F7F8;
             background-image: url('../assets/imgs/logoMain.png');
-            background-size: 15%;
+            background-size: 274px 334px;
             background-repeat: no-repeat;
             background-position: center;
             animation: introFade 200ms ease-in-out 500ms forwards;
@@ -32,7 +32,7 @@
             inset: 0;
             background-color: var(--color-primary);
             z-index: 10;
-            animation: introFade 800ms ease-in-out 1s forwards;
+            animation: introFade 200ms ease-in-out 800ms forwards;
         }
     }
 
@@ -78,10 +78,10 @@
     @media (max-width: 768px) {
         @keyframes logoIntroSize {
             from {
-                width: 120px;
+          width: 200px;
             }
             to {
-                width: 60px;
+          width: 80px;
             }
         }
     }
