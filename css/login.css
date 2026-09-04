@@ -21,7 +21,7 @@
             background-size: 15%;
             background-repeat: no-repeat;
             background-position: center;
-            animation: introFade 500ms ease 1s forwards;
+            animation: introFade 200ms ease-in-out 500ms forwards;
         }
     }
 
@@ -32,7 +32,7 @@
             inset: 0;
             background-color: var(--color-primary);
             z-index: 10;
-            animation: introFade 500ms ease 1s forwards;
+            animation: introFade 800ms ease-in-out 1s forwards;
         }
     }
 
