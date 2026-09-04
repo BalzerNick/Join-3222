@@ -52,7 +52,7 @@ const noSpaceTypes = ['email', 'password'];
 
 // --- Validation ---
 /** Accepted email format: something@something.tld, no spaces. */
-const emailPattern = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+const emailPattern = /^(?!.*\.\.)[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 
 /** Accepted name format: letters, separated by single spaces, hyphens or
     apostrophes. \p{L} covers the letters of every language, so accented names
