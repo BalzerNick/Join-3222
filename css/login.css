@@ -115,13 +115,13 @@
           }  
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 620px) {
         .login-logo-normal {
             position: absolute;
             top: 24px;
             left: 40px;
-            width: 70px;
-          }  
+            width: 60px;
+          }
     }
 
     @media (max-width: 768px) {
@@ -215,16 +215,6 @@ p {
   }
 }
 
-
-
-
-
-/* @media (max-width: 850px) {
-  .login-logo {
-    width: 60px;
-  }
-}  */
-
 /* ============================================================
    Karte fuer Login und Sign-up - ein gemeinsames, responsives
    Grundgeruest. Breite, Innenabstand und Schriftgroesse skalieren
@@ -260,6 +250,14 @@ p {
   }
 }
 
+@media (max-height: 640px) {
+  .login-form,
+  .signup-form {
+    width: min(90vw, 350px);
+    gap: clamp(10px, 3vh, 20px);
+    padding: clamp(12px, 4vh, 20px) clamp(16px, 7vw, 24px);
+  }
+}
 
 
 
@@ -280,6 +278,12 @@ p {
   }
 }
 
+@media (max-width: 620px) {
+  .login-form h1,
+  .signup-form h1 {
+    font-size: 35px;
+  }
+}
 
 
 .login-form h1::after,
