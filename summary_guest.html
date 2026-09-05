@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Join_Contacts</title>
+  <title>Summary | Join</title>
   <link rel="icon" type="image/svg+xml" href="assets/icons/Favicon.svg" />
 
   <link rel="stylesheet" href="css/style.css" />
@@ -37,17 +37,17 @@
     <img src="assets/imgs/logoMainWhite.png" alt="Join Logo" class="menu-logo" />
     <div class="menu-icons">
       <a href="summary_guest.html" class="active"><img src="assets/imgs/summary.png"
-            class="menu-icons-img menu-icons-img-desktop" alt="Summary" /><span class="menu-icons-mobile"><img
-            src="assets/icons/navbar/summary_img.svg" class="menu-icons-img-mobile" alt=""/><span
+          class="menu-icons-img menu-icons-img-desktop" alt="Summary" /><span class="menu-icons-mobile"><img
+            src="assets/icons/navbar/summary_img.svg" class="menu-icons-img-mobile" alt="" /><span
             class="menu-icons-label">Summary</span></span></a>
       <a href="addTask.html"><img src="assets/imgs/addtask.png" class="menu-icons-img menu-icons-img-desktop"
-            alt="Add Task" /><span class="menu-icons-mobile"><img src="assets/icons/navbar/addTask_img.svg"
+          alt="Add Task" /><span class="menu-icons-mobile"><img src="assets/icons/navbar/addTask_img.svg"
             class="menu-icons-img-mobile" alt="" /><span class="menu-icons-label">Add Task</span></span></a>
       <a href="board.html"><img src="assets/imgs/board.png" class="menu-icons-img menu-icons-img-desktop"
-            alt="Board" /><span class="menu-icons-mobile"><img src="assets/icons/navbar/board_img.svg"
+          alt="Board" /><span class="menu-icons-mobile"><img src="assets/icons/navbar/board_img.svg"
             class="menu-icons-img-mobile" alt="" /><span class="menu-icons-label">Board</span></span></a>
       <a href="contacts.html"><img src="assets/imgs/contacts.png" class="menu-icons-img menu-icons-img-desktop"
-            alt="Contacts" /><span class="menu-icons-mobile"><img src="assets/icons/navbar/contacts_img.svg"
+          alt="Contacts" /><span class="menu-icons-mobile"><img src="assets/icons/navbar/contacts_img.svg"
             class="menu-icons-img-mobile" alt="" /><span class="menu-icons-label">Contacts</span></span></a>
     </div>
 
@@ -66,69 +66,79 @@
     </div>
     <!-- <br><br> -->
     <div class="summary-container">
-      <div class="summary-1Line">
-        <a href="board.html" class="stat-card">
-          <div class="stat-number-row">
-            <span class="icon-wrap">
-              <img src="assets/icons/in_backlog_edit_dark.png" alt="To-do Icon" class="pencil-icon icon-default" />
-              <img src="assets/icons/in_backlog_edit_white.png" alt="To-do Icon" class="pencil-icon icon-hover" />
-            </span>
-            <span class="stat-number" id="todoCount">0</span>
-          </div>
-          <p class="stat-label">To-do</p>
-        </a>
+      <div class="summary-main-container">
+        <div class="summary-1Line">
+          <a href="board.html" class="stat-card">
+            <div class="stat-number-row">
+              <span class="icon-wrap">
+                <img src="assets/icons/in_backlog_edit_dark.png" alt="To-do Icon" class="pencil-icon icon-default" />
+                <img src="assets/icons/in_backlog_edit_white.png" alt="To-do Icon" class="pencil-icon icon-hover" />
+              </span>
+            </div>
+            <div class="stat-number-label">
+              <span class="stat-number" id="todoCount">0</span>
+              <p class="stat-label">To-do</p>
+            </div>
+          </a>
 
-        <a href="board.html" class="stat-card">
-          <div class="stat-number-row">
-            <span class="icon-wrap">
-              <img src="assets/icons/in_backlog_check_dark.png" alt="Done Icon" class="pencil-icon icon-default" />
-              <img src="assets/icons/in_backlog_check_white.png" alt="Done Icon" class="pencil-icon icon-hover" />
-            </span>
-            <span class="stat-number" id="doneCount">0</span>
-          </div>
-          <p class="stat-label">Done</p>
-        </a>
-      </div>
+          <a href="board.html" class="stat-card">
+            <div class="stat-number-row">
+              <span class="icon-wrap">
+                <img src="assets/icons/in_backlog_check_dark.png" alt="Done Icon" class="pencil-icon icon-default" />
+                <img src="assets/icons/in_backlog_check_white.png" alt="Done Icon" class="pencil-icon icon-hover" />
+              </span>
+            </div>
+            <div class="stat-number-label">
+              <span class="stat-number" id="doneCount">0</span>
+              <p class="stat-label">Done</p>
+            </div>
+          </a>
+        </div>
 
-      <div class="second-line">
-        <a href="board.html" class="stat-card-wide">
-          <img src="assets/icons/urgent_arrow.png" alt="To-do Icon" class="red-arrow-circle-icon">
-          <div class="stat-number-col">
-            <span class="stat-number" id="urgentCount">0</span>
-            <span class="stat-label">Urgent</span>
-          </div>
-          <img src="assets/imgs/white-line.png" alt="Line" class="white-line">
-          <div class="date-col">
-            <span><b class="date-txt" id="uprisingdate">01.01.1999</b></span>
-            <span class="date-condition">Uprising Date</span>
-          </div>
-        </a>
-        <div class="greeting-block">
-          <p class="greetings" id="greetingtag"></p>
-          <b>
-            <p class="user" id="loginuser"></p>
-          </b>
+        <div class="second-line">
+          <a href="board.html" class="stat-card-wide">
+            <img src="assets/icons/urgent_arrow.png" alt="To-do Icon" class="red-arrow-circle-icon">
+            <div class="stat-number-col">
+              <span class="stat-number" id="urgentCount">0</span>
+              <span class="stat-label">Urgent</span>
+            </div>
+            <img src="assets/imgs/white-line.png" alt="Line" class="white-line">
+            <div class="date-col">
+              <span><b class="date-txt" id="uprisingdate">01.01.1999</b></span>
+              <span class="date-condition">Uprising Date</span>
+            </div>
+          </a>
+        </div>
+
+
+
+        <div class="summary-1Line">
+          <a href="board.html" class="stat-card-small">
+            <p class="stat-number" id="boardCount">0</p>
+            <p class="third-line-txt">Tasks in<br />Board</p>
+          </a>
+
+          <a href="board.html" class="stat-card-small">
+            <p class="stat-number" id="inProgressCount">0</p>
+            <p class="third-line-txt">Tasks in <br>Progress</p>
+          </a>
+
+          <a href="board.html" class="stat-card-small">
+            <p class="stat-number" id="awaitFeedbackCount">0</p>
+            <p class="third-line-txt">Awaiting Feedback</p>
+          </a>
         </div>
       </div>
 
 
-
-      <div class="summary-1Line">
-        <a href="board.html" class="stat-card-small">
-          <p class="stat-number" id="boardCount">0</p>
-          <p class="third-line-txt">Tasks in<br />Board</p>
-        </a>
-
-        <a href="board.html" class="stat-card-small">
-          <p class="stat-number" id="inProgressCount">0</p>
-          <p class="third-line-txt">Tasks in Progress</p>
-        </a>
-
-        <a href="board.html" class="stat-card-small">
-          <p class="stat-number" id="awaitFeedbackCount">0</p>
-          <p class="third-line-txt">Awaiting Feedback</p>
-        </a>
+      <div class="greeting-block">
+        <p class="greetings" id="greetingtag"></p>
+        <b>
+          <p class="user" id="loginuser"></p>
+        </b>
       </div>
+
+
     </div>
   </main>
   <footer></footer>

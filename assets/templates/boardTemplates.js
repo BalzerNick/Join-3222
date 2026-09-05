@@ -6,7 +6,7 @@
  */
 function getTaskTemplate(data) {
     return `
-        <div draggable="true" ondragstart="startDragging('${data.id}')" onclick="openTaskDetail('${data.id}')" class="todo">
+        <div draggable="true" ondragstart="startDragging('${data.id}', event)" ondragend="endDragging(event)" onclick="openTaskDetail('${data.id}')" class="todo">
             ${getTaskCardTopTemplate(data.category, data.id)}
 
                 <div id="move-menu-${data.id}" class="move-menu" onclick="event.stopPropagation()">

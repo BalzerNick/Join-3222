@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join_Board</title>
+    <title>Board | Join</title>
     <link rel="icon" type="image/svg+xml" href="assets/icons/Favicon.svg">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/navbar.css">
@@ -47,14 +47,14 @@
 
             <div class="page-header">
                 <div>
-                    <h1>Board</h1>
+                    <h1 class="board-title">Board</h1>
                 </div>
                 <div class="page-actions">
                     <label class="search-input">
                         <input type="text" id="searchInput" oninput="findTask()" placeholder="Find Task">
                         <span><img src="./assets/icons/searchlens.png" alt="search"></span>
                     </label>
-                    <button class="add-task-button" onclick="openAddTask('todo')">Add Task +</button>
+                    <button class="add-task-button" onclick="openAddTask('todo')">Add Task <img src="assets/imgs/add.png" alt="add task"></button>
                 </div>
             </div>
 
@@ -62,7 +62,7 @@
 
                 <section class="column">
                 <div class="column-header">  
-                <h2>To Do</h2>
+                <h2 class="column-title">To Do</h2>
                 <button onclick="openAddTask('todo')"><img src="./assets/icons/plus_add_task.png" alt="add task"></button>
                 </div>
                 <div class="drag-area" id="todo" ondrop="moveTo('todo')" ondragleave="removeHighlight('todo')"
@@ -71,7 +71,7 @@
 
             <section class="column">
                 <div class="column-header">  
-                <h2>In Progress</h2>
+                <h2 class="column-title">In Progress</h2>
                 <button onclick="openAddTask('in-progress')"><img src="./assets/icons/plus_add_task.png" alt="add task"></button>
                 </div>
                 <div class="drag-area" id="in-progress" ondrop="moveTo('in-progress')" ondragleave="removeHighlight('in-progress')"
@@ -80,7 +80,7 @@
 
             <section class="column">
                 <div class="column-header">  
-                <h2>Await feedback</h2>
+                <h2 class="column-title">Await feedback</h2>
                 <button onclick="openAddTask('await-feedback')"><img src="./assets/icons/plus_add_task.png" alt="add task"></button>
                 </div>
                 <div class="drag-area" id="await-feedback" ondrop="moveTo('await-feedback')" ondragleave="removeHighlight('await-feedback')"
@@ -89,7 +89,7 @@
 
             <section class="column">
                 <div class="column-header">  
-                <h2>Done</h2>
+                <h2 class="column-title">Done</h2>
                 </div>
                 <div class="drag-area" id="done" ondrop="moveTo('done')" ondragleave="removeHighlight('done')"
                     ondragover="allowDrop(event); highlight('done')"></div>
@@ -110,7 +110,7 @@
         </div>
 
         <div id="task-detail-modal" class="modal-overlay hidden" onclick="closeTaskDetail(event)">
-            <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-content">
                 <div id="task-detail-body" class="modal-body"></div>
             </div>
         </div>

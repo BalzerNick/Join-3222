@@ -18,10 +18,10 @@
             z-index: 10;
             background-color: #F6F7F8;
             background-image: url('../assets/imgs/logoMain.png');
-            background-size: 15%;
+            background-size: 274px 334px;
             background-repeat: no-repeat;
             background-position: center;
-            animation: introFade 500ms ease 1s forwards;
+            animation: introFade 200ms ease-in-out 500ms forwards;
         }
     }
 
@@ -32,7 +32,7 @@
             inset: 0;
             background-color: var(--color-primary);
             z-index: 10;
-            animation: introFade 500ms ease 1s forwards;
+            animation: introFade 200ms ease-in-out 800ms forwards;
         }
     }
 
@@ -78,10 +78,10 @@
     @media (max-width: 768px) {
         @keyframes logoIntroSize {
             from {
-                width: 120px;
+          width: 200px;
             }
             to {
-                width: 60px;
+          width: 80px;
             }
         }
     }
@@ -196,7 +196,7 @@ p {
 }
 
 .login-header-text {
-  font-size: var(--fs-base);
+  font-size: var(--fs-md);
 }
 
 /* Mittlerer Bereich - schiebt den Footer nach unten */
@@ -276,14 +276,7 @@ p {
 @media (max-width: 768px) {
   .login-form h1,
   .signup-form h1 {
-    font-size: 50px;
-  }
-}
-
-@media (max-width: 700px) {
-  .login-form h1,
-  .signup-form h1 {
-    font-size: 40px;
+    font-size: 47px;
   }
 }
 
@@ -344,7 +337,7 @@ p {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-size: var(--fs-sm);
+  font-size: var(--fs-base);
 }
 
 /* Link in der Checkbox-Zeile in Akzentblau, wie im Design */
@@ -354,7 +347,7 @@ p {
 
 .error-message {
   color: var(--color-error);
-  font-size: var(--fs-sm);
+  font-size: var(--fs-base);
   min-height: 18px;
   text-align: center;
 }

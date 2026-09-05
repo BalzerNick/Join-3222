@@ -1,6 +1,6 @@
 @media (max-width: 1100px) {
     .priority-buttons button {
-        font-size: 12px;
+        font-size: 16px;
     }
 }
 
@@ -60,6 +60,18 @@
         padding: 32px 24px 220px;
         overflow: hidden;
         overflow-y: auto;
+    }
+
+    .input-area label {
+        font-size: var(--fs-base);
+    }
+
+    .required-hint {
+        font-size: var(--fs-base);
+    }
+
+    #addTaskForm .input {
+        font-size: var(--fs-base);
     }
 
     #addTaskFooter {

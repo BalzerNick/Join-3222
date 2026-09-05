@@ -50,7 +50,7 @@ form {
 }
 
 .input-area label {
-    font-size: var(--fs-base);
+    font-size: var(--fs-md);
     margin-top: 16px;
 }
 
@@ -70,11 +70,20 @@ form {
     box-sizing: border-box;
     border: 1px solid var(--color-border);
     border-radius: 10px;
-    font-size: var(--fs-base);
+    cursor: pointer;
+    font-size: var(--fs-md);
     font-family: inherit;
     color: var(--color-primary);
     z-index: 1;
     padding: 12px 16px;
+}
+
+.required-hint {
+    font-size: var(--fs-md);
+}
+
+#addTaskForm #taskDeadline::-webkit-calendar-picker-indicator {
+    cursor: pointer;
 }
 
 #addTaskForm .dropdown .input {
@@ -104,6 +113,13 @@ form {
 #addTaskForm #category:focus {
     border-width: 1px;
     border-color: var(--color-border);
+}
+
+#addTaskForm #subtask:hover,
+#addTaskForm #taskName:hover,
+#addTaskForm #taskDescription:hover,
+#addTaskForm #taskDeadline:hover {
+    border-color: transparent;
 }
 
 #addTaskForm .dropdown .input:hover::placeholder,
@@ -137,6 +153,7 @@ form {
     resize: vertical;
     min-height: 120px;
 }
+
 
 .priority-buttons {
     display: flex;
@@ -377,14 +394,16 @@ input {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 280px
+    width: 309px;
+    gap: 16px;
 }
 
 .btn-task{
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-size: 16px;
+    font-size: 20px;
+    padding: 16px;
 }
 
 .btn-img,
@@ -428,6 +447,10 @@ input {
     background-color: var(--color-bg);
 }
 
+#add-task-modal .subtask-area {
+    background-color: #FFFFFF;
+}
+
 .subtask{
     width: 100%;
     box-sizing: border-box;
@@ -438,10 +461,11 @@ input {
     gap: 8px;
     padding: 8px 12px;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .subtask:hover{
-    background-color: #ffffff;
+    background-color: #E6E6E6;
 }
 
 .subtask-text {
@@ -468,6 +492,14 @@ input {
 
 .subtask:hover .subtask-actions {
     opacity: 1;
+}
+
+.subtask-actions .subtask-icon {
+    transition: transform var(--transition-fast) ease;
+}
+
+.subtask-actions .subtask-icon:hover {
+    transform: scale(1.2);
 }
 
 .subtask-divider {
@@ -515,8 +547,12 @@ input {
   right: auto;
   top: auto;
   transform: none;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background-color var(--transition-fast);
 }
 
 .subtask-buttons .input-img:hover {
     cursor: pointer;
+    background-color: rgba(41, 171, 226, 0.15);
 }

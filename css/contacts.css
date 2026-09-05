@@ -181,7 +181,7 @@
   border: unset;
   cursor: pointer;
   color: var(--color-primary);
-  font-size: var(--fs-sm);
+  font-size: var(--fs-base);
   transition: color 100ms ease;
 }
 
@@ -278,8 +278,13 @@
   border-radius: 30px;
   overflow: hidden;
   /* rechte Haelfte braucht Platz fuer Inputs bis 422px (siehe .modal-form .input) */
-  width: min(90vw, 1010px);
+  width: min(1212px);
+  height: 592px;
   animation: contactModalSlideIn 300ms ease-out;
+}
+
+.btn-cancel {
+  font-weight: 400;
 }
 
 /* Beim Schliessen faehrt das Popup denselben Weg zurueck nach rechts.
@@ -327,19 +332,20 @@
      Untertitel breiter als geplant und der rechten Seite fehlt
      der Platz fuer 422px breite Inputs. border-box, damit die
      48px-Innenabstaende in den 340px enthalten sind. */
-  width: 340px;
+  width: 467px;
   box-sizing: border-box;
   flex-shrink: 0;
 }
 
 .modal-logo {
   width: 56px;
-  margin-bottom: 12px;
   filter: brightness(0) invert(1);
 }
 
 .modal-title {
   font-size: var(--fs-xxl);
+  margin-bottom: 0;
+  margin-top: 32px;
 }
 
 .modal-subtitle {
@@ -350,7 +356,6 @@
   width: 90px;
   height: 3px;
   background-color: var(--color-accent);
-  margin-top: 12px;
 }
 
 .contact-modal-right {
@@ -361,7 +366,7 @@
   padding: 48px;
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 72px;
 }
 
 /* Platzhalter-Avatar im "Add contact"-Popup (noch keine Initialen/Farbe). */
@@ -548,11 +553,11 @@
   }
 
   .modal-title {
-    font-size: 32px;
+    font-size: 47px;
   }
 
   .modal-subtitle {
-    font-size: var(--fs-base);
+    font-size: var(--fs-md);
   }
 
   .modal-close {
@@ -600,6 +605,14 @@
     margin-left: 0;
     height: auto;
     min-height: calc(100vh - 176px);
+  }
+
+  .btn {
+    font-size: var(--fs-md);
+  }
+
+  .detail-name {
+    font-size: 36px;
   }
 
   .contacts-list-col {
