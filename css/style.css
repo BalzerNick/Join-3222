@@ -297,6 +297,11 @@ li {
   margin-left: 200px;
 }
 
+.page-legal-help {
+  margin-left: 290px;
+}
+
+
 @media (max-width: 768px) {
   .page {
     margin-left: 0px;
