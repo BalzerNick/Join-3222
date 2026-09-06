@@ -181,6 +181,7 @@ input[type="checkbox"].input-error {
   align-items: center;
   position: relative;
   width: 100%;
+  max-width: 1000px;
 }
 
 
@@ -297,11 +298,6 @@ li {
   margin-left: 200px;
 }
 
-.page-legal-help {
-  margin-left: 290px;
-}
-
-
 @media (max-width: 768px) {
   .page {
     margin-left: 0px;
@@ -320,6 +316,17 @@ li {
 
 @media (max-width: 768px) {
   .page-legal {
+    margin-left: 0;
+    padding: 32px 24px 24px;
+  }
+}
+
+.page-legal-help {
+  margin-left: 300px;
+}
+
+@media (max-width: 768px) {
+  .page-legal-help {
     margin-left: 0;
     padding: 32px 24px 24px;
   }
