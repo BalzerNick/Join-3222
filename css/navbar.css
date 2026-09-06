@@ -207,13 +207,13 @@ html.logged-out .header-right {
   display: none;
   flex-direction: column;
   padding: 8px;
-  border-top: 10px solid var(--color-primary);
+  /* border-top: 10px solid var(--color-primary); */
   background-color: var(--color-primary);
   background-clip: padding-box;
   /* Figma: oben links / unten rechts / unten links 20px, oben rechts eckig,
      weil das Menue dort am Header anliegt. */
   border-radius: 20px 0 20px 20px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  /* box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);  */
   z-index: 30;
 }
 
