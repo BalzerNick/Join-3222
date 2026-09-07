@@ -275,6 +275,14 @@ input[type="checkbox"].input-error {
   }
 }
 
+.page-back-arrow-legalnotice {
+  display: block;
+  flex-shrink: 0;
+  width: 22px;
+  height: 21px;
+  cursor: pointer;
+}
+
 /* Inhaltsbreite fuer grosse Monitore (Summary, Board, Contacts).
    Content linksbuendig auf max. 1440px begrenzen (laut Checkliste). */
 .content {
