@@ -1,10 +1,7 @@
-/* Laut Figma beginnt der Inhalt hier an derselben Kante wie auf
-   privacyPolicy.html. "margin: auto" hat die Sektion auf breiten
-   Bildschirmen mittig geschoben, und das seitliche Padding haette
-   sie zusaetzlich um 20px gegen .page eingerueckt. Die Breite bleibt
-   begrenzt (Figma: 1014px Inhaltsspalte). */
+/* Breite und Kante kommen vom gemeinsamen Container .page-legal
+   (style.css, Figma: 1016px Inhaltsspalte) - hier stehen nur noch
+   Typografie und Abstaende der Sektion. */
 .legal-notice {
-  max-width: 900px;
   margin: 0 0 40px;
   padding: 0;
   color: #111;
@@ -40,20 +37,5 @@
 
   .legal-notice h2 {
     font-size: var(--fs-md);
-  }
-}
-
-
-.page-legalnotice {
-  max-width: 1440px; /* Marcus am 07.08.2026 */
-  margin-left: 250px;
-  padding: 80px 24px 24px 50px;
-}
-
-
-@media (max-width: 768px) {
-  .page-legalnotice {
-    margin-left: 0px;
-    padding: 80px 24px 24px 24px;
   }
 }

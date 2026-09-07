@@ -175,13 +175,14 @@ input[type="checkbox"].input-error {
 }
 
 /*Marcus 24.07.2026*/
+/* Breite kommt vom Container .page-legal (1016px Inhaltsspalte),
+   daher hier keine eigene max-width mehr. */
 .help-heading {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
   position: relative;
   width: 100%;
-  max-width: 1000px;
 }
 
 
@@ -295,49 +296,16 @@ li {
   margin-left: 20px
 }
 
-/* Einfacher Textseiten-Container (Legal / Privacy) - linksbuendig */
-/* padding-top ist der Abstand zwischen Header und Ueberschrift.
-   Figma gibt dafuer auf Help, Privacy Policy und Legal Notice
-   einheitlich 71px an (Abstand im Content-Frame). */
-.page {
-  max-width: 1040px; /* Marcus am 07.08.2026 */
-  margin: 0 auto;
-  padding: 71px 24px 24px 100px;
-  margin-left: 200px;
-}
-
-@media (max-width: 768px) {
-  .page {
-    margin-left: 0px;
-    padding: 80px 24px 24px 24px;
-  }
-}
-
-/* Help-Seite. Laut Figma-Frame "Help": Sidebar (ContentLeft) 232px,
-   rechts davon 1208px Content-Bereich mit 96px Seitenrand, dadurch
-   1016px Inhaltsbreite; 71px Abstand zwischen Header und Ueberschrift. */
+/* Gemeinsamer Textseiten-Container fuer Help, Privacy Policy und
+   Legal Notice. Laut Figma: Sidebar (ContentLeft) 232px, rechts davon
+   1208px Content-Bereich mit 96px Seitenrand, dadurch 1016px
+   Inhaltsbreite; 71px Abstand zwischen Header und Ueberschrift -
+   auf allen drei Seiten identisch. Die Responsive-Regeln stehen
+   gesammelt weiter unten. */
 .page-legal {
   margin-left: 232px;
   max-width: 1016px;
   padding: 71px 96px 24px;
-}
-
-@media (max-width: 768px) {
-  .page-legal {
-    margin-left: 0;
-    padding: 32px 24px 24px;
-  }
-}
-
-.page-legal-help {
-  margin-left: 300px;
-}
-
-@media (max-width: 768px) {
-  .page-legal-help {
-    margin-left: 0;
-    padding: 32px 24px 24px;
-  }
 }
 
 /* .page h1 {
@@ -381,55 +349,52 @@ li {
     white-space: nowrap;
   }
 
-  .page h1 {
-    font-size: 47px;
-  }
 }
 
-.page h2 {
+.page-legal h2 {
   font-size: 27px;
   margin-bottom: 16px;
 }
 
 /* ============================================================
-   Responsive (Legal / Privacy): gleiche Breakpoints wie addTask.css.
+   Responsive (Help / Legal / Privacy): gleiche Breakpoints wie
+   addTask.css.
    ============================================================ */
 
 @media (max-width: 1024px) {
-  .page {
+  .page-legal {
     padding: 48px 32px 24px 48px;
   }
 }
 
-/* Sidebar wandert hier nach unten (navbar.css), .page braucht daher
-   keinen linken Rand mehr, aber unten Platz fuer die Navbar. Das
-   .footer darunter bekommt denselben Platz, damit es nicht unter
+/* Sidebar wandert hier nach unten (navbar.css), .page-legal braucht
+   daher keinen linken Rand mehr, aber unten Platz fuer die Navbar.
+   Das .footer darunter bekommt denselben Platz, damit es nicht unter
    der fixen Navbar verschwindet. */
 @media (max-width: 768px) {
-  .page {
+  .page-legal {
     margin-left: 0;
     padding: 32px 24px 24px;
   }
 
   /* .footer ist seitenuebergreifend (auch auf Seiten ohne die fixe
      Mobile-Navbar aus navbar.css), daher hier nur der Fall Seite-mit-
-     .page-Container davor (Legal/Privacy/Help). */
-  .page ~ .footer,
+     .page-legal-Container davor (Legal/Privacy/Help). */
   .page-legal ~ .footer {
     margin-bottom: 96px;
   }
 }
 
 @media (max-width: 480px) {
-  .page {
+  .page-legal {
     padding: 24px 16px 24px;
   }
 
-  .page h1 {
+  .page-legal h1 {
     font-size: var(--fs-lg);
   }
 
-  .page h2 {
+  .page-legal h2 {
     font-size: var(--fs-md);
   }
 }
@@ -503,7 +468,7 @@ li {
   color: #000000;
 }
 
-@media (max-width: 765px) {
+@media (max-width: 768px) {
   .help-headline {
     font-size: 47px;
   }
