@@ -386,7 +386,10 @@
   max-width: 422px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  /* Abstand zwischen den Feldern: reservierte Meldungszeile der
+     .input-field-Bloecke (6px + 20px) plus 6px Gap = 32px, damit beim
+     Einblenden einer Meldung nichts springt */
+  gap: 6px;
 }
 
 /* Eingabefelder im Popup tragen ihr Symbol rechts als Hintergrundbild */
