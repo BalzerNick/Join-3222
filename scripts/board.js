@@ -347,5 +347,4 @@ async function moveMobileTask(taskId, category) {
     await moveTo(category);
 }
 
-
 document.addEventListener('DOMContentLoaded', initBoard);

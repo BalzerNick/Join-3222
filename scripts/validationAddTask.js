@@ -11,7 +11,6 @@ const addTaskFields = [
   { id: 'category', validate: validateCategory }
 ];
 
-
 /**
  * Checks the task title: it just has to be filled in.
  *
@@ -23,7 +22,6 @@ function validateTaskTitle(value) {
   return "";
 }
 
-
 /**
  * Today's date in the YYYY-MM-DD format used by date inputs.
  *
@@ -32,7 +30,6 @@ function validateTaskTitle(value) {
 function getTodayIsoDate() {
   return new Date().toISOString().split('T')[0];
 }
-
 
 /**
  * Checks the due date: filled in and not in the past.
@@ -46,7 +43,6 @@ function validateDueDate(value) {
   return "";
 }
 
-
 /**
  * Checks whether a category has been picked from the dropdown.
  *
@@ -57,7 +53,6 @@ function validateCategory(value) {
   if (!value) return "Please select a category.";
   return "";
 }
-
 
 /**
  * Sets the Add-Task form up: hooks up live validation and stops the due date
@@ -73,6 +68,5 @@ function initAddTaskForm() {
   bindFormValidation(addTaskFields);
   document.getElementById('taskDeadline').min = getTodayIsoDate();
 }
-
 
 document.addEventListener('DOMContentLoaded', initAddTaskForm);

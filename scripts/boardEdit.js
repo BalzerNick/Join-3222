@@ -1,8 +1,6 @@
 /**
  * Closes the detail modal, drops the edit state and releases the page scroll.
- * When called from the backdrop, a click that started inside the modal is
- * ignored.
- *
+ * From the backdrop, a click that started inside the modal is ignored.
  * @param {Event} [event] - The click event, if the call comes from the backdrop.
  * @returns {void}
  */
@@ -19,10 +17,8 @@ function closeTaskDetail(event) {
 }
 
 /**
- * Switches the detail modal into edit mode. Builds working copies of the
- * subtasks and the assigned contacts, so that cancelling leaves the task
- * untouched. Does nothing if the id is unknown.
- *
+ * Switches the detail modal into edit mode. Works on copies of the subtasks
+ * and contacts, so cancelling leaves the task untouched. Unknown id: no-op.
  * @param {string} taskId - Database key of the task.
  * @returns {void}
  */
@@ -48,7 +44,6 @@ function enterEditMode(taskId) {
 /**
  * Wires up the edit form after its markup has been inserted: subtask input,
  * priority buttons, subtask list and the outside-click handler of the dropdown.
- *
  * @returns {void}
  */
 function setupTaskEditForm() {
@@ -61,7 +56,6 @@ function setupTaskEditForm() {
 /**
  * Highlights the priority button that matches the hidden priority field and
  * swaps the icons of all three buttons accordingly.
- *
  * @returns {void}
  */
 function updateEditPriorityButtons() {
@@ -78,7 +72,6 @@ function updateEditPriorityButtons() {
 
 /**
  * Stores the picked priority in the hidden field and refreshes the buttons.
- *
  * @param {string} priority - The priority to select.
  * @returns {void}
  */
@@ -89,10 +82,8 @@ function setEditPriority(priority) {
 }
 
 /**
- * Submit handler of the edit form. Applies the changes to the board right
- * away and then saves them. If the write fails, the previous state of the
- * task is restored and an alert is shown.
- *
+ * Submit handler of the edit form. Applies the changes to the board right away
+ * and then saves them. If the write fails, the previous state is restored.
  * @param {Event} event - The submit event; its default action is prevented.
  * @returns {Promise<void>}
  */
@@ -126,9 +117,7 @@ async function saveTaskEdits(event) {
 }
 
 /**
- * Deletes a task. The card disappears from the board immediately; if the
- * delete fails, the previous board state is restored and an alert is shown.
- *
+ * Deletes a task. The card disappears at once; a failed delete is rolled back.
  * @param {string} taskId - Database key of the task.
  * @returns {Promise<void>}
  */
@@ -150,7 +139,6 @@ async function deleteTask(taskId) {
 /**
  * Builds the pool of contacts available for assignment from the contacts
  * cached by the board.
- *
  * @returns {Array<Object>} All contacts with name, initials and avatar colour.
  */
 function buildTaskEditContactPool() {
@@ -163,7 +151,6 @@ function buildTaskEditContactPool() {
 /**
  * Builds the contact dropdown of the edit form, ticking everyone who is
  * already assigned.
- *
  * @returns {string} The list entries as HTML.
  */
 function buildEditContactListHTML() {
@@ -176,7 +163,6 @@ function buildEditContactListHTML() {
 
 /**
  * Builds the avatar row of the assigned contacts below the dropdown.
- *
  * @returns {string} The avatars as HTML.
  */
 function buildEditAssignedAvatarsHTML() {
@@ -197,9 +183,7 @@ function buildEditAssignedAvatarsHTML() {
 }
 
 /**
- * Adds a contact to the selection or removes it again, and updates the row,
- * its checkbox and the avatar row accordingly.
- *
+ * Toggles a contact in the selection and updates row, checkbox and avatars.
  * @param {number} index - Position of the contact in the contact pool.
  * @param {HTMLElement} listItem - The clicked list row.
  * @returns {void}
@@ -219,9 +203,8 @@ function toggleEditContact(index, listItem) {
 }
 
 /**
- * Opens or closes the contact dropdown of the edit form. Stops the event so
- * the outside-click handler does not close it again straight away.
- *
+ * Toggles the contact dropdown; stops the event so the outside-click handler
+ * does not close it again straight away.
  * @param {Event} event - The click event on the dropdown field.
  * @returns {void}
  */
@@ -235,7 +218,6 @@ function toggleEditContactDropdown(event) {
 /**
  * Registers the handler that closes the contact dropdown on a click anywhere
  * outside of it. Any previously registered handler is removed first.
- *
  * @returns {void}
  */
 function registerEditDropdownHandler() {
@@ -251,7 +233,6 @@ function registerEditDropdownHandler() {
 /**
  * Removes the outside-click handler of the contact dropdown, so it does not
  * outlive the closed modal.
- *
  * @returns {void}
  */
 function cleanupEditDropdownHandler() {
@@ -262,7 +243,6 @@ function cleanupEditDropdownHandler() {
 
 /**
  * Shows or hides the contact dropdown and flips its arrow.
- *
  * @param {boolean} shouldOpen - true opens the dropdown, false closes it.
  * @returns {void}
  */
@@ -276,7 +256,6 @@ function setEditContactDropdownState(shouldOpen) {
 
 /**
  * Turns the stored subtask object into the array the edit form works on.
- *
  * @param {Object} subtasks - The subtasks of the task, keyed by id.
  * @returns {Array<{id: string, title: string, done: boolean}>} The subtasks as an array, empty if there are none.
  */
@@ -287,7 +266,6 @@ function mapTaskEditSubtasks(subtasks) {
 /**
  * Makes the Enter key in the subtask input add a subtask instead of
  * submitting the whole form.
- *
  * @returns {void}
  */
 function bindEditSubtaskInput() {
@@ -302,7 +280,6 @@ function bindEditSubtaskInput() {
 
 /**
  * Redraws the subtask list of the edit form from the working copy.
- *
  * @returns {void}
  */
 function renderEditSubtasks() {
@@ -316,7 +293,6 @@ function renderEditSubtasks() {
 /**
  * Adds the text of the subtask input to the working copy and clears the
  * input. An empty input is ignored.
- *
  * @returns {void}
  */
 function addEditSubtask() {
@@ -330,9 +306,7 @@ function addEditSubtask() {
 }
 
 /**
- * Removes a subtask from the working copy. The change reaches the database
- * only when the form is saved.
- *
+ * Removes a subtask from the working copy; saved only with the form.
  * @param {string} subtaskId - Key of the subtask.
  * @returns {void}
  */
@@ -344,7 +318,6 @@ function deleteTaskSubtask(subtaskId) {
 /**
  * Asks for a new title of a subtask via a browser prompt. Cancelling or
  * entering only whitespace keeps the old title.
- *
  * @param {string} subtaskId - Key of the subtask.
  * @returns {void}
  */
@@ -362,7 +335,6 @@ function editTaskSubtask(subtaskId) {
 
 /**
  * Saves the edited subtask title.
- *
  * @param {string} subtaskId - Key of the subtask.
  */
 function saveEditedSubtask(subtaskId) {
@@ -380,7 +352,6 @@ function saveEditedSubtask(subtaskId) {
 
 /**
  * Turns the working copy back into the object shape the database expects.
- *
  * @returns {Object} The subtasks keyed by id.
  */
 function buildTaskEditSubtaskMap() {
@@ -393,7 +364,6 @@ function buildTaskEditSubtaskMap() {
 /**
  * Ticks or unticks a subtask in the detail view. The progress bar updates
  * immediately; if the write fails, the checkbox is reverted.
- *
  * @param {string} taskId - Database key of the task.
  * @param {string} subtaskId - Key of the subtask.
  * @param {boolean} done - The new state.
@@ -414,10 +384,8 @@ async function toggleSubtaskDone(taskId, subtaskId, done) {
 }
 
 /**
- * Resolves the assignedTo entries of a task against the contact pool.
- * Entries that are no longer in the pool are rebuilt from their name;
- * entries without a name are dropped.
- *
+ * Resolves the assignedTo entries of a task against the contact pool. Entries
+ * missing from the pool are rebuilt from their name, nameless ones dropped.
  * @param {Array<string|Object>} assignedTo - The assigned contacts, as ids or objects.
  * @returns {Array<Object>} The resolved contacts.
  */

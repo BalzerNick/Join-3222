@@ -25,7 +25,6 @@ function getFieldValue(id) {
   return cleanSpaces(field.value, allowsInnerSpaces(field)).trim();
 }
 
-
 /**
  * Reads all fields of a form at once, keyed by their id. Rules that compare
  * two fields, like the repeated password, get their counterpart from here.
@@ -38,7 +37,6 @@ function getFormValues(fields) {
   fields.forEach(field => values[field.id] = getFieldValue(field.id));
   return values;
 }
-
 
 /**
  * Shows or clears the message belonging to one field and marks the field
@@ -53,7 +51,6 @@ function showFieldError(id, message) {
   document.getElementById(id).classList.toggle('input-error', !!message);
 }
 
-
 /**
  * Validates one field and shows the result right away.
  *
@@ -67,7 +64,6 @@ function checkField(id, fields) {
   showFieldError(id, message);
   return !message;
 }
-
 
 /**
  * Validates every field of a form and jumps to the first one that is invalid.
@@ -84,7 +80,6 @@ function checkForm(fields) {
   return !firstInvalid;
 }
 
-
 /**
  * Runs when the user leaves a field: removes leading and trailing spaces from
  * the value and validates it.
@@ -100,7 +95,6 @@ function handleFieldBlur(field, fields) {
   checkField(field.id, fields);
 }
 
-
 /**
  * Runs while the user types: keeps a password icon up to date and makes a
  * message that is already shown disappear as soon as the input is correct.
@@ -114,7 +108,6 @@ function handleFieldInput(field, fields) {
   if (document.getElementById(field.id + 'Error').textContent) checkField(field.id, fields);
   revalidateLinkedFields(field, fields);
 }
-
 
 /**
  * Re-checks the fields that depend on the one just edited, for example the
@@ -131,7 +124,6 @@ function revalidateLinkedFields(field, fields) {
     if (getFieldValue(id)) checkField(id, fields);
   });
 }
-
 
 /**
  * Hooks one field up to the validation: checkboxes react to their change
@@ -151,7 +143,6 @@ function bindFieldValidation(field, fields) {
   element.addEventListener('input', () => handleFieldInput(field, fields));
 }
 
-
 /**
  * Hooks a whole form up to the validation.
  *
@@ -161,7 +152,6 @@ function bindFieldValidation(field, fields) {
 function bindFormValidation(fields) {
   fields.forEach(field => bindFieldValidation(field, fields));
 }
-
 
 /**
  * Checks a name: it has to be filled in, may be at most nameMaxLength
@@ -179,7 +169,6 @@ function validateName(value) {
   return "";
 }
 
-
 /**
  * Checks an email address against emailPattern.
  *
@@ -192,7 +181,6 @@ function validateEmail(value) {
   return "";
 }
 
-
 /**
  * Counts how many digits a value holds, so that separators alone do not pass
  * as a phone number.
@@ -203,7 +191,6 @@ function validateEmail(value) {
 function countDigits(value) {
   return (value.match(/\d/g) || []).length;
 }
-
 
 /**
  * Checks a phone number: digits and the usual separators only, and enough
@@ -221,7 +208,6 @@ function validatePhone(value) {
   return "";
 }
 
-
 /**
  * Keeps a phone field down to digits and a single leading plus. The pattern
  * attribute only marks a field invalid, it does not stop the typing, so this
@@ -238,7 +224,6 @@ function filterPhoneInput(field) {
   field.setSelectionRange(Math.max(caret, 0), Math.max(caret, 0));
 }
 
-
 /**
  * Checks whether the password reaches the required minimum length.
  *
@@ -248,7 +233,6 @@ function filterPhoneInput(field) {
 function isPasswordLongEnough(password) {
   return password.length >= passwordMinLength;
 }
-
 
 /**
  * Checks a password: filled in and long enough.
@@ -262,7 +246,6 @@ function validatePassword(value) {
   return "";
 }
 
-
 /**
  * Picks the icon of a password field: a lock while the field is empty,
  * otherwise the eye that shows the current state.
@@ -275,7 +258,6 @@ function getPasswordIconSrc(field) {
   if (field.type === 'password') return 'assets/icons/visibility_off.png';
   return 'assets/icons/visibility.png';
 }
-
 
 /**
  * Brings icon and toggle button of a password field in line with its current
@@ -293,7 +275,6 @@ function updatePasswordIcon(id) {
   toggle.setAttribute('aria-label', field.type === 'password' ? 'Show password' : 'Hide password');
   document.getElementById(id + 'Icon').src = getPasswordIconSrc(field);
 }
-
 
 /**
  * Handler of the eye icon. Switches a password field between hidden and

@@ -90,7 +90,6 @@ async function getNextTaskId() {
     return tasks
 }
 
-
 /**
  * Saves a task in the database via PUT, overwriting whatever sits at that
  * path.

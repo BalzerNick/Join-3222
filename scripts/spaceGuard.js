@@ -16,7 +16,6 @@
    tasks.js beim Speichern mitbenutzt.
    ============================================================ */
 
-
 /**
  * Tells whether an element is a text field the space guard applies to.
  *
@@ -29,7 +28,6 @@ function isSpaceGuarded(element) {
   return element.tagName === 'INPUT' && spaceGuardTypes.includes(element.type);
 }
 
-
 /**
  * Tells whether a field may hold spaces between words. Names, titles and
  * subtasks may, e-mail addresses and passwords may not.
@@ -40,7 +38,6 @@ function isSpaceGuarded(element) {
 function allowsInnerSpaces(field) {
   return !noSpaceTypes.includes(field.type);
 }
-
 
 /**
  * Removes the spaces that are not allowed in a value: either every space, or
@@ -56,7 +53,6 @@ function cleanSpaces(value, allowInner = true) {
   return value.replace(/^ +/, '').replace(/ {2,}/g, ' ');
 }
 
-
 /**
  * Tells whether a space pressed right now would be allowed: never in a
  * no-space field, and never at the start or behind another space.
@@ -71,7 +67,6 @@ function isSpaceKeyAllowed(field) {
   return before.length > 0 && !before.endsWith(' ');
 }
 
-
 /**
  * Puts the caret back where it was after a value has been cleaned. Fields
  * without selection support, for example e-mail fields, are skipped.
@@ -84,7 +79,6 @@ function restoreCaret(field, position) {
   if (field.selectionStart === null) return;
   field.setSelectionRange(position, position);
 }
-
 
 /**
  * Cleans the value of a field and keeps the caret in place. Catches whatever
@@ -101,7 +95,6 @@ function applySpaceRules(field) {
   restoreCaret(field, Math.max(caret, 0));
 }
 
-
 /**
  * Swallows the space bar in a guarded field whenever the space would not be
  * allowed at the current position.
@@ -115,7 +108,6 @@ function handleSpaceKey(event) {
   if (isSpaceKeyAllowed(event.target)) return;
   event.preventDefault();
 }
-
 
 /**
  * Cleans a guarded field after its content has changed.

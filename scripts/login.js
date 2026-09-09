@@ -9,7 +9,6 @@ function getLoginInputs() {
   return { email: email, password: password };
 }
 
-
 /**
  * Sets the login form up once the page is loaded: the eye icon of the
  * password field starts out as a lock.
@@ -21,7 +20,6 @@ function initLoginForm() {
   document.getElementById('loginPassword').addEventListener('input', () => updatePasswordIcon('loginPassword'));
 }
 
-
 /**
  * Shows an error message below the login form.
  *
@@ -32,7 +30,6 @@ function showLoginError(message) {
   document.getElementById('loginError').textContent = message;
 }
 
-
 /**
  * Checks whether both required fields of the login form have been filled in.
  *
@@ -42,7 +39,6 @@ function showLoginError(message) {
 function isLoginFilled(data) {
   return data.email !== "" && data.password !== "";
 }
-
 
 /**
  * Loads the registered users and turns a failed request into null, so that a
@@ -58,7 +54,6 @@ async function tryLoadUsers() {
     return null;
   }
 }
-
 
 /**
  * Searches for a user whose email and password both match the entered
@@ -77,7 +72,6 @@ function findUser(users, data) {
   }
   return null;
 }
-
 
 /**
  * Handler of the "Log in" button. Validates the form, checks the credentials
@@ -104,7 +98,6 @@ async function login() {
   }
   await startUserSession(foundUser);
 }
-
 
 /**
  * Stores the session of the user who just logged in, loads the contacts of
@@ -141,6 +134,5 @@ async function guestLogin() {
 function signUp() {
   window.location.href = "signUp.html";
 }
-
 
 document.addEventListener('DOMContentLoaded', initLoginForm);

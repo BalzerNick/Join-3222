@@ -10,7 +10,6 @@
    eingebunden und braucht sonst nichts.
    ============================================================ */
 
-
 /**
  * Builds the markup of the hint layer.
  *
@@ -24,7 +23,6 @@ function getRotateHintTemplate() {
       <span>Join is built for portrait mode on phones.</span>
     </div>`;
 }
-
 
 /**
  * Inserts the hint layer once. A page that already carries the layer is

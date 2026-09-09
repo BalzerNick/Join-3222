@@ -32,7 +32,6 @@ function getTaskTemplate(data) {
         </div>`;
 }
 
-
 /**
  * Builds the content of the task detail modal.
  *
@@ -69,7 +68,6 @@ function getTaskCardTopTemplate(category, taskId) {
         </div>`;
 }
 
-
 /**
  * Builds the footer of a task card: avatars on the left, priority icon on
  * the right.
@@ -84,7 +82,6 @@ function getTaskFooterTemplate(data) {
             <div class="footer-right">${data.priority}</div>
         </div>`;
 }
-
 
 /**
  * Builds the header of the detail modal, with the category badge and the
@@ -101,7 +98,6 @@ function getTaskDetailHeaderTemplate(category) {
         </div>`;
 }
 
-
 /**
  * Builds the due date and priority rows of the detail modal.
  *
@@ -115,7 +111,6 @@ function getTaskDetailMetaTemplate(data) {
             <div class="detail-block"><span class="detail-label">Priority:</span>${data.priority}</div>
         </div>`;
 }
-
 
 /**
  * Builds the 'Assigned To' section of the detail modal.
@@ -131,7 +126,6 @@ function getTaskDetailAssignedTemplate(assignedContactsHTML) {
         </div>`;
 }
 
-
 /**
  * Builds the 'Subtasks' section of the detail modal.
  *
@@ -145,7 +139,6 @@ function getTaskDetailSubtasksTemplate(subtasksHTML) {
             <ul class="subtask-list">${subtasksHTML}</ul>
         </div>`;
 }
-
 
 /**
  * Builds the delete and edit buttons of the detail modal.
@@ -171,7 +164,6 @@ function getBoardEmptyColumnTemplate(columnName) {
     return `<div class="empty-state">No tasks ${columnName}</div>`;
 }
 
-
 /**
  * Builds the confirm and cancel icons next to the subtask input. The board
  * appends these to the Add-Task dialog at runtime.
@@ -185,7 +177,6 @@ function getBoardSubtaskButtonsTemplate() {
         <img class="input-img subtask-icon pointer" src="assets/icons/check_black.svg" alt="Add subtask" onclick="safeSubtask()">`;
 }
 
-
 /**
  * Builds the description paragraph. The class decides whether it is clamped
  * to the card size or shown in full in the detail modal.
@@ -198,7 +189,6 @@ function getTaskDescriptionTemplate(description, className = 'task-description')
     return `<p class="${className}">${description}</p>`;
 }
 
-
 /**
  * Builds the due date of the detail modal, or a placeholder if none is set.
  *
@@ -208,7 +198,6 @@ function getTaskDescriptionTemplate(description, className = 'task-description')
 function getTaskDueDateTemplate(dueDate) {
     return dueDate ? `<span class="detail-value">${dueDate}</span>` : "<span class='detail-empty'>No due date</span>";
 }
-
 
 /**
  * Builds the subtask progress bar of a card.
@@ -228,7 +217,6 @@ function getTaskSubtaskProgressTemplate(progress) {
         </div>`;
 }
 
-
 /**
  * Builds the placeholder shown when a task has no assigned contacts.
  *
@@ -237,7 +225,6 @@ function getTaskSubtaskProgressTemplate(progress) {
 function getEmptyAssignedContactsTemplate() {
     return "<p class='detail-empty'>No assigned contacts</p>";
 }
-
 
 /**
  * Builds one row of the assigned contacts list, with avatar and name.
@@ -254,7 +241,6 @@ function getAssignedContactTemplate(contactInitialHtml, contactName) {
         </div>`;
 }
 
-
 /**
  * Builds the placeholder shown when a task has no subtasks.
  *
@@ -263,7 +249,6 @@ function getAssignedContactTemplate(contactInitialHtml, contactName) {
 function getEmptySubtasksTemplate() {
     return "<p class='detail-empty'>No subtasks</p>";
 }
-
 
 /**
  * Builds one checklist entry of the detail modal. Ticking the checkbox saves
@@ -285,7 +270,6 @@ function getTaskSubtaskItemTemplate(taskId, subtaskId, isDone, title) {
         </li>`;
 }
 
-
 /**
  * Builds the priority icon. The label is part of the icon file name, so it
  * must match the capitalisation of the files in assets/icons.
@@ -298,7 +282,6 @@ function getPriorityIconTemplate(label, altText) {
     return `<img class="priority-icon" src="assets/icons/Property%201=${label}.png" alt="${altText}">`;
 }
 
-
 /**
  * Builds the priority of the detail modal as label plus icon.
  *
@@ -310,7 +293,6 @@ function getPriorityDetailTemplate(label, iconHtml) {
     return `<span class="priority-detail-value"><span class="priority-detail-text">${label}</span>${iconHtml}</span>`;
 }
 
-
 /**
  * Builds the placeholder shown when a task has no priority.
  *
@@ -319,7 +301,6 @@ function getPriorityDetailTemplate(label, iconHtml) {
 function getEmptyPriorityTemplate() {
     return "<span class='detail-empty'>No priority</span>";
 }
-
 
 /**
  * Builds the category badge.

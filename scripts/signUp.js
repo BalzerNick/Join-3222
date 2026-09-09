@@ -13,7 +13,6 @@ const signupFields = [
   { id: 'acceptPrivacy', validate: validatePrivacy }
 ];
 
-
 /**
  * Checks the repeated password against the first one.
  *
@@ -27,7 +26,6 @@ function validateConfirm(value, values) {
   return "";
 }
 
-
 /**
  * Checks whether the privacy policy has been accepted.
  *
@@ -38,7 +36,6 @@ function validatePrivacy(value) {
   if (!value) return "Please accept the Privacy Policy.";
   return "";
 }
-
 
 /**
  * Reads all values out of the registration form and trims the text fields.
@@ -55,7 +52,6 @@ function getSignupInputs() {
   };
 }
 
-
 /**
  * Shows a general error message below the form, for problems that belong to
  * no single field.
@@ -67,7 +63,6 @@ function showSignupError(message) {
   document.getElementById('signupError').textContent = message;
 }
 
-
 /**
  * Sets the registration form up once the page is loaded.
  *
@@ -78,7 +73,6 @@ function initSignupForm() {
   updatePasswordIcon('signupPassword');
   updatePasswordIcon('signupConfirm');
 }
-
 
 /**
  * Handler of the "Sign up" button. Validates the form, saves the user and
@@ -99,6 +93,5 @@ async function registerUser() {
   showToast("You signed up successfully");
   setTimeout(() => window.location.href = "index.html", 1500);
 }
-
 
 document.addEventListener('DOMContentLoaded', initSignupForm);

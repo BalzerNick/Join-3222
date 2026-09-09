@@ -12,7 +12,6 @@ async function loadSummaryData() {
     updateSummaryHTML();
 }
 
-
 /**
  * Counts all tasks that currently sit in a given board column.
  *
@@ -127,7 +126,6 @@ function getMostUrgentTask() {
     return mostUrgentTask;
 }
 
-
 /**
  * Reads the name of the logged in user out of localStorage.
  *
@@ -139,7 +137,6 @@ function getLoggedInUserName() {
     let user = JSON.parse(userData);
     return user.name;
 }
-
 
 // new Date().toLocaleTimeString() , new Date().toTimeString()
 /**
@@ -191,7 +188,6 @@ function checkMobileGreeting() {
         }, 500);
     }, 1800);
 }
-
 
 /**
  * Entry point of the summary page. Fills the greeting and loads the task
