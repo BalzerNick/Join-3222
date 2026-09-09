@@ -1166,11 +1166,13 @@ font-weight: bold;
         flex-direction: row;
         flex-wrap: nowrap;
         gap: 16px;
-        overflow-x: hidden;
+        overflow-x: auto;
         overflow-y: hidden;
         min-height: 200px;
         padding: 24px 24px 24px 0;
-        scrollbar-width: auto;
+        overscroll-behavior-x: contain;
+        scrollbar-width: thin;
+        scrollbar-color: #888 #f1f1f1;
     }
 
     .drag-area::-webkit-scrollbar {
@@ -1188,11 +1190,19 @@ font-weight: bold;
         border-radius: 6px;
     }
 
+    /* 292px ist die gewachsene Kartenbreite (252 Inhalt + 2x20 Innenabstand),
+       ab etwa 390px Fensterbreite bleibt sie genau so. Auf schmalen Handys
+       schrumpft die Karte stattdessen auf die Spaltenbreite: 100% ist die
+       Content-Breite der .drag-area (ohne deren 24px rechts), minus 16px Gap
+       laesst 24px der naechsten Karte hereinschauen. Prozent statt 100vw,
+       damit eine Fenster-Scrollbar die Rechnung nicht verschiebt;
+       border-box, sonst kommen die Innenabstaende oben drauf. */
     .todo {
-        flex: 0 0 252px;
-        width: 252px;
-        min-width: 252px;
-        max-width: 252px;
+        box-sizing: border-box;
+        flex: 0 0 min(292px, calc(100% - 16px));
+        width: min(292px, calc(100% - 16px));
+        min-width: 0;
+        max-width: none;
     }
 }
 
