@@ -216,9 +216,6 @@ button {
 /* Responsive: make sure footer content wraps inside the card on very small widths */
 @media (max-width: 420px) {
     .task-footer {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
         bottom: 14px;
     }
 
