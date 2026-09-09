@@ -293,12 +293,16 @@ p {
    ============================================================ */
 .login-form,
 .signup-form {
+  /* Seitenpadding als Variable, damit der Zurueck-Pfeil seinen Abstand
+     zur Kartenkante daraus errechnen kann - jede Query, die das Padding
+     aendert, setzt NUR die Variable mit um */
+  --card-pad-x: clamp(16px, 7vw, 60px);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   background-color: #ffffff;
-  padding: clamp(24px, 6vw, 40px) clamp(16px, 7vw, 60px);
+  padding: clamp(24px, 6vw, 40px) var(--card-pad-x);
   border-radius: 30px;
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
   width: min(90vw, 500px);
@@ -322,21 +326,12 @@ p {
   margin-bottom: 26px;
 }
 
-@media (max-width: 820px) {
-  .login-form,
-  .signup-form {
-    width: min(90vw, 450px);
-    padding: clamp(24px, 6vw, 40px) clamp(16px, 7vw, 24px);
-  }
-}
-
-
-
 @media (max-width: 700px) {
   .login-form,
   .signup-form {
+    --card-pad-x: clamp(16px, 7vw, 24px);
     width: min(90vw, 350px);
-    padding: clamp(24px, 6vw, 40px) clamp(16px, 7vw, 24px);
+    padding: clamp(24px, 6vw, 40px) var(--card-pad-x);
   }
 }
 
@@ -349,8 +344,8 @@ p {
 @media (max-height: 715px) {
   .login-form,
   .signup-form {
-    padding-bottom: 20px;
-    padding: clamp(12px, 4vh, 20px) clamp(16px, 7vw, 24px);
+    --card-pad-x: clamp(16px, 7vw, 24px);
+    padding: clamp(12px, 4vh, 20px) var(--card-pad-x);
   }
 
   .login-form {
@@ -371,8 +366,9 @@ p {
  @media (max-width: 580px) and (max-height: 620px) {
   .login-form,
   .signup-form {
+    --card-pad-x: clamp(16px, 7vw, 24px);
     width: min(90vw, 300px);
-    padding: clamp(8px, 2vh, 15px) clamp(16px, 7vw, 24px);
+    padding: clamp(8px, 2vh, 15px) var(--card-pad-x);
   }
 
   .login-form {
@@ -382,8 +378,9 @@ p {
 
 @media (max-height: 540px) {
   .signup-form {
+    --card-pad-x: clamp(16px, 7vw, 24px);
     width: min(90vw, 300px);
-    padding: clamp(10px, 2vh, 15px) clamp(16px, 7vw, 24px);
+    padding: clamp(10px, 2vh, 15px) var(--card-pad-x);
   }
 
   .signup-head {
@@ -402,13 +399,6 @@ p {
   line-height: 1.1;
 }
 
-
-@media (max-width: 768px) {
-  .login-form h1,
-  .signup-form h1 {
-    font-size: 47px;
-  }
-}
 
 @media (max-height: 720px) {
   .signup-form h1{
@@ -445,6 +435,26 @@ p {
   justify-content: center;
   align-items: center;
   width: 100%;
+}
+
+/* Figma "Sign up" (Button wo icon): 126x55 = Padding 15/24 um Inter Bold
+   21px/120%, Radius 8. Mobile-Frame (428px): 180x51 mit 16px Text.
+   Schrift laeuft fluid 21 -> 16 (3vw zwischen 700px und ~533px); die
+   hoehere Spezifitaet neutralisiert hier den globalen 768er-.btn-Sprung.
+   Bewusst auf die Login-/Sign-up-Karte begrenzt - Buttons der anderen
+   Seiten bleiben unveraendert. */
+.login-buttons .btn {
+  font-size: clamp(16px, 3vw, 21px);
+  line-height: 120%;
+  padding: 15px 24px;
+}
+
+/* Auf flachen Screens kompakter (55px -> 45px), damit 1024x600 ohne
+   Scrollen passt - muss nach der Basisregel stehen (gleiche Spezifitaet) */
+@media (max-height: 715px) {
+  .login-buttons .btn {
+    padding: 10px 24px;
+  }
 }
 
 @media (max-width: 550px) {
@@ -504,37 +514,40 @@ p {
    unterscheidet (Ueberschrift mit Pfeil, Checkbox-Zeile).
    ============================================================ */
 
-/* Ueberschrift mit Zurueck-Pfeil: Titel bleibt mittig, Pfeil klebt links */
+/* Ueberschrift mit Zurueck-Pfeil: Titel bleibt mittig, Pfeil sitzt 48px von
+   der linken Kartenkante (Figma "Sign up", Frame 153: 32x32, 48px von der
+   Kante) und folgt vertikal der Titelzeile - so wandert er auch dann mit,
+   wenn Hoehen-Queries das Karten-Padding aendern. Das calc() zieht das
+   jeweils aktive Seitenpadding der Karte ab. */
 .signup-head {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 32px;
-  
 }
 
 .signup-back {
   position: absolute;
-  left: -20px;
+  left: calc(48px - var(--card-pad-x));
   display: flex;
   align-items: center;
-  /* gleicht die Hoehe der blauen Linie unter der Ueberschrift aus (8px Abstand
+  /* gleicht die blaue Linie unter der Ueberschrift aus (8px Abstand
      + 3px Linie), damit der Pfeil auf Hoehe des Textes sitzt */
   margin-bottom: 11px;
 }
 
-@media (max-width: 768px) {
+.signup-arrow {
+  width: 32px;
+  height: 32px;
+}
+
+/* Figma "Sign up mobile" (428px-Frame): 40px von der Kartenkante */
+@media (max-width: 550px) {
   .signup-back {
-    left: 30px;
+    left: calc(40px - var(--card-pad-x));
   }
 }
-/* 
-@media (max-width: 400px) {
-  .signup-back {
-    left: 10px;
-  }
-} */
 
 
 /* Checkbox-Zeile darf auf schmalen Displays umbrechen */
