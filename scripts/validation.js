@@ -207,16 +207,35 @@ function countDigits(value) {
 
 /**
  * Checks a phone number: digits and the usual separators only, and enough
- * digits to be a real number.
+ * digits to be a real number. Every message has to fit on one line, because
+ * the reserved error row in .input-field is one line high and a second line
+ * pushes the form apart.
  *
  * @param {string} value - The trimmed phone number.
  * @returns {string} The error text, or an empty string if the number is valid.
  */
 function validatePhone(value) {
   if (!value) return "Please enter a phone number.";
-  if (!phonePattern.test(value)) return "The phone number may only contain digits, spaces and + - ( ).";
+  if (!phonePattern.test(value)) return "Only digits and + allowed.";
   if (countDigits(value) < phoneMinDigits) return "Please enter at least " + phoneMinDigits + " digits.";
   return "";
+}
+
+
+/**
+ * Keeps a phone field down to digits and a single leading plus. The pattern
+ * attribute only marks a field invalid, it does not stop the typing, so this
+ * runs on every input and catches pasted text as well.
+ *
+ * @param {HTMLInputElement} field - The phone field to clean.
+ * @returns {void}
+ */
+function filterPhoneInput(field) {
+  let cleaned = field.value.replace(/[^\d+]/g, '').replace(/(?!^)\+/g, '');
+  if (cleaned === field.value) return;
+  let caret = (field.selectionStart ?? field.value.length) - (field.value.length - cleaned.length);
+  field.value = cleaned;
+  field.setSelectionRange(Math.max(caret, 0), Math.max(caret, 0));
 }
 
 

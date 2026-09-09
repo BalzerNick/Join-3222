@@ -299,7 +299,6 @@ function getNewContact() {
 }
 
 
-
 /**
  * Handler of the create button in the add popup. Validates the form, saves the
  * contact and refreshes the list. Invalid fields keep the popup open and show
@@ -399,7 +398,6 @@ async function deleteContact(id) {
   renderContacts();
   showToast("Contact deleted");
 }
-
 
 
 /**

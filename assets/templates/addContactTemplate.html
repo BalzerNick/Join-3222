@@ -20,7 +20,8 @@
         <span id="newContactEmailError" class="field-error"></span>
       </div>
       <div class="input-field">
-        <input class="input" type="tel" id="newContactPhone" placeholder="Phone" inputmode="tel" autocomplete="tel">
+        <input class="input" type="tel" id="newContactPhone" placeholder="Phone" inputmode="tel" autocomplete="tel"
+          pattern="\+?[0-9]*" maxlength="20" oninput="filterPhoneInput(this)">
         <span id="newContactPhoneError" class="field-error"></span>
       </div>
       <div class="add-contact-buttons">
