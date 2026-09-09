@@ -7,7 +7,9 @@
 header {
   position: sticky;
   top: 0;
-  z-index: 10;
+  /* Unter der Sidebar (.menu-line, z-index 10): der Header laeuft ueber die
+     volle Breite und wuerde sonst die obere Sidebar-Ecke weiss ueberdecken. */
+  z-index: 5;
   display: flex;
   justify-content: space-between;
   padding-left: 300px;
@@ -16,7 +18,6 @@ header {
   background-color: #ffffff;
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
   font-size: var(--fs-md);
-  z-index: 5;
 }
 
 /* Logo im Header ersetzt mobil den Titel-Text */

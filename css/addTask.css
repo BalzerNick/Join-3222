@@ -132,8 +132,16 @@ form {
     z-index: 7;
 }
 
+/* Eigener Stacking-Kontext: die Ebenen innerhalb des Dropdowns (Liste 5,
+   Input 6, Pfeil 7) bleiben untereinander gueltig, konkurrieren aber nicht
+   mehr mit dem Header. */
+#addTaskForm .dropdown {
+    isolation: isolate;
+}
+
+/* Offene Liste ueber die folgenden Felder, aber unter den Header (z-index 5). */
 #addTaskForm .dropdown:has(.dropdown-list:not(.d-none)) {
-    z-index: 10;
+    z-index: 4;
 }
 
 #addTaskForm .input:focus {
@@ -445,6 +453,23 @@ input {
     overflow-x: hidden;
     overscroll-behavior: contain;
     background-color: var(--color-bg);
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+}
+
+.subtask-area::-webkit-scrollbar {
+    display: block;
+    width: 8px;
+}
+
+.subtask-area::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 6px;
+}
+
+.subtask-area::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 6px;
 }
 
 #add-task-modal .subtask-area {
