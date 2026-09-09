@@ -40,7 +40,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
 }
 
 .btn-icon {
@@ -279,7 +278,7 @@
   overflow: hidden;
   /* rechte Haelfte braucht Platz fuer Inputs bis 422px (siehe .modal-form .input) */
   width: min(1212px);
-  height: 592px;
+  height: 510px;
   animation: contactModalSlideIn 300ms ease-out;
 }
 
@@ -687,5 +686,19 @@
      kommen bereits aus der 1100px-Stufe. */
   .detail-head {
     gap: 16px;
+  }
+
+  /* Popup nutzt mobil die ganze Hoehe: 16px unter dem oberen Rand bis 16px
+     ueber der unteren Navbar (80px hoch, siehe navbar.css). Ohne stretch
+     wuerde das Popup mittig sitzen und den Platz oben liegen lassen. */
+  .overlay {
+    align-items: stretch;
+    padding: 16px 0 96px;
+    box-sizing: border-box;
+  }
+
+  .contact-modal {
+    height: 100%;
+    max-height: none;
   }
 }
