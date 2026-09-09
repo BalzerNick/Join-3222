@@ -361,9 +361,28 @@
 }
 
 @media (max-width: 768px) {
+  /* Header (96px) und untere Navbar (80px) stehen fest, gescrollt wird nur
+     der Karten-Bereich dazwischen. Ohne Seiten-Scroll kann keiner von beiden
+     beim Scrollen mitwandern. Nur die Summary-Seite, card.css haengt auch an
+     card.html. */
+  body:has(.page-summary) {
+    overflow: hidden;
+  }
+
   .page-summary {
+    /* An den Viewport-Kanten aufgehaengt statt 100vh minus Kopf und Navbar
+       zu rechnen: vh und dvh weichen auf Mobilgeraeten um die Adressleiste
+       voneinander ab, der Bereich schob sich damit unter die Navbar. */
+    position: fixed;
+    top: 96px;
+    bottom: 80px;
+    left: 0;
+    right: 0;
+    margin: 0;
     padding: 20px;
-    margin-bottom: 100px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .greeting-block.mobile-greeting {
