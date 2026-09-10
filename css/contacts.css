@@ -42,6 +42,10 @@
   justify-content: center;
 }
 
+.add-contact-btn:hover {
+  background-color: var(--color-accent);
+}
+
 .btn-icon {
   width: 20px;
   height: 20px;
