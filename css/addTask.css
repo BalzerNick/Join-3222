@@ -112,12 +112,18 @@ form {
     border-width: 1px 1px 2px 2px;
 }
 
+/* Hover nur auf dem eigentlichen Input */
 #addTaskForm #assignedTo:hover,
+#addTaskForm #category:hover {
+    border-color: transparent;
+    box-shadow: inset 0 0 0 1px var(--color-border);
+}
+
+/* Fokus beim Klicken */
 #addTaskForm #assignedTo:focus,
-#addTaskForm #category:hover,
 #addTaskForm #category:focus {
-    border-width: 1px;
-    border-color: var(--color-border);
+    border-color: transparent;
+    box-shadow: inset 0 0 0 1px var(--color-border);
 }
 
 #addTaskForm #subtask:hover,
