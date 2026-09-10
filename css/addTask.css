@@ -3,7 +3,12 @@ body {
 }
 
 main {
-    padding: 110px 117px 190px;
+    /* Unten nur so viel Platz, wie der fixierte Footer (~106px) plus etwas
+       Luft braucht - frueher 190px, die ~80px Totraum darunter haben die
+       Seite schon bei zwei, drei Subtasks ueber die Viewport-Hoehe gedrueckt
+       und einen Seiten-Scroll ausgeloest. Oben 64 statt 110, der 96px hohe
+       Sticky-Header liefert den Abstand zum Titel ohnehin mit. */
+    padding: 64px 117px 128px;
     color: var(--color-primary);
     margin-left: 232px;
     margin-top: 0;
@@ -155,6 +160,23 @@ form {
 #addTaskForm #category.input-error:hover,
 #addTaskForm #category.input-error:focus {
     border-color: var(--color-error);
+}
+
+/* Die Meldungszeile ist fest reserviert, auch solange sie leer ist - genau
+   wie in .input-field (style.css). Ohne die Reservierung greift das globale
+   .field-error:empty { display: none } und das Formular waechst erst im
+   Fehlerfall, wodurch alles darunter springt. 20px = 16px Schrift * 1.25
+   Zeilenhoehe, also genau eine Zeile; die Meldungen muessen deshalb einzeilig
+   bleiben. Das folgende Label verliert seinen Abstand, weil die reservierte
+   Zeile den Platz schon mitbringt. */
+#addTaskForm .field-error,
+#addTaskForm .field-error:empty {
+    display: block;
+    min-height: 20px;
+}
+
+#addTaskForm .field-error + label {
+    margin-top: 0;
 }
 
 #addTaskForm textarea.input {
