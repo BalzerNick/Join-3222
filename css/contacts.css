@@ -12,6 +12,7 @@
 
 .contacts-list-col {
   min-width: 0;
+  width: 424px;
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
