@@ -32,12 +32,12 @@
     display: block;
   }
 
-  /* Button behaelt seine Spaltenbreite, statt ueber den Screen zu laufen */
+  /* Button keeps its column width instead of running across the screen */
   .add-contact-btn {
     max-width: 352px;
   }
 
-  /* Titel stapelt, die blaue Linie wandert unter den Untertitel */
+  /* Title stacks, the blue line moves below the subtitle */
   .contacts-intro {
     position: relative;
     flex-direction: column;
@@ -87,15 +87,15 @@
     font-size: var(--fs-md);
   }
 
-  /* schmalere Spalte: Avatar kleiner, damit dem Namen mehr Breite bleibt */
+  /* narrower column: smaller avatar so the name keeps more width */
   .detail-head .avatar-lg {
     width: 64px;
     height: 64px;
     font-size: var(--fs-lg);
   }
 
-  /* Popup: dunkler Kopf oben, Formular darunter, Avatar auf der Kante.
-     Nebeneinander passen die beiden Haelften hier nicht mehr. */
+  /* Popup: dark header on top, form below it, avatar on the edge.
+     The two halves no longer fit side by side here. */
   .contact-modal {
     flex-direction: column;
     width: min(90vw, 400px);
@@ -148,7 +148,7 @@
     width: 100%;
   }
 
-  /* Abbrechen uebernimmt mobil das X oben rechts */
+  /* Cancel is taken over by the X in the top right on mobile */
   .add-contact-buttons {
     justify-content: center;
   }

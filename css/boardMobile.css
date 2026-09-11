@@ -58,13 +58,13 @@
         border-radius: 6px;
     }
 
-    /* 292px ist die gewachsene Kartenbreite (252 Inhalt + 2x20 Innenabstand),
-       ab etwa 390px Fensterbreite bleibt sie genau so. Auf schmalen Handys
-       schrumpft die Karte stattdessen auf die Spaltenbreite: 100% ist die
-       Content-Breite der .drag-area (ohne deren 24px rechts), minus 16px Gap
-       laesst 24px der naechsten Karte hereinschauen. Prozent statt 100vw,
-       damit eine Fenster-Scrollbar die Rechnung nicht verschiebt;
-       border-box, sonst kommen die Innenabstaende oben drauf. */
+    /* 292px is the card's grown width (252 content + 2x20 padding), and it
+       stays exactly that from about 390px window width upward. On narrow
+       phones the card instead shrinks to the column width: 100% is the
+       content width of .drag-area (excluding its 24px on the right), minus
+       a 16px gap so 24px of the next card peeks in. Percent instead of
+       100vw so a window scrollbar doesn't throw off the math; border-box,
+       otherwise the padding would be added on top. */
     .todo {
         box-sizing: border-box;
         flex: 0 0 min(292px, calc(100% - 16px));

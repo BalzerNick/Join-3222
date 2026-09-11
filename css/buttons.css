@@ -10,7 +10,7 @@
   --btn-secondary-hover: var(--color-accent);
 }
 
-/* Buttons - Basis fuer alle Buttons (auch als Link a.btn) */
+/* Buttons - base for all buttons (also usable as a link a.btn) */
 .btn {
   display: inline-block;
   text-align: center;
@@ -25,7 +25,7 @@
   transition: all var(--transition-fast) ease;
 }
 
-/* Gefuellter Haupt-Button */
+/* Filled primary button */
 .btn-primary {
   background-color: var(--btn-primary-bg);
   color: var(--btn-primary-text);
@@ -36,7 +36,7 @@
 box-shadow: 0px 4px 0px 0px rgba(0,0,0,0.2);
 }
 
-/* Umrandeter Zweit-Button */
+/* Outlined secondary button */
 .btn-secondary {
   background-color: var(--btn-secondary-bg);
   color: var(--btn-secondary-text);

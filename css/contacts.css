@@ -1,6 +1,6 @@
-/* contacts.css - Kontaktliste + Detailansicht. Werte gegen euer Figma abgleichen. */
+/* contacts.css - contact list + detail view. Check the values against your Figma. */
 
-/* Zwei Spalten: Liste links, Detail rechts */
+/* Two columns: list on the left, detail on the right */
 .contacts-main {
   margin-left: 232px;
   margin-top: 0;
@@ -34,21 +34,27 @@
   overflow-y: auto;
 }
 
-/* Add-Button oben in der Liste, volle Breite (wie Figma) */
+/* Add button at the top of the list, full width (as in Figma) */
 .add-contact-btn {
   width: 100%;
   margin-bottom: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 12px;
+}
+
+.add-contact-btn .btn-icon {
+  width: 24px;
+  height: 24px;
 }
 
 .add-contact-btn:hover {
-  background-color: var(--color-accent);
+  background-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-primary));
 }
 
 
-/* Standard-Ansicht rechts: "Contacts | Better with a team" */
+/* Default view on the right: "Contacts | Better with a team" */
 .contacts-intro {
   display: flex;
   align-items: center;
@@ -65,7 +71,7 @@
   font-size: var(--fs-lg);
 }
 
-/* Buchstaben-Ueberschrift der Gruppen */
+/* Letter heading of the groups */
 .contact-letter {
   margin: 24px 0 8px;
   font-size: var(--fs-md);
@@ -74,7 +80,7 @@
   padding-bottom: 4px;
 }
 
-/* Kontaktkarte */
+/* Contact card */
 .contact {
   display: flex;
   align-items: center;
@@ -88,7 +94,7 @@
   background-color: var(--color-bg);
 }
 
-/* Aktive (angeklickte) Karte - dunkel wie im Figma */
+/* Active (clicked) card - dark like in Figma */
 .contact-active {
   background-color: var(--color-primary);
   color: #ffffff;
@@ -98,7 +104,7 @@
   color: #ffffff;
 }
 
-/* Aktive Karte bleibt beim Hover dunkel (nicht durchsichtig/hell) */
+/* Active card stays dark on hover (not translucent/light) */
 .contact-active:hover {
   background-color: var(--color-primary);
 }
@@ -106,13 +112,13 @@
 .contact-info {
   display: flex;
   flex-direction: column;
-  /* min-width: 0 erlaubt das Kuerzen, sonst sprengen lange E-Mails die Spalte */
+  /* min-width: 0 allows truncation, otherwise long emails blow up the column */
   min-width: 0;
 }
 
-/* Liste: Name und E-Mail bleiben einzeilig und werden mit "..." gekuerzt.
-   So behalten alle Karten die gleiche Hoehe und die Liste scrollt ruhig.
-   Der vollstaendige Text steht im title-Attribut (Tooltip). */
+/* List: name and email stay on one line and are truncated with "...".
+   That way all cards keep the same height and the list scrolls smoothly.
+   The full text is in the title attribute (tooltip). */
 .contact-name,
 .contact-email {
   overflow: hidden;
@@ -130,27 +136,27 @@
   font-size: var(--fs-base);
 }
 
-/* Detailansicht rechts */
+/* Detail view on the right */
 .detail-head {
   display: flex;
   align-items: center;
   gap: 48px;
   margin-bottom: 24px;
-  /* verhindert, dass ein langer Name die Karte breiter macht als die Spalte */
+  /* prevents a long name from making the card wider than the column */
   min-width: 0;
 }
 
-/* Textspalte neben dem Avatar: min-width: 0 erlaubt das Schrumpfen,
-   sonst waechst die Spalte auf die Breite des laengsten Wortes. */
+/* Text column next to the avatar: min-width: 0 allows shrinking,
+   otherwise the column grows to the width of the longest word. */
 .detail-head-text {
   flex: 1;
   min-width: 0;
 }
 
-/* Detail: der Name wird nicht gekuerzt, sondern umgebrochen - er ist die
-   Ueberschrift der Ansicht und soll vollstaendig lesbar bleiben.
-   break-word bricht zuerst an Leerzeichen und nur dann innerhalb eines
-   Wortes, wenn dieses eine Zeile allein nicht mehr passt. */
+/* Detail: the name isn't truncated but wrapped instead - it's the heading
+   of the view and should stay fully readable. break-word wraps at spaces
+   first, and only breaks inside a word when that word alone no longer
+   fits on one line. */
 .detail-name {
   font-size: var(--fs-xl);
   margin-bottom: 8px;
@@ -158,8 +164,8 @@
   line-height: 1.15;
 }
 
-/* Laengenabhaengige Stufen (Klasse kommt aus getNameSizeClass): je laenger
-   der Name, desto kleiner die Schrift - so bleiben es ein bis zwei Zeilen. */
+/* Length-dependent steps (class comes from getNameSizeClass): the longer
+   the name, the smaller the font - so it stays one to two lines. */
 .detail-name-sm {
   font-size: var(--fs-lg);
 }
@@ -197,8 +203,8 @@
 .detail-line {
   font-size: var(--fs-base);
   margin-bottom: 16px;
-  /* E-Mail-Adressen haben keine Leerzeichen, deshalb hier anywhere:
-     sie duerfen notfalls mitten im Wort umbrechen statt herauszulaufen. */
+  /* Email addresses have no spaces, hence anywhere here: they're allowed
+     to wrap mid-word if necessary instead of overflowing. */
   overflow-wrap: anywhere;
 }
 
@@ -206,10 +212,11 @@
   color: var(--color-accent);
 }
 
-/* Popup faehrt beim Oeffnen von rechts ein (Figma-Prototyp: Move in, rechts),
-   der abgedunkelte Hintergrund blendet dabei ein. Das Template wird bei jedem
-   Oeffnen neu in #addContactOverlay geschrieben und das Overlay von display:none
-   auf flex geschaltet, deshalb laufen beide Animationen ohne JS jedes Mal neu. */
+/* The popup slides in from the right when opening (Figma prototype: move
+   in, right), while the dimmed background fades in. The template is
+   rewritten into #addContactOverlay on every open and the overlay is
+   switched from display:none to flex, so both animations replay every
+   time without any JS. */
 @keyframes overlayFadeIn {
   from {
     background-color: rgba(0, 0, 0, 0);
@@ -222,9 +229,9 @@
 
 @keyframes contactModalSlideIn {
   from {
-    /* 50vw + halbe Modalbreite: die linke Kante steht exakt am rechten
-       Bildschirmrand, das Popup ist also unabhaengig von seiner Breite
-       komplett ausserhalb des Sichtfensters. */
+    /* 50vw + half the modal width: the left edge sits exactly at the
+       right screen edge, so the popup is completely outside the viewport
+       regardless of its width. */
     transform: translateX(calc(50vw + 50%));
   }
 

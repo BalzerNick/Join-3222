@@ -20,7 +20,7 @@ const editContactFields = [
 ];
 
 /**
- * Loads the contacts and both templates and renders the grouped list.
+ * Loads the contacts and renders the grouped list.
  * Called by initContacts() and after every change to a contact.
  * The contacts normally come from the sessionStorage, where getContacts()
  * puts them once at the start of the session. If that cache is empty, for
@@ -31,20 +31,7 @@ const editContactFields = [
 async function renderContacts() {
   if (!getContactStorage()) await getContacts();
   allContacts = getContactStorage() || {};
-  let card = await loadHtmlTemplate("assets/templates/contactsTemplate.html");
-  let letter = await loadHtmlTemplate("assets/templates/contactLetterTemplate.html");
-  showContacts(allContacts, card, letter);
-}
-
-/**
- * Loads an HTML template from the templates folder. Used by the contact list
- * and by every popup of the contacts page.
- * @param {string} path - Path of the template file relative to the project root.
- * @returns {Promise<string>} The template as HTML text, still containing its placeholders.
- */
-async function loadHtmlTemplate(path) {
-  let response = await fetch(path);
-  return await response.text();
+  showContacts(allContacts);
 }
 
 /**
@@ -63,20 +50,18 @@ function sortContacts(contacts) {
  * Builds the list markup and inserts a letter separator whenever the first
  * letter of the name changes.
  * @param {Array<Object>} sorted - The contacts sorted by name, as returned by sortContacts.
- * @param {string} card - The contact card template with its placeholders.
- * @param {string} letterTpl - The letter separator template with its placeholder.
  * @returns {string} The finished contact list as HTML.
  */
-function buildContactsHtml(sorted, card, letterTpl) {
+function buildContactsHtml(sorted) {
   let html = "";
   let currentLetter = "";
   for (let contact of sorted) {
     let letter = contact.name[0].toUpperCase();
     if (letter !== currentLetter) {
       currentLetter = letter;
-      html += letterTpl.replaceAll("{{letter}}", letter);
+      html += getContactLetterTemplate(letter);
     }
-    html += fillTemplate(card, contact);
+    html += getContactCardTemplate(contact);
   }
   return html;
 }
@@ -84,29 +69,11 @@ function buildContactsHtml(sorted, card, letterTpl) {
 /**
  * Sorts and groups the contacts and writes the result into the list element.
  * @param {Object} contacts - All contacts keyed by their id.
- * @param {string} card - The contact card template with its placeholders.
- * @param {string} letterTpl - The letter separator template with its placeholder.
  * @returns {void}
  */
-function showContacts(contacts, card, letterTpl) {
+function showContacts(contacts) {
   let list = document.getElementById('contactList');
-  list.innerHTML = buildContactsHtml(sortContacts(contacts), card, letterTpl);
-}
-
-/**
- * Replaces the placeholders of the card template with the data of one
- * contact.
- * @param {string} template - The card template containing the {{...}} placeholders.
- * @param {Object} contact - The contact to render, including its id, name, email and initials.
- * @returns {string} The filled contact card as HTML.
- */
-function fillTemplate(template, contact) {
-  return template
-    .replaceAll("{{id}}", contact.id)
-    .replaceAll("{{color}}", getAvatarColor(contact.name))
-    .replaceAll("{{initials}}", contact.initials)
-    .replaceAll("{{name}}", contact.name)
-    .replaceAll("{{email}}", contact.email);
+  list.innerHTML = buildContactsHtml(sortContacts(contacts));
 }
 
 /**
@@ -116,9 +83,8 @@ function fillTemplate(template, contact) {
  * @returns {Promise<void>}
  */
 async function showContactDetail(id) {
-  let template = await loadHtmlTemplate("assets/templates/contactDetailTemplate.html");
   let detail = document.getElementById('contactDetail');
-  detail.innerHTML = fillDetailTemplate(template, id, allContacts[id]);
+  detail.innerHTML = getContactDetailTemplate(id, allContacts[id]);
   highlightContact(id);
   document.querySelector('.contacts-main').classList.add('detail-open');
 }
@@ -155,25 +121,6 @@ function closeContactMenu(event) {
 }
 
 /**
- * Replaces the placeholders of the detail template with the data of one
- * contact.
- * @param {string} template - The detail template containing the {{...}} placeholders.
- * @param {string} id - The database key of the contact, used by the edit and delete buttons.
- * @param {Object} contact - The contact to render, with name, email and phone.
- * @returns {string} The filled detail view as HTML.
- */
-function fillDetailTemplate(template, id, contact) {
-  return template
-    .replaceAll("{{id}}", id)
-    .replaceAll("{{color}}", getAvatarColor(contact.name))
-    .replaceAll("{{initials}}", contact.initials)
-    .replaceAll("{{nameSize}}", getNameSizeClass(contact.name))
-    .replaceAll("{{name}}", contact.name)
-    .replaceAll("{{email}}", contact.email)
-    .replaceAll("{{phone}}", contact.phone || "");
-}
-
-/**
  * Returns the CSS modifier class that keeps a long contact name readable in
  * the detail view. Long names are rendered one or two steps smaller so they
  * wrap into fewer lines instead of filling the whole card.
@@ -204,7 +151,7 @@ function highlightContact(id) {
  */
 async function openAddContact() {
   let overlay = document.getElementById('addContactOverlay');
-  overlay.innerHTML = await loadHtmlTemplate("assets/templates/addContactTemplate.html");
+  overlay.innerHTML = getAddContactTemplate();
   overlay.classList.remove('overlay-closing', 'd-none');
   bindFormValidation(newContactFields);
   lockScroll(true);
@@ -298,29 +245,10 @@ async function createContact() {
  */
 async function openEditContact(id) {
   let overlay = document.getElementById('addContactOverlay');
-  let editTpl = await loadHtmlTemplate("assets/templates/contactEditTemplate.html");
-  overlay.innerHTML = fillEditTemplate(editTpl, id, allContacts[id]);
+  overlay.innerHTML = getEditContactTemplate(id, allContacts[id]);
   overlay.classList.remove('overlay-closing', 'd-none');
   bindFormValidation(editContactFields);
   lockScroll(true);
-}
-
-/**
- * Replaces the placeholders of the edit template with the current values of
- * the contact.
- * @param {string} template - The edit template containing the {{...}} placeholders.
- * @param {string} id - The database key of the contact, used by the save button.
- * @param {Object} contact - The contact to edit, with name, email and phone.
- * @returns {string} The filled edit popup as HTML.
- */
-function fillEditTemplate(template, id, contact) {
-  return template
-    .replaceAll("{{id}}", id)
-    .replaceAll("{{color}}", getAvatarColor(contact.name))
-    .replaceAll("{{initials}}", contact.initials)
-    .replaceAll("{{name}}", contact.name)
-    .replaceAll("{{email}}", contact.email)
-    .replaceAll("{{phone}}", contact.phone || "");
 }
 
 /**

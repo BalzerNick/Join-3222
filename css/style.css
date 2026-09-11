@@ -6,9 +6,9 @@
 }
 
 :root {
-  --color-primary: #2a3647;   /* dunkles Blau */
+  --color-primary: #2a3647;   /* dark blue */
   --transition-fast: 100ms;
-  --color-accent: #29abe2;    /* helles Blau  */
+  --color-accent: #29abe2;    /* light blue  */
   --color-bg: #f6f7f8;
   --color-border: #d1d1d1;
   --color-text: #2a3647;

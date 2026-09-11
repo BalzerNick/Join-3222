@@ -1,5 +1,5 @@
-/* Contacts: Anlegen/Bearbeiten-Popup */
-/* Popup / Overlay zum Anlegen und Bearbeiten */
+/* Contacts: create/edit popup */
+/* Popup / overlay for creating and editing */
 .overlay {
   position: fixed;
   inset: 0;
@@ -11,14 +11,14 @@
   animation: overlayFadeIn 300ms ease-out;
 }
 
-/* Zweigeteiltes Popup: links dunkel mit Logo/Titel, rechts weiss mit Formular */
+/* Two-part popup: dark on the left with logo/title, white on the right with the form */
 .contact-modal {
   position: relative;
   display: flex;
   background-color: #ffffff;
   border-radius: 30px;
   overflow: hidden;
-  /* rechte Haelfte braucht Platz fuer Inputs bis 422px (siehe .modal-form .input) */
+  /* right half needs room for inputs up to 422px (see .modal-form .input) */
   width: min(1212px);
   height: 510px;
   animation: contactModalSlideIn 300ms ease-out;
@@ -28,9 +28,9 @@
   font-weight: 400;
 }
 
-/* Beim Schliessen faehrt das Popup denselben Weg zurueck nach rechts.
-   closeAddContact() setzt die Klasse und blendet das Overlay erst nach dem
-   animationend-Event aus. Muss nach .overlay stehen, gleiche Spezifitaet. */
+/* When closing, the popup travels the same path back to the right.
+   closeAddContact() sets the class and only hides the overlay after the
+   animationend event. Must come after .overlay, same specificity. */
 .overlay-closing {
   animation: overlayFadeOut 300ms ease-in;
 }
@@ -39,9 +39,9 @@
   animation: contactModalSlideOut 300ms ease-in;
 }
 
-/* Nutzer, die reduzierte Bewegung eingestellt haben, bekommen das Popup ohne
-   sichtbaren Flug. Die Animation darf hier nicht auf none stehen: ohne
-   animationend-Event wuerde closeAddContact() das Popup nie ausblenden. */
+/* Users who have reduced motion enabled get the popup without a visible
+   flying animation. It must not be set to none here though: without an
+   animationend event, closeAddContact() would never hide the popup. */
 
 
 .modal-close {
@@ -61,10 +61,10 @@
   flex-direction: column;
   justify-content: center;
   gap: 12px;
-  /* fest statt min-width, sonst wird die linke Spalte durch den
-     Untertitel breiter als geplant und der rechten Seite fehlt
-     der Platz fuer 422px breite Inputs. border-box, damit die
-     48px-Innenabstaende in den 340px enthalten sind. */
+  /* fixed instead of min-width, otherwise the subtitle makes the left
+     column wider than planned and the right side is left without room
+     for 422px-wide inputs. border-box so the 48px padding is included
+     in the 340px. */
   width: 467px;
   box-sizing: border-box;
   flex-shrink: 0;
@@ -93,8 +93,8 @@
 
 .contact-modal-right {
   flex: 1;
-  /* ohne min-width: 0 kann die rechte Haelfte nicht schrumpfen und wird
-     vom overflow: hidden des Popups rechts abgeschnitten */
+  /* without min-width: 0 the right half can't shrink and gets clipped
+     on the right by the popup's overflow: hidden */
   min-width: 0;
   padding: 48px;
   display: flex;
@@ -102,7 +102,7 @@
   gap: 72px;
 }
 
-/* Platzhalter-Avatar im "Add contact"-Popup (noch keine Initialen/Farbe). */
+/* Placeholder avatar in the "Add contact" popup (no initials/colour yet). */
 .avatar-placeholder {
   background-color: var(--color-border);
 }
@@ -115,19 +115,19 @@
 .modal-form {
   flex: 1;
   min-width: 0;
-  /* Figma: Inputs max. 422px breit, danach nicht weiter wachsen */
+  /* Figma: inputs max. 422px wide, don't grow further after that */
   max-width: 422px;
   display: flex;
   flex-direction: column;
-  /* Abstand zwischen den Feldern: reservierte Meldungszeile der
-     .input-field-Bloecke (6px + 20px) plus 6px Gap = 32px, damit beim
-     Einblenden einer Meldung nichts springt */
+  /* Gap between the fields: reserved message line of the .input-field
+     blocks (6px + 20px) plus a 6px gap = 32px, so nothing jumps when a
+     message appears */
   gap: 6px;
 }
 
-/* Eingabefelder im Popup tragen ihr Symbol rechts als Hintergrundbild */
+/* Input fields in the popup carry their icon on the right as a background image */
 .modal-form .input {
-  /* Figma: 422 x 50px max, schrumpft mit dem Formular auf kleineren Screens */
+  /* Figma: 422 x 50px max, shrinks with the form on smaller screens */
   max-width: 422px;
   height: 50px;
   padding-right: 48px;
@@ -169,7 +169,7 @@
   margin-left: 8px;
 }
 
-/* Zurueck-Pfeil und Kontakt-Menue gibt es nur in der mobilen Ansicht */
+/* The back arrow and contact menu only exist in the mobile view */
 .contacts-back,
 .detail-menu-btn {
   display: none;

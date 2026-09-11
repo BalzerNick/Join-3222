@@ -1,4 +1,4 @@
-/* Board: Modal-Rahmen + Task-Detailansicht (Lesemodus) */
+/* Board: modal frame + task detail view (read mode) */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -43,6 +43,7 @@ body.modal-open {
 }
 
 .modal-content {
+    position: relative;
     width: min(1116px, 95vw);
     max-height: 870px;
     height: 95vh;

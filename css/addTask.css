@@ -1,14 +1,15 @@
-/* Add-Task-Formular: Grundlayout, Felder, Prioritaet */
+/* Add-Task form: base layout, fields, priority */
 body {
     overflow-x: hidden;
 }
 
 main {
-    /* Unten nur so viel Platz, wie der fixierte Footer (~106px) plus etwas
-       Luft braucht - frueher 190px, die ~80px Totraum darunter haben die
-       Seite schon bei zwei, drei Subtasks ueber die Viewport-Hoehe gedrueckt
-       und einen Seiten-Scroll ausgeloest. Oben 64 statt 110, der 96px hohe
-       Sticky-Header liefert den Abstand zum Titel ohnehin mit. */
+    /* Only as much bottom space as the fixed footer (~106px) plus a bit of
+       breathing room needs - it used to be 190px, and the ~80px of dead
+       space below it already pushed the page past the viewport height with
+       just two or three subtasks, triggering a page scroll. 64 instead of
+       110 on top, since the 96px sticky header already provides the gap to
+       the title anyway. */
     padding: 64px 117px 128px;
     color: var(--color-primary);
     margin-left: 232px;
@@ -95,9 +96,10 @@ form {
 #addTaskForm .dropdown .input {
     position: relative;
     z-index: 6;
-    border-color: var(--color-primary);
+    border-color: color-mix(in srgb, var(--color-primary) 40%, var(--color-border));
     color: var(--color-primary);
-    transition: border-width var(--transition-fast) ease, border-color var(--transition-fast) ease, color var(--transition-fast) ease;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.18);
+    transition: border-width var(--transition-fast) ease, border-color var(--transition-fast) ease, color var(--transition-fast) ease, box-shadow var(--transition-fast) ease;
 }
 
 #addTaskForm .dropdown .input::placeholder {
@@ -113,24 +115,25 @@ form {
     border-width: 1px 1px 2px 2px;
 }
 
-/* Hover nur auf dem eigentlichen Input */
-#addTaskForm #assignedTo:hover,
-#addTaskForm #category:hover {
+/* Hover only on the actual input, but no longer once it's focused */
+#addTaskForm #assignedTo:hover:not(:focus),
+#addTaskForm #category:hover:not(:focus) {
     border-color: transparent;
-    box-shadow: inset 0 0 0 1px var(--color-border);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.18), inset 0 0 0 1px var(--color-border);
 }
 
-/* Fokus beim Klicken */
+/* Focus on click */
 #addTaskForm #assignedTo:focus,
 #addTaskForm #category:focus {
-    border-color: transparent;
-    box-shadow: inset 0 0 0 1px var(--color-border);
+    border-width: 0.75px;
+    border-color: rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.18);
 }
 
-#addTaskForm #subtask:hover,
-#addTaskForm #taskName:hover,
-#addTaskForm #taskDescription:hover,
-#addTaskForm #taskDeadline:hover {
+#addTaskForm #subtask:hover:not(:focus),
+#addTaskForm #taskName:hover:not(:focus),
+#addTaskForm #taskDescription:hover:not(:focus),
+#addTaskForm #taskDeadline:hover:not(:focus) {
     border-color: transparent;
 }
 
@@ -144,21 +147,22 @@ form {
     z-index: 7;
 }
 
-/* Eigener Stacking-Kontext: die Ebenen innerhalb des Dropdowns (Liste 5,
-   Input 6, Pfeil 7) bleiben untereinander gueltig, konkurrieren aber nicht
-   mehr mit dem Header. */
+/* Own stacking context: the layers inside the dropdown (list 5, input 6,
+   arrow 7) stay valid relative to each other, but no longer compete with
+   the header. */
 #addTaskForm .dropdown {
     isolation: isolate;
 }
 
-/* Offene Liste ueber die folgenden Felder, aber unter den Header (z-index 5). */
+/* Open list above the following fields, but below the header (z-index 5). */
 #addTaskForm .dropdown:has(.dropdown-list:not(.d-none)) {
     z-index: 4;
 }
 
 #addTaskForm .input:focus {
     outline: none;
-    border-color: var(--color-accent);
+    border-width: 0.75px;
+    border-color: rgba(0, 0, 0, 0.6);
 }
 
 #addTaskForm .input.input-error,
@@ -169,13 +173,13 @@ form {
     border-color: var(--color-error);
 }
 
-/* Die Meldungszeile ist fest reserviert, auch solange sie leer ist - genau
-   wie in .input-field (style.css). Ohne die Reservierung greift das globale
-   .field-error:empty { display: none } und das Formular waechst erst im
-   Fehlerfall, wodurch alles darunter springt. 20px = 16px Schrift * 1.25
-   Zeilenhoehe, also genau eine Zeile; die Meldungen muessen deshalb einzeilig
-   bleiben. Das folgende Label verliert seinen Abstand, weil die reservierte
-   Zeile den Platz schon mitbringt. */
+/* The message line is permanently reserved, even while empty - exactly like
+   in .input-field (style.css). Without the reservation, the global
+   .field-error:empty { display: none } kicks in and the form only grows
+   once an error appears, pushing everything below it down. 20px = 16px font
+   * 1.25 line height, i.e. exactly one line; the messages must therefore
+   stay single-line. The following label loses its margin because the
+   reserved line already brings the spacing. */
 #addTaskForm .field-error,
 #addTaskForm .field-error:empty {
     display: block;

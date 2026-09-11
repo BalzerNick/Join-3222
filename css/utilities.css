@@ -1,4 +1,4 @@
-/* Gemeinsame Utility-Klassen, um identischen CSS-Code nicht mehrfach in den einzelnen Dateien zu pflegen */
+/* Shared utility classes, so identical CSS doesn't need to be maintained in every individual file */
 
 .pos-relative {
   position: relative;

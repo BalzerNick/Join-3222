@@ -69,9 +69,10 @@ an die `baseUrl` anhaengt.
 
 ### 3. Starten
 
-Das Projekt ueber einen lokalen Server oeffnen (z.B. Live Server in VS Code),
-nicht per Doppelklick: `fetch` auf die Vorlagen in `assets/templates/`
-funktioniert unter `file://` nicht.
+Das Projekt kann direkt per Doppelklick geoeffnet werden oder ueber einen
+lokalen Server (z.B. Live Server in VS Code) - beides funktioniert, da alle
+Templates als JS-Funktionen vorliegen und nichts mehr per `fetch` von
+`file://` geladen werden muss.
 
 Die Datenbank ist am Anfang leer, Startdaten muessen nicht importiert werden.
 Firebase legt die drei Bereiche `tasks`, `contacts` und `users` selbst an,
@@ -126,19 +127,16 @@ eingeloggt oder fehlt der Kreis, passiert nichts (Null-Schutz, kein Fehler).
 
 Dynamische Inhalte (z.B. die Kontaktkarten) werden nicht statisch ins HTML
 geschrieben, sondern zur Laufzeit aus den Daten erzeugt. Das wiederkehrende
-Karten-HTML liegt getrennt in `assets/templates/` (reines HTML, kein Script) –
-die Logik holt es und fuellt es. So bleibt die Regel "kein Template in Scripten,
-kein Scriptcode in Templates" eingehalten.
+Karten-HTML liegt als Funktionen in `scripts/templates/` (je Bereich eine
+Datei, z.B. `contactsTemplates.js`, `boardTemplates.js`) – jede Funktion
+bekommt ihre Daten als Parameter und gibt einen Template-String zurueck.
 
 Muster (Beispiel Contacts):
 
 1. Daten laden: `fetch(baseUrl + "contacts.json")`.
-2. Vorlage laden: `fetch("assets/templates/contactsTemplate.html")` als Text.
-3. Platzhalter fuellen: `{{name}}`, `{{email}}` usw. per `replaceAll` ersetzen.
-4. In den Container schreiben: das gefuellte HTML in `#contactList` einfuegen.
-
-Hinweis: `fetch` auf lokale Vorlagen funktioniert nur ueber einen Server
-(z.B. Live Server), nicht per Doppelklick (`file://`).
+2. Vorlage fuellen: `getContactCardTemplate(contact)` aus
+   `scripts/templates/contactsTemplates.js` liefert das fertige HTML.
+3. In den Container schreiben: das erzeugte HTML in `#contactList` einfuegen.
 
 ## Toast-Benachrichtigung (seitenuebergreifend)
 
@@ -282,5 +280,5 @@ will, muesste beim Speichern eines Kontakts auch die Tasks mitziehen.
 
 Aus einer aelteren Fassung kann `assignedTo` auch nur die Kontakt-ID als
 String enthalten (`["contact1"]`). `getBoardContact()` in
-`assets/templates/boardTaskTemplates.js` faengt beide Formen ab und schlaegt
+`scripts/templates/boardTaskTemplates.js` faengt beide Formen ab und schlaegt
 den String-Fall ueber `contacts` nach.
