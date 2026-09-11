@@ -174,13 +174,3 @@
 .detail-menu-btn {
   display: none;
 }
-
-/* ============================================================
-   Responsive Stufe 1: ab 1100px passen Liste und Detail nicht mehr
-   nebeneinander (Name/E-Mail brechen um, "Contacts" laeuft aus der
-   Spalte). Darum ab hier eine Spalte: die Liste fuellt den Platz,
-   ein Klick auf einen Kontakt schaltet auf die Detailansicht um,
-   der Pfeil oben rechts zurueck. Die Sidebar bleibt noch links.
-   ============================================================ */
-
-
