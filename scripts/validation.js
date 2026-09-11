@@ -1,15 +1,15 @@
 /* ============================================================
-   validation.js - Gemeinsame Formularpruefung fuer Login,
-   Sign-up und die Kontakt-Popups.
+   validation.js - Shared form validation for login, sign-up
+   and the contact popups.
 
-   Ein Formular beschreibt seine Felder als Liste von Regeln:
+   A form describes its fields as a list of rules:
 
      [{ id: 'newContactName', validate: validateName }, ...]
 
-   bindFormValidation() haengt daran die Pruefung beim Verlassen
-   des Feldes, checkForm() prueft vor dem Speichern alles auf
-   einmal. Jedes Feld braucht im HTML eine eigene Meldung mit der
-   id "<feld-id>Error".
+   bindFormValidation() attaches the check to leaving the field,
+   checkForm() checks everything at once before saving. Each
+   field needs its own message element in the HTML with the
+   id "<field-id>Error".
    ============================================================ */
 
 /**

@@ -112,7 +112,7 @@ async function saveTaskEdits(event) {
         const originalIndex = todos.findIndex(item => item.id === task.id);
         if (originalIndex !== -1) todos[originalIndex] = previousTask;
         updateHTML();
-        alert('Speichern fehlgeschlagen. Bitte versuche es erneut.');
+        alert('Failed to save. Please try again.');
     }
 }
 
@@ -132,7 +132,7 @@ async function deleteTask(taskId) {
         console.error('Failed to delete task', error);
         todos = previousTodos;
         updateHTML();
-        alert('Löschen fehlgeschlagen. Bitte versuche es erneut.');
+        alert('Failed to delete. Please try again.');
     }
 }
 

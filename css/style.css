@@ -152,7 +152,7 @@ input[type="checkbox"].input-error {
 .help-heading-blue-line {
   display: flex;
   align-items: center;
-  margin-bottom: 56px;
+  margin-bottom: 24px;
 }
 
 .blue-line {

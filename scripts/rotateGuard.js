@@ -1,13 +1,13 @@
 /* ============================================================
-   rotateGuard.js - Landscape-Sperre fuer mobile Geraete
+   rotateGuard.js - Landscape lock for mobile devices
 
-   Haengt einmalig einen Hinweis-Layer an das Ende des Body. Ob
-   der Layer zu sehen ist, entscheidet allein die Media Query zu
-   .rotate-hint in style.css. Dadurch reagiert er sofort auf das
-   Drehen des Geraets, ohne dass hier ein Listener noetig waere.
+   Appends a hint layer to the end of the body once. Whether the
+   layer is visible is decided solely by the media query for
+   .rotate-hint in style.css. That way it reacts instantly to the
+   device being rotated, with no listener needed here.
 
-   Die Datei wird auf jeder Seite direkt hinter spaceGuard.js
-   eingebunden und braucht sonst nichts.
+   This file is included on every page right after spaceGuard.js
+   and needs nothing else.
    ============================================================ */
 
 /**

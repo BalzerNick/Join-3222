@@ -1,5 +1,4 @@
 @media (prefers-reduced-motion: reduce) {
-
   .overlay,
   .contact-modal,
   .overlay-closing,
@@ -197,12 +196,16 @@
   }
 
   .add-contact-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 0;
   }
 
   .add-contact-btn .btn-icon {
     width: 26px;
     height: 26px;
+    transform: translateX(-5px);
   }
 
   .detail-menu-btn {
