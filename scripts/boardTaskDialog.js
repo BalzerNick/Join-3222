@@ -1,7 +1,7 @@
 /**
  * Clears everything the Add-Task form keeps in global state, so a freshly
  * opened dialog never shows leftovers from the last one. Each reset is
- * guarded, because tasks.js is not loaded on every page.
+ * guarded, because addTask.js/subtask.js are not loaded on every page.
  *
  * @returns {void}
  */

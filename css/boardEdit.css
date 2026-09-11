@@ -1,0 +1,342 @@
+/* Board: Task-Bearbeiten-Formular + Move-Menu */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 232px;
+    height: 100vh;
+    background-color: #2A3647;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* ===== Task Edit Form ===== */
+
+.task-edit-form .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.edit-form-label {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--color-text);
+}
+
+.edit-priority-label {
+    font-size: 19px;
+    font-weight: 700;
+    color: #2A3647;
+}
+
+.edit-date-wrapper input[type="date"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.edit-priority-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.edit-priority-buttons .btn-task {
+    flex: 1;
+}
+
+/* Contact dropdown in edit form */
+.edit-contact-dropdown {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.edit-contact-input-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border: 1px solid #D1D1D1;
+    border-radius: 16px;
+    background: #FFFFFF;
+    cursor: pointer;
+    user-select: none;
+}
+
+.edit-dropdown-arrow {
+    color: #334155;
+    font-size: 13px;
+}
+
+.edit-contact-list {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    z-index: 100;
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.edit-contact-li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: background 120ms ease;
+    border-radius: 8px;
+    margin: 0 4px;
+}
+
+.edit-contact-li:hover {
+    background: #f1f5f9;
+}
+
+.edit-contact-li.selected {
+    background: #2a3647;
+    color: #ffffff;
+}
+
+.edit-contact-li .contact-checkbox {
+    margin-left: auto;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.edit-contact-li .avatar-sm {
+    margin: 0;
+}
+
+.edit-contact-name {
+    flex: 1;
+    font-size: 15px;
+}
+
+.edit-assigned-avatars {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+.edit-assigned-avatars .avatar-sm,
+.edit-assigned-avatar {
+    margin: 0;
+}
+
+/* Subtask entry row */
+.edit-subtask-entry {
+    display: flex;
+    align-items: center;
+    border: 1px solid #D1D1D1;
+    border-radius: 16px;
+    background: #FFFFFF;
+    overflow: hidden;
+}
+
+.edit-subtask-entry .task-edit-input {
+    flex: 1;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    padding: 12px 16px;
+}
+
+.edit-subtask-entry .task-edit-input:focus {
+    outline: none;
+}
+
+.edit-subtask-add-btn {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #334155;
+    background: transparent;
+    border: none;
+    border-left: 1px solid #cbd5e1;
+    cursor: pointer;
+    transition: background 120ms ease, color 120ms ease;
+}
+
+.edit-subtask-add-btn:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+/* Subtask bullet list */
+.edit-subtask-list-ul {
+    list-style: disc;
+    padding-left: 0px;
+    margin: 8px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.edit-subtask-li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 8px 4px 0;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #000000;
+}
+
+.edit-subtask-li:hover {
+    background: #f1f5f9;
+}
+
+.edit-subtask-li::before {
+    content: "•";
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.edit-subtask-title {
+    flex: 1;
+    margin-right: 9px;
+}
+
+.edit-subtask-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    opacity: 0;
+    transition: opacity 120ms ease;
+}
+
+.edit-subtask-li:hover .edit-subtask-actions {
+    opacity: 1;
+}
+
+.edit-subtask-actions .subtask-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.subtask-divider {
+    color: #cbd5e1;
+    font-size: 12px;
+}
+
+/* Ok button */
+.edit-form-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 8px;
+}
+
+.btn-ok-edit {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    background-color: #2a3647;
+    color: #ffffff;
+    border-radius: 12px;
+    font-size: 21px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 150ms ease, box-shadow 150ms ease;
+    border: none;
+}
+
+.btn-ok-edit:hover {
+    background-color: #29abe2;
+    box-shadow: 0 4px 12px rgba(41, 171, 226, 0.3);
+}
+
+.move-menu {
+    position: absolute;
+    top: 45px;
+    right: 10px;
+    display: none;
+    flex-direction: column;
+    width: 150px;
+    padding: 12px;
+    background-color: #2a3647;
+    border-radius: 16px;
+    z-index: 100;
+    color: white;
+    gap: 10px;
+}
+
+.move-menu.active {
+    display: flex;
+}
+
+.move-task-btn {
+    display: none;
+    opacity: 1;
+    border-radius: 6px;
+    border-width: 1.5px;
+    padding-top: 2px;
+    padding-right: 3px;
+    padding-bottom: 2px;
+    padding-left: 3px;
+    gap: 4px;
+    border: 1.5px solid #2A3647;
+}
+
+.move-task-btn:hover {
+    background-color: #f1f5f9;
+}
+
+.move-menu span {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.move-menu button {
+    border-radius: 10px;
+    padding: 3px;
+}
+
+.move-menu button:hover {
+    background-color: var(--color-accent);
+}
+
+.avatar-more {
+    background-color: var(--color-border);
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+.task-title,
+.task-description,
+.detail-title,
+.task-detail-description,
+.edit-subtask-title {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+
+
+
+
+
+
+
+

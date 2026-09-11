@@ -27,7 +27,7 @@ function getTaskEditTemplate(data) {
  */
 function getTaskEditHeaderTemplate() {
     return `
-        <div class="task-detail-top">
+        <div class="task-detail-top flex-between">
             <div></div>
             <button class="modal-close task-detail-close" onclick="closeTaskDetail()">&times;</button>
         </div>`;
@@ -176,7 +176,7 @@ function getTaskEditSubtasksTemplate() {
 function getTaskEditFooterTemplate() {
     return `
         <div class="edit-form-footer">
-            <button type="submit" class="btn-ok-edit">Ok <img src="assets/icons/check.svg" alt="ok"></button>
+            <button type="submit" class="btn-ok-edit">Ok <img src="assets/icons/check.svg" alt="ok" class="icon-20"></button>
         </div>`;
 }
 

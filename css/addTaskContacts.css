@@ -1,0 +1,228 @@
+/* Add-Task: Dropdown, Kontakt-Liste, Buttons, zugewiesene Avatare */
+.submit-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 977px;
+}
+
+.required-hint-subtask {
+    display: none;
+}
+
+#add-task-modal .submit-form {
+    position: sticky;
+    bottom: 0;
+    margin-top: 24px;
+    padding-top: 16px;
+    background-color: #ffffff;
+}
+
+.dropdown,
+.add-subtask {
+    width: 100%;
+    max-width: 440px;
+    position: relative;
+}
+
+input {
+    width: 100%;
+    padding: 12px 40px 12px 12px;
+    box-sizing: border-box;
+}
+
+.input-img {
+    position: absolute;
+    right: 15px;
+}
+
+.arrow {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    object-fit: contain;
+    transition: background-color var(--transition-fast);
+}
+
+.arrow:hover {
+    background-color: rgba(41, 171, 226, 0.15);
+}
+
+.pointer,
+.dropdown-list li,
+.contact-checkbox {
+    cursor: pointer;
+}
+
+.dropdown-list {
+    position: absolute;
+    top: calc(100% - 11px);
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    padding-top: 16px;
+    margin: 0;
+    list-style: none;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-top: none;
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 5;
+    max-height: 300px;
+    font-size: var(--fs-md);
+}
+
+.dropdown-scroll {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.dropdown-list.show {
+    display: block;
+}
+
+.contact-li {
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 10px;
+    color: var(--color-primary);
+}
+
+.contact-li:hover {
+    background-color: var(--color-bg);
+}
+
+.contact-li:has(.contact-checkbox:checked) {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+.category-label {
+    padding-left: 10px;
+}
+
+.contact-name {
+    flex: 1;
+    min-width: 0;
+    margin-left: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.contact-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    margin: 0;
+    padding: 0;
+    width: 16px;
+    height: 16px;
+    box-sizing: border-box;
+    border: 2px solid #000000;
+    border-radius: 4px;
+    position: relative;
+    flex-shrink: 0;
+    transition: box-shadow var(--transition-fast) ease;
+}
+
+.contact-checkbox:hover {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.contact-checkbox:checked {
+    background-color: var(--color-primary);
+    border-color: #ffffff;
+}
+
+.contact-checkbox:checked::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 7px;
+    height: 11px;
+    background-color: var(--color-primary);
+}
+
+.contact-checkbox:checked::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: -5px;
+    width: 6px;
+    height: 12px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.subtask-icon {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+
+.button-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 309px;
+    gap: 16px;
+}
+
+.btn-task {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 20px;
+    padding: 16px;
+}
+
+.btn-task:hover {
+    box-shadow:
+        0 0 0 1px var(--btn-secondary-border),
+        1px 3px 3px rgba(0, 0, 0, 0.18);
+}
+
+.btn-img,
+.medium {
+    height: 14px;
+    width: 14px;
+    margin-left: 8px;
+}
+
+.assigned-contacts {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+}
+
+.assigned-contacts .avatar-sm {
+    margin: 0;
+    border: 2px solid #ffffff;
+}
+
+.assigned-contacts .avatar-sm+.avatar-sm {
+    margin-left: -10px;
+}
+
+.assigned-contacts .avatar-more {
+    background-color: var(--color-border);
+    color: var(--color-primary);
+    font-weight: 700;
+}
+

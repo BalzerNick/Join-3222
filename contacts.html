@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacts | Join</title>
     <link rel="icon" type="image/svg+xml" href="assets/icons/Favicon.svg">
+    <link rel="stylesheet" href="css/utilities.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styleMobile.css">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/contacts.css">
+    <link rel="stylesheet" href="css/contactsModal.css">
+    <link rel="stylesheet" href="css/contactsMobile.css">
 </head>
 <body onclick="closeUserMenu(event); closeContactMenu(event)">
     <header>
@@ -44,7 +48,7 @@
         <div class="contacts-list-col">
             <button class="btn btn-primary add-contact-btn" type="button" onclick="openAddContact()">
                 Add new contact
-                <img src="assets/icons/person_add.svg" alt="" class="btn-icon">
+                <img src="assets/icons/person_add.svg" alt="" class="btn-icon icon-20">
             </button>
             <div id="contactList"></div>
         </div>

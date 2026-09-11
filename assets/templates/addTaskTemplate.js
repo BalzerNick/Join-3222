@@ -59,8 +59,7 @@ function getSubtask(key, subtask){
 }
 
 /**
- * Builds a subtask row in edit state, as an input field that also confirms
- * on the Enter key.
+ * Builds a subtask row in edit state, as an input field that confirms on Enter.
  *
  * @param {string} key - Key of the subtask, e.g. 'sub1'.
  * @param {string} subtask - The current subtask title.
@@ -134,7 +133,7 @@ function getAddTaskPage() {
 
                     <label for="assignedTo">Assigned to</label>
                     <div class="dropdown" onclick="noEvent(event)">
-                        <div class="input-wrapper">
+                        <div class="input-wrapper pos-relative">
                             <input class="input pointer" id="assignedTo" type="text"
                                 placeholder="Select contacts to assign" autocomplete="off" oninput="searchList()"
                                 onclick="toggleDropdown(\`contactList\`, \`contactArrow\`)">
@@ -156,7 +155,7 @@ function getAddTaskPage() {
 
                     <label for="category">Category<span class="required">*</span></label>
                     <div class="dropdown" onclick="noEvent(event)">
-                        <div class="input-wrapper">
+                        <div class="input-wrapper pos-relative">
                             <input class="input pointer" id="category" type="text" placeholder="Select task category"
                                 autocomplete="off" oninput="searchList()"
                                 onclick="toggleDropdown(\`categoryList\`, \`categoryArrow\`)" required>
@@ -183,7 +182,7 @@ function getAddTaskPage() {
 
                     <label for="subtask">Subtasks</label>
                     <div class="add-subtask">
-                        <div class="input-wrapper">
+                        <div class="input-wrapper pos-relative">
                             <input class="input" id="subtask" type="text" placeholder="Add new subtask" autocomplete="off" oninput="showButtons()"
                                 onkeydown="if(event.key === 'Enter'){ event.preventDefault(); safeSubtask(); }">
                             <div class="subtask-buttons input-img d-none" id="subtaskButtons">
@@ -193,8 +192,13 @@ function getAddTaskPage() {
                             </div>
 
                         </div>
-                        <div class="subtask-area" id="subtaskArea">
+                        <div class="subtask-area-wrapper">
+                            <div class="subtask-area" id="subtaskArea">
 
+                            </div>
+                            <div class="subtask-scrollbar d-none" id="subtaskScrollbar">
+                                <div class="subtask-scrollbar-thumb" id="subtaskScrollbarThumb"></div>
+                            </div>
                         </div>
                     </div>
 

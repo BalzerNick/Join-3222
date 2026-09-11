@@ -13,7 +13,7 @@
 
    cleanSpaces() und allowsInnerSpaces() sind die oeffentliche
    Schnittstelle der Datei und werden von validation.js und
-   tasks.js beim Speichern mitbenutzt.
+   addTask.js beim Speichern mitbenutzt.
    ============================================================ */
 
 /**

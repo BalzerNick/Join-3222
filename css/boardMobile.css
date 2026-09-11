@@ -1,0 +1,251 @@
+@media (max-width: 420px) {
+    .task-footer {
+        bottom: 14px;
+    }
+
+    .footer-right {
+        padding-left: 0;
+    }
+
+    .subtask-progress {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 1400px) {
+    .drag-container {
+        display: flex;
+        flex-direction: column;
+        gap: 26px;
+    }
+
+    .board-mask {
+        padding-right: 10px;
+        padding-left: 47px;
+    }
+
+    .column {
+        width: 100%;
+        min-width: 0;
+        flex: 1 1 auto;
+    }
+
+    .drag-area {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 16px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        min-height: 200px;
+        padding: 24px 24px 24px 24px;
+        overscroll-behavior-x: contain;
+        scrollbar-width: thin;
+        scrollbar-color: #888 #f1f1f1;
+    }
+
+    .drag-area::-webkit-scrollbar {
+        display: block;
+        height: 8px;
+    }
+
+    .drag-area::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 6px;
+    }
+
+    .drag-area::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 6px;
+    }
+
+    /* 292px ist die gewachsene Kartenbreite (252 Inhalt + 2x20 Innenabstand),
+       ab etwa 390px Fensterbreite bleibt sie genau so. Auf schmalen Handys
+       schrumpft die Karte stattdessen auf die Spaltenbreite: 100% ist die
+       Content-Breite der .drag-area (ohne deren 24px rechts), minus 16px Gap
+       laesst 24px der naechsten Karte hereinschauen. Prozent statt 100vw,
+       damit eine Fenster-Scrollbar die Rechnung nicht verschiebt;
+       border-box, sonst kommen die Innenabstaende oben drauf. */
+    .todo {
+        box-sizing: border-box;
+        flex: 0 0 min(292px, calc(100% - 16px));
+        width: min(292px, calc(100% - 16px));
+        min-width: 0;
+        max-width: none;
+    }
+}
+
+@media (max-width: 1070px) {
+
+    .page-header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+            "title button"
+            "search search";
+        gap: 20px 10px;
+    }
+
+    .page-header>div:first-child {
+        grid-area: title;
+    }
+
+    .page-actions {
+        display: contents;
+    }
+
+    .search-input {
+        grid-area: search;
+        width: 100%;
+    }
+
+    .add-task-button {
+        grid-area: button;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        font-size: 0;
+        line-height: 40px;
+    }
+
+    .add-task-button::after {
+        content: "+";
+    }
+}
+
+@media (max-width: 950px) {
+    .drag-area {
+        min-height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .board-mask {
+        padding-left: 24px;
+        padding-right: 24px;
+        padding-bottom: 100px;
+        padding-top: 48px;
+    }
+
+    .board-title {
+        font-size: 47px;
+        margin: unset;
+    }
+
+    .move-task-btn {
+        display: flex;
+    }
+
+    #task-detail-modal {
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    #task-detail-modal .modal-content {
+        width: 100%;
+    }
+
+    .task-detail-card {
+        width: 100%;
+    }
+
+    .modal-body {
+        padding: 0;
+    }
+
+    main {
+        margin-left: 0 !important;
+    }
+
+    .column-title {
+        font-size: 27px;
+    }
+
+    .mobile-font-size-16 {
+        font-size: 16px;
+    }
+
+    .detail-category-badge {
+        font-size: 16px;
+    }
+
+    .detail-title {
+        font-size: 36px;
+    }
+
+    .task-detail-description {
+        font-size: 16px;
+        color: #000000;
+    }
+
+      .detail-label {
+    font-size: 16px;
+    font-weight: 700;
+    color: #42526E;
+  }
+
+  .detail-value {
+    font-size: 16px;
+    color: #000000;
+  }
+
+  .priority-detail-text {
+    font-size: 16px;
+  }
+
+  .detail-section h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #42526E;
+  }
+
+  .edit-form-label {
+    font-size: 16px;;
+  }
+    
+  .edit-priority-label {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+.task-detail-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 40px 24px;
+    box-sizing: border-box;
+}
+
+.edit-priority-buttons {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+}
+
+.edit-priority-buttons .btn-task {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 12px 4px;
+    font-size: 14px;
+}
+}
+
+@media (max-width: 480px) {
+    #task-detail-modal {
+        padding: 0 10px;
+    }
+
+    .task-detail-card {
+        padding: 32px 20px;
+        border-radius: 24px;
+    }
+
+    .edit-priority-buttons {
+        gap: 6px;
+    }
+
+    .edit-priority-buttons .btn-task {
+        padding: 10px 4px;
+        font-size: 14px;
+    }
+}

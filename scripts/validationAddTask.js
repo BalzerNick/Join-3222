@@ -1,7 +1,5 @@
 /**
- * All required fields of the Add-Task form, each with the rule that validates
- * it. Uses the shared validation infrastructure from validation.js (see
- * signUp.js for the same pattern).
+ * Required fields of the Add-Task form, each with its validation rule.
  *
  * @type {Array<{id: string, validate: function}>}
  */
@@ -55,11 +53,8 @@ function validateCategory(value) {
 }
 
 /**
- * Sets the Add-Task form up: hooks up live validation and stops the due date
- * picker from offering past dates. Does nothing if the form isn't in the DOM
- * yet, which is the case on the board page until its Add-Task dialog is
- * opened - there, openAddTaskDialog() calls this again once the form has
- * been injected.
+ * Sets up the Add-Task form: live validation and blocking past due dates.
+ * No-op if the form isn't in the DOM yet (board page before the dialog opens).
  *
  * @returns {void}
  */
@@ -67,6 +62,8 @@ function initAddTaskForm() {
   if (!document.getElementById('addTaskForm')) return;
   bindFormValidation(addTaskFields);
   document.getElementById('taskDeadline').min = getTodayIsoDate();
+  document.getElementById('subtaskArea')?.addEventListener('scroll', updateSubtaskScrollbar);
+  updateSubtaskScrollbar();
 }
 
 document.addEventListener('DOMContentLoaded', initAddTaskForm);

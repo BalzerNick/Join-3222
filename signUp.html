@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign up | Join</title>
     <link rel="icon" type="image/svg+xml" href="assets/icons/Favicon.svg">
+    <link rel="stylesheet" href="css/utilities.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styleMobile.css">
     <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/loginMobile.css">
     <!-- merkt sich beim Klick auf die Rechtstexte, dass es von hier aus war -->
     <script src="scripts/authNav.js"></script>
 </head>
@@ -15,7 +18,7 @@
     <div class="page-frame">
     <a href="index.html"><img src="assets/imgs/logoMain.png" alt="Join Logo" class="login-logo-normal"></a>
 
-    <main class="login-main login-main-signup">
+    <main class="login-main login-main-signup pos-relative">
         <form class="signup-form" novalidate onsubmit="registerUser(); return false;">
             <div class="signup-head">
                 <a href="index.html" class="signup-back">
@@ -25,7 +28,7 @@
             </div>
 
             <div class="input-field">
-                <div class="input-wrapper">
+                <div class="input-wrapper pos-relative">
                     <input class="input" type="text" id="signupName" maxlength="50" placeholder="Name" autocomplete="name">
                     <img src="assets/icons/person.png" alt="" class="input-icon">
                 </div>
@@ -33,7 +36,7 @@
             </div>
 
             <div class="input-field">
-                <div class="input-wrapper">
+                <div class="input-wrapper pos-relative">
                     <input class="input" type="email" id="signupEmail" placeholder="Email" autocomplete="email">
                     <img src="assets/icons/email.png" alt="" class="input-icon">
                 </div>
@@ -41,7 +44,7 @@
             </div>
 
             <div class="input-field">
-                <div class="input-wrapper">
+                <div class="input-wrapper pos-relative">
                     <input class="input" type="password" id="signupPassword" placeholder="Password" autocomplete="new-password">
                     <button type="button" class="input-icon-btn" id="signupPasswordToggle" aria-label="Show password"
                             onclick="togglePassword('signupPassword')" disabled>
@@ -52,7 +55,7 @@
             </div>
 
             <div class="input-field">
-                <div class="input-wrapper">
+                <div class="input-wrapper pos-relative">
                     <input class="input" type="password" id="signupConfirm" placeholder="Confirm Password" autocomplete="new-password">
                     <button type="button" class="input-icon-btn" id="signupConfirmToggle" aria-label="Show password"
                             onclick="togglePassword('signupConfirm')" disabled>

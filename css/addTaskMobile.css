@@ -74,6 +74,34 @@
         font-size: var(--fs-base);
     }
 
+    .dropdown-list {
+        font-size: var(--fs-base);
+    }
+
+    /* overscroll-behavior: contain (addTask.css) traps a touch drag inside
+       this box on iOS/Android once its own content doesn't actually
+       overflow (max-height: 112px fits only 2-3 subtasks) - the gesture
+       never chains up to scroll the page, so the page can get stuck
+       un-scrollable after touching a subtask. Not needed on mobile since
+       there's no mouse wheel to accidentally scroll-chain into the page. */
+    .subtask-area {
+        overscroll-behavior: auto;
+        padding-right: 10px;
+        /* The custom .subtask-scrollbar below replaces this one on mobile -
+           some mobile browsers (e.g. Android Chrome) do honor the
+           ::-webkit-scrollbar styling from addTask.css, which drew both at
+           once. */
+        scrollbar-width: none;
+    }
+
+    .subtask-area::-webkit-scrollbar {
+        display: none;
+    }
+
+    .subtask-scrollbar {
+        display: block;
+    }
+
     #addTaskFooter {
         left: 0;
         bottom: 80px;

@@ -1,11 +1,3 @@
-/* ============================================================
-   style.css - Globale Basis, wird auf JEDER Seite verlinkt.
-   Enthaelt Reset, Farb-Variablen und die wiederverwendbaren
-   Klassen fuer Buttons (.btn), Eingabefelder (.input),
-   Footer und Navigation.
-   ============================================================ */
-
-/* Schrift "Inter" lokal aus assets/fonts (Variable Font = alle Gewichte in einer Datei) */
 @font-face {
   font-family: 'Inter';
   src: url('../assets/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
@@ -13,7 +5,6 @@
   font-style: normal;
 }
 
-/* Farben zentral. TODO: mit euren Figma-Werten abgleichen. */
 :root {
   --color-primary: #2a3647;   /* dunkles Blau */
   --transition-fast: 100ms;
@@ -23,10 +14,6 @@
   --color-text: #2a3647;
   --color-error: #ff8190;
   --radius: 10px;
-
-  /* Schriftgroessen-Skala, gegen Figma gemessen (auf gerade px gerundet).
-     xxl = Haupttitel, xl = grosse Namen/Begruessung, lg = Subtitle,
-     md = Abschnitts-Label, base = Fliesstext, sm = Sekundaertext. */
   --fs-xxl: 60px;
   --fs-xl: 48px;
   --fs-lg: 28px;
@@ -35,9 +22,6 @@
   --fs-sm: 14px;
 }
 
-/* Scrollbars ueberall unsichtbar machen, Scrollen bleibt aber funktional
-   (gilt fuer die ganze Seite und jeden scrollbaren Container darin, z.B.
-   Dropdown-Listen oder Board-Spalten) */
 * {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Edge Legacy/IE */
@@ -58,11 +42,7 @@ h3 {
   font-size: 20px;
 }
 
-@media (min-width: 768px) {
-  .watchable {
-    display: none;
-  }
-}
+
 
 .input {
   border: unset;
@@ -80,12 +60,6 @@ h3 {
   box-shadow: 0 0 0 1px var(--color-accent);
 }
 
-/* Icon im Eingabefeld: Wrapper wird zum Bezugsrahmen, Icon liegt absolut
-   ueber dem rechten Rand des Inputs. */
-.input-wrapper {
-  position: relative;
-}
-
 .input-wrapper .input {
   padding-right: 48px;
 }
@@ -99,12 +73,6 @@ h3 {
   pointer-events: none;
 }
 
-/* ============================================================
-   Feld-Validierung - seitenuebergreifend gleich (Login, Sign-up,
-   Kontakt-Popups). Eingabefeld und die dazugehoerige Meldung
-   bilden einen Block, damit der Abstand zwischen den Feldern
-   gleich bleibt und die Meldung direkt am Feld klebt.
-   ============================================================ */
 .input-field {
   display: flex;
   flex-direction: column;
@@ -118,16 +86,10 @@ h3 {
   padding-left: 4px;
 }
 
-/* Ohne Text kein Platzbedarf - das Formular waechst erst im Fehlerfall */
 .field-error:empty {
   display: none;
 }
 
-/* In .input-field-Bloecken ist die Meldungszeile fest reserviert, damit
-   beim Ein- und Ausblenden nichts springt (keine Layout-Verschiebung).
-   6px Gap + 20px Zeile + 6px Formular-Gap = 32px zwischen den Inputs -
-   etwas luftiger als die 24px im Figma-Grundzustand (Frame 160), dafuer
-   hat die Meldung wie im Figma-Fehlerzustand Luft nach oben und unten. */
 .input-field .field-error,
 .input-field .field-error:empty {
   display: block;
@@ -139,7 +101,6 @@ h3 {
   text-align: center;
 }
 
-/* Ungueltiges Feld bleibt auch im Fokus rot */
 .input.input-error,
 .input.input-error:focus {
   box-shadow: 0 0 0 1px var(--color-error);
@@ -150,11 +111,6 @@ input[type="checkbox"].input-error {
   outline-offset: 2px;
 }
 
-/* ============================================================
-   Passwortfeld: Schloss, solange das Feld leer ist, danach das
-   Auge zum Ein- und Ausblenden. Als Button statt Bild, damit es
-   klickbar und per Tastatur erreichbar ist.
-   ============================================================ */
 .input-icon-btn {
   position: absolute;
   right: 12px;
@@ -185,9 +141,6 @@ input[type="checkbox"].input-error {
   width: 20px;
 }
 
-/*Marcus 24.07.2026*/
-/* Breite kommt vom Container .page-legal (1016px Inhaltsspalte),
-   daher hier keine eigene max-width mehr. */
 .help-heading {
   display: flex;
   justify-content: space-between;
@@ -196,14 +149,11 @@ input[type="checkbox"].input-error {
   width: 100%;
 }
 
-
 .help-heading-blue-line {
   display: flex;
   align-items: center;
   margin-bottom: 56px;
-  }
-
-/*Marcus 24.07.2026*/
+}
 
 .blue-line {
   width: 3px;
@@ -212,16 +162,12 @@ input[type="checkbox"].input-error {
   background-color: #29abe2;
 }
 
-/* Sitzt ohne eigene Margins buendig am rechten Content-Rand:
-   .help-heading (space-between) spannt die 1016px aus .page-legal auf,
-   wie die Headline-Zeile im Figma-Frame "Help". */
 .back-arrow {
   height: 21px;
   width: 22px;
   cursor: pointer;
 }
 
-/* Footer mit Rechts-Links, seitenuebergreifend */
 .footer {
   display: flex;
   justify-content: center;
@@ -230,14 +176,12 @@ input[type="checkbox"].input-error {
 }
 
 .footer-link {
-  /* color: var(--color-primary); */
   color: #FFFFFF;
   text-decoration: none;
   font-size: var(--fs-base);
 }
 
 .footer-link-index {
-  /* color: var(--color-primary); */
   color: #686868;
   text-decoration: none;
   font-size: var(--fs-base);
@@ -251,22 +195,8 @@ input[type="checkbox"].input-error {
   color: color-mix(in srgb, var(--btn-secondary-text, var(--color-primary)) 60%, var(--color-accent) 40%);
 }
 
-
 .back-arrow:hover {
   scale: 1.2;
-}
-
-/* ============================================================
-   Zurueck-Pfeil auf Privacy Policy und Legal Notice. Laut Figma
-   nur in der Mobilansicht, rechts auf Hoehe der Ueberschrift.
-   .help-heading/.back-arrow passen dafuer nicht, die tragen
-   Desktop-Margins von bis zu 215px.
-   ============================================================ */
-.page-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
 }
 
 .page-back-arrow {
@@ -281,22 +211,16 @@ input[type="checkbox"].input-error {
   scale: 1.2;
 }
 
-@media (max-width: 768px) {
-  .page-back-arrow {
-    display: block;
-  }
-}
+
 
 .page-back-arrow-legalnotice {
-  display: block;
+  display: none;
   flex-shrink: 0;
   width: 22px;
   height: 21px;
   cursor: pointer;
 }
 
-/* Inhaltsbreite fuer grosse Monitore (Summary, Board, Contacts).
-   Content linksbuendig auf max. 1440px begrenzen (laut Checkliste). */
 .content {
   max-width: 1440px;
   margin: 0;
@@ -307,23 +231,12 @@ li {
   margin-left: 20px
 }
 
-/* Gemeinsamer Textseiten-Container fuer Help, Privacy Policy und
-   Legal Notice. Laut Figma: Sidebar (ContentLeft) 232px, rechts davon
-   1208px Content-Bereich mit 96px Seitenrand, dadurch 1016px
-   Inhaltsbreite; 71px Abstand zwischen Header und Ueberschrift -
-   auf allen drei Seiten identisch. Die Responsive-Regeln stehen
-   gesammelt weiter unten. */
 .page-legal {
   margin-left: 232px;
   max-width: 1016px;
   padding: 71px 96px 24px;
 }
 
-/* .page h1 {
-  margin-bottom: 16px;
-} */
-
-/* Toast-Benachrichtigung: schwebt oben aus der Mitte rein (seitenuebergreifend) */
 .toast {
   position: fixed;
   font-size: var(--fs-md);
@@ -349,66 +262,18 @@ li {
   vertical-align: middle;
 }
 
-/* Mobil breiter und kleinere Schrift, damit die Meldung in eine Zeile passt */
-@media (max-width: 768px) {
-  .toast {
-    box-sizing: border-box;
-    width: calc(100% - 32px);
-    padding: 16px;
-    font-size: var(--fs-sm);
-    text-align: center;
-    white-space: nowrap;
-  }
 
-}
 
 .page-legal h2 {
   font-size: 27px;
   margin-bottom: 16px;
 }
 
-/* ============================================================
-   Responsive (Help / Legal / Privacy): gleiche Breakpoints wie
-   addTask.css.
-   ============================================================ */
 
-@media (max-width: 1024px) {
-  .page-legal {
-    padding: 48px 32px 24px 48px;
-  }
-}
 
-/* Sidebar wandert hier nach unten (navbar.css), .page-legal braucht
-   daher keinen linken Rand mehr, aber unten Platz fuer die Navbar.
-   Das .footer darunter bekommt denselben Platz, damit es nicht unter
-   der fixen Navbar verschwindet. */
-@media (max-width: 768px) {
-  .page-legal {
-    margin-left: 0;
-    padding: 32px 24px 24px;
-  }
 
-  /* .footer ist seitenuebergreifend (auch auf Seiten ohne die fixe
-     Mobile-Navbar aus navbar.css), daher hier nur der Fall Seite-mit-
-     .page-legal-Container davor (Legal/Privacy/Help). */
-  .page-legal ~ .footer {
-    margin-bottom: 96px;
-  }
-}
 
-@media (max-width: 480px) {
-  .page-legal {
-    padding: 24px 16px 24px;
-  }
 
-  .page-legal h1 {
-    font-size: var(--fs-lg);
-  }
-
-  .page-legal h2 {
-    font-size: var(--fs-md);
-  }
-}
 
 .step-heading {
   display: flex;
@@ -427,18 +292,14 @@ li {
   margin-left: 32px;
 }
 
-/*Nick 26.07*/
 .d-none{
   display: none !important;
 }
 
-/* Sperrt das Scrollen im Hintergrund, solange ein Overlay offen ist */
 .no-scroll {
   overflow: hidden;
 }
 
-/* Einheitlicher Avatar-Kreis (Initialen), seitenuebergreifend (Contacts, Board, Add Task).
-   Farbe wird per Inline-Style (getAvatarColor) gesetzt, Groesse ueber Modifier-Klassen. */
 .avatar {
   display: inline-flex;
   align-items: center;
@@ -472,17 +333,10 @@ li {
   font-size: 40px;
 }
 
-/* Laut Figma-Frame "Help": Inter Bold 61px, Zeilenhoehe 120%, #000000 */
 .help-headline {
   font-size: 61px;
   line-height: 1.2;
   color: #000000;
-}
-
-@media (max-width: 768px) {
-  .help-headline {
-    font-size: 47px;
-  }
 }
 
 
@@ -513,70 +367,9 @@ a {
   transform: scale(1.2);
 }
 
-/* ============================================================
-   Landscape-Sperre (rotateGuard.js haengt den Layer ein)
-
-   Im Querformat bleibt auf einem Handy zu wenig Hoehe fuer Board,
-   Add-Task und Kontakte uebrig. Statt jede Seite dafuer eigens zu
-   bauen, legt sich hier ein Hinweis darueber.
-
-   Die drei Bedingungen zusammen treffen genau ein gedrehtes Handy:
-   max-height grenzt Tablets ab (Querformat ab ca. 768px Hoehe) und
-   pointer: coarse grenzt Monitore ab, die ja ebenfalls im Querformat
-   stehen und bei kleinem Fenster sonst mitgefangen wuerden.
-   ============================================================ */
 .rotate-hint {
   display: none;
 }
 
-@media (orientation: landscape) and (max-height: 500px) and (pointer: coarse) {
-  body {
-    overflow: hidden;
-  }
-
-  .rotate-hint {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    padding: 24px;
-    background-color: var(--color-primary);
-    color: #ffffff;
-    text-align: center;
-  }
-
-  .rotate-hint img {
-    width: 64px;
-    height: 64px;
-  }
-
-  .rotate-hint p {
-    margin: 0;
-    font-size: var(--fs-md);
-    font-weight: 700;
-  }
-
-  .rotate-hint span {
-    font-size: var(--fs-sm);
-  }
-}
-
-@media (max-width: 768px) {
-  .h1size {
-    font-size: 47px;
-  }
-
-  h1 {
-    font-size: 47px;
-  }
-
-  .input {
-    font-size: 16px;
-  }
-}
 
 

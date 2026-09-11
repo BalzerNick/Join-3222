@@ -1,9 +1,7 @@
 /**
- * Opens or closes a dropdown and rotates its arrow. Reloads the contacts
- * first, so the assignment list is always up to date. Any other open dropdown
- * is closed before this one opens.
+ * Opens or closes a dropdown, reloading contacts first and closing any other open dropdown.
  *
- * @param {string} ul - Id of the list element to toggle, e.g. 'contactList'.
+ * @param {string} ul - Id of the list element to toggle.
  * @param {string} arr - Id of the arrow icon belonging to that list.
  * @returns {Promise<void>}
  */
@@ -35,6 +33,68 @@ function closeAllDropdowns() {
 }
 
 /**
+ * Finds the wrapper of the dropdown that is currently open, if any.
+ *
+ * @returns {Element|null} The open ".dropdown" wrapper, or null if none is open.
+ */
+function getOpenDropdownWrapper() {
+    let openList = document.querySelector(".dropdown-list:not(.d-none)");
+    return openList ? openList.closest(".dropdown") : null;
+}
+
+/**
+ * Closes the currently open dropdown on an outside pointerdown. Uses
+ * "pointerdown" instead of "click" so it also works on mobile, where a tap
+ * outside a focused input can swallow the synthesized click.
+ *
+ * @param {PointerEvent} event - The pointerdown event.
+ * @returns {void}
+ */
+function closeDropdownsOnOutsidePointer(event) {
+    let openWrapper = getOpenDropdownWrapper();
+    if (!openWrapper) return;
+    if (openWrapper.contains(event.target)) return;
+    closeAllDropdowns();
+}
+
+/**
+ * Stops a click on the "Assigned to"/"Category" labels from forwarding to
+ * their input and reopening the dropdown that just closed.
+ *
+ * @param {MouseEvent} event - The click event.
+ * @returns {void}
+ */
+function preventLabelDropdownToggle(event) {
+    if (event.target.closest('label[for="assignedTo"], label[for="category"]')) {
+        event.preventDefault();
+    }
+}
+
+/**
+ * Wires up the two document-level listeners that keep the dropdowns in
+ * sync no matter where on the page a click/tap lands: closing the open one
+ * on an outside pointerdown, and stopping the "Assigned to"/"Category"
+ * labels from reopening it via their native forwarded click. Runs once at
+ * load - both listeners work off the live DOM at event time, so they don't
+ * need to be re-attached when the board injects its Add-Task modal.
+ *
+ * The label listener runs in the capture phase, not bubble: the board's
+ * Add-Task modal calls event.stopPropagation() on a click anywhere inside
+ * it (see .modal-content in board.html), which would stop it from ever
+ * running on the bubble phase - the label's forwarded click would then
+ * still reach the input unblocked. Capture runs on the way down, before
+ * that stopPropagation() can fire.
+ *
+ * @returns {void}
+ */
+function initDropdownGlobalListeners() {
+    document.addEventListener("pointerdown", closeDropdownsOnOutsidePointer);
+    document.addEventListener("click", preventLabelDropdownToggle, true);
+}
+
+initDropdownGlobalListeners();
+
+/**
  * Resets a dropdown arrow icon back to its closed state.
  *
  * @param {string} id - Id of the arrow icon element.
@@ -48,9 +108,7 @@ function resetArrowIcon(id) {
 }
 
 /**
- * Filters the contact dropdown by the text typed into the assignment field.
- * Only kicks in from 2 characters onward and matches by first or last name
- * (each matched from its start), showing every contact below that length.
+ * Filters the contact dropdown by the typed text, matching first/last name from its start (from 2 characters onward).
  *
  * @returns {void}
  */
@@ -67,8 +125,7 @@ function searchList() {
 }
 
 /**
- * Writes the picked contact into the assignment field and closes the
- * dropdown.
+ * Writes the picked contact into the assignment field and closes the dropdown.
  *
  * @param {string} contact - The name of the picked contact.
  * @returns {void}
@@ -83,8 +140,7 @@ function selectOption(contact) {
 }
 
 /**
- * Rebuilds the contact dropdown from contactArray. The entry of the logged
- * in user is marked with a '(you)' suffix.
+ * Rebuilds the contact dropdown; the logged-in user's entry gets a '(you)' suffix.
  *
  * @returns {void}
  */
@@ -100,9 +156,7 @@ function getCoWorker() {
 }
 
 /**
- * Ticks the checkboxes of contacts that are already part of the current
- * selection. Needed because the dropdown is rebuilt from freshly loaded
- * contact objects on every open, so their checkboxes always start unchecked.
+ * Ticks the checkboxes of contacts already in the current selection (the dropdown starts unchecked on every rebuild).
  *
  * @returns {void}
  */
@@ -115,9 +169,7 @@ function applySelectedContactsState() {
 }
 
 /**
- * Submit handler of the Add-Task form. Collects the inputs, saves the task
- * under the next free id, resets the form and switches to the board once the
- * toast has been shown.
+ * Submit handler of the Add-Task form: saves the task, resets the form and navigates to the board.
  *
  * @param {Event} event - The submit event; its default action is prevented.
  * @returns {Promise<void>}
@@ -140,10 +192,9 @@ function getTaskStatusFromUrl() {
 }
 
 /**
- * Collects all form inputs and the current selection state into a task
- * object. New tasks always start in the 'todo' column.
+ * Collects all form inputs and the current selection into a task object (new tasks start in 'todo').
  *
- * @returns {Object} the finished task made in this function
+ * @returns {Object} The finished task.
  */
 function getTaskData() {
     const task = {
@@ -160,10 +211,9 @@ function getTaskData() {
 }
 
 /**
- * Stores the picked priority and highlights the matching button, swapping
- * its icon for the selected variant.
+ * Stores the picked priority and highlights the matching button with its selected icon.
  *
- * @param {string} priority - The priority to select: 'urgent', 'medium' or 'low'.
+ * @param {string} priority - 'urgent', 'medium' or 'low'.
  * @returns {void}
  */
 function selectPriority(priority) {
@@ -179,10 +229,9 @@ function selectPriority(priority) {
 }
 
 /**
- * Writes the category picked from the dropdown into the category field and
- * closes the dropdown.
+ * Writes the category picked from the dropdown into the category field and closes the dropdown.
  *
- * @param {string} value This is the choosed category from the Dropbox
+ * @param {string} value - The picked category.
  * @returns {void}
  */
 function chooseCategory(value) {
@@ -194,8 +243,7 @@ function chooseCategory(value) {
 }
 
 /**
- * Adds a contact to the selection or removes it again, then redraws the
- * avatar row below the field.
+ * Adds or removes a contact from the selection and redraws the avatar row.
  *
  * @param {number} index - Position of the contact in contactArray.
  * @param {boolean} checked - true adds the contact, false removes it.
@@ -212,8 +260,7 @@ function toggleContact(index, checked) {
 }
 
 /**
- * Flips the checkbox of a contact row and applies the new state. Lets the
- * whole row act as a click target, not just the checkbox itself.
+ * Flips a contact row's checkbox and applies the new state (row acts as the click target).
  *
  * @param {number} index - Position of the contact in contactArray.
  * @returns {void}
@@ -225,10 +272,8 @@ function toggleContactRow(index) {
 }
 
 /**
- * Redraws the avatar row of the assigned contacts below the assignment
- * field. Avatars overlap slightly; once more than maxVisibleContacts are
- * selected, the row shows only the first slots and a '+N' badge for the
- * rest instead of running off the right edge.
+ * Redraws the assigned-contacts avatar row, collapsing extra contacts into a '+N' badge.
+ *
  * @returns {void}
  */
 function renderContacts(){
@@ -247,8 +292,7 @@ function renderContacts(){
 }
 
 /**
- * Clears the whole Add-Task form: inputs, selected contacts, subtasks,
- * avatars, and the priority back to 'medium'.
+ * Clears the whole Add-Task form back to its default state.
  *
  * @returns {void}
  */
@@ -270,128 +314,4 @@ function resetTask(){
 function resetAssignedContacts(){
     let contact = document.getElementById(`assignedContacts`)
     contact.innerHTML = ""
-}
-
-/**
- * Shows the confirm/cancel buttons next to the subtask input while it holds
- * text and hides them again once it is empty.
- *
- * @returns {void}
- */
-function showButtons(){
-    const input = document.getElementById('subtask');
-    const buttons = document.getElementById("subtaskButtons");
-
-    if(input.value.length > 0 && sub == false){
-        buttons.classList.toggle('d-none')
-        sub = true;
-    }
-    else if(input.value.length == 0 && sub == true){
-         buttons.classList.toggle('d-none')
-        sub = false;
-    }
-}
-
-/**
- * Redraws the subtask list. The entry named by editingSubtaskKey is rendered
- * as an input field, all others as plain rows.
- *
- * @returns {void}
- */
-function renderSubtask() {
-    const subtaskArea = document.getElementById('subtaskArea');
-    subtaskArea.innerHTML = "";
-    const keys = Object.keys(subtasks);
-    for (let i = 0; i < keys.length; i++) {
-        const key = keys[i];
-
-        if (key === editingSubtaskKey) {
-            subtaskArea.innerHTML += getSubtaskEdit(key, subtasks[key].title);
-        } else {
-            subtaskArea.innerHTML += getSubtask(key, subtasks[key].title);
-        }
-    }
-}
-
-/**
- * Adds the text of the subtask input as a new subtask and clears the input.
- * An empty input is ignored.
- *
- * @returns {void}
- */
-function safeSubtask(){
-    const input = document.getElementById('subtask').value.trim();
-    if (input.length === 0) {
-        return;
-    }
-
-    let id = Object.keys(subtasks).length + 1;
-    subtasks[`sub${id}`] = {
-        "title": input,
-        "done": false
-    };
-    clearSubtask()
-    renderSubtask();
-}
-
-/**
- * Removes a subtask and leaves edit mode if that subtask was being edited.
- *
- * @param {string} key - Key of the subtask, e.g. 'sub1'.
- * @returns {void}
- */
-function deleteSubtask(key){
-    delete subtasks[key]
-
-    if (editingSubtaskKey === key) {
-        editingSubtaskKey = null;
-    }
-
-    renderSubtask();
-}
-
-/**
- * Switches a subtask into inline edit mode and places the cursor at the end
- * of the text.
- *
- * @param {string} key - Key of the subtask, e.g. 'sub1'.
- * @returns {void}
- */
-function editSubtask(key){
-    editingSubtaskKey = key;
-    renderSubtask();
-
-    const input = document.getElementById(`editInput-${key}`);
-    input.focus();
-    input.setSelectionRange(input.value.length, input.value.length);
-}
-
-/**
- * Applies the edited text of a subtask and leaves edit mode. An empty input
- * keeps the previous text.
- *
- * @param {string} key - Key of the subtask, e.g. 'sub1'.
- * @returns {void}
- */
-function confirmEditSubtask(key){
-    const input = document.getElementById(`editInput-${key}`);
-    const value = input.value.trim();
-
-    if (value.length > 0) {
-        subtasks[key].title = value;
-    }
-
-    editingSubtaskKey = null;
-    renderSubtask();
-}
-
-/**
- * Empties the subtask input and hides the confirm/cancel buttons.
- *
- * @returns {void}
- */
-function clearSubtask(){
-    const input = document.getElementById('subtask');
-    input.value = "";
-    showButtons();
 }

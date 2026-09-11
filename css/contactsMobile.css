@@ -1,0 +1,252 @@
+@media (prefers-reduced-motion: reduce) {
+
+  .overlay,
+  .contact-modal,
+  .overlay-closing,
+  .overlay-closing .contact-modal {
+    animation-duration: 1ms;
+  }
+}
+
+@media (max-width: 1100px) {
+  .contacts-main {
+    gap: 0;
+  }
+
+  .contacts-list-col,
+  .contact-detail {
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .contact-detail {
+    display: none;
+  }
+
+  .contacts-main.detail-open .contacts-list-col {
+    display: none;
+  }
+
+  .contacts-main.detail-open .contact-detail {
+    display: block;
+  }
+
+  /* Button behaelt seine Spaltenbreite, statt ueber den Screen zu laufen */
+  .add-contact-btn {
+    max-width: 352px;
+  }
+
+  /* Titel stapelt, die blaue Linie wandert unter den Untertitel */
+  .contacts-intro {
+    position: relative;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .contacts-intro h1 {
+    font-size: var(--fs-xl);
+  }
+
+  .contacts-intro-sub {
+    border-left: unset;
+    padding-left: 0;
+    font-size: var(--fs-md);
+  }
+
+  .contacts-intro-sub::after {
+    content: "";
+    display: block;
+    width: 90px;
+    height: 3px;
+    margin-top: 8px;
+    background-color: var(--color-accent);
+  }
+
+  .contacts-back {
+    display: block;
+    position: absolute;
+    top: 8px;
+    right: 0;
+    width: 22px;
+    cursor: pointer;
+  }
+
+  .detail-head {
+    gap: 24px;
+  }
+
+  .detail-name {
+    font-size: var(--fs-lg);
+  }
+
+  .detail-name-sm,
+  .detail-name-xs {
+    font-size: var(--fs-md);
+  }
+
+  /* schmalere Spalte: Avatar kleiner, damit dem Namen mehr Breite bleibt */
+  .detail-head .avatar-lg {
+    width: 64px;
+    height: 64px;
+    font-size: var(--fs-lg);
+  }
+
+  /* Popup: dunkler Kopf oben, Formular darunter, Avatar auf der Kante.
+     Nebeneinander passen die beiden Haelften hier nicht mehr. */
+  .contact-modal {
+    flex-direction: column;
+    width: min(90vw, 400px);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-logo {
+    display: none;
+  }
+
+  .contact-modal-left {
+    width: 100%;
+    min-width: 0;
+    padding: 32px 24px 40px;
+    gap: 8px;
+  }
+
+  .modal-title {
+    font-size: 47px;
+  }
+
+  .modal-subtitle {
+    font-size: var(--fs-md);
+  }
+
+  .modal-close {
+    filter: brightness(0) invert(1);
+  }
+
+  .contact-modal-right {
+    flex-direction: column;
+    padding: 0 24px 32px;
+    gap: 16px;
+  }
+
+  .contact-modal-right .avatar-xl {
+    width: 80px;
+    height: 80px;
+    margin-top: -40px;
+    font-size: var(--fs-lg);
+  }
+
+  .avatar-placeholder img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .modal-form {
+    width: 100%;
+  }
+
+  /* Abbrechen uebernimmt mobil das X oben rechts */
+  .add-contact-buttons {
+    justify-content: center;
+  }
+
+  .add-contact-buttons .btn-cancel {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .contacts-main {
+    margin-left: 0;
+    height: auto;
+    min-height: calc(100vh - 176px);
+  }
+
+  .btn {
+    font-size: var(--fs-md);
+  }
+
+  .detail-name {
+    font-size: 36px;
+  }
+
+  .contacts-list-col {
+    padding: 16px 16px 104px;
+  }
+
+  .contact-detail {
+    border-radius: 0;
+    padding: 24px 16px 104px;
+  }
+
+  .add-contact-btn,
+  .detail-menu-btn {
+    position: fixed;
+    right: 16px;
+    bottom: 96px;
+    z-index: 5;
+    width: 56px;
+    height: 56px;
+    margin: 0;
+    padding: 0;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+
+  .add-contact-btn {
+    font-size: 0;
+  }
+
+  .add-contact-btn .btn-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .detail-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: unset;
+    background-color: var(--color-primary);
+    cursor: pointer;
+  }
+
+  .detail-actions {
+    display: none;
+    position: fixed;
+    right: 16px;
+    bottom: 160px;
+    z-index: 5;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 16px;
+    background-color: #ffffff;
+    border-radius: 20px 20px 0 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .detail-actions.open {
+    display: flex;
+  }
+
+  .detail-action {
+    font-size: var(--fs-base);
+  }
+  .detail-head {
+    gap: 16px;
+  }
+
+  .overlay {
+    align-items: stretch;
+    padding: 16px 0 96px;
+    box-sizing: border-box;
+  }
+
+  .contact-modal {
+    height: 100%;
+    max-height: none;
+  }
+}

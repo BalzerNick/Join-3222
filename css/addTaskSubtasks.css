@@ -1,0 +1,169 @@
+/* Add-Task: Subtask-Bereich (Liste, Bearbeiten, Scrollbar) */
+.subtask-area-wrapper {
+    position: relative;
+    margin-top: 8px;
+}
+
+.subtask-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    max-height: 112px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    background-color: var(--color-bg);
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+}
+
+.subtask-area::-webkit-scrollbar {
+    display: block;
+    width: 8px;
+}
+
+.subtask-area::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 6px;
+}
+
+.subtask-area::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 6px;
+}
+
+/* Custom, always-visible scroll indicator, used only on mobile (see
+   addTaskMobile.css) where the native overlay scrollbar hides itself as soon
+   as a scroll ends. Desktop keeps the styled native scrollbar above, which
+   doesn't have that problem with a mouse, so this stays off there to avoid
+   drawing two scrollbars on top of each other. Position and height of the
+   thumb are recalculated in JS (updateSubtaskScrollbar). */
+.subtask-scrollbar {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 2px;
+    bottom: 0;
+    width: 4px;
+    border-radius: 4px;
+    background: #f1f1f1;
+    pointer-events: none;
+}
+
+.subtask-scrollbar-thumb {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    border-radius: 4px;
+    background: #888;
+}
+
+#add-task-modal .subtask-area {
+    background-color: #FFFFFF;
+}
+
+.subtask {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.subtask:hover {
+    background-color: #E6E6E6;
+}
+
+.subtask-text {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.subtask-text::before {
+    content: "•";
+    margin-right: 8px;
+}
+
+.subtask-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity var(--transition-fast) ease;
+}
+
+.subtask:hover .subtask-actions {
+    opacity: 1;
+}
+
+.subtask-actions .subtask-icon {
+    transition: transform var(--transition-fast) ease;
+}
+
+.subtask-actions .subtask-icon:hover {
+    transform: scale(1.2);
+}
+
+.subtask-divider {
+    color: var(--color-border);
+}
+
+.subtask-editing {
+    padding: 8px 12px 4px;
+    border-radius: 0;
+}
+
+.subtask-edit-input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    border-bottom: 1px solid var(--color-accent);
+    border-radius: 0;
+    padding: 4px 4px 8px;
+    font-size: var(--fs-base);
+    font-family: inherit;
+    color: var(--color-primary);
+    background: transparent;
+}
+
+.subtask-edit-input:focus {
+    outline: none;
+}
+
+.subtask-actions-edit {
+    opacity: 1;
+}
+
+.subtask-buttons {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.subtask-buttons .input-img {
+    position: static;
+    right: auto;
+    top: auto;
+    transform: none;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background-color var(--transition-fast);
+}
+
+.subtask-buttons .input-img:hover {
+    cursor: pointer;
+    background-color: rgba(41, 171, 226, 0.15);
+}

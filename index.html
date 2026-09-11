@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Join</title>
     <link rel="icon" type="image/svg+xml" href="assets/icons/Favicon.svg">
+    <link rel="stylesheet" href="css/utilities.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styleMobile.css">
     <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/login.css">
-   
+    <link rel="stylesheet" href="css/loginMobile.css">
+
 </head>
 <body>
     <div class="page-frame">
@@ -23,16 +26,16 @@
         <button class="btn btn-primary" type="button" onclick="signUp()">Sign up</button>
     </header>
 
-    <main class="login-main">
+    <main class="login-main pos-relative">
         <form class="login-form" novalidate>
             <h1>Log in</h1>
 
-            <div class="input-wrapper">
+            <div class="input-wrapper pos-relative">
                 <input class="input" type="email" id="loginEmail" placeholder="Email" autocomplete="email">
                 <img src="assets/icons/email.png" alt="" class="input-icon">
             </div>
 
-            <div class="input-wrapper">
+            <div class="input-wrapper pos-relative">
                 <input class="input" type="password" id="loginPassword" placeholder="Password" autocomplete="current-password">
                 <button type="button" class="input-icon-btn" id="loginPasswordToggle" aria-label="Show password"
                         onclick="togglePassword('loginPassword')" disabled>

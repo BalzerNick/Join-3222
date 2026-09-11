@@ -63,7 +63,7 @@ function getTaskCardTopTemplate(category, taskId) {
             <div class="task-topline-left">${category}</div>
             <button class="move-task-btn"
             onclick="event.stopPropagation(); toggleMoveMenu('${taskId}')">
-                <img src="assets/imgs/swap_horiz.svg" alt="Move task">
+                <img src="assets/imgs/swap_horiz.svg" alt="Move task" class="icon-18">
             </button>
         </div>`;
 }
@@ -92,7 +92,7 @@ function getTaskFooterTemplate(data) {
  */
 function getTaskDetailHeaderTemplate(category) {
     return `
-        <div class="task-detail-top">
+        <div class="task-detail-top flex-between">
             <div>${category}</div>
             <button class="modal-close task-detail-close" onclick="closeTaskDetail()">&times;</button>
         </div>`;

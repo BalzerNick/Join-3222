@@ -1,226 +1,93 @@
-/* ============================================================
-   login.css - Login- und Sign-up-Seite (index.html, signUp.html).
-   Layout: Header oben, Formular mittig, Footer unten.
-   Werte sind Startwerte und gegen euer Figma abzugleichen.
-   ============================================================ */
-
-/* Zentrierter Rahmen, begrenzt den Inhalt auf max. 1440px */
-.login-main {
-        position: relative;
-    }
-
-    /* Intro-Overlay: deckt den Login-Inhalt kurz zu und blendet dann weg */
-    
-    @media (min-width: 769px) {
-        .intro-overlay {
-            position: absolute;
-            inset: 0;
-            z-index: 10;
-            background-color: #F6F7F8;
-            background-image: url('../assets/imgs/logoMain.png');
-            background-size: 274px 334px;
-            background-repeat: no-repeat;
-            background-position: center;
-            animation: introFade 200ms ease-in-out 500ms forwards;
-        }
-    }
 
 
-    @media (max-width: 768px) {
-        .intro-overlay {
-            position: absolute;
-            inset: 0;
-            background-color: var(--color-primary);
-            z-index: 10;
-            animation: introFade 200ms ease-in-out 800ms forwards;
-        }
-    }
-
-    @keyframes introFade {
-        from {
-            opacity: 1;
-        }
-        to {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-    }
 
 
-    /* Logo-Intro: startet gross in der Bildschirmmitte, fliegt dann zur
-        echten Header-Position (top:24px; left:40px).
-        Position und Groesse sind bewusst getrennte Keyframes, damit die
-        Groesse unten per Media-Query fuer Mobile ueberschrieben werden
-        kann, ohne die Positions-Animation duplizieren zu muessen. */
-    @keyframes logoIntroPosition {
-        from {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        to {
-            top: 24px;
-            left: 40px;
-            transform: translate(0, 0);
-        }
-    }
+@keyframes introFade {
+  from {
+    opacity: 1;
+  }
 
-      @keyframes logoIntroSize {
-        from {
-            width: 200px;
-        }
-        to {
-            width: 100px;
-        }
-    } 
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
 
-    @media (max-width: 768px) {
-        @keyframes logoIntroSize {
-            from {
-          width: 200px;
-            }
-            to {
-          width: 80px;
-            }
-        }
-    }
+@keyframes logoIntroPosition {
+  from {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
-    @media (max-width: 550px) {
-        @keyframes logoIntroSize {
-          to { width: 50px; }
-        }
-      }
+  to {
+    top: 24px;
+    left: 40px;
+    transform: translate(0, 0);
+  }
+}
 
-    
-    @media (max-width: 550px) and (max-height: 420px) {
-        @keyframes logoIntroSize {
-          to { width: 30px; }
-        }
-      }
+@keyframes logoIntroSize {
+  from {
+    width: 200px;
+  }
 
-    @media (max-width: 550px) and (max-height: 400px) {
-        @keyframes logoIntroSize {
-          to { width: 20px; }
-        }
-      }
+  to {
+    width: 100px;
+  }
+}
 
 
-    /*ease-in-out → startet langsam, wird in der Mitte am schnellsten, 
-    wird zum Ende hin wieder langsam. Wirkt dadurch weich/organisch statt abrupt */
-
-    /*forwards → nach Ende der Animation bleibt der letzte Keyframe-Zustand (das to {})
-      erhalten, statt zurückzuspringen. */
-
-      .login-logo-normal {
-        position: absolute;
-        top: 24px;
-        left: 40px;
-        width: 100px;
-      }
-      
-      .login-logo {
-        position: absolute;
-        top: 24px; 
-        left: 40px;
-        width: 100px;
-      }
-
-    @media (max-width: 768px) {
-        .login-logo {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 200px;
-            transform: translate(-50%, -50%);
-            animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
-                       logoIntroSize 1.5s ease-in-out 0.3s forwards; 
-            z-index: 10;
-        }
-      }
-
-    @media (max-width: 550px) {
-      .login-logo {
-        position: absolute;
-        width: 30px;
-      }
-    }
-    
-      
-
-    @media (max-width: 768px) {
-        .login-logo-normal {
-            position: absolute;
-            top: 24px;
-            left: 40px;
-            width: 80px;
-          }  
-    }
-
-    @media (max-width: 620px) {
-        .login-logo-normal {
-            position: absolute;
-            top: 24px;
-            left: 40px;
-            width: 60px;
-          }
-    }
-
-     @media (max-width: 530px) and (max-height: 600px) {
-        .login-logo-normal {
-            position: absolute;
-            top: 24px;
-            left: 40px;
-            width: 50px;
-          }
-    }
 
 
-       @media (max-width: 490px) and (max-height: 600px) {
-        .login-logo-normal {
-            position: absolute;
-            top: 14px;
-            left: 40px;
-            width: 40px;
-          }
-    }
-
-         @media (max-height: 490px) {
-        .login-logo-normal {
-            opacity: 0;
-      }
-    } 
 
 
-    
 
-   
-    /* Crossfade: weisses Logo blendet aus, farbiges Logo blendet ein,
-        waehrend beide gleichzeitig die logoIntro-Bewegung mitmachen. */
-    @keyframes fadeOutLogo {
-        to { opacity: 0; }
-    }
 
-    @keyframes fadeInLogo {
-        to { opacity: 1; }
-    }
 
-    @media (max-width: 768px) {
-        .login-logo-white {
-            animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
-                    logoIntroSize 1.5s ease-in-out 0.3s forwards,
-                    fadeOutLogo 1.5s ease-in-out 0.3s forwards;
-        }
-    }
 
-    @media (max-width: 768px) {
-        .login-logo-color {
-            opacity: 0;
-            animation: logoIntroPosition 1.5s ease-in-out 0.3s forwards,
-                    logoIntroSize 1.5s ease-in-out 0.3s forwards,
-                    fadeInLogo 1.5s ease-in-out 0.3s forwards;
-        }
-    }
+.login-logo-normal {
+  position: absolute;
+  top: 24px;
+  left: 40px;
+  width: 100px;
+}
+
+.login-logo {
+  position: absolute;
+  top: 24px;
+  left: 40px;
+  width: 100px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@keyframes fadeOutLogo {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInLogo {
+  to {
+    opacity: 1;
+  }
+}
+
 
 
 
@@ -239,7 +106,6 @@ p {
   flex-direction: column;
 }
 
-/* Kopfzeile oben rechts (Not a user? + Sign up) */
 .login-header {
   display: flex;
   justify-content: flex-end;
@@ -248,17 +114,12 @@ p {
   padding: 24px 40px;
 }
 
-@media (max-width: 550px) {
-  .login-header {
-    display: none;
-  }
-}
+
 
 .login-header-text {
   font-size: var(--fs-md);
 }
 
-/* Mittlerer Bereich - schiebt den Footer nach unten */
 .login-main {
   flex: 1;
   display: flex;
@@ -268,34 +129,14 @@ p {
   gap: 32px;
 }
 
-@media (max-width: 750px) {
-  .login-main {
-    margin-top: 100px;
-  }
-}
 
-@media (max-height: 420px) {
-  .login-main {
-    margin-top: 70px;
-  }
-}
 
-@media (max-height: 400px) {
-  .login-main {
-    margin-top: 50px;
-  }
-}
 
-/* ============================================================
-   Karte fuer Login und Sign-up - ein gemeinsames, responsives
-   Grundgeruest. Breite, Innenabstand und Schriftgroesse skalieren
-   per clamp() mit, statt ueber feste Breakpoint-Stufen zu springen.
-   ============================================================ */
+
+
+
 .login-form,
 .signup-form {
-  /* Seitenpadding als Variable, damit der Zurueck-Pfeil seinen Abstand
-     zur Kartenkante daraus errechnen kann - jede Query, die das Padding
-     aendert, setzt NUR die Variable mit um */
   --card-pad-x: clamp(16px, 7vw, 60px);
   box-sizing: border-box;
   display: flex;
@@ -308,85 +149,24 @@ p {
   width: min(90vw, 500px);
 }
 
-/* Figma "Log in" (Frame 153): Titel, Inputs und Buttons mit 32px Abstand */
 .login-form {
   gap: clamp(20px, 4vw, 32px);
 }
 
-/* Sign-up: Der Abstand zwischen den Feldern kommt aus der fest
-   reservierten Meldungszeile der .input-field-Bloecke (6px + 20px)
-   plus 6px Gap = 32px - gleicher Rhythmus wie die Login-Karte.
-   Beim Einblenden einer Meldung springt nichts. */
 .signup-form {
   gap: 6px;
 }
 
-/* zusammen mit dem 6px-Gap 32px zwischen Titelblock und erstem Input */
 .signup-head {
   margin-bottom: 26px;
 }
 
-@media (max-width: 700px) {
-  .login-form,
-  .signup-form {
-    --card-pad-x: clamp(16px, 7vw, 24px);
-    width: min(90vw, 350px);
-    padding: clamp(24px, 6vw, 40px) var(--card-pad-x);
-  }
-}
 
-@media (max-height: 720px) {
-  .signup-form {
-    margin-top: 20px;
-  }
-}
 
-@media (max-height: 715px) {
-  .login-form,
-  .signup-form {
-    --card-pad-x: clamp(16px, 7vw, 24px);
-    padding: clamp(12px, 4vh, 20px) var(--card-pad-x);
-  }
 
-  .login-form {
-    gap: clamp(10px, 3vh, 10px);
-  }
 
-  /* Auf flachen Screens wieder das engere Raster (26px pro Feld),
-     damit die Karte ohne Scrollen passt */
-  .signup-form {
-    gap: 0;
-  }
 
-  .signup-head {
-    margin-bottom: 12px;
-  }
-}
 
- @media (max-width: 580px) and (max-height: 620px) {
-  .login-form,
-  .signup-form {
-    --card-pad-x: clamp(16px, 7vw, 24px);
-    width: min(90vw, 300px);
-    padding: clamp(8px, 2vh, 15px) var(--card-pad-x);
-  }
-
-  .login-form {
-    gap: clamp(10px, 3vh, 10px);
-  }
-}
-
-@media (max-height: 540px) {
-  .signup-form {
-    --card-pad-x: clamp(16px, 7vw, 24px);
-    width: min(90vw, 300px);
-    padding: clamp(10px, 2vh, 15px) var(--card-pad-x);
-  }
-
-  .signup-head {
-    margin-bottom: 8px;
-  }
-}
 
 
 
@@ -400,19 +180,7 @@ p {
 }
 
 
-@media (max-height: 720px) {
-  .signup-form h1{
-    font-size: 47px;
 
-  }
-}
-
-@media (max-width: 620px) {
-  .login-form h1,
-  .signup-form h1 {
-    font-size: 35px;
-  }
-}
 
 
 .login-form h1::after,
@@ -425,10 +193,6 @@ p {
   background-color: var(--color-accent);
 }
 
-
-
-
-/* Buttonzeile: Reihe auf Desktop, Spalte auf Mobil - immer zentriert */
 .login-buttons {
   display: flex;
   gap: 16px;
@@ -437,39 +201,16 @@ p {
   width: 100%;
 }
 
-/* Figma "Sign up" (Button wo icon): 126x55 = Padding 15/24 um Inter Bold
-   21px/120%, Radius 8. Mobile-Frame (428px): 180x51 mit 16px Text.
-   Schrift laeuft fluid 21 -> 16 (3vw zwischen 700px und ~533px); die
-   hoehere Spezifitaet neutralisiert hier den globalen 768er-.btn-Sprung.
-   Bewusst auf die Login-/Sign-up-Karte begrenzt - Buttons der anderen
-   Seiten bleiben unveraendert. */
 .login-buttons .btn {
   font-size: clamp(16px, 3vw, 21px);
   line-height: 120%;
   padding: 15px 24px;
 }
 
-/* Auf flachen Screens kompakter (55px -> 45px), damit 1024x600 ohne
-   Scrollen passt - muss nach der Basisregel stehen (gleiche Spezifitaet) */
-@media (max-height: 715px) {
-  .login-buttons .btn {
-    padding: 10px 24px;
-  }
-}
 
-@media (max-width: 550px) {
-  .login-buttons {
-    flex-direction: column;
-  }
 
-  .login-buttons .btn {
-    width: min(180px, 100%);
-  }
-}
 
-/* "Not a Join user?" - ersetzt unter 550px den ausgeblendeten Header.
-   Liegt im normalen Fluss unter der Karte, damit sie sich auf niedrigen
-   Displays nicht mit der Karte ueberlappt. */
+
 .login-container-mobile {
   display: none;
   align-items: center;
@@ -477,12 +218,6 @@ p {
   gap: 16px;
 }
 
-@media (max-width: 550px) {
-  .login-container-mobile {
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
 
 
 .privacy-check {
@@ -493,14 +228,10 @@ p {
   font-size: var(--fs-base);
 }
 
-/* Link in der Checkbox-Zeile in Akzentblau, wie im Design */
 .privacy-check a {
   color: var(--color-accent);
 }
 
-/* Zentrale Meldung (falsches Passwort, Netzwerkfehler): eine Zeile ist
-   fest reserviert, damit das Einblenden nichts verschiebt.
-   16px x 1.3 = 20.8px -> 21px min-height */
 .error-message {
   color: var(--color-error);
   font-size: var(--fs-base);
@@ -509,16 +240,6 @@ p {
   text-align: center;
 }
 
-/* ============================================================
-   Sign-up-Seite - nur noch das, was sie von der Login-Karte
-   unterscheidet (Ueberschrift mit Pfeil, Checkbox-Zeile).
-   ============================================================ */
-
-/* Ueberschrift mit Zurueck-Pfeil: Titel bleibt mittig, Pfeil sitzt 48px von
-   der linken Kartenkante (Figma "Sign up", Frame 153: 32x32, 48px von der
-   Kante) und folgt vertikal der Titelzeile - so wandert er auch dann mit,
-   wenn Hoehen-Queries das Karten-Padding aendern. Das calc() zieht das
-   jeweils aktive Seitenpadding der Karte ab. */
 .signup-head {
   position: relative;
   display: flex;
@@ -532,8 +253,6 @@ p {
   left: calc(48px - var(--card-pad-x));
   display: flex;
   align-items: center;
-  /* gleicht die blaue Linie unter der Ueberschrift aus (8px Abstand
-     + 3px Linie), damit der Pfeil auf Hoehe des Textes sitzt */
   margin-bottom: 11px;
 }
 
@@ -542,56 +261,18 @@ p {
   height: 32px;
 }
 
-/* Figma "Sign up mobile" (428px-Frame): 40px von der Kartenkante */
-@media (max-width: 550px) {
-  .signup-back {
-    left: calc(40px - var(--card-pad-x));
-  }
-}
 
 
-/* Checkbox-Zeile darf auf schmalen Displays umbrechen */
 .signup-form .privacy-check {
   flex-wrap: wrap;
   text-align: center;
 }
 
-/* Platz fuer das absolut positionierte Logo schaffen, ohne den
-   Footer aus dem Bild zu schieben */
 
 
 
-@media (max-width: 720px) and (max-height: 540px) {
-  .login-main-signup {
-    margin-top: 0;
-    padding: 50px 0 24px;
-  }
-} 
 
-@media (max-width: 660px) {
-  .login-main-signup {
-    margin-top: 0;
-    padding: 110px 0 24px;
-  }
-}
 
-@media (max-width: 560px) and (max-height: 540px) {
-  .login-main-signup {
-    margin-top: 0;
-    padding: 60px 0 24px;
-  }
-}
 
-@media (max-height: 490px) {
-  .login-main-signup {
-    margin-top: 0;
-    padding: 20px 0 24px;
-  }
-}
 
-@media (max-height: 440px) {
-  .login-main-signup {
-    margin-top: 0;
-    padding: 5px 0 24px;
-  }
-}
+
