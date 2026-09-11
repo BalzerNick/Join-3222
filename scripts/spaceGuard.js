@@ -1,21 +1,3 @@
-/* ============================================================
-   spaceGuard.js - Leerzeichen-Schutz fuer Eingabefelder
-
-   Verhindert, dass ein Feld mit einem Leerzeichen beginnt, dass
-   mehrere Leerzeichen hintereinander stehen und dass E-Mail- oder
-   Passwortfelder ueberhaupt ein Leerzeichen enthalten. Die Regeln
-   greifen beim Tippen, beim Einfuegen und beim Speichern.
-
-   Die beiden Listener am Ende der Datei haengen am document und
-   arbeiten in der Capture-Phase. Dadurch gelten die Regeln auch
-   fuer Felder, die es beim Laden der Seite noch gar nicht gibt,
-   etwa das Add-Contact-Popup oder die Subtask-Edit-Felder.
-
-   cleanSpaces() und allowsInnerSpaces() sind die oeffentliche
-   Schnittstelle der Datei und werden von validation.js und
-   addTask.js beim Speichern mitbenutzt.
-   ============================================================ */
-
 /**
  * Tells whether an element is a text field the space guard applies to.
  *
@@ -54,71 +36,41 @@ function cleanSpaces(value, allowInner = true) {
 }
 
 /**
- * Tells whether a space pressed right now would be allowed: never in a
- * no-space field, and never at the start or behind another space.
+ * Shows or clears the "no spaces allowed" message of a field, if it has one.
  *
- * @param {HTMLInputElement|HTMLTextAreaElement} field - The focused field.
- * @returns {boolean} True if the space may be typed.
- */
-function isSpaceKeyAllowed(field) {
-  if (!allowsInnerSpaces(field)) return false;
-  let caret = field.selectionStart ?? field.value.length;
-  let before = field.value.slice(0, caret);
-  return before.length > 0 && !before.endsWith(' ');
-}
-
-/**
- * Puts the caret back where it was after a value has been cleaned. Fields
- * without selection support, for example e-mail fields, are skipped.
- *
- * @param {HTMLInputElement|HTMLTextAreaElement} field - The cleaned field.
- * @param {number} position - The position the caret should end up at.
+ * @param {HTMLElement} field - The field a space was typed into.
+ * @param {boolean} blocked - True if a space was just removed from it.
  * @returns {void}
  */
-function restoreCaret(field, position) {
-  if (field.selectionStart === null) return;
-  field.setSelectionRange(position, position);
+function showSpaceError(field, blocked) {
+  let errorSpan = document.getElementById(field.id + 'Error');
+  if (errorSpan) errorSpan.textContent = blocked ? 'Spaces are not allowed here.' : '';
+  field.classList.toggle('input-error', blocked);
 }
 
 /**
- * Cleans the value of a field and keeps the caret in place. Catches whatever
- * the keyboard did not block, above all pasted text.
- *
- * @param {HTMLInputElement|HTMLTextAreaElement} field - The field to clean.
- * @returns {void}
- */
-function applySpaceRules(field) {
-  let cleaned = cleanSpaces(field.value, allowsInnerSpaces(field));
-  if (cleaned === field.value) return;
-  let caret = (field.selectionStart ?? field.value.length) - (field.value.length - cleaned.length);
-  field.value = cleaned;
-  restoreCaret(field, Math.max(caret, 0));
-}
-
-/**
- * Swallows the space bar in a guarded field whenever the space would not be
- * allowed at the current position.
- *
- * @param {KeyboardEvent} event - The key event of the pressed key.
- * @returns {void}
- */
-function handleSpaceKey(event) {
-  if (event.key !== ' ') return;
-  if (!isSpaceGuarded(event.target)) return;
-  if (isSpaceKeyAllowed(event.target)) return;
-  event.preventDefault();
-}
-
-/**
- * Cleans a guarded field after its content has changed.
+ * Cleans a guarded field on every keystroke (and on paste). Fields that may
+ * not contain spaces at all get an error message when a space is caught.
  *
  * @param {Event} event - The input event of the changed field.
  * @returns {void}
  */
 function handleSpaceInput(event) {
-  if (!isSpaceGuarded(event.target)) return;
-  applySpaceRules(event.target);
+  let field = event.target;
+  if (!isSpaceGuarded(field)) return;
+  let blocked = !allowsInnerSpaces(field) && /\s/.test(field.value);
+  field.value = cleanSpaces(field.value, allowsInnerSpaces(field));
+  showSpaceError(field, blocked);
+}
+/**
+ * Registers the space guard for the whole page. Runs in the bubble phase, not
+ * capture, so it fires after validation.js's own listener - otherwise that
+ * would clear our "no spaces" message again within the same input event.
+ *
+ * @returns {void}
+ */
+function initSpaceGuard() {
+  document.addEventListener('input', handleSpaceInput);
 }
 
-document.addEventListener('keydown', handleSpaceKey, true);
-document.addEventListener('input', handleSpaceInput, true);
+document.addEventListener('DOMContentLoaded', initSpaceGuard);
