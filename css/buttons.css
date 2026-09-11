@@ -47,6 +47,7 @@ box-shadow: 0px 4px 0px 0px rgba(0,0,0,0.2);
   /* border-color: var(--btn-secondary-hover); */
   /* color: var(--btn-secondary-hover); */
 box-shadow: 0px 4px 0px 0px rgba(0,0,0,0.2);
+/* border: 2px solid var(--btn-secondary-border); */
 }
 
 @media (max-width: 768px) {
